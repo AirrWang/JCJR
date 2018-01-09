@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/c_page_bg"
+    tools:context="com.ql.jcjr.activity.SettingGestureActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="visible"
+        bar:bottom_divider_visibility="gone"
+        bar:title="手势密码"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/row_distance"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/row_text_margin"
+            android:layout_marginRight="@dimen/row_text_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/text_s_m_c_b"
+                android:text="手势密码"/>
+
+            <Switch
+                android:id="@+id/switch_gesture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchMinWidth="@dimen/dimen_6px"
+                android:thumb="@drawable/thumb_selector"
+                android:track="@drawable/track_selector"
+                android:textOn=" "
+                android:textOff=" "/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            style="@style/common_divider_with_margin"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBarLess
+            style="@style/ithb_no_left_icon"
+            android:id="@+id/ll_setting"
+            app:bottomLineVisibilityLess="gone"
+            app:rightTitleVisibility="gone"
+            app:titleTextLess="修改手势密码" />
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_setting"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dimen_90px"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_marginLeft="@dimen/dimen_40px"-->
+            <!--android:layout_marginRight="@dimen/dimen_48px">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_setting_type"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--style="@style/text_30_666"-->
+                <!--android:text="修改手势密码"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/arrow_right"/>-->
+
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/text_24_aaa"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:layout_marginLeft="@dimen/row_text_margin"
+        android:text="开启后，进入积财金融需验证手势密码"/>
+
+</LinearLayout>

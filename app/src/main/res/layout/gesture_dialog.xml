@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:gravity="center_horizontal">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_view_height"/>
+
+    <TextView
+        android:id="@+id/tv_phone_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_80px"
+        style="@style/text_f04_30_c05_999999"
+        android:text="欢迎回来"/>
+
+    <com.ql.jcjr.view.CircleImageView
+        android:id="@+id/user_icon"
+        android:layout_width="@dimen/dimen_144px"
+        android:layout_height="@dimen/dimen_144px"
+        android:layout_marginTop="@dimen/dimen_48px"
+        android:src="@drawable/gesture_user_icon"/>
+
+    <TextView
+        android:id="@+id/tv_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:textSize="@dimen/size_l"
+        android:textColor="@color/font_pink_light"
+        android:text="请绘制手势密码"/>
+
+    <com.ql.jcjr.view.gesturecipher.GestureLockViewGroup
+        android:id="@+id/gesture_view"
+        android:layout_width="@dimen/dimen_640px"
+        android:layout_height="@dimen/dimen_640px"
+        android:layout_marginTop="@dimen/dimen_24px"
+        android:gravity="center_vertical"
+        app:color_finger_on="@color/btn_main"
+        app:color_finger_up="@color/btn_main"
+        app:color_no_finger_inner_circle="#dddad5"
+        app:color_no_finger_outer_circle="@color/transparent"
+        app:count="3"
+        app:tryTimes="3"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_50px"
+        android:padding="@dimen/dimen_10px"
+        style="@style/text_26_666"
+        android:text="账号登录"/>
+
+</LinearLayout>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.ql.jcjr"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 6.0动态申请 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!-- 6.0动态申请 -->
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <application
+        android:name="com.ql.jcjr.application.JcbApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${app_name}"
+        android:supportsRtl="true"
+        android:theme="@style/MyAppTheme">
+
+        <!-- 启动页 -->
+        <activity
+            android:name="com.ql.jcjr.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 引导页 -->
+        <activity
+            android:name="com.ql.jcjr.activity.GuideActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <!-- MainActivity -->
+        <activity
+            android:name="com.ql.jcjr.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <!-- MainActivity -->
+        <!-- 客户服务 -->
+        <activity
+            android:name="com.ql.jcjr.activity.ContactUsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <!-- 显示HTML(H5)的WebViewActivity -->
+        <activity
+            android:name="com.ql.jcjr.activity.WebViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.ql.jcjr.activity.FeedbackActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.LoginActivityCheck"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.InputPhoneNumActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.InputVerifyCodeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BidDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BidResultActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.AccountAssetsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.MyRedPacketsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.RegisterActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.CapitalRecordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BindBankCardActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.AutoBidActivityNew"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.RealNameActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.SettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.WithdrawalsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.ChangePasswordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.PaymentPasswordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.ForgetPswThirdActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.RechargeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.NoviceExclusiveActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.WithdrawalsResultActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.GestureCipherActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.TenderRecordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.TenderAwardActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.VerifyLoginPwdActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.ConfirmPayPwdActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.VerifyPayPswActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.RechargePayActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.SettingGestureActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.VerifyGestureActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.MessageCenterActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.HongBaoHistoryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BidConfirmActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.AboutUsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BidHistoryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BidHistoryDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.ql.jcjr.activity.MsgHomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.MessageActActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ql.jcjr.activity.BankListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- ShareSdk Start -->
+
+        <!-- 微信分享回调 -->
+        <activity
+            android:name="com.ql.jcjr.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- QQ分享 -->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1106445851" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!-- 新浪微博 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="false"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:launchMode="singleTask"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- ShareSdk End -->
+
+        <!-- tencent bugly start -->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        <!-- tencent bugly end -->
+
+        <service
+            android:name="com.ql.jcjr.service.DownloadApkService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <meta-data android:value="59ffcc96f43e486f5300001d" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="a79231cbde4d7b2d6f6ba2a5f8664e2b">
+        </meta-data>
+
+        <activity
+            android:name="com.ql.jcjr.push.MiPushActivity"
+            android:exported="true" />
+
+        <activity android:name="com.ql.jcjr.activity.FindPayPswActivity">
+        </activity>
+        <activity android:name=".activity.RegisterFinishActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:layout_marginBottom="@dimen/dimen_30px"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dialog_close"/>
+
+    </LinearLayout>
+
+    <com.ql.jcjr.view.BannerView
+        xmlns:j1attrs="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/in_advert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_close"
+        android:fadingEdge="none"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        j1attrs:bannerHeight="@dimen/advert_h"
+        j1attrs:bannerMarginBottom="@dimen/dimen_30px"
+        j1attrs:can_play="true"
+        j1attrs:dotmargin_bottom="@dimen/dimen_10px" />
+
+</RelativeLayout>

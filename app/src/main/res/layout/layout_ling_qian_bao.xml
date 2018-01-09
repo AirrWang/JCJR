@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_home_xs"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/home_recom_biao_w"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_48px"
+        android:layout_marginTop="@dimen/dimen_100px"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_annualized_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimen_6px"
+                        android:text="18"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/size_big" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" %"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/size_xs" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_lowest_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100.00 起投"
+                    android:textColor="@color/font_grey"
+                    android:textSize="@dimen/size_xs" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_term"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimen_6px"
+                        android:text="15"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/size_big" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 天"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/size_xs" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="理财期限"
+                    android:textColor="@color/font_grey"
+                    android:textSize="@dimen/size_xs" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_bid"
+            android:layout_width="@dimen/home_recom_biao_w"
+            android:layout_height="@dimen/home_recom_biao_btn_h"
+            android:layout_marginTop="@dimen/dimen_48px"
+            android:background="@drawable/btn_main_bg"
+            android:text="立即加入"
+            android:textColor="@color/c_fefefe"
+            android:textSize="@dimen/size_l" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

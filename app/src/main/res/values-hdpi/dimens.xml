@@ -1,0 +1,27 @@
+<resources>
+    <!--底部tab高度，实名认证引导用了，小心修改-->
+    <dimen name="bottom_tab_height">54dp</dimen>
+
+    <dimen name="login_btn_top">30dp</dimen>
+
+    <dimen name="register_logo_top">10dp</dimen>
+    <dimen name="register_logo_bottom">10dp</dimen>
+    <dimen name="register_btn_top">25dp</dimen>
+
+    <dimen name="banner_height">145dp</dimen>
+    <dimen name="shortcut_grid_left">6dp</dimen>
+
+    <dimen name="calc_item_width">80dp</dimen>
+    <dimen name="calc_item_height">70dp</dimen>
+
+    <dimen name="swing_card_height">70dp</dimen>
+    <dimen name="swing_card_btn_height">45dp</dimen>
+
+    <dimen name="switch_margin">12dp</dimen>
+
+    <dimen name="month_bill_empty_height">190dp</dimen>
+
+    <dimen name="my_rate_item_width">110dp</dimen>
+
+    <dimen name="pay_qr_width">350px</dimen>
+</resources>

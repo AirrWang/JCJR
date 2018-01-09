@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical"
+              tools:context=".activity.MainActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        xmlns:bar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="invisible"
+        bar:bottom_divider_visibility="gone"
+        android:visibility="gone"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+
+    <RadioGroup
+        android:id="@+id/bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_tab_height"
+        android:background="@drawable/bottom_tab_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tab_home_page"
+            style="@style/style_RadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/tab_short_selector"
+            android:text="@string/home_page_title"/>
+
+        <RadioButton
+            android:id="@+id/tab_manage_money"
+            style="@style/style_RadioButton"
+            android:drawableTop="@drawable/pay_selector"
+            android:text="@string/manage_money_title"/>
+
+        <RadioButton
+            android:id="@+id/tab_me"
+            style="@style/style_RadioButton"
+            android:drawableTop="@drawable/me_selector"
+            android:text="@string/me_title"/>
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_more"-->
+            <!--style="@style/style_RadioButton"-->
+            <!--android:drawableTop="@drawable/more_selector"-->
+            <!--android:text="@string/more_title"/>-->
+
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:background="@color/c_page_bg">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_expired"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:layout_marginTop="@dimen/dimen_15px"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_red_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投资奖励红包"
+                android:textColor="@color/c_f96503"
+                android:textSize="@dimen/dimen_26px"/>
+
+            <TextView
+                android:id="@+id/tv_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="¥ 100"
+                android:textColor="@color/c_f96503"
+                android:textSize="@dimen/dimen_60px"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_use_condition"
+            style="@style/text_24_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:text="单笔投资月月盈满1000可用"/>
+
+        <TextView
+            android:id="@+id/tv_valid_term"
+            style="@style/text_24_999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:layout_marginTop="@dimen/dimen_10px"
+            android:layout_marginBottom="@dimen/dimen_15px"
+            android:text="有效期至 2017-01-29 12:00"/>
+
+    </LinearLayout>
+
+</LinearLayout>

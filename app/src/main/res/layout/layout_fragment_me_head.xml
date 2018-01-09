@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bit_confirm_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_view_height"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_32px">
+
+        <com.ql.jcjr.view.CircleImageView
+            android:id="@+id/civ_user_icon"
+            android:layout_width="@dimen/dimen_98px"
+            android:layout_height="@dimen/dimen_98px"
+            android:layout_marginLeft="@dimen/dimen_24px"
+            android:src="@drawable/default_user_icon"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_8px"
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_34px"
+            android:layout_toRightOf="@id/civ_user_icon"
+            android:textSize="@dimen/dimen_24px"
+            android:textColor="@color/font_grey"
+            android:text="******"/>
+        <TextView
+            android:layout_marginTop="@dimen/dimen_8px"
+            android:gravity="center"
+            android:id="@+id/tv_level"
+            android:layout_below="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_34px"
+            android:layout_toRightOf="@id/civ_user_icon"
+            android:textSize="@dimen/dimen_26px"
+            android:textColor="@color/font_actionbar_color"
+            android:text="******"/>
+
+        <ImageView
+            android:id="@+id/btn_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_36px"
+            android:src="@drawable/ic_notice"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_me_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <com.ql.jcjr.view.CircleImageView
+            android:id="@+id/civ_user_icon_login"
+            android:layout_width="@dimen/dimen_100px"
+            android:layout_height="@dimen/dimen_100px"
+            android:src="@drawable/default_user_icon"
+            android:layout_marginTop="@dimen/dimen_24px"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="@dimen/dimen_400px"
+            android:layout_height="@dimen/dimen_80px"
+            android:layout_marginTop="@dimen/dimen_60px"
+            android:layout_marginBottom="@dimen/dimen_80px"
+            android:background="@drawable/login_button_selector"
+            android:text="注册/登录"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimen_30px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_me_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_32px"
+        android:layout_marginLeft="@dimen/dimen_64px"
+        android:layout_marginRight="@dimen/dimen_64px"
+        android:paddingTop="@dimen/dimen_32px"
+        android:paddingBottom="@dimen/dimen_20px"
+        android:paddingLeft="@dimen/dimen_48px"
+        android:paddingRight="@dimen/dimen_48px"
+        android:background="@drawable/bg_me_info"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_wdzc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的资产(元)"
+                android:textColor="@color/font_bid_history"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/size_l"/>
+
+            <ImageView
+                android:id="@+id/iv_wdzc"
+                android:layout_width="@dimen/dimen_36px"
+                android:layout_height="@dimen/dimen_36px"
+                android:layout_toRightOf="@id/tv_wdzc"
+                android:layout_marginLeft="@dimen/dimen_36px"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/show_psw_pressed"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_total_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8px"
+            android:text="*****"
+            android:textColor="@color/font_bid_history"
+            android:textSize="@dimen/size_xxxl"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24px"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_assets_desc"
+                    android:text="可用余额"/>
+
+                <TextView
+                    android:id="@+id/tv_balance"
+                    style="@style/style_assets_title"
+                    android:text="*****"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_assets_desc"
+                    android:text="累计收益"/>
+
+                <TextView
+                    android:id="@+id/tv_accumulated_income"
+                    style="@style/style_assets_title"
+                    android:text="*****"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

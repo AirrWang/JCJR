@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_signature"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:paddingTop="@dimen/dimen_30px"
+        android:paddingLeft="@dimen/dimen_24px"
+        style="@style/text_f05_24_c33_333333"
+        android:maxLength="140"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/tv_signature_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_22px"
+        android:layout_marginBottom="@dimen/dimen_26px"
+        android:layout_alignBottom="@id/et_signature"
+        android:layout_alignRight="@id/et_signature"
+        android:text="0/40" />
+
+</RelativeLayout>
+<!-- From: file:/D:/jihealth/J1health-android-phone/app/src/main/res/layout/limit_the_num_of_words.xml -->

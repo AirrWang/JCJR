@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/c_page_bg"
+    tools:context="com.ql.jcjr.activity.CapitalRecordActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        xmlns:bar="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="交易记录"/>
+
+    <RadioGroup
+        android:id="@+id/rg_record"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_68px"
+        android:layout_marginBottom="@dimen/dimen_30px"
+        android:layout_marginLeft="@dimen/dimen_62px"
+        android:layout_marginRight="@dimen/dimen_62px"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tab_transaction"
+            style="@style/style_capital_record"
+            android:background="@drawable/tab_left_manage_money_selector"
+            android:checked="true"
+            android:text="交易记录"/>
+
+        <RadioButton
+            android:id="@+id/tab_withdrawals"
+            style="@style/style_capital_record"
+            android:background="@drawable/tab_mindle_manage_money_selector"
+            android:text="提现记录"/>
+
+        <RadioButton
+            android:id="@+id/tab_recharge"
+            style="@style/style_capital_record"
+            android:background="@drawable/tab_right_manage_money_selector"
+            android:text="充值记录"/>
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_bid"-->
+            <!--style="@style/style_capital_record"-->
+            <!--android:background="@drawable/tab_right_manage_money_selector"-->
+            <!--android:text="投标记录"/>-->
+
+    </RadioGroup>
+
+    <com.ql.jcjr.view.NoScrollViewPager
+        android:id="@+id/cvw_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/another_login"
+        android:layout_below="@+id/ll_layout"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation"/>
+
+</LinearLayout>

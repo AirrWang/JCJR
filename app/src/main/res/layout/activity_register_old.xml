@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.RegisterActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="注册"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/dimen_62px">
+
+        <LinearLayout
+            style="@style/style_change_psw_ll">
+
+            <TextView
+                style="@style/style_change_psw_title"
+                android:text="登录密码"/>
+
+            <EditText
+                android:id="@+id/et_psw"
+                android:hint="输入8-16位数字加字母的密码"
+                android:password="true"
+                style="@style/style_change_psw_et"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/common_divider_without_margin"
+            android:layout_marginLeft="@dimen/dimen_30px"/>
+
+        <LinearLayout
+            style="@style/style_change_psw_ll">
+
+            <TextView
+                style="@style/style_change_psw_title"
+                android:text="邀请人"/>
+
+            <EditText
+                android:id="@+id/et_inviter"
+                android:hint="手机号码（可不填）"
+                android:password="true"
+                style="@style/style_change_psw_et"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_58px"
+        android:text="注册"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_f06_20_666"
+            android:text="注册即表示您同意"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10px"
+            android:textSize="@dimen/dimen_20px"
+            android:textColor="@color/font_user_agreement"
+            android:text="积财金融服务协议"/>
+
+    </LinearLayout>
+
+</LinearLayout>

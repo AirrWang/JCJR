@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.ContactUsActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="客户服务"/>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dimen_25px"
+        android:layout_marginTop="@dimen/dimen_95px"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dimen_64px"
+        android:textSize="@dimen/dimen_26px"
+        android:textColor="@color/indicator_color_normal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_feedback"
+            style="@style/style_customer_service"
+            bar:bottomFullLineVisibility="visible"
+            app:titleText="意见反馈"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_official_website"
+            style="@style/style_customer_service"
+            bar:bottomFullLineVisibility="visible"
+            app:titleText="官方网站"
+            bar:descriptionText="@string/official_website"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_customer_service_hotline"
+            style="@style/style_customer_service"
+            app:rightIconVisibility="gone"
+            app:titleText="客服热线"
+            bar:descriptionText="@string/customer_service_hotline"
+            app:descriptionStyle="@style/text_24_3ca2e9"
+            app:descriptionPaddingRight="@dimen/dimen_30px"/>
+
+    </LinearLayout>
+
+</LinearLayout>

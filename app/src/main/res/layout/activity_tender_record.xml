@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ql.jcjr.activity.TenderRecordActivity"
+    android:orientation="vertical"
+    android:background="@color/c_page_bg">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="visible"
+        bar:bottom_divider_visibility="gone"
+        bar:title="投标记录"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bid_operate_bar_h"
+        android:background="#fff"
+        android:paddingLeft="@dimen/dimen_48px"
+        android:paddingRight="@dimen/dimen_48px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/size_m"
+            android:textColor="@color/btn_main"
+            android:text="投资用户"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/size_m"
+            android:textColor="@color/btn_main"
+            android:text="投资金额(元)"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/size_m"
+            android:textColor="@color/btn_main"
+            android:text="投资时间"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_tender_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="1px"
+        android:listSelector="@color/transparent"/>
+
+</LinearLayout>

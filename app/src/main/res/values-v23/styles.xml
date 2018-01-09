@@ -1,0 +1,16 @@
+<resources>
+
+    <style name="MyAppTheme" parent="BaseAppTheme">
+        <!--<item name="android:windowTranslucentStatus">true</item>&lt;!&ndash; 6.0以上 状态栏变黑色半透明遮罩效果，且布局移动到状态栏下面 &ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+        <item name="android:statusBarColor">@color/title_bg_color</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>

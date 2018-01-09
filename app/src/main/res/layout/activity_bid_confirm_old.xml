@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_bid_confirm_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bit_confirm_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/status_bar_view_height"/>
+
+        <!--toolbar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height">
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableLeft="@drawable/btn_action_bar_back"
+                android:paddingLeft="@dimen/actionbar_arrow_distance"
+                android:paddingRight="@dimen/dimen_24px"
+                android:layout_centerVertical="true"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:text="确认投资"
+                style="@style/style_action_bar_title"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_bid_confirm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24px"
+            android:textSize="@dimen/size_m"
+            android:text="助农保"
+            android:textColor="@color/font_actionbar_color" />
+
+        <LinearLayout
+            android:layout_width="@dimen/bid_confirm_detail_w"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24px"
+            android:layout_marginBottom="@dimen/dimen_24px"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_annualized_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/dimen_6px"
+                            android:text="18"
+                            android:textStyle="bold"
+                            android:textColor="@color/font_actionbar_color"
+                            android:textSize="@dimen/size_big" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" %"
+                            android:textColor="@color/font_actionbar_color"
+                            android:textSize="@dimen/size_xs" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预期年化"
+                        android:textColor="@color/font_actionbar_color"
+                        android:textSize="@dimen/size_xs" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tv_term"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/dimen_6px"
+                            android:text="15"
+                            android:textStyle="bold"
+                            android:textColor="@color/font_actionbar_color"
+                            android:textSize="@dimen/size_big" />
+
+                        <TextView
+                            android:id="@+id/tv_term_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 天"
+                            android:textColor="@color/font_actionbar_color"
+                            android:textSize="@dimen/size_xs" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="投资期限"
+                        android:textColor="@color/font_actionbar_color"
+                        android:textSize="@dimen/size_xs" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dimen_24px"
+                android:layout_marginBottom="@dimen/dimen_24px"
+                android:background="@drawable/list_divider"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收益方式"
+                    android:textColor="@color/font_actionbar_color_less"
+                    android:textSize="@dimen/size_xs" />
+
+                <TextView
+                    android:id="@+id/tv_repayment_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="到期全额还款"
+                    android:textColor="@color/font_actionbar_color_less"
+                    android:textSize="@dimen/size_xs" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bid_confirm_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_bid_confirm_top"
+        android:layout_marginTop="@dimen/dimen_32px"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#fff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_bid_confirm_money"
+                android:layout_alignBottom="@+id/tv_bid_confirm_money"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:text="投资金额"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/size_m" />
+
+            <TextView
+                android:id="@+id/tv_bid_confirm_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/font_black"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_48px"
+                android:text="￥ 10000"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/font_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_48px"
+                android:text="预期收益"/>
+
+            <TextView
+                android:id="@+id/tv_bid_confirm_earn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/font_black"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_48px"
+                android:text="￥ 10000"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_bid_confirm_choose_hb"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#fff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/font_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_48px"
+                android:text="红包"/>
+
+            <ImageView
+                android:id="@+id/iv_bid_confirm_hb_arr"
+                android:layout_width="@dimen/dimen_12px"
+                android:layout_height="@dimen/dimen_22px"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_48px"
+                android:src="@drawable/arrow_right"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/tv_bid_confirm_hb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/font_black"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_bid_confirm_hb_arr"
+                android:layout_marginRight="@dimen/dimen_20px"
+                android:text="20元返现券"/>
+
+            <TextView
+                android:id="@+id/tv_bid_confirm_award"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size_m"
+                android:textColor="@color/btn_main"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_bid_confirm_hb"
+                android:layout_marginRight="@dimen/dimen_20px"
+                android:text="返现20元"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dimen_48px"
+            android:layout_marginTop="@dimen/dimen_36px"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_bid_confirm_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/iv_bid_confirm_checkbox"
+                    android:layout_width="@dimen/dimen_36px"
+                    android:layout_height="@dimen/dimen_36px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/checkbox_select"/>
+
+                <TextView
+                    android:id="@+id/tv_bid_confirm_read"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_24px"
+                    android:textColor="@color/font_user_agreement"
+                    android:textSize="@dimen/size_xs"
+                    android:text="我已阅读并同意"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_bid_confirm_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_xs"
+                android:text="《积财金融协议》"/>
+            
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ab_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bid_operate_bar_h"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/btn_main"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tv_bid_confirm_pay_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/size_l"
+                    android:text="实付:￥"/>
+
+                <TextView
+                    android:id="@+id/tv_bid_confirm_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_bid_confirm_pay_pre"
+                    android:layout_alignBaseline="@id/tv_bid_confirm_pay_pre"
+                    android:gravity="center"
+                    android:textSize="@dimen/size_xxl"
+                    android:textColor="#fff"
+                    android:text="100000"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_bid"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/title_bg_color"
+            android:textSize="@dimen/size_l"
+            android:textColor="@color/font_actionbar_color_less"
+            android:gravity="center"
+            android:text="立即投标"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

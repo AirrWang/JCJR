@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_xs"
+        android:textColor="@color/white"
+        android:text="2017年4月21日 14:45"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:paddingTop="@dimen/dimen_10px"
+        android:paddingBottom="@dimen/dimen_10px"
+        android:paddingLeft="@dimen/dimen_40px"
+        android:paddingRight="@dimen/dimen_40px"
+        android:background="@drawable/bg_text"/>
+
+    <LinearLayout
+        android:id="@+id/ll_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_24px"
+        android:layout_marginRight="@dimen/dimen_24px"
+        android:layout_marginTop="@dimen/dimen_20px"
+        android:background="@drawable/corner_white_shadow"
+        android:paddingLeft="@dimen/dimen_36px"
+        android:paddingRight="@dimen/dimen_36px"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_message_pic"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/msg_act_h"
+            android:layout_marginTop="@dimen/dimen_24px"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_card_wdtz"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_message_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_36px"
+            android:layout_marginBottom="@dimen/dimen_24px"
+            android:text="新手福利超值优惠"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/size_xl"/>
+
+        <TextView
+            android:id="@+id/tv_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_24px"
+            android:text=" "
+            android:singleLine="true"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_m"
+            android:visibility="visible"/>
+
+        <View style="@style/common_divider_without_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_20px"
+                android:layout_marginTop="@dimen/dimen_20px"
+                android:layout_marginLeft="@dimen/dimen_8px"
+                android:layout_weight="1"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/size_m"
+                android:text="查看详情"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_8px"
+                android:src="@drawable/arrow_right"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

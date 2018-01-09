@@ -1,0 +1,38 @@
+<resources>
+
+    <style name="MyAppTheme" parent="BaseAppTheme">
+        <!--<item name="android:windowTranslucentStatus">true</item>&lt;!&ndash; 5.0以上设置这个即可达成黑色半透明遮罩效果，且布局移动到状态栏下面（魅族直接可透明，但是字体颜色变黑色） &ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+        <!--<item name="android:windowBackground">@color/title_bg_color</item>-->
+
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="PaymentTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/translucent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="Theme.Light" parent="android:style/Theme.Material.Light">
+    </style>
+
+    <style name="Theme.Dialog" parent="android:style/Theme.Material.Light.Dialog">
+    </style>
+
+    <style name="ProgressDialog" parent="android:style/Theme.Material.Light.Dialog.NoActionBar">
+    </style>
+
+
+</resources>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="rsa_public_key">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCArbzixjUkRdE14cSR8m9KFnTHTeAopYaJwcKCp0SB+R/OZ1kore6G73opjm5PZEMSFlmmt0aBc6wBg18zc706Bnu1LSZY2hTMC8MCKRbsw4QRRo6ToohjhEaytQN/Buq55zlGEOTnIHEXmphwh4yzf8W28wn156NN9wnaAzBrnwIDAQAB</string>
+    <string name="delete">删除</string>
+
+    <string name="check_network">网络不可用, 请检查网络!</string>
+    <string name="pay_num_tip">请输入金额</string>
+    <string name="pay_num_valid_tip">请输入合法金额</string>
+
+
+</resources>

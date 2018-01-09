@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.BidDetailActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"/>
+
+    <LinearLayout
+        android:id="@+id/ab_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bid_operate_bar_h"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/iv_calculator"
+            android:layout_width="@dimen/bid_operate_bar_h"
+            android:layout_height="@dimen/bid_operate_bar_h"
+            android:src="@drawable/ic_calculator"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_bid"
+            style="@style/text_32_fefefe"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bid_operate_bar_h"
+            android:layout_marginBottom="@dimen/dimen_6px"
+            android:layout_marginTop="@dimen/dimen_6px"
+            android:layout_weight="1"
+            android:background="@color/btn_main"
+            android:gravity="center"
+            android:text="立即投标"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ab_header"
+        android:layout_above="@id/ab_bottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dimen_132px">
+
+            <include layout="@layout/layout_bid_detail_first"/>
+
+            <include layout="@layout/layout_bid_detail_second"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

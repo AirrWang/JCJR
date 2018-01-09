@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/title_bg_color"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_view_height"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/actionbar_height"><!--原来高度?android:attr/actionBarSize-->
+
+        <LinearLayout
+            android:id="@+id/ll_left_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingLeft="@dimen/actionbar_arrow_distance"
+                android:paddingRight="@dimen/dimen_24px"
+                android:paddingTop="@dimen/dimen_6px" />
+            <!--有的时候需要在回退按钮后面需要一个关闭按钮，
+            例如如果打开的webview的层次比较多时，需要该关闭按钮关闭整个页面-->
+            <TextView
+                android:id="@+id/tv_second_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingRight="@dimen/dimen_6px"
+                android:paddingTop="@dimen/dimen_6px"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="10"
+            android:singleLine="true"
+            style="@style/style_action_bar_title"/>
+
+        <LinearLayout
+            android:id="@+id/ll_right_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <!--FrameLayout
+                android:id="@+id/fl_right_cart"
+                android:layout_width="@dimen/actionbar_height"
+                android:layout_height="@dimen/actionbar_height"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_right_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null" />
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:paddingLeft="@dimen/dimen_6px"
+                    android:paddingRight="@dimen/dimen_6px"
+                    android:text="99+"
+                    android:layout_marginRight="@dimen/dimen_15px"
+                    android:layout_marginTop="@dimen/dimen_20px"/>
+
+            </FrameLayout-->
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_6px"
+                android:textColor="@color/font_actionbar_color"
+                android:textSize="@dimen/dimen_30px"
+                android:paddingTop="@dimen/dimen_6px"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_6px"
+                android:paddingRight="@dimen/actionbar_padding_right"
+                android:paddingTop="@dimen/dimen_6px"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="@dimen/actionbar_ic_share_wh"
+                android:layout_height="@dimen/actionbar_ic_share_wh"
+                android:src="@drawable/bar_share"
+                android:paddingBottom="@dimen/dimen_6px"
+                android:paddingRight="@dimen/actionbar_padding_right"
+                android:paddingTop="@dimen/dimen_6px"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--1 标题栏-->
+    <RelativeLayout
+        android:id="@+id/rl_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:paddingLeft="@dimen/dimen_20px"
+        android:paddingRight="@dimen/dimen_20px"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_search_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_36px"
+            android:scaleType="fitCenter"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60px"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_search_right"
+            android:layout_toRightOf="@id/iv_search_left"
+            android:drawablePadding="@dimen/dimen_16px"
+            android:ellipsize="end"
+            android:hint="搜索商品名/症状/疾病名"
+            android:paddingLeft="@dimen/dimen_16px"
+            android:singleLine="true"
+            android:textColorHint="#999999" />
+
+        <Button
+            android:id="@+id/btn_search_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:background="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dimen_6px"
+            android:paddingTop="@dimen/dimen_6px" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vw_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_color" />
+
+</LinearLayout>

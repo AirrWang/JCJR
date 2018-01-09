@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="消息中心" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/row_distance"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_msg_home_msg"
+            style="@style/msg_home_ll">
+
+            <ImageView
+                android:id="@+id/iv_msg_home_msg"
+                style="@style/msg_home_left_icon"
+                android:src="@drawable/icon_msg_home_wdxx"/>
+
+            <LinearLayout
+                style="@style/msg_home_container">
+
+                <TextView
+                    style="@style/msg_home_title"
+                    android:textColor="@color/font_black"
+                    android:text="我的消息"/>
+
+                <TextView
+                    android:id="@+id/tv_msg_home_msg"
+                    style="@style/msg_home_content"
+                    android:text="当前没有消息"
+                    android:textColor="@color/font_grey"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_msg_home_act"
+            style="@style/msg_home_ll">
+
+            <ImageView
+                android:id="@+id/iv_msg_home_act"
+                style="@style/msg_home_left_icon"
+                android:src="@drawable/icon_msg_home_jxhd"/>
+
+            <LinearLayout
+                style="@style/msg_home_container">
+
+                <TextView
+                    style="@style/msg_home_title"
+                    android:textColor="@color/font_black"
+                    android:text="精选活动"/>
+
+                <TextView
+                    android:id="@+id/tv_msg_home_act"
+                    style="@style/msg_home_content"
+                    android:text="当前没有消息"
+                    android:textColor="@color/font_grey"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_msg_home_notice"
+            style="@style/msg_home_ll">
+
+            <ImageView
+                android:id="@+id/iv_msg_home_notice"
+                style="@style/msg_home_left_icon"
+                android:src="@drawable/icon_msg_home_xwgg"/>
+
+            <LinearLayout
+                style="@style/msg_home_container">
+
+                <TextView
+                    style="@style/msg_home_title"
+                    android:textColor="@color/font_black"
+                    android:text="新闻公告"/>
+
+                <TextView
+                    android:id="@+id/tv_msg_home_notice"
+                    style="@style/msg_home_content"
+                    android:text="当前没有消息"
+                    android:textColor="@color/font_grey"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

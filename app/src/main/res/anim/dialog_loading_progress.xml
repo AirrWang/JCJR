@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- pivotX 属性为动画相对于物件的X坐标的开始位置
+     pivotY 属性为动画相对于物件的Y坐标的开始位置
+     50%为物件的X或Y方向坐标上的中点位置-->
+<rotate
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/loading"
+    android:pivotX="50%"
+    android:pivotY="50%"/>

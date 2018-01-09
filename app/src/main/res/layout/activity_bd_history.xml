@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.HongBaoHistoryActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="我的投资" />
+
+    <LinearLayout
+        android:id="@+id/ll_bid_history_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ll_bid_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="@dimen/row_text_margin">
+
+            <LinearLayout
+                android:id="@+id/ll_bid_history_topbg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_wdtz"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_54px"
+                android:paddingTop="@dimen/dimen_54px">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text=""-->
+                            <!--android:textColor="@color/font_bid_history"-->
+                            <!--android:textSize="@dimen/size_m" />-->
+
+                        <TextView
+                            android:id="@+id/tv_bid_history_total_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textColor="@color/font_bid_history"
+                            android:textSize="@dimen/size_xxxl" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_bid_history_total_money_pre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_32px"
+                        android:text="待收本金(元)"
+                        android:textColor="@color/font_bid_history"
+                        android:textSize="@dimen/size_m" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_divider"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@drawable/list_divider_v_white" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text=""-->
+                            <!--android:textColor="@color/font_bid_history"-->
+                            <!--android:textSize="@dimen/size_m" />-->
+
+                        <TextView
+                            android:id="@+id/tv_bid_history_total_get"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:textColor="@color/font_bid_history"
+                            android:textSize="@dimen/size_xxxl" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_bid_history_total_get_pre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_32px"
+                        android:text="待收利息(元)"
+                        android:textColor="@color/font_bid_history"
+                        android:textSize="@dimen/size_m" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.ql.jcjr.view.PullToRefreshView
+            android:id="@+id/pull_refresh_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_22px">
+
+            <com.ql.jcjr.view.XListView
+                android:id="@+id/lv_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="@dimen/dimen_22px"
+                android:listSelector="@color/transparent"
+                android:paddingBottom="@dimen/dimen_30px"/>
+
+        </com.ql.jcjr.view.PullToRefreshView>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/ll_tip_none"
+        layout="@layout/tip_none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</LinearLayout>

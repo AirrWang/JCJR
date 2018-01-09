@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/dimen_50px"
+              android:layout_marginRight="@dimen/dimen_50px"
+    android:gravity="center_horizontal"
+    android:background="@drawable/corner_white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_34px"
+        android:layout_marginBottom="@dimen/dimen_34px"
+        style="@style/text_36_666"
+        android:text="输入支付密码"/>
+
+    <View style="@style/common_divider_without_margin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_48px"
+        android:layout_marginBottom="@dimen/dimen_48px"
+        style="@style/text_30_666"
+        android:text="提现"/>
+
+    <TextView
+        android:id="@+id/tv_amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen_60px"
+        android:textColor="@color/c03_333333"
+        android:text="¥ 275.00"/>
+
+    <com.ql.jcjr.view.PwdEditText
+        android:id="@+id/et_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_94px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:layout_marginTop="@dimen/dimen_46px"
+        android:layout_marginBottom="@dimen/dimen_52px"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:enabled="true"
+        android:focusable="true"
+        android:maxLength="6"
+        android:singleLine="true"
+        android:numeric="integer"/>
+
+</LinearLayout>
+
+</LinearLayout>

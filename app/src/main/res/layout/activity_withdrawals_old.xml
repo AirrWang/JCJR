@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.WithdrawalsActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        xmlns:bar="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:title="提现"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/row_distance"
+        android:paddingLeft="@dimen/dimen_46px"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_90px"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/dimen_150px"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_46px"
+                style="@style/text_30_666"
+                android:text="持卡人"/>
+
+            <TextView
+                android:id="@+id/tv_real_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_30_666"/>
+
+        </LinearLayout>
+
+        <View style="@style/common_divider_without_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_90px"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/dimen_150px"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_46px"
+                style="@style/text_30_666"
+                android:text="银行账户"/>
+
+            <TextView
+                android:id="@+id/tv_acct_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_30_666"/>
+
+            <TextView
+                android:id="@+id/tv_bind_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_30_666"
+                android:text="请先绑定银行卡"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/row_distance"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            style="@style/text_30_666"
+            android:text="提现金额"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_46px"
+                    style="@style/text_30_666"
+                    android:textSize="@dimen/dimen_66px"
+                    android:text="¥"/>
+
+                <com.ql.jcjr.view.InputAmountEditText
+                    android:id="@+id/et_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_46px"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:singleLine="true"
+                    style="@style/text_30_666"
+                    android:textColor="#555"
+                    android:textColorHint="@color/text_hint_color"
+                    android:hint="输入提现金额"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_get_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="余额全提"
+                android:gravity="center"
+                android:textColor="#000"
+                android:layout_marginLeft="@dimen/dimen_40px"
+                android:layout_marginRight="@dimen/dimen_40px"/>
+
+        </LinearLayout>
+
+
+        <View style="@style/common_divider_without_margin"
+              android:layout_marginTop="@dimen/dimen_30px"
+              android:layout_marginLeft="@dimen/dimen_40px"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginTop="@dimen/dimen_32px"
+            android:layout_marginBottom="@dimen/dimen_32px">
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_30_666"
+                android:text="可用余额 0.00 元"/>
+
+            <TextView
+                android:id="@+id/tv_last_free_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                style="@style/text_30_666"
+                android:text="免费提现次数：3次"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_cash_service_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_40px"
+        android:layout_marginTop="@dimen/dimen_20px"
+        style="@style/text_30_666"
+        android:textSize="@dimen/dimen_24px"/>
+
+    <Button
+        android:id="@+id/btn_withdrawals"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_50px"
+        android:text="提现"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:layout_marginLeft="@dimen/dimen_50px"
+        android:layout_marginRight="@dimen/dimen_50px"
+        style="@style/text_20_666"
+        android:textSize="@dimen/dimen_22px"
+        android:text="温馨提醒："/>
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_50px"
+        android:layout_marginRight="@dimen/dimen_50px"
+        style="@style/text_20_666"
+        android:textSize="@dimen/dimen_22px"
+        android:text="16:00之前提现当天到帐，16:00之后提现第二天到帐；特殊情况除外，用户充值资金在15天内提现将扣除1%的提现手续费。"/>
+
+</LinearLayout>

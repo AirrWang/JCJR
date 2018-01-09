@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">积财金融</string>
+    <string name="app_name_oppo">积财金融理财</string>
+    <string name="official_website">www.jicaibaobao.com</string>
+    <string name="customer_service_hotline">400-852-5558</string>
+
+    <string name="str_lowest_account">%1$s元起投</string>
+    <string name="str_lowest_account_2">起投金额 %1$s 元</string>
+    <string name="str_term">%1$s期限</string>
+    <string name="str_available_total">可投 %1$s 元/总额 %2$s 元</string>
+
+    <string name="shortcut_title">快捷</string>
+    <string name="home_page_title">首页</string>
+    <string name="manage_money_title">理财</string>
+    <string name="pay_title">刷卡</string>
+    <string name="more_title">更多</string>
+    <string name="me_title">我的</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="submit">确定</string>
+    <string name="update">更新</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">取消</string>
+
+    <string name="check_network">Network is not available, check network please!</string>
+    <string name="pay_num_tip">请输入金额</string>
+    <string name="pay_num_valid_tip">请输入合法金额</string>
+    <string name="upgrade">升级</string>
+
+    <string name="load_more">载入更多</string>
+    <string name="load_none">没有了!</string>
+    <string name="none_data">没有数据</string>
+    <string name="loading">正在加载...</string>
+
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="refresh_time">刷新时间: </string>
+    <string name="last_refresh_time">上次刷新时间: </string>
+    <string name="release_to_refresh">松开刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="current_refresh_time">本次刷新时间: </string>
+    <string name="refresh_success">刷新成功!</string>
+
+    <string name="more_invite">邀请好友</string>
+    <string name="more_about_us">关于我们</string>
+    <string name="more_common_issue">常见问题</string>
+    <string name="more_service">客户服务</string>
+    <string name="more_praise">给个好评</string>
+
+    <string name="my_receive_qr">我的收款码</string>
+    <string name="user_real_name">实名认证</string>
+    <string name="user_detail">我的信息</string>
+    <string name="no_sdcard">没有可用的存储卡</string>
+    <string name="no_camera_app">未找到系统相机程序</string>
+    <string name="cannot_find_image">没有找到图片</string>
+
+    <string name="input_verify_code_des">已向 %1$s 发送短信验证码</string>
+
+
+    <string name="bill_consume">消费</string>
+    <string name="bill_update">付款升级</string>
+    <string name="bill_share">分润</string>
+    <string name="bill_relation">关联分润</string>
+    <string name="bill_join">加盟费分成</string>
+
+    <string name="accumulated_income">累计收益(元/日)</string>
+
+    <string name="weixin_pay_prompt">请打开您的微信对准上面的二维码进行扫描。支付成功后，您可以在账单中查询到明细。</string>
+    <string name="alipay_pay_prompt">请打开您的支付宝对准上面的二维码进行扫描。支付成功后，您可以在账单中查询到明细。</string>
+    <string name="upgrade_amount">推广%1$s个商户</string>
+
+    <!-- wheelview -->
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hours">时</string>
+    <string name="minutes">分</string>
+    <string name="seconds">秒</string>
+
+    <string name="home_confirm_exit">再按一次将退出应用 </string>
+
+    <string name="public_num_prompt">公众号：积财金融</string>
+    <string name="my_qr_prompt">扫描下面二维码，获取帐号</string>
+
+    <string name="my_receive_qr_prompt">扫描下面二维码， 进行收款</string>
+
+    <string name="my_merchant_prompt">提示：由于涉及到商户隐私问题，您只能看到自己直接推广的商户。</string>
+    <string name="my_merchant_count">共计%1$d人</string>
+
+    <string name="take_photo">拍照</string>
+    <string name="choice_from_album">从相册选择</string>
+
+    <string name="feedback_hint">请输您的反馈意见</string>
+    <string name="max_ems">%1$s/%2$s</string>
+
+    <string name="exit_prompt">退出后不会删除任何历史数据，下次登录依然可以使用本帐号</string>
+    <string name="exit">退出登录</string>
+
+    <!-- Web view  -->
+    <string name="web_load_error">页面加载失败</string>
+    <string name="web_load_click_reload">轻触屏幕重新加载</string>
+
+    <string name="sina_blog">新浪微博：weibo.com/ql</string>
+    <string name="service_qq">3541323649</string>
+    <string name="work_time">工作时间：08:00 至 18:00</string>
+    <string name="arrival_time">到账时间：08:00 至 18:00</string>
+    <string name="check_time">审核时间：08:00 至 18:00</string>
+    <string name="copyrght">Copyright@2016上海启领网络科技有限公司</string>
+
+    <string name="notification_update_progress_loading" formatted="false">正在下载...</string>
+    <string name="notification_update_remind">"将在下载完成后安装更新，请勿关闭后台"</string>
+    <string name="notification_update_finish_title">"下载更新"</string>
+    <string name="notification_update_finish">已经下载完毕</string>
+    <string name="notification_download_fail">下载失败</string>
+
+    <string name="login_protocol_title">《启领服务协议》</string>
+    <string name="protocol_title">启领客户端收款服务协议书</string>
+
+
+    <string name="copy_right_info">&#169;2016-2017 积财金融 浙ICP备16032038号</string>>
+</resources>

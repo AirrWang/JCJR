@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/row_text_margin"
+        android:layout_marginRight="@dimen/row_text_margin"
+        android:paddingTop="@dimen/dimen_32px"
+        android:paddingBottom="@dimen/dimen_32px"
+        android:background="@drawable/bg_252_b"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_message_title"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="红包到期提醒"
+                android:lines="1"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/size_m"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="2017年4月21日 14:45"
+                android:textColor="@color/font_grey"
+                android:textSize="@dimen/size_xs"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16px"
+            android:text="红包到期提"
+            android:lines="2"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_xs"/>
+
+    </LinearLayout>
+
+</LinearLayout>

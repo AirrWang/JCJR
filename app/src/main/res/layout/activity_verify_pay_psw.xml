@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.ql.jcjr.activity.VerifyPayPswActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="invisible"
+        bar:left_first_visibility="visible"
+        bar:title="修改支付密码"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_40px"
+        style="@style/text_30_666"
+        android:text="请输入支付密码，以验证身份"/>
+
+    <com.ql.jcjr.view.PwdEditText
+        android:id="@+id/et_verify_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_130px"
+        android:layout_marginLeft="@dimen/dimen_36px"
+        android:layout_marginRight="@dimen/dimen_36px"
+        android:layout_marginTop="@dimen/dimen_46px"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:enabled="true"
+        android:focusable="true"
+        android:maxLength="6"
+        android:numeric="integer"
+        android:singleLine="true"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_114px"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:layout_marginLeft="@dimen/dimen_40px"
+        android:layout_marginRight="@dimen/dimen_40px"
+        android:background="@drawable/corner_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_pay_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:background="@null"
+            android:hint="请输入原支付密码"
+            android:inputType="textPassword"
+            style="@style/text_f04_30_c05_999999"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_170px"
+        android:text="下一步"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_36px"
+        android:layout_marginRight="@dimen/dimen_34px">
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tv_forget_pay_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_3px"
+            android:layout_marginBottom="@dimen/dimen_3px"
+            android:text="忘记支付密码？"
+            style="@style/text_26_666"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
+

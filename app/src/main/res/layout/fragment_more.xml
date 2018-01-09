@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="visible"
+        bar:bottom_divider_visibility="gone"
+        bar:title="关于我们"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25px"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_invite"
+            style="@style/user_item_style"
+            android:drawableLeft="@drawable/ic_invite"
+            android:text="@string/more_invite"
+            android:visibility="gone"/>
+
+        <View
+            style="@style/common_divider_with_left_margin"
+            android:layout_marginLeft="@dimen/dimen_108px"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_about_us"
+            style="@style/user_item_style"
+            android:drawableLeft="@drawable/ic_about_us"
+            android:text="@string/more_about_us"/>
+
+        <View
+            style="@style/common_divider_with_left_margin"
+            android:layout_marginLeft="@dimen/dimen_108px"/>
+
+        <TextView
+            android:id="@+id/tv_common_issue"
+            style="@style/user_item_style"
+            android:drawableLeft="@drawable/ic_common_issue"
+            android:text="@string/more_common_issue"/>
+
+        <View
+            style="@style/common_divider_with_left_margin"
+            android:layout_marginLeft="@dimen/dimen_108px"/>
+
+        <TextView
+            android:id="@+id/tv_service"
+            style="@style/user_item_style"
+            android:drawableLeft="@drawable/ic_service"
+            android:text="@string/more_service"/>
+
+        <View
+            style="@style/common_divider_with_left_margin"
+            android:layout_marginLeft="@dimen/dimen_108px"/>
+
+
+        <TextView
+            android:id="@+id/tv_praise"
+            style="@style/user_item_style"
+            android:drawableLeft="@drawable/ic_praise"
+            android:text="@string/more_praise"/>
+
+    </LinearLayout>
+
+</LinearLayout>

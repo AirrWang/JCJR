@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f434f</color>
+    <color name="colorPrimaryDark">#3f434f</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="translucent">#aa000000</color>
+
+    <!-- 主要的字体颜色 -->
+    <color name="font_black">#3F434F</color>
+    <color name="font_black_grey">#5A5A64</color>
+    <color name="font_grey">#9598A1</color>
+    <color name="font_grey_three">#CFD2DA</color>
+    <color name="font_grey_four">#DFDEDD</color>
+    <color name="font_actionbar_color">#e0c799</color>
+    <color name="font_actionbar_color_less">#D6C193</color>
+    <color name="font_user_agreement">#CEB57B</color>
+
+    <color name="font_bid_history">#76572C</color>
+
+    <color name="font_red">#b74f4f</color>
+
+    <color name="font_pink_light">#ebd4aa</color>
+
+    <color name="item_yyy_bg_gery">#ebeced</color>
+
+    <!-- 主要的按钮颜色 -->
+    <color name="btn_main">#CCA970</color>
+    <color name="btn_main_press">#C7A267</color>
+    <!-- 统title背景颜色，当需要改变背景时置换颜色即可 !-->
+    <color name="title_bg_color">#3f434f</color>
+    <color name="title_bg_color_pressed">#3f434f</color>
+
+    <color name="divider_color">#EDEDED</color>
+    <color name="text_hint_color">#CFD2DA</color>
+
+    <color name="c03_2c2c2c">#2c2c2c</color>
+    <color name="c03_333333">#333333</color>
+
+    <color name="c_555555">#555555</color>
+    <color name="c_fefefe">#fefefe</color>
+    <color name="c_101010">#101010</color>
+
+    <color name="c14_0071d1">#0071d1</color>
+
+    <color name="light_white">#aaeeeeee</color>
+    <color name="gray">@android:color/darker_gray</color>
+    <color name="light_gray">#80bebebe</color>
+    <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
+    <color name="red">#b74f4f</color>
+    <color name="indicator_color_normal">#666666</color>
+    <color name="indicator_color_selected">@color/c_f98203</color>
+    <color name="switch_track">#0171bb</color>
+    <color name="orange">#f2992c</color>
+    <color name="popwin_bg">#333333</color>
+
+    <color name="dialog_background">#55141414</color>
+
+    <!-- zxing -->
+    <color name="viewfinder_frame">#aeaeae</color>
+    <color name="viewfinder_mask">#a0000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="c47_48b425">#48b425</color>
+    <color name="c01_e33c4c">#e33c4c</color>
+    <color name="c01_e33c4c_10">#e6e33c4c</color>
+
+    <!-- wheelview -->
+    <color name="wheel_timebtn_nor">#54a3fa</color>
+    <color name="wheel_timebtn_pre">#CCCCCC</color>
+    <color name="color_ebebeb">#ebebeb</color>
+
+    <color name="c36_f9f9f9">#f9f9f9</color>
+
+    <color name="c_btn_norrmal">#fa3e3e</color>
+    <color name="c_btn_pressed">#fa3e3e</color>
+    <color name="c_btn_reg_normal">#fb5f5f</color>
+    <color name="c_verify_code_norrmal">#ff8f39</color>
+    <color name="c_page_bg">#f5f5f5</color>
+
+    <color name="c_et_hint">#cccccc</color>
+    <color name="c_f99903">#f99903</color>
+    <color name="c_feee80">#feee80</color>
+    <color name="c_3ca2e9">#3ca2e9</color>
+    <color name="c_999999">#999999</color>
+    <color name="c_eeeeee">#eeeeee</color>
+    <color name="c_fc0707">#fc0707</color>
+    <color name="c_3666">#3666</color>
+    <color name="c_f7ab08">#f7ab08</color>
+    <color name="c_f7ad0c">#f7ad0c</color>
+    <color name="c_f96503">#f96503</color>
+    <color name="c_444444">#444444</color>
+    <color name="c_aaaaaa">#aaaaaa</color>
+    <color name="c_f98203">#f98203</color>
+    <color name="c_f6f6f6">#f6f6f6</color>
+
+    <color name="c_04a722">#04a722</color>
+    <color name="c_d1d1d1">#d1d1d1</color>
+
+    <color name="half_transparent">#af000000</color>
+</resources>

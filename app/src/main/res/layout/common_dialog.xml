@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:paddingLeft="@dimen/dimen_50px"
+    android:paddingRight="@dimen/dimen_50px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_common_dialog_top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_40px">
+        <!--仅仅用来保持dialog match_parent-->
+        <View
+            android:id="@+id/vw_keep_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_color"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_f03_34_c03_2c2c2c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:singleLine="false"
+            android:textStyle="bold"
+            android:textSize="@dimen/dimen_32px"/>
+
+        <LinearLayout
+            android:id="@+id/ll_message_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:layout_marginTop="@dimen/dimen_20px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/dimen_30px"/>
+        </LinearLayout>
+
+        <com.ql.jcjr.view.CancelEditText
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:content_style="@style/text_f05_28_c03_2c2c2c"
+            android:id="@+id/et_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_70px"
+            android:layout_marginTop="@dimen/dimen_50px"
+            android:layout_marginBottom="@dimen/dimen_50px"
+            android:layout_marginLeft="@dimen/dimen_32px"
+            android:layout_marginRight="@dimen/dimen_32px"
+            android:paddingLeft="@dimen/dimen_20px"
+            android:paddingRight="@dimen/dimen_20px"
+            android:gravity="center"
+            app:common_input_style="secure"
+            app:left_icon_visibility="gone"
+            app:single_line="true"
+            android:background="@drawable/bg_filled_corner_000000"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/vw_ver_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:background="#33000000" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_88px"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_dialog_bottom_left"
+            android:gravity="center"
+            android:text="@android:string/cancel"
+            android:textSize="@dimen/dimen_34px"
+            android:textColor="@color/c14_0071d1"/>
+
+        <View
+            android:id="@+id/vw_divider"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#b5b5b5" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_dialog_bottom_right"
+            android:gravity="center"
+            android:text="@android:string/ok"
+            android:textSize="@dimen/dimen_34px"
+            android:textColor="@color/c14_0071d1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

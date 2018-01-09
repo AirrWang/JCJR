@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_fragment_me_head"/>
+
+            <LinearLayout
+                android:id="@+id/ll_me_operate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_100px"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_me_operate">
+
+                <TextView
+                    android:id="@+id/tv_recharge"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="充值"
+                    android:textColor="@color/font_actionbar_color"
+                    android:textSize="@dimen/size_l"/>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_30px"
+                    android:layout_marginTop="@dimen/dimen_30px"
+                    android:background="@drawable/list_divider_v_gold"/>
+
+                <TextView
+                    android:id="@+id/tv_withdrawals"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="提现"
+                    android:textColor="@color/font_actionbar_color"
+                    android:textSize="@dimen/size_l"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_25px"
+                android:background="@color/c_page_bg"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dimen_32px">
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_wdtz"
+                    app:leftIconLess="@drawable/icon_wdtz_wd"
+                    app:titleTextLess="我的投资" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_wdtz"-->
+                    <!--style="@style/me_operate_bar_rl"-->
+                    <!--android:background="#fff">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_wdtz_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_wdtz_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_wdtz_pre"-->
+                        <!--android:text="我的投资"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_wdtz"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--android:background="#fff"-->
+                    <!--app:leftIcon="@drawable/icon_wdtz_wd"-->
+                    <!--app:titleText="我的投资"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_zdtb"
+                    app:leftIconLess="@drawable/icon_zdtb_wd"
+                    app:titleTextLess="自动投标" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_zdtb"-->
+                    <!--style="@style/me_operate_bar_rl">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_zdtb_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_zdtb_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_zdtb_pre"-->
+                        <!--android:text="自动投标"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_zdtb"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--app:leftIcon="@drawable/icon_zdtb_wd"-->
+                    <!--app:titleText="自动投标"-->
+                    <!--app:bottomLineVisibility="gone"-->
+                    <!--android:background="#FBFBFB"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_wdhb"
+                    app:leftIconLess="@drawable/icon_wdhb_wd"
+                    app:titleTextLess="我的红包" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_wdhb"-->
+                    <!--style="@style/me_operate_bar_rl"-->
+                    <!--android:background="#fff">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_wdhb_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_wdhb_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_wdhb_pre"-->
+                        <!--android:text="我的红包"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_wdhb"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--android:background="#fff"-->
+                    <!--app:leftIcon="@drawable/icon_wdhb_wd"-->
+                    <!--app:titleText="我的红包"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_zjjl"
+                    app:leftIconLess="@drawable/icon_jyjl_wd"
+                    app:titleTextLess="交易记录" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_zjjl"-->
+                    <!--style="@style/me_operate_bar_rl">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_zjjl_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_jyjl_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_zjjl_pre"-->
+                        <!--android:text="交易记录"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_zjjl"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--app:leftIcon="@drawable/icon_jyjl_wd"-->
+                    <!--app:titleText="交易记录"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_yqyl"
+                    app:leftIconLess="@drawable/icon_yqyl_wd"
+                    app:titleTextLess="邀请有礼" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_yqyl"-->
+                    <!--style="@style/me_operate_bar_rl"-->
+                    <!--android:background="#fff">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_yqyl_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_yqyl_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_yqyl_pre"-->
+                        <!--android:text="邀请有礼"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_yqyl"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--android:background="#fff"-->
+                    <!--app:leftIcon="@drawable/icon_yqyl_wd"-->
+                    <!--app:titleText="邀请有礼"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_me_kfzx"
+                    app:leftIconLess="@drawable/icon_kfzx_wd"
+                    app:titleTextLess="客服中心" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_me_kfzx"-->
+                    <!--style="@style/me_operate_bar_rl">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_me_kfzx_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_kfzx_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_me_kfzx_pre"-->
+                        <!--android:text="客服中心"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_me_kfzx"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--app:leftIcon="@drawable/icon_kfzx_wd"-->
+                    <!--app:titleText="客服中心"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                    style="@style/ithb_no_right_title"
+                    android:id="@+id/ithb_mesetting"
+                    app:leftIconLess="@drawable/icon_sz_wd"
+                    app:bottomLineVisibilityLess="gone"
+                    app:titleTextLess="设置" />
+
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/ithb_mesetting"-->
+                    <!--style="@style/me_operate_bar_rl"-->
+                    <!--android:background="#fff">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/ithb_mesetting_pre"-->
+                        <!--style="@style/me_operate_bar_icon"-->
+                        <!--android:src="@drawable/icon_sz_wd"/>-->
+
+                    <!--<TextView-->
+                        <!--style="@style/me_operate_bar_title"-->
+                        <!--android:layout_toRightOf="@id/ithb_mesetting_pre"-->
+                        <!--android:text="设置"/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/me_operate_bar_arrow"/>-->
+
+                <!--</RelativeLayout>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                    <!--android:id="@+id/ithb_mesetting"-->
+                    <!--style="@style/ithb_setting"-->
+                    <!--android:background="#fff"-->
+                    <!--app:leftIcon="@drawable/icon_sz_wd"-->
+                    <!--app:titleText="设置"-->
+                    <!--app:bottomLineVisibility="gone"/>-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                <!--android:id="@+id/ithb_me_zhzc"-->
+                <!--style="@style/ithb_setting"-->
+                <!--app:leftIcon="@drawable/my_icon_zhzc"-->
+                <!--app:titleText="账户资产" />-->
+
+
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                <!--android:id="@+id/ithb_me_smrz"-->
+                <!--style="@style/ithb_setting"-->
+                <!--app:leftIcon="@drawable/my_icon_smrz"-->
+                <!--app:titleText="实名认证" />-->
+
+                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
+                <!--android:id="@+id/ithb_me_yhk"-->
+                <!--style="@style/ithb_setting"-->
+                <!--app:leftIcon="@drawable/my_icon_yhk"-->
+                <!--app:titleText="银行卡" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

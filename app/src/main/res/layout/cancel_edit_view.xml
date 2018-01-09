@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_36px"/>
+
+        <EditText
+            android:id="@+id/et_content"
+            style="@style/text_f02_36_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColorHint="#999"/>
+
+        <ImageView
+            android:id="@+id/iv_cancel_icon"
+            android:layout_width="@dimen/dimen_50px"
+            android:layout_height="@dimen/dimen_50px"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:src="@drawable/enter_cancel"
+            android:layout_marginLeft="@dimen/dimen_10px"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/et_content_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#999999"
+        android:visibility="gone"/>
+</LinearLayout>

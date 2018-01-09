@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/row_text_margin"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dimen_140px"
+        android:layout_height="@dimen/dimen_140px"
+        android:background="@drawable/bg_bank_icon">
+
+        <ImageView
+            android:id="@+id/civ_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_bank_logo"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_40px"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8px"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/size_m"
+            android:text="工商银行"/>
+
+        <TextView
+            android:id="@+id/tv_bank_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_xs"
+            android:layout_marginTop="@dimen/dimen_28px"
+            android:text="单笔限额100000，单日无限额，单月无限额"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/ll_auth"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/row_distance"
+        android:orientation="vertical">
+
+        <com.ql.jcjr.view.ImageTextHorizontalBarLess
+            style="@style/ithb_only_left_text"
+            android:id="@+id/ithb_real_name"
+            app:titleTextLess="真实姓名" />
+
+        <com.ql.jcjr.view.ImageTextHorizontalBarLess
+            style="@style/ithb_only_left_text"
+            android:id="@+id/ithb_pid"
+            app:bottomLineVisibilityLess="gone"
+            app:titleTextLess="身份证号" />
+
+    </LinearLayout>
+
+</merge>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_not_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/row_distance"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_95px"
+            android:paddingLeft="@dimen/row_text_margin"
+            android:paddingRight="@dimen/row_text_margin"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_46px"
+                style="@style/text_30_666"
+                android:text="真实姓名"/>
+
+            <EditText
+                android:id="@+id/et_real_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:singleLine="true"
+                style="@style/text_30_666"
+                android:textColorHint="@color/text_hint_color"
+                android:hint="请输入真实姓名"/>
+
+        </LinearLayout>
+
+        <View style="@style/common_divider_with_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_95px"
+            android:paddingLeft="@dimen/row_text_margin"
+            android:paddingRight="@dimen/row_text_margin"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_46px"
+                style="@style/text_30_666"
+                android:text="身份证号"/>
+
+            <EditText
+                android:id="@+id/et_pid"
+                style="@style/text_30_666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入身份证号"
+                android:singleLine="true"
+                android:textColorHint="@color/text_hint_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_auth"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_170px"
+        android:text="立即认证"/>
+
+
+</merge>

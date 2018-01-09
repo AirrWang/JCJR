@@ -1,0 +1,1 @@
+include ':app', ':MarqueeView', ':swipemenu', ':patternlockview', ':StatusBarUtil', ':PushSDK'

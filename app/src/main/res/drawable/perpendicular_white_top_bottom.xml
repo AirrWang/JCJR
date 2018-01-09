@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 填充的颜色 -->
+    <solid android:color="@android:color/white"/>
+
+    <padding
+        android:bottom="1px"
+        android:top="1px"/>
+    <!-- 边框宽度，颜色值 -->
+    <stroke
+        android:width="1px"
+        android:color="@color/divider_color"/>
+
+</shape>

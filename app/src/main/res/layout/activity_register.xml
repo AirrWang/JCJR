@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.ql.jcjr.activity.RegisterActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="注册"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ab_header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tv_register_send"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_64px"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_m"
+                android:gravity="center"
+                android:background="#FFF6E6"/>
+
+            <com.ql.jcjr.view.CancelEditTextGrey
+                android:id="@+id/et_sms_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_44px"
+                app:right_icon_visibility="gone"
+                app:common_input_style="number"
+                app:right_extra_tv_visibility="visible"
+                app:right_extra_tv_content="发送验证码"
+                app:content_hint="请输入短信验证码"
+                app:left_icon="@drawable/login_check_icon_smscode"
+                app:single_line="true" />
+
+            <com.ql.jcjr.view.CancelEditTextGrey
+                android:id="@+id/et_psw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_36px"
+                app:common_input_style="secure"
+                app:right_icon_visibility="gone"
+                app:right_extra_iv_visibility="visible"
+                app:right_extra_iv_icon="@drawable/show_psw_normal"
+                app:content_hint="请设置登录密码"
+                app:left_icon="@drawable/login_check_icon_pwd"
+                app:single_line="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dimen_80px"
+                android:layout_marginTop="@dimen/dimen_20px"
+                android:layout_marginBottom="@dimen/dimen_20px"
+                android:textSize="@dimen/size_s"
+                android:textColor="@color/font_grey_three"
+                android:text="8-16数字、字母或符号组合"/>
+
+            <com.ql.jcjr.view.CancelEditTextGrey
+                android:id="@+id/et_inviter"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:common_input_style="number"
+                app:content_hint="邀请人手机号（可不填）"
+                app:left_icon="@drawable/login_check_icon_invent"
+                app:single_line="true" />
+
+
+            <Button
+                android:id="@+id/btn_register"
+                style="@style/common_btn_style"
+                android:layout_marginTop="@dimen/dimen_140px"
+                android:layout_marginBottom="@dimen/dimen_36px"
+                android:text="完成注册"/>
+
+            <LinearLayout
+                android:id="@+id/ll_register_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_register_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_register_checkbox"
+                        android:layout_width="@dimen/dimen_36px"
+                        android:layout_height="@dimen/dimen_36px"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/checkbox_select"/>
+
+                    <TextView
+                        android:id="@+id/tv_register_read"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_24px"
+                        android:textColor="@color/font_user_agreement"
+                        android:textSize="@dimen/size_xs"
+                        android:text="我已阅读并同意"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_register_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/btn_main"
+                    android:textSize="@dimen/size_xs"
+                    android:text=" 《积财金融协议》 "/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_register_888"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dimen_74px">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_160px"
+            android:layout_height="@dimen/dimen_128px"
+            android:src="@drawable/login_check_icon_888"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            style="@style/text_s_m_c_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_26px"
+            android:text="注册即送 888 元红包"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/v_status"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"/>
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        xmlns:bar="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="invisible"
+        bar:title="理财列表"/>
+
+    <com.ql.jcjr.view.PullToRefreshView
+        android:id="@+id/pull_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.ql.jcjr.view.XListView
+            android:id="@+id/lv_yyy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="@dimen/dimen_20px"
+            android:listSelector="@color/transparent"
+            android:paddingTop="@dimen/dimen_20px"
+            android:paddingBottom="@dimen/dimen_20px"/>
+
+    </com.ql.jcjr.view.PullToRefreshView>
+
+
+    <RadioGroup
+        android:id="@+id/rg__manage_money"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_68px"
+        android:layout_marginBottom="@dimen/dimen_30px"
+        android:layout_marginLeft="@dimen/dimen_40px"
+        android:layout_marginRight="@dimen/dimen_40px"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/tab_yyy"
+            style="@style/style_tab_manage_money"
+            android:background="@drawable/tab_left_manage_money_selector"
+            android:checked="true"
+            android:text="月月盈"/>
+
+        <RadioButton
+            android:id="@+id/tab_ttl"
+            style="@style/style_tab_manage_money"
+            android:background="@drawable/tab_mindle_manage_money_selector"
+            android:text="天天利"/>
+
+        <RadioButton
+            android:id="@+id/tab_xszx"
+            style="@style/style_tab_manage_money"
+            android:background="@drawable/tab_right_manage_money_selector"
+            android:text="新手专享"/>
+
+    </RadioGroup>
+
+    <com.ql.jcjr.view.NoScrollViewPager
+        android:id="@+id/cvw_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/another_login"
+        android:layout_below="@+id/ll_layout"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation"
+        android:visibility="gone"/>
+
+</LinearLayout>

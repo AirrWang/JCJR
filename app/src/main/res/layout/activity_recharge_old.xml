@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.RechargeActivity"
+    android:background="@color/c_page_bg">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="账户充值"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_100px"
+        android:layout_marginTop="@dimen/dimen_48px"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_46px"
+            android:layout_marginRight="@dimen/dimen_68px"
+            style="@style/text_30_666"
+            android:text="金额"/>
+
+        <com.ql.jcjr.view.InputAmountEditText
+            android:id="@+id/et_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dimen_46px"
+            android:layout_weight="1"
+            android:background="@null"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            style="@style/text_30_666"
+            android:textColorHint="@color/text_hint_color"
+            android:hint="请输入金额"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_quota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        style="@style/text_f06_22_666"/>
+
+    <LinearLayout
+        android:id="@+id/ll_bank_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_bank_logo"
+            android:layout_width="@dimen/dimen_70px"
+            android:layout_height="@dimen/dimen_70px"
+            android:layout_marginLeft="@dimen/dimen_46px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:src="@drawable/ic_bank_logo"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_bank_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30px"
+                android:layout_marginBottom="@dimen/dimen_18px"
+                style="@style/text_f04_30_c05_999999"
+                android:text="中国建设银行"/>
+
+            <TextView
+                android:id="@+id/tv_bank_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_30px"
+                style="@style/text_26_666"
+                android:text="尾号1577"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_bind_bank"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_132px"-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="horizontal">-->
+
+            <TextView
+                android:id="@+id/tv_bind"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_130px"
+                android:layout_marginTop="@dimen/dimen_30px"
+                android:gravity="center"
+                style="@style/text_34_ff8f39"
+                android:text="绑定银行卡"
+                android:background="@color/white"/>
+
+    <!--</LinearLayout>-->
+
+    <Button
+        android:id="@+id/btn_recharge"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_170px"
+        android:text="充值"/>
+
+</LinearLayout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_90px"
+        android:layout_marginLeft="@dimen/dimen_30px"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_30_555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="月月盈第三期"
+            android:textSize="@dimen/dimen_28px"/>
+
+        <TextView
+            android:id="@+id/tv_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:text="满标计息"
+            android:textColor="@color/indicator_color_selected"
+            android:textSize="@dimen/dimen_26px"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/common_divider_without_margin"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_136px"
+        android:layout_marginLeft="@dimen/dimen_30px"
+        android:layout_marginRight="@dimen/dimen_30px"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_biao_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_6px"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_annualized_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_42px"
+                        android:textColor="@color/font_red"
+                        android:text="10.8"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_42px"
+                        android:textColor="@color/font_red"
+                        android:text="%"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_biao_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ll_biao_left"
+                    android:layout_alignBottom="@id/ll_biao_left"
+                    android:paddingBottom="3dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_24px"
+                        android:textColor="@color/font_actionbar_color"
+                        android:text="+"/>
+                    <TextView
+                        android:id="@+id/tv_annualized_rate_gain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_24px"
+                        android:textColor="@color/font_actionbar_color"
+                        android:text="10.8"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_24px"
+                        android:textColor="@color/font_actionbar_color"
+                        android:text="%"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_18px"
+                android:textSize="@dimen/dimen_20px"
+                android:textColor="@color/text_hint_color"
+                android:text="年化收益"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_term"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_30_666"
+                android:text="30天"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_18px"
+                android:textSize="@dimen/dimen_20px"
+                android:textColor="@color/text_hint_color"
+                android:text="投资期限"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_bid"
+            android:layout_width="@dimen/dimen_160px"
+            android:layout_height="@dimen/dimen_58px"
+            android:textSize="@dimen/dimen_22px"
+            android:textColor="@color/c_fefefe"
+            android:text="立即投资"
+            android:background="@drawable/btn_bid_selector"
+            android:focusable="false"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_percentage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_6px"
+        android:layout_marginLeft="@dimen/dimen_30px"
+        android:layout_marginRight="@dimen/dimen_30px"
+        style="@style/progressbar_horizontal_style"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_28px"
+        android:layout_marginBottom="@dimen/dimen_24px"
+        android:layout_marginLeft="@dimen/dimen_30px"
+        android:layout_marginRight="@dimen/dimen_30px"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_lowest_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/text_24_999"/>
+
+        <TextView
+            android:id="@+id/tv_available_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_24_999"/>
+
+    </LinearLayout>
+
+</LinearLayout>

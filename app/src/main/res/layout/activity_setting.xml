@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.SettingActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="设置" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/row_distance">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_bind_mobile"
+                app:titleTextLess="手机号" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_real_name"
+                app:titleTextLess="实名认证" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_bank"
+                app:titleTextLess="银行卡" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_login_psw"
+                app:titleTextLess="登录密码"
+                app:rightTitleText="修改密码"/>
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_trans_psw"
+                app:titleTextLess="交易密码" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_gesture_psw"
+                app:titleTextLess="手势密码" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_feedback"
+                app:rightTitleColor="@color/font_grey_three"
+                app:titleTextLess="意见反馈"
+                app:rightTitleText="去反馈"/>
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_about_us"
+                app:bottomLineVisibilityLess="gone"
+                app:rightTitleColor="@color/font_grey_three"
+                app:titleTextLess="关于" />
+
+            <TextView
+                android:id="@+id/tv_exit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_95px"
+                android:layout_marginTop="@dimen/dimen_76px"
+                android:layout_marginBottom="@dimen/dimen_25px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="安全退出"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/dimen_30px" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

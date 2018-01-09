@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:background="@drawable/img_hbbg">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ 100"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/size_big"/>
+
+            <TextView
+                android:id="@+id/tv_use_condition"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/hb_item_left_tv_w"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24px"
+                android:text="单笔投资月月盈满1000可用"
+                android:textColor="@color/font_grey"
+                android:textSize="@dimen/size_xs"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_red_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24px"
+                android:text="投资奖励红包"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/size_m"/>
+
+            <TextView
+                android:id="@+id/tv_last_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16px"
+                android:text="剩余1天过期"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/size_s"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16px"
+                android:text="有效期至:"
+                android:textColor="@color/font_grey"
+                android:textSize="@dimen/size_xs"/>
+
+            <TextView
+                android:id="@+id/tv_valid_term"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-01-29 13:50"
+                android:textColor="@color/font_grey"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

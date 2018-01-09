@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.WithdrawalsResultActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        xmlns:bar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="invisible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="@dimen/dimen_120px"
+            android:layout_height="@dimen/dimen_120px"
+            android:layout_marginTop="@dimen/dimen_100px"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_68px"
+            android:layout_marginBottom="@dimen/dimen_90px"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/dimen_36px"
+            android:textColor="@color/c03_333333"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:bar="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24px"
+        android:layout_marginLeft="@dimen/dimen_30px"
+        android:layout_marginBottom="@dimen/dimen_24px"
+        style="@style/text_f06_20_666"
+        android:text="资产明细"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_available_balance"
+            style="@style/ithb_account_assets"
+            bar:titleText="可用余额（元）"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_to_be_received"
+            style="@style/ithb_account_assets"
+            bar:titleText="待收金额（元）"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_profit_received"
+            style="@style/ithb_account_assets"
+            bar:titleText="待收收益（元）"/>
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_freezing_amt"
+            style="@style/ithb_account_assets"
+            android:layout_marginBottom="@dimen/dimen_60px"
+            bar:titleText="冻结金额（元）"/>
+
+    </LinearLayout>
+
+</merge>

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CancelEditText 设置CancelEditText的样式 -->
+    <declare-styleable name="CancelEditText">
+        <!--文本框的文字-->
+        <attr name="content" format="reference|string"/>
+        <!--文本框的文字样式-->
+        <attr name="content_style" format="reference"/>
+        <!--文本框的左边图片是否可见-->
+        <attr name="left_icon_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--文本框的右边图片是否可见-->
+        <attr name="right_icon_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--文本框的右边 额外文字操作按钮 是否可见-->
+        <attr name="right_extra_tv_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <attr name="right_extra_tv_content" format="reference|string"/>
+        <!--文本框的右边 额外图片操作按钮 是否可见-->
+        <attr name="right_extra_iv_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <attr name="right_extra_iv_icon" format="reference"/>
+
+        <!--文本框的左边图片-->
+        <attr name="left_icon" format="reference"/>
+        <!--文本框的文字hint-->
+        <attr name="content_hint" format="reference|string"/>
+        <!--文本框的文字inputType-->
+        <attr name="input_type" format="reference"/>
+        <!--文本框的文字最大数-->
+        <attr name="max_length" format="integer"/>
+        <!--文本框的文字singleLine-->
+        <attr name="single_line" format="boolean"/>
+        <!--文本框的文字最大行数-->
+        <attr name="max_lines" format="integer"/>
+        <!--文本框的右边图片-->
+        <attr name="cancel_icon" format="reference"/>
+        <!--布局的背景-->
+        <attr name="bg_drawable" format="reference|color"/>
+        <!-- 设置输入框的样式：1.普通输入框 2.密码输入框
+                              3. None -->
+        <attr name="common_input_style">
+            <enum name="none" value="0"/>
+            <enum name="plain" value="1"/>
+            <enum name="secure" value="2"/>
+            <enum name="number" value="3"/>
+        </attr>
+        <!-- 设置内容边距 -->
+        <attr name="rl_layout_padding" format="reference|dimension"/>
+        <!-- 输入框的线条是否显示 -->
+        <attr name="contentBottomLineVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!-- 输入框的线条的颜色 -->
+        <attr name="content_bottom_line_color" format="color"/>
+        <!-- 是否可编辑 -->
+        <attr name="enabled" format="boolean"/>
+    </declare-styleable>
+
+
+    <!-- ActionBar设置ActionBar的样式  -->
+    <declare-styleable name="ActionBar">
+        <!--背景图片-->
+        <attr name="background" format="color"/>
+
+        <attr name="title_style">
+            <!--正常模式-->
+            <enum name="normal" value="0"/>
+            <!--搜索框-->
+            <enum name="search" value="1"/>
+        </attr>
+        <attr name="search_left_style">
+            <!--左边为主页-->
+            <enum name="left_first" value="0"/>
+            <!--左边为下一级页面-->
+            <enum name="left_second" value="1"/>
+        </attr>
+        <!--add 搜索框左边的第一个控件是否可见-->
+        <attr name="search_left_image_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--搜索框左边的控件的图片-->
+        <attr name="search_left_image" format="reference"/>
+        <!--搜索框右边控件的文字-->
+        <attr name="search_right_text" format="reference|string"/>
+        <!--搜索框右边控件的图片-->
+        <attr name="search_right_image" format="reference"/>
+        <!--搜索框调整右边控件的图片的大小-->
+        <attr name="search_right_image_adjust" format="boolean"/>
+        <!--搜索框的hint文字-->
+        <attr name="search_hint" format="reference|string"/>
+        <!--搜索框的hint文字 style-->
+        <attr name="search_hint_color" format="color"/>
+        <!--add搜索框edittext的背景图片-->
+        <attr name="search_edittext_background" format="reference"/>
+        <!--add搜索框edittext的左边图片-->
+        <attr name="search_edittext_drawable_left" format="reference"/>
+        <!--add搜索框edittext的文字样式-->
+        <attr name="search_edittext_style" format="reference"/>
+
+        <!--标题-->
+        <attr name="title" format="reference|string"/>
+        <!-- 标题的颜色 -->
+        <attr name="titleTextColor" format="color"/>
+        <!--左边的第一个控件是否可见-->
+        <attr name="left_first_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+
+        <!--左边的第一个控件的文字-->
+        <attr name="left_first_text" format="reference|string"/>
+        <!--左边的第一个控件的文字的颜色-->
+        <attr name="left_first_textColor" format="color"/>
+        <!--左边的第一个控件的图片-->
+        <attr name="left_first_image" format="reference"/>
+
+        <!--左边的第二个控件是否可见-->
+        <attr name="left_second_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--左边的第二个控件的文字-->
+        <attr name="left_second_text" format="reference|string"/>
+
+        <!--右边的第一个控件的文字-->
+        <attr name="right_text" format="reference|string"/>
+        <!--右边的第一个控件的文字的颜色-->
+        <attr name="right_text_textColor" format="color"/>
+        <!--右边的第一个控件的图片-->
+        <attr name="right_image" format="reference"/>
+
+
+        <!--右边的第一个控件是否可见-->
+        <attr name="right_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+
+        <!--右边的为购物车新增的控件是否可见-->
+        <attr name="right_cart_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+
+        <!--右边的为购物车新增的控件的图片-->
+        <attr name="right_cart_image" format="reference"/>
+
+        <!--底部的分割线是否可见-->
+        <attr name="bottom_divider_visibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="border_overlay" format="boolean"/>
+    </declare-styleable>
+
+    <!-- ImageTextHorizontalBar
+        设置ImageTextHorizontalBar的样式 === -->
+    <declare-styleable name="ImageTextHorizontalBar">
+        <!--左边文字-->
+        <attr name="titleText" format="reference|string"/>
+        <!--附加说明-->
+        <attr name="additionalText" format="reference|string"/>
+        <!--右边描述文字-->
+        <attr name="descriptionText" format="reference|string"/>
+        <!--左边文字颜色-->
+        <attr name="titleFontColor" format="color"/>
+        <!--左边文字样式-->
+        <attr name="titleStyle" format="reference"/>
+        <!--右边描述文字样式-->
+        <attr name="descriptionStyle" format="reference"/>
+        <!--右边描述文字颜色-->
+        <attr name="descriptionFontColor" format="color"/>
+        <!--左边文字大小-->
+        <attr name="titleFontSize" format="reference|dimension"/>
+        <!--到左边框的距离-->
+        <attr name="paddingLeft" format="reference|dimension"/>
+        <!--右边描述文字大小-->
+        <attr name="descriptionFontSize" format="reference|dimension"/>
+        <!--右边文字长度限制-->
+        <attr name="descriptionMaxLength" format="integer"/>
+        <!--小红点文字-->
+        <attr name="tipsText" format="reference|string"/>
+        <!--小红点背景-->
+        <attr name="tipsBackground" format="reference"/>
+        <!--小红点样式-->
+        <attr name="tipsStyle" format="reference"/>
+        <!--左边图片-->
+        <attr name="leftIcon" format="reference"/>
+        <!--左边图片的大小-->
+        <attr name="leftIcon_size" format="reference|dimension"></attr>
+        <!--右边图片-->
+        <attr name="rightGoIcon" format="reference"/>
+        <!-- 右边图片的paddingRight -->
+        <attr name="rightGoIconPaddingRight" format="reference|dimension"/>
+        <!--右边描述文字的paddingRight-->
+        <attr name="descriptionPaddingRight" format="reference|dimension"/>
+        <!--右边描述文字的marginRight-->
+        <attr name="descriptionMarginRight" format="reference|dimension"/>
+        <!--小红点文字颜色-->
+        <attr name="tipsFontColor" format="color"/>
+        <!--小红点文字大小-->
+        <attr name="tipsFontSize" format="reference|dimension"/>
+        <!--是否显示底部横线（宽度不是装个屏幕所占宽度）-->
+        <attr name="bottomLineVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示顶部横线-->
+        <attr name="topLineVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示底部横线（宽度和屏幕一样）-->
+        <attr name="bottomFullLineVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示描述-->
+        <attr name="descriptionVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <!--  <enum name="gone" value="0x00000008" /> 为了控件显示方便，暂不支持-->
+        </attr>
+        <!--是否显示小红点-->
+        <attr name="tipsVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示左边图标-->
+        <attr name="leftIconVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示右边图标-->
+        <attr name="rightIconVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示附加说明-->
+        <attr name="additionalTextVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示右边CircleImageView-->
+        <attr name="circleImageViewVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--设置显示右边普通ImageView-->
+        <attr name="srcNormalImage" format="reference"/>
+        <!--是否显示右边普通ImageView-->
+        <attr name="normalImageViewVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--右边描述背景颜色-->
+        <attr name="descriptionBackground" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ImageTextHorizontalBarLess">
+        <!--左边图片-->
+        <attr name="leftIconLess" format="reference"/>
+        <!--左边图片的大小-->
+        <attr name="leftIconSize" format="reference|dimension"></attr>
+        <!--左边文字-->
+        <attr name="titleTextLess" format="reference|string"/>
+        <!--附加说明-->
+        <attr name="titleDescriptionText" format="reference|string"/>
+        <!--附加说明文字颜色-->
+        <attr name="titleDescriptionColor" format="color"/>
+
+        <!--右边标题文字颜色-->
+        <attr name="rightTitleColor" format="color"/>
+        <!--右边描述文字颜色-->
+        <attr name="rightDescriptionColor" format="color"/>
+        <!--右边描述文字-->
+        <attr name="rightTitleText" format="reference|string"/>
+        <!--右边附加说明-->
+        <attr name="rightDescriptionText" format="reference|string"/>
+
+        <!--是否显示底部横线（宽度不是装个屏幕所占宽度）-->
+        <attr name="bottomLineVisibilityLess">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示左边图标-->
+        <attr name="leftIconVisibilityLess">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示描述-->
+        <attr name="titleDescriptionVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <!--是否显示右边图标-->
+        <attr name="rightIconVisibilityLess">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示右边标题-->
+        <attr name="rightTitleVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+        <!--是否显示右边标题描述-->
+        <attr name="rightTitleDescriptionVisibility">
+            <enum name="visible" value="0x00000000"/>
+            <enum name="invisible" value="0x00000004"/>
+            <enum name="gone" value="0x00000008"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="WheelView">
+        <!-- 是否可点击 -->
+        <attr name="isCyclic" format="boolean"/>
+        <!-- 显示几个items -->
+        <attr name="visibleItems" format="integer"/>
+        <!-- 字体大小 -->
+        <attr name="text_size" format="integer"/>
+        <!-- 线的颜色 -->
+        <attr name="centerDrawable" format="reference"/>
+    </declare-styleable>
+
+
+    <!-- 限制输入的字数的EeditText -->
+    <declare-styleable name="LimitTheNumOfWordsEeditText">
+        <!-- 限制的字数 -->
+        <attr name="limitCount" format="integer"/>
+        !-- EditText Hint -->
+        <attr name="hint" format="reference|string"/>
+        <!-- 输入文本样式 -->
+        <attr name="inputTextStyle" format="reference"/>
+        <!-- 显示字数的TextView文本样式 -->
+        <attr name="TextViewStyle" format="reference"/>
+    </declare-styleable>
+
+    <!-- IndicatorView
+         设置IndicatorView的一些属性,
+         需要在相应的xml中增加xmlns:j1attrs="http://schemas.android.com/apk/res-auto" == -->
+    <declare-styleable name="IndicatorView">
+        <!-- banner height -->
+        <attr name="bannerHeight" format="reference|dimension"/>
+        <!-- banner下边距，如果为0则指示圆点在banner上，如果大于0则指点圆点在banner底下  -->
+        <attr name="bannerMarginBottom" format="reference|dimension"/>
+
+        <!--小圆点的下边距-->
+        <attr name="dotmargin_bottom" format="dimension" />
+        <!--小圆点的上边距-->
+        <attr name="dotmargin_top" format="dimension" />
+        <!--是否可以自动播放功能-->
+        <attr name="can_play" format="boolean" />
+
+        <!--所有圆点 是否在父控 下部-->
+        <attr name="dots_layout_alignParentBottom" format="boolean" />
+
+        <!--所有圆点 是否在父控 下部-->
+        <attr name="dots_layout_alignParentTop" format="boolean" />
+
+        <!--所有圆点 是否在父控 左部-->
+        <attr name="dots_layout_alignParentLeft" format="boolean" />
+        <!--所有圆点 是否在父控 右部-->
+        <attr name="dots_layout_alignParentRight" format="boolean" />
+
+        <!--距离父控件下面位置-->
+        <attr name="dots_layout_marginBottom" format="dimension" />
+        <!--距离父控件上面位置-->
+        <attr name="dots_layout_marginTop" format="dimension" />
+        <!--距离父控件左面位置-->
+        <attr name="dots_layout_marginLeft" format="dimension" />
+        <!--距离父控件右面位置-->
+        <attr name="dots_layout_marginRight" format="dimension" />
+    </declare-styleable>
+
+    <!-- === 设置NoScrollGridView的样式 === -->
+    <declare-styleable name="NoScrollGridView">
+        <attr name="square_layout" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="GestureLockViewGroup">
+        <attr name="color_no_finger_inner_circle" format="color" />
+        <attr name="color_no_finger_outer_circle" format="color" />
+        <attr name="color_finger_on" format="color" />
+        <attr name="color_finger_up" format="color" />
+        <attr name="count" format="integer" />
+        <attr name="tryTimes" format="integer" />
+    </declare-styleable>
+
+</resources>

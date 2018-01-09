@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.RechargeActivity"
+    android:background="@color/c_page_bg">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="账户充值"/>
+
+    <include
+        layout="@layout/item_bank_card"
+        android:id="@+id/ll_bank_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/row_distance"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_bind"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_130px"
+        android:layout_marginTop="@dimen/row_distance"
+        android:gravity="center"
+        style="@style/text_34_ff8f39"
+        android:textColor="@color/btn_main"
+        android:text="请绑定银行卡"
+        android:background="@color/white"/>
+
+    <LinearLayout
+        android:id="@+id/ll_charge_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/row_height"
+        android:layout_marginTop="@dimen/row_distance"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/row_text_margin"
+            android:layout_marginRight="@dimen/dimen_68px"
+            style="@style/text_s_m_c_b"
+            android:text="充值金额"/>
+
+        <com.ql.jcjr.view.InputAmountEditText
+            android:id="@+id/et_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/row_text_margin"
+            android:layout_weight="1"
+            android:background="@null"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            style="@style/text_s_m_c_b"
+            android:textColorHint="@color/text_hint_color"
+            android:hint="请输入金额，100元起充"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_recharge"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_170px"
+        android:text="确认充值"/>
+
+</LinearLayout>

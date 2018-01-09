@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.MyRedPacketsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/title_bg_color">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/status_bar_view_height"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/actionbar_arrow_distance"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dimen_6px"
+                android:src="@drawable/btn_action_bar_back_n"/>
+
+            <FrameLayout
+                android:id="@+id/ll_hb_title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/actionbar_height"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/tab_tv0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:gravity="center"
+                        android:text="抵扣券"
+                        android:typeface="monospace"
+                        android:textColor="@color/font_actionbar_color"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/tab_tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:gravity="center"
+                        android:text="加息券"
+                        android:typeface="monospace"
+                        android:textColor="@color/font_actionbar_color"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/tab_tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:gravity="center"
+                        android:text="返现券"
+                        android:typeface="monospace"
+                        android:textColor="@color/font_actionbar_color"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    android:gravity="left"
+                    android:weightSum="3" >
+
+                    <FrameLayout
+                        android:id="@+id/bottom_line"
+                        android:layout_width="0dip"
+                        android:layout_height="3dip"
+                        android:layout_weight="1"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/font_actionbar_color"
+                            android:gravity="center" />
+
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.ql.jcjr.view.NoScrollViewPager
+        android:id="@+id/cvw_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/another_login"
+        android:layout_below="@+id/ll_layout"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation"/>
+
+</LinearLayout>

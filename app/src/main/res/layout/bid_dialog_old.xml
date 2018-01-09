@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_36px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_balance"
+                style="@style/text_30_666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您的可用余额 3000 元" />
+
+            <TextView
+                android:id="@+id/tv_max_bid"
+                style="@style/text_30_666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="剩余可投金额 3000 元"
+                android:textColor="@color/font_grey"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="right|center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                style="@style/text_30_666"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:src="@drawable/arrow_down" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_78px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:background="@drawable/perpendicular_white_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.ql.jcjr.view.InputAmountEditText
+            android:id="@+id/et_bid_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_30px"
+            android:layout_marginRight="@dimen/dimen_30px"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="1234567890"
+            android:gravity="center"
+            android:hint="请输入投资金额"
+            android:inputType="phone|number"
+            android:textColor="@color/indicator_color_normal"
+            android:textColorHint="@color/c_3666"
+            android:textSize="@dimen/dimen_28px" />
+
+        <TextView
+            android:id="@+id/tv_all_surplus"
+            style="@style/text_28_999999"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/c_eeeeee"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_60px"
+            android:paddingRight="@dimen/dimen_60px"
+            android:text="全部余额" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_24px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_30_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="预期收益" />
+
+        <TextView
+            android:id="@+id/tv_expected_return"
+            style="@style/text_30_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="0.00"
+            android:textColor="@color/c_fc0707" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/common_divider_without_margin"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_48px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:layout_marginTop="@dimen/dimen_30px"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/text_30_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="还款日期" />
+
+        <TextView
+            android:id="@+id/tv_repayment_date"
+            style="@style/text_30_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="2017-07-10" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_bid"
+        style="@style/common_btn_style"
+        android:layout_marginBottom="@dimen/dimen_20px"
+        android:layout_marginLeft="@dimen/dimen_46px"
+        android:layout_marginRight="@dimen/dimen_46px"
+        android:text="立即投标" />
+
+</LinearLayout>

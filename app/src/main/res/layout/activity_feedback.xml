@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ql.jcjr.activity.FeedbackActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="visible"
+        bar:bottom_divider_visibility="gone"
+        bar:title="意见反馈"/>
+
+    <com.ql.jcjr.view.LimitTheNumOfWordsEeditText
+        android:id="@+id/lwet_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_360px"
+        android:layout_marginTop="@dimen/row_distance"
+        android:layout_marginLeft="@dimen/row_text_margin"
+        android:layout_marginRight="@dimen/row_text_margin"
+        android:background="@android:color/white"
+        app:limitCount="140"
+        app:inputTextStyle="@style/text_f_m_c_333333"
+        app:TextViewStyle="@style/text_f_m_c_666"
+        app:hint="@string/feedback_hint"/>
+
+    <Button
+        android:id="@+id/btn_commit"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_170px"
+        android:text="立即反馈"/>
+
+</LinearLayout>

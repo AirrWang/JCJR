@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_f06_20_666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_24px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingTop="@dimen/dimen_24px"
+        android:background="@color/c_page_bg"
+        android:text="资产明细" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_available_balance"
+            style="@style/ithb_account_assets"
+            bar:titleText="可用余额（元）" />
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_to_be_received"
+            style="@style/ithb_account_assets"
+            bar:titleText="待收金额（元）" />
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_profit_received"
+            style="@style/ithb_account_assets"
+            bar:titleText="待收收益（元）" />
+
+        <com.ql.jcjr.view.ImageTextHorizontalBar
+            android:id="@+id/ithb_freezing_amt"
+            style="@style/ithb_account_assets"
+            android:layout_marginBottom="@dimen/dimen_60px"
+            bar:titleText="冻结金额（元）" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_account_assets_ds"
+        style="@style/text_f06_20_666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_24px"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingTop="@dimen/dimen_24px"
+        android:background="@color/c_page_bg"
+        android:text="待收明细" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_assets_ds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_30px"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_80px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_20_666"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="借款编号" />
+
+            <TextView
+                style="@style/text_20_666"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="待收总额" />
+
+            <TextView
+                style="@style/text_20_666"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="应收日期" />
+        </LinearLayout>
+
+        <View style="@style/common_divider_without_margin" />
+
+    </LinearLayout>
+
+</LinearLayout>

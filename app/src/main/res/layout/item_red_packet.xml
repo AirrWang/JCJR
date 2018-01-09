@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_container_left"
+            android:layout_width="@dimen/hb_item_left_w"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_hb_active_l"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_amt_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥ "
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/size_xxl" />
+
+                <TextView
+                    android:id="@+id/tv_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:textStyle="bold"
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/size_big" />
+
+                <TextView
+                    android:id="@+id/tv_amt_suf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" %"
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/size_xxl" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_use_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10px"
+                android:text="单笔投资月月盈1单笔投资月月盈2单笔投资月月盈3单笔投资月月盈4单笔投资月月盈5笔投资资月月盈5笔投资"
+                android:maxLines="3"
+                android:textColor="@color/font_grey"
+                android:textSize="@dimen/size_s" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_container_right"
+            android:layout_width="@dimen/hb_item_right_w"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_hb_active_r"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_red_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_24px"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="返现红包"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/size_m" />
+
+            <TextView
+                android:id="@+id/tv_last_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16px"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="剩余1天过期"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/size_s" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16px"
+                android:text="有效期至:"
+                android:textColor="@color/font_grey"
+                android:textSize="@dimen/size_xs" />
+
+            <TextView
+                android:id="@+id/tv_valid_term"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="2017-01-29 13:50"
+                android:textColor="@color/font_grey"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_hb_status_used"
+        android:layout_marginTop="@dimen/hb_item_status_top"
+        android:layout_marginLeft="@dimen/hb_item_status_left"
+        android:visibility="gone"/>
+
+</RelativeLayout>

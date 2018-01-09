@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.ContactUsActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="客服中心"/>
+
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_customer_service_qa"
+        android:layout_marginTop="@dimen/row_distance"
+        app:rightTitleVisibility="gone"
+        app:titleTextLess="常见问题" />
+
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_customer_service_hotline"
+        app:bottomLineVisibilityLess="gone"
+        app:titleTextLess="电话客服"
+        app:rightTitleText="工作日9：00-20：00"/>
+
+</LinearLayout>

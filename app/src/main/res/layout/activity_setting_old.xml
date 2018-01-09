@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.SettingActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="设置" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_25px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_avatar"
+                style="@style/ithb_setting"
+                app:circleImageViewVisibility="visible"
+                app:leftIcon="@drawable/ic_setting_avatar"
+                app:rightIconVisibility="visible"
+                app:titleText="头像"
+                app:topLineVisibility="visible" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_bind_mobile"
+                style="@style/ithb_setting"
+                app:descriptionPaddingRight="@dimen/dimen_20px"
+                app:leftIcon="@drawable/ic_setting_phone"
+                app:rightIconVisibility="gone"
+                app:titleText="绑定手机" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_real_name"
+                style="@style/ithb_setting"
+                app:leftIcon="@drawable/ic_setting_real_name"
+                app:titleText="实名认证" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_bank"
+                style="@style/ithb_setting"
+                app:leftIcon="@drawable/ic_setting_bank"
+                app:bottomLineVisibility="gone"
+                app:titleText="银行卡" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_login_psw"
+                style="@style/ithb_setting"
+                android:layout_marginTop="@dimen/dimen_25px"
+                app:leftIcon="@drawable/ic_setting_login"
+                app:titleText="登录密码" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_trans_psw"
+                style="@style/ithb_setting"
+                app:leftIcon="@drawable/ic_setting_trans_psw"
+                app:titleText="交易密码" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_gesture_psw"
+                style="@style/ithb_setting"
+                app:bottomLineVisibility="gone"
+                app:leftIcon="@drawable/ic_setting_gesture"
+                app:titleText="手势密码" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBar
+                android:id="@+id/ithb_about_us"
+                style="@style/ithb_setting"
+                app:bottomLineVisibility="gone"
+                android:layout_marginTop="@dimen/dimen_25px"
+                app:leftIcon="@drawable/ic_setting_about_us"
+                app:titleText="关于我们" />
+
+            <TextView
+                android:id="@+id/tv_exit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_80px"
+                android:layout_marginTop="@dimen/dimen_25px"
+                android:layout_marginBottom="@dimen/dimen_25px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="安全退出"
+                android:textColor="@color/c_444444"
+                android:textSize="@dimen/dimen_30px" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

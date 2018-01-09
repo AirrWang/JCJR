@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_24px"
+        android:layout_marginLeft="@dimen/dimen_20px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_yyy_icon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_decorate_lclb" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:textSize="@dimen/size_m"
+            android:textColor="@color/font_black"
+            android:text="月月盈第三期"/>
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_tag_red"
+            android:gravity="center"
+            android:text="积财精选"
+            android:textColor="@color/font_red"
+            android:textSize="@dimen/size_s"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16px"
+        android:layout_marginLeft="@dimen/item_yyy_padding_l"
+        android:layout_marginRight="@dimen/item_yyy_padding_r"
+        android:gravity="bottom">
+
+        <RelativeLayout
+            android:layout_width="192dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_biao_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_6px"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_apr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_xxxl"
+                    android:textColor="@color/font_red"
+                    android:text="10.8"/>
+                <TextView
+                    android:id="@+id/tv_apr_after"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_xl"
+                    android:textColor="@color/font_red"
+                    android:text=" %"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_biao_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ll_biao_left"
+                android:layout_alignBottom="@id/ll_biao_left"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_yyy_apr"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_annualized_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.8"
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/size_m" />
+                <TextView
+                    android:id="@+id/tv_annualized_rate_after"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_s"
+                    android:textColor="@color/font_red"
+                    android:text="%"/>
+
+                <TextView
+                    android:id="@+id/tv_annualized_rate_gain_before"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_s"
+                    android:textColor="@color/font_red"
+                    android:text="+"/>
+                <TextView
+                    android:id="@+id/tv_annualized_rate_gain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/font_red"
+                    android:text="0.8"/>
+
+                <TextView
+                    android:id="@+id/tv_annualized_rate_gain_after"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textColor="@color/font_red"
+                    android:textSize="@dimen/size_s" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_term"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            style="@style/text_30_666"
+            android:textSize="@dimen/size_m"
+            android:text="30天"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4px"
+        android:layout_marginLeft="@dimen/item_yyy_padding_l"
+        android:layout_marginRight="@dimen/item_yyy_padding_r"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ProgressBar
+            android:id="@+id/pb_percentage"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:layout_weight="1"
+            style="@style/progressbar_horizontal_style"/>
+
+        <TextView
+            android:id="@+id/tv_percent"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8px"
+            android:layout_weight="0"
+            android:gravity="right"
+            android:textSize="@dimen/size_xs"
+            android:textColor="@color/font_grey"
+            android:text="100%"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4px"
+        android:layout_marginLeft="@dimen/item_yyy_padding_l"
+        android:layout_marginRight="@dimen/dimen_150px"
+        android:layout_marginBottom="@dimen/dimen_24px">
+
+        <TextView
+            android:id="@+id/tv_available_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="项目总额20000元"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_m"/>
+
+        <TextView
+            android:id="@+id/tv_available_rest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="剩余200元"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_m"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

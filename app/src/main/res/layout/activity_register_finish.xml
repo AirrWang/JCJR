@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ql.jcjr.activity.RegisterFinishActivity"
+    android:orientation="vertical">
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="注册成功"
+        />
+    <ImageView
+        android:background="@drawable/zccg"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_94px"
+        android:layout_width="@dimen/dimen_320px"
+        android:layout_height="@dimen/dimen_255px" />
+    <TextView
+        android:layout_marginTop="@dimen/dimen_58px"
+        android:textColor="@color/font_black_grey"
+        android:textSize="@dimen/dimen_32px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册成功！"/>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_114px"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:background="#CCA970"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/dimen_15px"
+            android:layout_height="@dimen/dimen_15px" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_grey"
+            android:text="888元红包已经到账"/>
+    </LinearLayout>
+<Button
+    android:id="@+id/btn_to_real_name"
+    style="@style/common_btn_style"
+    android:layout_marginRight="@dimen/dimen_46px"
+    android:layout_marginLeft="@dimen/dimen_46px"
+    android:layout_marginTop="@dimen/dimen_46px"
+    android:layout_width="match_parent"
+    android:text="实名认证"
+    android:layout_height="@dimen/dimen_98px" />
+
+</LinearLayout>

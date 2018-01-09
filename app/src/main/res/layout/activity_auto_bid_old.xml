@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_page_bg"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.AutoBidActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="自动投标"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_110px"
+        android:layout_marginTop="@dimen/dimen_36px"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--<Space-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"/>-->
+
+        <com.ql.jcjr.view.InputAmountEditText
+            android:id="@+id/et_bid_amt"
+            style="@style/text_34_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="输入自动投标金额"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textColorHint="@color/text_hint_color"/>
+
+        <TextView
+            android:id="@+id/tv_bid_amt"
+            style="@style/text_34_666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <!--<Space-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_54px">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/text_30_555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="借款期限"/>
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/cb_month"-->
+            <!--style="@style/text_30_555"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="@dimen/dimen_30px"-->
+            <!--android:text="月标"/>-->
+
+        <CheckBox
+            android:id="@+id/cb_month"
+            style="@style/text_30_555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_30px"
+            android:text="月标"
+            android:button="@null"
+            android:background="@null"
+            android:drawablePadding="@dimen/dimen_20px"
+            android:drawableLeft="@drawable/cb_selector"/>
+
+        <CheckBox
+            android:id="@+id/cb_day"
+            style="@style/text_30_555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:drawablePadding="@dimen/dimen_20px"
+            android:drawableLeft="@drawable/cb_selector"
+            android:text="天标"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_month"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_68px"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_64px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_month_s"
+                style="@style/text_30_555"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_25px"
+                android:text="个月"/>
+
+            <EditText
+                android:id="@+id/et_month_start"
+                style="@style/text_30_555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
+                android:layout_toLeftOf="@id/tv_month_s"
+                android:background="@null"
+                android:gravity="center"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="@color/text_hint_color"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/dimen_30px"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:background="#9a9a9a"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_month_e"
+                style="@style/text_30_555"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_25px"
+                android:text="个月"/>
+
+            <EditText
+                android:id="@+id/et_month_end"
+                style="@style/text_30_555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
+                android:layout_toLeftOf="@id/tv_month_e"
+                android:background="@null"
+                android:gravity="center"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="@color/text_hint_color"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_day"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_68px"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_34px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_day_s"
+                style="@style/text_30_555"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_25px"
+                android:text="天"/>
+
+            <EditText
+                android:id="@+id/et_day_start"
+                style="@style/text_30_555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
+                android:layout_toLeftOf="@id/tv_day_s"
+                android:background="@null"
+                android:gravity="center"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="@color/text_hint_color"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/dimen_30px"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dimen_20px"
+            android:layout_marginRight="@dimen/dimen_20px"
+            android:background="#9a9a9a"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_day_e"
+                style="@style/text_30_555"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_25px"
+                android:text="天"/>
+
+            <EditText
+                android:id="@+id/et_day_end"
+                style="@style/text_30_555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:layout_marginRight="@dimen/dimen_10px"
+                android:layout_toLeftOf="@id/tv_day_e"
+                android:background="@null"
+                android:gravity="center"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="@color/text_hint_color"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_setting"
+        style="@style/common_btn_style"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_54px"
+        android:text="设置"/>
+
+    <TextView
+        style="@style/text_24_999"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_25px"
+        android:text="每次新标发布后，系统将按照设定金额自动投标，如实际可用余额少于设定金额则按实际金额投标。"/>
+</LinearLayout>

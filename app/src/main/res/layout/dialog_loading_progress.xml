@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- indeterminateBehavior当进度条达到最大值时的动画处理行为：
+        "repeat" = Animation.RESTART，动画将从头开始执行。
+        "cycle" = Animation.REVERSE，动画将反向从头开始执行。-->
+        <ProgressBar
+            android:id="@+id/oahprogressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="6dp"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateDrawable="@anim/dialog_loading_progress" />
+
+        <TextView
+            android:id="@+id/tv_dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载中，请稍等"
+            android:textSize="14dp"
+            android:textColor="@color/font_grey"
+            android:layout_marginBottom="12dp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+              android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_type"
+            android:layout_width="@dimen/dimen_60px"
+            android:layout_height="@dimen/dimen_60px"
+            android:layout_marginLeft="@dimen/dimen_40px"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:src="@drawable/ic_withdrawals"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_136px"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/text_24_666"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_20px"
+                android:text="项目[20170220_2015]的待收金额"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/text_20_999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_40px"
+                android:layout_marginTop="@dimen/dimen_12px"
+                android:text="2017-09-08 12:23:12"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_40px"
+            android:textSize="@dimen/dimen_40px"
+            android:textColor="@color/indicator_color_normal"
+            android:text="3129.92"/>
+
+    </LinearLayout>
+
+    <View style="@style/common_divider_with_left_margin"
+        android:layout_marginLeft="@dimen/dimen_40px"/>
+
+
+</LinearLayout>

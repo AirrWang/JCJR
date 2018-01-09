@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/dimen_24px"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.ql.jcjr.view.ImageTextHorizontalBar
+        android:id="@+id/ithb_bid_record"
+        style="@style/ithb_bid_detail"
+        app:descriptionText="148人"
+        app:titleText="投标记录"/>
+
+    <com.ql.jcjr.view.ImageTextHorizontalBar
+        android:id="@+id/ithb_project_detail"
+        style="@style/ithb_bid_detail"
+        app:titleText="项目详情"/>
+
+    <com.ql.jcjr.view.ImageTextHorizontalBar
+        android:id="@+id/ithb_bid_reward"
+        style="@style/ithb_bid_detail"
+        app:bottomFullLineVisibility="gone"
+        app:titleText="安全保障"/>
+
+</LinearLayout>

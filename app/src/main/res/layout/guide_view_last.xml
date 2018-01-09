@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/guide_last">
+
+    <Button
+        android:layout_width="@dimen/dimen_214px"
+        android:layout_height="@dimen/dimen_76px"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/dimen_76px"
+        android:onClick="immediateExperience"
+        android:background="@drawable/immediate_experience_selector"
+        android:text="立即体验"
+        android:textSize="@dimen/dimen_34px"
+        android:textColor="@color/immediate_experience_text_selector"/>
+
+</FrameLayout>

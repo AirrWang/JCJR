@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:paddingTop="@dimen/dimen_24px"
+                android:paddingBottom="@dimen/dimen_24px"
+                android:paddingLeft="@dimen/row_text_margin"
+                android:paddingRight="@dimen/row_text_margin">
+
+                <TextView
+                    android:id="@+id/tv_history_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/font_black"
+                    android:text="标的名称"/>
+
+                <TextView
+                    android:id="@+id/tv_history_detail_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/btn_main"
+                    android:text="回款中"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/row_text_margin"
+                android:background="@drawable/bg_bid_history_detail">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_24px"
+                    android:layout_marginTop="@dimen/dimen_32px"
+                    android:layout_marginBottom="@dimen/dimen_32px"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/font_black"
+                    android:text="投资信息"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@drawable/list_divider"/>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="标的编号"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_id"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="预期年化"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_apr"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="投资期限"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_duration"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="还款方式"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_way"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="投资本金"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_money"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_history_detail_hongbao"
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="使用红包"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_hongbao"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="预期收益"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_get"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_history_detail_date"
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="到期时间"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_date"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/row_text_margin"
+                android:layout_marginRight="@dimen/row_text_margin"
+                android:background="@drawable/bg_bid_history_detail">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_24px"
+                    android:layout_marginTop="@dimen/dimen_32px"
+                    android:layout_marginBottom="@dimen/dimen_32px"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/font_black"
+                    android:text="操作记录"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@drawable/list_divider"/>
+
+                <RelativeLayout
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="投资成功"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_success_time"
+                        style="@style/bit_history_detail_value"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="-" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_history_detail_start_time"
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="开始计息"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_start_time"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_history_detail_complete_time"
+                    style="@style/bit_history_detail_rl">
+
+                    <TextView
+                        style="@style/bit_history_detail_title"
+                        android:text="回款完成"/>
+
+                    <TextView
+                        android:id="@+id/tv_history_detail_complete_time"
+                        style="@style/bit_history_detail_value"
+                        android:text="-"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/row_text_margin"
+                android:layout_marginRight="@dimen/row_text_margin"
+                android:layout_marginTop="@dimen/dimen_32px"
+                android:layout_marginBottom="@dimen/dimen_32px">
+
+                <TextView
+                    android:id="@+id/tv_history_detail_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_32px"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/btn_main"
+                    android:text="查看原始标的"/>
+
+                <TextView
+                    android:id="@+id/tv_history_detail_ht"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dimen_32px"
+                    android:textSize="@dimen/size_m"
+                    android:textColor="@color/btn_main"
+                    android:text="查看借款合同"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

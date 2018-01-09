@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/status_bar_view_height"
+    tools:context="com.ql.jcjr.activity.LoginActivityCheck">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_36px"
+                    android:layout_height="@dimen/dimen_36px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/login_check_icon_close"
+                    android:layout_margin="@dimen/dimen_36px"/>
+
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dimen_240px"
+                android:layout_height="@dimen/dimen_62px"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/login_check_icon_logo"
+                android:layout_marginTop="@dimen/dimen_36px"/>
+
+            <com.ql.jcjr.view.CancelEditTextGrey
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_114px"
+                app:right_icon_visibility="visible"
+                app:content_hint="请输入手机号"
+                app:left_icon="@drawable/login_check_icon_phone"
+                app:single_line="true" />
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/common_btn_style"
+                android:layout_marginTop="@dimen/dimen_210px"
+                android:layout_marginBottom="@dimen/dimen_40px"
+                android:text="下一步"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dimen_74px">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_160px"
+            android:layout_height="@dimen/dimen_128px"
+            android:src="@drawable/login_check_icon_888"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            style="@style/text_s_m_c_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_26px"
+            android:text="注册即送 888 元红包"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
