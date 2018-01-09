@@ -46,7 +46,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
+//投标详情
 public class BidDetailActivity extends BaseActivity {
 
     @ViewInject(R.id.progressBar)
@@ -181,7 +181,7 @@ public class BidDetailActivity extends BaseActivity {
                         }
                         else{
                             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-                            lp.setMargins((int)(accountYes*totalW/account-width*0.2), 0, 0, 0);
+                            lp.setMargins((int)(accountYes*totalW/account-width*0.5), 0, 0, 0);
                             mIvProgressLight.setLayoutParams(lp);
                         }
 

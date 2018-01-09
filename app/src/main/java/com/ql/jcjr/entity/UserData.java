@@ -135,4 +135,12 @@ public class UserData {
     public void setNoticeNum(int num) {
         SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.KEY_MSG_NUM_NOTICE, num);
     }
+
+    public int getDay() {
+        return SharedPreferencesUtils.getInstance().getInt(SharedPreferencesUtils.KEY_DAY, 0);
+    }
+
+    public void setDay(int day) {
+        SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.KEY_DAY, day);
+    }
 }

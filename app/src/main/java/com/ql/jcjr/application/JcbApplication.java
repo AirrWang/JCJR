@@ -9,7 +9,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
+import android.util.DisplayMetrics;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.receiver.NetworkChangedReceiver;
@@ -26,6 +28,7 @@ import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.uuch.adlibrary.utils.DisplayUtil;
 
 import org.android.agoo.huawei.HuaWeiRegister;
 import org.android.agoo.xiaomi.MiPushRegistar;
@@ -250,6 +253,20 @@ public class JcbApplication extends Application {
 //        registerNetworkChangedListener();
 
 //        ToastUtil.showToast(getApplicationContext(), getMetaValue("UMENG_CHANNEL"));
+
+        initDisplayOpinion();
+
+        Fresco.initialize(this);
+    }
+
+    private void initDisplayOpinion() {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        DisplayUtil.density = dm.density;
+        DisplayUtil.densityDPI = dm.densityDpi;
+        DisplayUtil.screenWidthPx = dm.widthPixels;
+        DisplayUtil.screenhightPx = dm.heightPixels;
+        DisplayUtil.screenWidthDip = DisplayUtil.px2dip(getApplicationContext(), dm.widthPixels);
+        DisplayUtil.screenHightDip = DisplayUtil.px2dip(getApplicationContext(), dm.heightPixels);
     }
 
     class InitThread extends Thread{
