@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         bar:bottom_divider_visibility="gone"
-        bar:left_first_visibility="visible"
+        bar:left_first_visibility="gone"
         bar:title="注册成功"
         />
     <ImageView

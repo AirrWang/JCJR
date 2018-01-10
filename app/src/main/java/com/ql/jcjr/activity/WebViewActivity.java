@@ -66,6 +66,8 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_SHARE_ACTION = 3;
     private final int INTERFACE_REQUEST_UID = 4;
     private final int INTERFACE_REQUEST_LOGIN = 5;
+    private final int INTERFACE_UPDATE_TITLE = 6;
+    private final int INTERFACE_START_ACTIVITY = 7;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
 
@@ -113,6 +115,48 @@ public class WebViewActivity extends BaseActivity {
                     case INTERFACE_REQUEST_LOGIN:
                         Intent intent = new Intent(mContext, LoginActivityCheck.class);
                         startActivityForResult(intent, RESULT_CODE_LOGIN);
+                        break;
+
+                    case INTERFACE_UPDATE_TITLE:
+                        String title = (String)msg.obj;
+                        actionBar.setTitle(title);
+                        break;
+
+                    case INTERFACE_START_ACTIVITY:
+
+                        Bundle bundle = msg.getData();
+                        String packageInfo = bundle.getString("url");
+                        String params = bundle.getString("data");
+                        LogUtil.i("packageInfo = " + packageInfo);
+                        LogUtil.i("params = " + params);
+                        try {
+                            Intent startIntent = new Intent();
+                            if (packageInfo.contains(SEPARATE)) {
+                                String[] str = packageInfo.split(SEPARATE);
+                                LogUtil.i(str[0]+" ---- " + str[1]);
+                                startIntent.setComponent(new ComponentName(str[0], str[1]));
+                            } else {
+                                startIntent.setAction(packageInfo);
+                            }
+
+                            HashMap<String, Object> paramsMap = null;
+                            if(null != params && params.length()>0){
+                                JSONObject jsonObject = new JSONObject(params);
+                                paramsMap = new HashMap<>();
+                                JsonUtils.JsonToHashMap(jsonObject, paramsMap);
+                            }
+
+                            if (null != paramsMap) {
+                                for (Object o : paramsMap.entrySet()) {
+                                    Map.Entry entry = (Map.Entry) o;
+                                    startIntent.putExtra((String) entry.getKey(), (String) entry.getValue());
+                                }
+                            }
+                            mContext.startActivity(startIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         break;
                 }
 
@@ -346,48 +390,30 @@ public class WebViewActivity extends BaseActivity {
             webInterfaceHandler.sendEmptyMessage(INTERFACE_REQUEST_LOGIN);
         }
 
+        @JavascriptInterface
+        public void changeTitle(final String title) {
+            if(null != title){
+                Message msg = new Message();
+                msg.obj = title;
+                msg.what = INTERFACE_UPDATE_TITLE;
+                webInterfaceHandler.sendMessage(msg);
+            }
+        }
+
         /**
          * 打开应用界面
          */
         @JavascriptInterface
-        public void startActivity(String packageInfo, String url) {
-            startActivity(packageInfo, url, null);
-        }
+        public void startActivityWithParam(String packageInfo, String params) {
+            //packageInfo格式 包名/activity路径，或者是action名字，如启动拨号之类的，，，params附带参数、json格式
+            if(null != packageInfo){
+                Message msg = new Message();
+                msg.what = INTERFACE_START_ACTIVITY;
+                Bundle bundle = msg.getData();
+                bundle.putString("url", packageInfo);
+                bundle.putString("data", params);
 
-        /**
-         * 启动应用界面
-         *
-         * @param packageInfo 应用包名/类名 或 Action
-         * @param url         应用下载地址
-         */
-        public void startActivity(String packageInfo, String url, String params) {
-            LogUtil.i("packageInfo = " + packageInfo);
-            LogUtil.i("url = " + url);
-            LogUtil.i("params = " + params);
-            try {
-                Intent intent = new Intent();
-                if (packageInfo.contains(SEPARATE)) {
-                    String[] str = packageInfo.split(SEPARATE);
-                    intent.setComponent(new ComponentName(str[0], str[1]));
-                } else {
-                    intent.setAction(packageInfo);
-                }
-
-                JSONObject jsonObject = new JSONObject(params);
-                HashMap<String, Object> paramsMap = new HashMap<>();
-                JsonUtils.JsonToHashMap(jsonObject, paramsMap);
-
-                if (null != paramsMap) {
-                    for (Object o : paramsMap.entrySet()) {
-                        Map.Entry entry = (Map.Entry) o;
-                        intent.putExtra((String) entry.getKey(), (String) entry.getValue());
-                    }
-                }
-
-                mContext.startActivity(intent);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                webInterfaceHandler.sendMessage(msg);
             }
         }
     }

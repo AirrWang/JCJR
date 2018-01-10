@@ -87,7 +87,7 @@ public class RegisterActivity extends BaseActivity {
     private boolean isPswShow = false;
 
     private static final int HANDLER_REG_SUCCESS = 0;
-
+    private static final int HANDLER_FINDPSW_SUCCESS = 1;
     private final String PSW_FILE_NAME = "wjthnfkghj";
 
     /**
@@ -108,6 +108,9 @@ public class RegisterActivity extends BaseActivity {
 //                        mIntent.putExtra("flag", Global.FLAG_REGISTER);
 //                        startActivity(mIntent);
 //                    }
+                    break;
+                case HANDLER_FINDPSW_SUCCESS:
+                    RegisterActivity.this.finish();
                     break;
             }
         }
@@ -315,7 +318,7 @@ public class RegisterActivity extends BaseActivity {
                 LogUtil.i("找回密码 " + responeJson);
                 CommonToast.makeCustomText(mContext, "找回密码成功");
                 mBtnRegister.setEnabled(false);
-                handler.sendEmptyMessageDelayed(HANDLER_REG_SUCCESS, 2000);
+                handler.sendEmptyMessageDelayed(HANDLER_FINDPSW_SUCCESS, 2000);
             }
 
             @Override
@@ -342,7 +345,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onSuccess(String responeJson) {
                 LogUtil.i("注册成功 " + responeJson);
-                CommonToast.makeCustomText(mContext, "注册成功！");
+//                CommonToast.makeCustomText(mContext, "注册成功！");
                 UserData.getInstance().setPhoneNumber(phone);
                 UserData.getInstance().setUSERID(JsonUtils.getJSONObject(responeJson).optString("result"));
                 savePswString();

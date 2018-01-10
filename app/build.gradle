@@ -26,7 +26,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('C://jicaiwangcode')
+            storeFile file('C:/jicaiwangcode')
             storePassword '86775284'
             keyAlias 'jicaijinrong'
             keyPassword '86775284'
