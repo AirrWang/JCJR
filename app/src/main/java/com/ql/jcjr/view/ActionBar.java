@@ -566,6 +566,12 @@ public class ActionBar extends LinearLayout {
         btnRight.setVisibility(View.GONE);
         ivRight.setVisibility(View.GONE);
     }
+    public void dissShareIcon() {
+        ivShare.setVisibility(View.GONE);
+
+        btnRight.setVisibility(View.GONE);
+        ivRight.setVisibility(View.GONE);
+    }
 
     /**
      * 设置标题

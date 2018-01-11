@@ -86,7 +86,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private String mUserIconUrl;
     private String mTel;
     private String mIsSetPay;
-    private boolean vip;
 
     @Override
     protected void onFragmentFirstVisible() {
@@ -134,21 +133,23 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 startActivity(intent);
             }
         });
+        tv_vipj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("main_index",1);
+                startActivity(intent);
+            }
+        });
         tv_level.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (vip){
                     if (StringUtils.isNotBlank(mRealName)) {
-                        UrlUtil.showHtmlPage(mContext,"会员中心", RequestURL.VIP_DETAIL_URL);
+                        UrlUtil.showHtmlPage(mContext,"会员中心", RequestURL.VIP_DETAIL_URL,true);
                     } else {
 //                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
                         CommonToast.showShiMingDialog(mContext);
                     }
-                }else {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.putExtra("main_index",1);
-                    startActivity(intent);
-                }
             }
         });
     }
@@ -161,6 +162,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             mUserIcon.setVisibility(View.VISIBLE);
             mTvPhoneNum.setVisibility(View.VISIBLE);
             tv_level.setVisibility(View.VISIBLE);
+            tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
         } else {
@@ -171,6 +173,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             mUserIcon.setVisibility(View.GONE);
             mTvPhoneNum.setVisibility(View.GONE);
             tv_level.setVisibility(View.GONE);
+            tv_vipj.setVisibility(View.GONE);
         }
     }
 
@@ -229,10 +232,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     }
 
     private void initVIP(MineFragmentEntity.ResultBean resultBean) {
-        vip=true;
         if (resultBean.getRank().equals("-1")){
             tv_vipj.setText("立即投资，获取收益");
-            vip=false;
             tv_vipj.setVisibility(View.VISIBLE);
             tv_level.setVisibility(View.GONE);
         }else {

@@ -68,8 +68,10 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_REQUEST_LOGIN = 5;
     private final int INTERFACE_UPDATE_TITLE = 6;
     private final int INTERFACE_START_ACTIVITY = 7;
+    private final int REMOVE_SHARE = 8;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
+    private Boolean isShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +83,13 @@ public class WebViewActivity extends BaseActivity {
 
         mContext = this;
         actionBar.setLeftVisible(View.VISIBLE);
-        actionBar.showShareIcon(new MyShareClickListener());
 
+
+        Intent intent=getIntent();
+        isShare = intent.getBooleanExtra("isShare",false);
+        if (!isShare){
+            actionBar.showShareIcon(new MyShareClickListener());
+        }
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             h5Request = (H5Request) bundle.getSerializable("h5Request");
@@ -120,6 +127,10 @@ public class WebViewActivity extends BaseActivity {
                     case INTERFACE_UPDATE_TITLE:
                         String title = (String)msg.obj;
                         actionBar.setTitle(title);
+                        break;
+
+                    case REMOVE_SHARE:
+                        actionBar.dissShareIcon();
                         break;
 
                     case INTERFACE_START_ACTIVITY:
@@ -398,6 +409,13 @@ public class WebViewActivity extends BaseActivity {
                 msg.what = INTERFACE_UPDATE_TITLE;
                 webInterfaceHandler.sendMessage(msg);
             }
+        }
+
+        @JavascriptInterface
+        public void removeShare() {
+                Message msg = new Message();
+                msg.what = REMOVE_SHARE;
+                webInterfaceHandler.sendMessage(msg);
         }
 
         /**

@@ -120,7 +120,7 @@ public class HomePageFragment extends BaseFragment{
     }
 
     private void initDialog(List<BannerEntity.ResultBean> resultTanPing) {
-        if (resultTanPing==null)return;
+        if (resultTanPing.size()==0)return;
         Calendar c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         if (UserData.getInstance().getDay()==day) return;

@@ -183,12 +183,12 @@ public class RegisterActivity extends BaseActivity {
                     isPswShow = true;
                     mEtLoginPsw.getCancelEditText()
                             .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    mEtLoginPsw.setRightExtraImageIcon(R.drawable.show_psw_pressed);
+                    mEtLoginPsw.setRightExtraImageIcon(R.drawable.show_psw_pressed_1);
                 } else {
                     isPswShow = false;
                     mEtLoginPsw.getCancelEditText()
                             .setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    mEtLoginPsw.setRightExtraImageIcon(R.drawable.show_psw_normal);
+                    mEtLoginPsw.setRightExtraImageIcon(R.drawable.show_psw_normal_1);
                 }
                 mEtLoginPsw.getCancelEditText().setSelection(
                         mEtLoginPsw.getEditTextContent().length());
@@ -436,7 +436,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_register_agreement:
                 //打开用户协议
-                UrlUtil.showHtmlPage(mContext,"借款协议", RequestURL.AGREEMENT_URL);
+                UrlUtil.showHtmlPage(mContext,"注册协议", RequestURL.REGISTE_URL);
         }
     }
 }

@@ -245,7 +245,7 @@ public class JcbApplication extends Application {
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
 
         //tencent bugly
-        Bugly.init(getApplicationContext(), "a65e5229e0", false);
+        Bugly.init(getApplicationContext(), "89680028f4", false);
 
         //管理Activity栈
         activityManager = new ArrayList<>();

@@ -21,6 +21,19 @@ public class UrlUtil {
     }
 
     public static void showHtmlPage(Context context, String title, String url) {
+//        H5Request h5Request = new H5Request();
+//        h5Request.setTitle(title);
+//        h5Request.setUrl(url);
+//        h5Request.setIsLeftable(true);
+//        h5Request.setIsShowActionBar(false);
+//        Intent intent = new Intent(context, WebViewActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("h5Request", h5Request);
+//        intent.putExtras(bundle);
+//        context.startActivity(intent);
+        showHtmlPage(context,title,url,false);
+    }
+    public static void showHtmlPage(Context context, String title, String url,Boolean isShare) {
         H5Request h5Request = new H5Request();
         h5Request.setTitle(title);
         h5Request.setUrl(url);
@@ -30,6 +43,7 @@ public class UrlUtil {
         Bundle bundle = new Bundle();
         bundle.putSerializable("h5Request", h5Request);
         intent.putExtras(bundle);
+        intent.putExtra("isShare",isShare);
         context.startActivity(intent);
     }
 }

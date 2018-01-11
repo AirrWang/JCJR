@@ -99,6 +99,10 @@ public class LoginActivityCheck extends BaseActivity {
             validateErrorMsg.append("请输入手机号码");
             return false;
         }
+        if (!StringUtils.isPhoneNumber(phoneNumber)){
+            validateErrorMsg.append("手机号码格式错误");
+            return false;
+        }
         return true;
     }
 

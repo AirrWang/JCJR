@@ -60,28 +60,28 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/dimen_74px">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="@dimen/dimen_74px">-->
 
-        <ImageView
-            android:layout_width="@dimen/dimen_160px"
-            android:layout_height="@dimen/dimen_128px"
-            android:src="@drawable/login_check_icon_888"
-            android:scaleType="fitXY"/>
+        <!--<ImageView-->
+            <!--android:layout_width="@dimen/dimen_160px"-->
+            <!--android:layout_height="@dimen/dimen_128px"-->
+            <!--android:src="@drawable/login_check_icon_888"-->
+            <!--android:scaleType="fitXY"/>-->
 
-        <TextView
-            style="@style/text_s_m_c_g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_26px"
-            android:text="注册即送 888 元红包"
-            />
+        <!--<TextView-->
+            <!--style="@style/text_s_m_c_g"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/dimen_26px"-->
+            <!--android:text="注册即送 888 元红包"-->
+            <!--/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
