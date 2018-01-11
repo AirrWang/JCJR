@@ -52,6 +52,11 @@ public class SenderManager {
     }
 
     public static RequestParams buildRequestParams(JSONObject jsonObject) {
+//        try {
+//            jsonObject.put("token", "1");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         LogUtil.i("请求参数 " + jsonObject.toString());
         RequestParams params = new RequestParams();
 //        String content = RSAEncrypt.encryptData(jsonObject.toString());

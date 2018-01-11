@@ -58,7 +58,7 @@
                 app:common_input_style="secure"
                 app:right_icon_visibility="gone"
                 app:right_extra_iv_visibility="visible"
-                app:right_extra_iv_icon="@drawable/show_psw_normal"
+                app:right_extra_iv_icon="@drawable/show_psw_normal_1"
                 app:content_hint="请设置登录密码"
                 app:left_icon="@drawable/login_check_icon_pwd"
                 app:single_line="true" />
@@ -88,10 +88,10 @@
                 android:id="@+id/btn_register"
                 style="@style/common_btn_style"
                 android:layout_marginTop="@dimen/dimen_140px"
-                android:layout_marginBottom="@dimen/dimen_36px"
                 android:text="完成注册"/>
 
             <LinearLayout
+                android:padding="@dimen/dimen_36px"
                 android:id="@+id/ll_register_agreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                 <LinearLayout
                     android:id="@+id/ll_register_checkbox"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dimen_72px"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 

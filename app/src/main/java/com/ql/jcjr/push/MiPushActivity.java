@@ -37,12 +37,20 @@ public class MiPushActivity extends UmengNotifyClickActivity {
                     try{
                         JSONObject obj = new JSONObject(body);
                         JSONObject bodyObk = obj.optJSONObject("body");
-                        JSONObject customObj = bodyObk.optJSONObject("custom");
+
+                        Object customObj = bodyObk.get("custom");
+                        String custom=null;
+                        if (custom instanceof String){
+                            custom=(String) customObj;
+                        }else{
+                            custom=customObj.toString();
+                        }
 
                         goIntent.putExtra("push_tag",true);
-                        goIntent.putExtra("push_msg",customObj.toString());
+                        goIntent.putExtra("push_msg",custom);
                         goIntent.putExtra("main_index",0);
                     }catch(Exception e){
+
                     }
                 }
                 startActivity(goIntent);

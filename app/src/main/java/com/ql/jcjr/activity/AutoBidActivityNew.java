@@ -272,9 +272,13 @@ public class AutoBidActivityNew extends BaseActivity implements
             return false;
         }
 
-        if((StringUtils.isNotBlank(mDayStart) && StringUtils.isBlank(mDayEnd)) ||
-                (StringUtils.isNotBlank(mDayEnd) && StringUtils.isBlank(mDayStart))) {
+        if((StringUtils.isBlank(mDayStart)|| StringUtils.isBlank(mDayEnd))) {
             CommonToast.showHintDialog(mContext, "请输入完整的借款期限");
+            return false;
+        }
+
+        if (mDayStart.equals("0")||mDayEnd.equals("0")){
+            CommonToast.showHintDialog(mContext, "信息填写不完整");
             return false;
         }
 

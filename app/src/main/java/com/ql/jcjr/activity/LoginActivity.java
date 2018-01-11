@@ -84,12 +84,12 @@ public class LoginActivity extends BaseActivity{
                     isPswShow = true;
                     etPassword.getCancelEditText()
                             .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    etPassword.setRightExtraImageIcon(R.drawable.show_psw_pressed);
+                    etPassword.setRightExtraImageIcon(R.drawable.show_psw_pressed_1);
                 } else {
                     isPswShow = false;
                     etPassword.getCancelEditText()
                             .setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    etPassword.setRightExtraImageIcon(R.drawable.show_psw_normal);
+                    etPassword.setRightExtraImageIcon(R.drawable.show_psw_normal_1);
                 }
                 etPassword.getCancelEditText().setSelection(
                         etPassword.getEditTextContent().length());

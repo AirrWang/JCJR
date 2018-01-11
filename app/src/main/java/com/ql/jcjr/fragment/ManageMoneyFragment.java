@@ -216,6 +216,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private void gotoBidDetail(int position){
+        if (position==mBidList.size())return;
         Intent intent = new Intent(mContext, BidDetailActivity.class);
         intent.putExtra("bid_title", mBidList.get(position).getName());
         intent.putExtra("bid_id", mBidList.get(position).getId());

@@ -18,6 +18,7 @@ import com.ql.jcjr.activity.BidHistoryActivity;
 import com.ql.jcjr.activity.CapitalRecordActivity;
 import com.ql.jcjr.activity.ContactUsActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
+import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.activity.MsgHomeActivity;
 import com.ql.jcjr.activity.MyRedPacketsActivity;
 import com.ql.jcjr.activity.RechargeActivity;
@@ -71,6 +72,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private LinearLayout mLlMeOperate;
     @ViewInject(R.id.tv_level)
     private TextView tv_level;
+    @ViewInject(R.id.tv_vipj)
+    private TextView tv_vipj;
 
 
     private String myTotalMoney;
@@ -83,7 +86,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private String mUserIconUrl;
     private String mTel;
     private String mIsSetPay;
-    private boolean vip;
 
     @Override
     protected void onFragmentFirstVisible() {
@@ -131,17 +133,23 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 startActivity(intent);
             }
         });
+        tv_vipj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("main_index",1);
+                startActivity(intent);
+            }
+        });
         tv_level.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (vip){
                     if (StringUtils.isNotBlank(mRealName)) {
-                        UrlUtil.showHtmlPage(mContext,"会员中心", RequestURL.VIP_DETAIL_URL);
+                        UrlUtil.showHtmlPage(mContext,"会员中心", RequestURL.VIP_DETAIL_URL,true);
                     } else {
 //                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
                         CommonToast.showShiMingDialog(mContext);
                     }
-                }
             }
         });
     }
@@ -154,6 +162,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             mUserIcon.setVisibility(View.VISIBLE);
             mTvPhoneNum.setVisibility(View.VISIBLE);
             tv_level.setVisibility(View.VISIBLE);
+            tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
         } else {
@@ -164,6 +173,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             mUserIcon.setVisibility(View.GONE);
             mTvPhoneNum.setVisibility(View.GONE);
             tv_level.setVisibility(View.GONE);
+            tv_vipj.setVisibility(View.GONE);
         }
     }
 
@@ -194,16 +204,18 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         mUserIconUrl = "";
                         UserData.getInstance().setUserIconUrl(mUserIconUrl);
                         GlideUtil.displayPic(mContext, mUserIconUrl, R.drawable.default_user_icon, mUserIcon);
-                        mTvPhoneNum.setText(resultBean.getUsername());
+
                         initVIP(resultBean);
 
                         mTel = resultBean.getUsername();
                         if (StringUtils.isBlank(resultBean.getRealname())) {
 //                            mTvUserName.setText("去完善身份认证");
                             mRealName = "";
+                            mTvPhoneNum.setText(resultBean.getUsername());
                         } else {
 //                            mTvUserName.setText(resultBean.getRealname());
                             mRealName = resultBean.getRealname();
+                            mTvPhoneNum.setText(resultBean.getRealname());
                         }
                         UserData.getInstance().setRealName(mRealName);
 
@@ -220,38 +232,35 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     }
 
     private void initVIP(MineFragmentEntity.ResultBean resultBean) {
-        vip=true;
         if (resultBean.getRank().equals("-1")){
-            tv_level.setText("立即投资，获取收益");
-            vip=false;
-        }else if (resultBean.getRank().equals("0")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip0);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("1")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip1);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("2")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip2);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("3")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip3);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("4")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip4);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("5")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip5);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
-        }else if (resultBean.getRank().equals("6")){
-            tv_level.setText(resultBean.getRankname());
-            tv_level.setBackgroundResource(R.drawable.vip6);
-            tv_level.setTextColor(JcbApplication.getInstance().getResources().getColor(R.color.white));
+            tv_vipj.setText("立即投资，获取收益");
+            tv_vipj.setVisibility(View.VISIBLE);
+            tv_level.setVisibility(View.GONE);
+        }else {
+            tv_vipj.setVisibility(View.GONE);
+            tv_level.setVisibility(View.VISIBLE);
+            if (resultBean.getRank().equals("0")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip0);
+            } else if (resultBean.getRank().equals("1")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip1);
+            } else if (resultBean.getRank().equals("2")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip2);
+            } else if (resultBean.getRank().equals("3")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip3);
+            } else if (resultBean.getRank().equals("4")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip4);
+            } else if (resultBean.getRank().equals("5")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip5);
+            } else if (resultBean.getRank().equals("6")) {
+                tv_level.setText(resultBean.getRankname());
+                tv_level.setBackgroundResource(R.drawable.vip6);
+            }
         }
     }
 

@@ -10,11 +10,10 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapi&q=going/";
-//    public static final String SERVICE_URL = "http://www.jicaibaobao.com/index.action?phoneapi&q=going/";
 
     //积财金融协议
     public static final String JCJR_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement&borrow_id=";
@@ -167,6 +166,9 @@ public class RequestURL {
 
     //服务协议
     public static final String AGREEMENT_URL = SERVICE_URL_BASE+"addition/agreement.html";
+
+    //注册协议
+    public static final String REGISTE_URL = SERVICE_URL_BASE+"addition/zhucexieyi.html";
 
     //获取消息中心信息
     public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";

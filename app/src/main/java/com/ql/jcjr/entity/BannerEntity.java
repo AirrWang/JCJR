@@ -18,6 +18,7 @@ public class BannerEntity {
      */
 
     private List<ResultBean> result;
+    private List<ResultBean> resultTanPing;
 
     public List<ResultBean> getResult() {
         return result;
@@ -25,6 +26,14 @@ public class BannerEntity {
 
     public void setResult(List<ResultBean> result) {
         this.result = result;
+    }
+
+    public List<ResultBean> getResultTanPing() {
+        return resultTanPing;
+    }
+
+    public void setResultTanPing(List<ResultBean> resultTanPing) {
+        this.resultTanPing = resultTanPing;
     }
 
     public static class ResultBean {

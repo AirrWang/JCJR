@@ -22,7 +22,7 @@
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <solid android:color="@color/btn_main" />
+                <solid android:color="@color/font_pink_light" />
                 <corners
                     android:radius="@dimen/dimen_180px" />
             </shape>

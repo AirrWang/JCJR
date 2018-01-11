@@ -332,14 +332,17 @@ public class BindBankCardActivity extends BaseActivity {
                             for(int i=0;i<length;i++){
                                 if(bankList.get(i).getName().indexOf(bankName) != -1){
                                     fullName = bankList.get(i).getName();
-                                    if(fullName.indexOf(bankName) != -1){
                                         mBankName = bankList.get(i).getName();
                                         mBankId = bankList.get(i).getId();
 //                                        GlideUtil.displayPic(mContext, bankList.get(i).getImgUrl(), -1, mCivBankLogo);
                                         mTvBankName.setText(mBankName);
                                         break;
-                                    }
+
                                 }
+                            }
+                            LogUtil.i("fullName:"+fullName);
+                            if (fullName==null){
+                                CommonToast.showHintDialog(mContext, "暂不支持该银行");
                             }
                         }
 

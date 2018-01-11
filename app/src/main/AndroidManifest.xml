@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.ql.jcjr"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 6.0动态申请 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -31,7 +32,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="${app_name}"
         android:supportsRtl="true"
-        android:theme="@style/MyAppTheme">
+        android:theme="@style/MyAppTheme"
+        tools:replace="android:name">
 
         <!-- 启动页 -->
         <activity
@@ -64,7 +66,7 @@
         <!-- 显示HTML(H5)的WebViewActivity -->
         <activity
             android:name="com.ql.jcjr.activity.WebViewActivity"
-            android:launchMode="singleTask"
+
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.ql.jcjr.activity.FeedbackActivity"

@@ -34,8 +34,13 @@ import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.IndicatorView;
 import com.ql.jcjr.view.NoScrollListView;
 import com.sunfusheng.marqueeview.MarqueeView;
+import com.uuch.adlibrary.AdConstant;
+import com.uuch.adlibrary.AdManager;
+import com.uuch.adlibrary.bean.AdInfo;
+import com.uuch.adlibrary.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -101,7 +106,7 @@ public class HomePageFragment extends BaseFragment{
 
                 BannerEntity entity = GsonParser.getParsedObj(responeJson, BannerEntity.class);
                 bannerUrlList.addAll(entity.getResult());
-
+                initDialog(entity.getResultTanPing());
                 initAdvert(bannerUrlList);
             }
 
@@ -112,6 +117,43 @@ public class HomePageFragment extends BaseFragment{
             }
 
         }, mContext);
+    }
+
+    private void initDialog(List<BannerEntity.ResultBean> resultTanPing) {
+        if (resultTanPing.size()==0)return;
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        if (UserData.getInstance().getDay()==day) return;
+
+        List advList = new ArrayList<>();
+
+        for (int i=0;i<resultTanPing.size();i++) {
+            AdInfo adInfo = new AdInfo();
+            adInfo.setActivityImg(resultTanPing.get(i).getPic());
+            adInfo.setUrl(resultTanPing.get(i).getUrl());
+            advList.add(adInfo);
+        }
+        /**
+         * 创建广告活动管理对象
+         */
+        final AdManager adManager = new AdManager(getActivity(), advList);
+        adManager.setOverScreen(true)
+                .setWidthPerHeight(0.73f)
+                .setPageTransformer(new DepthPageTransformer());
+/**
+ * 执行弹窗的显示操作
+ */
+        adManager.showAdDialog(AdConstant.ANIM_RIGHT_TO_LEFT);
+        UserData.getInstance().setDay(day);
+
+        adManager.setOnImageClickListener(new AdManager.OnImageClickListener() {
+            @Override
+            public void onImageClick(View view, AdInfo advInfo) {
+                UrlUtil.showHtmlPage(mContext,"详情", advInfo.getUrl());
+                adManager.dismissAdDialog();
+            }
+        });
+
     }
 
     private void initMarqueeView() {
