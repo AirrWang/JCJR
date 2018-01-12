@@ -1,5 +1,6 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -68,11 +69,11 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_REQUEST_LOGIN = 5;
     private final int INTERFACE_UPDATE_TITLE = 6;
     private final int INTERFACE_START_ACTIVITY = 7;
-    private final int REMOVE_SHARE = 8;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
     private Boolean isShare;
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +117,8 @@ public class WebViewActivity extends BaseActivity {
                         break;
 
                     case INTERFACE_REQUEST_UID:
-                        webView.loadUrl("javascript:onRequestUidResult(" + UserData.getInstance().getUSERID() +")");
+                        String token =UserData.getInstance().getUSERID();
+                        webView.loadUrl("javascript:onRequestUidResult('" + token +"')");
                         break;
 
                     case INTERFACE_REQUEST_LOGIN:
@@ -127,10 +129,6 @@ public class WebViewActivity extends BaseActivity {
                     case INTERFACE_UPDATE_TITLE:
                         String title = (String)msg.obj;
                         actionBar.setTitle(title);
-                        break;
-
-                    case REMOVE_SHARE:
-                        actionBar.dissShareIcon();
                         break;
 
                     case INTERFACE_START_ACTIVITY:
@@ -409,13 +407,6 @@ public class WebViewActivity extends BaseActivity {
                 msg.what = INTERFACE_UPDATE_TITLE;
                 webInterfaceHandler.sendMessage(msg);
             }
-        }
-
-        @JavascriptInterface
-        public void removeShare() {
-                Message msg = new Message();
-                msg.what = REMOVE_SHARE;
-                webInterfaceHandler.sendMessage(msg);
         }
 
         /**

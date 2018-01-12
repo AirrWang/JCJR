@@ -17,6 +17,7 @@ public class Global {
     public static final int STATUS_CODE_SECOND = 2;
 
     public static final String RESULT_SUCCESS = "00";
+    public static final String RESULT_TOKEN_WRONG = "001";
 
     public static final String RESULT_CODE = "RSPCODE";
     public static final String RESULT_MESSAGE = "RSPMSG";

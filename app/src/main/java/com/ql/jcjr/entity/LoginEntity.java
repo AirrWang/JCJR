@@ -48,14 +48,14 @@ public class LoginEntity {
     }
 
     public static class ResultBean {
-        private String user_id;
+        private String token;
 
-        public String getUserId() {
-            return user_id;
+        public String getToken() {
+            return token;
         }
 
-        public void setUserId(String user_id) {
-            this.user_id = user_id;
+        public void setToken(String token) {
+            this.token = token;
         }
     }
 }

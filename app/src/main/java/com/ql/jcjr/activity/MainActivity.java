@@ -265,7 +265,7 @@ public class MainActivity extends BaseActivity
         final GestureLockViewGroup mGestureView =
                 (GestureLockViewGroup) view.findViewById(R.id.gesture_view);
         TextView mTvLogin = (TextView) view.findViewById(R.id.tv_login);
-
+        mGestureView.setUnMatchExceedBoundary(5);
         GlideUtil.displayPic(mContext, UserData.getInstance().getUserIconUrl(),
                 R.drawable.gesture_user_icon, mCircleImageView);
         mTvTel.setText("欢迎回来，"+StringUtils.getHidePhoneNum(UserData.getInstance().getPhoneNumber()));

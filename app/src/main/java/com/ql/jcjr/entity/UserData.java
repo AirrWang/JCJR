@@ -33,6 +33,14 @@ public class UserData {
         return SharedPreferencesUtils.getInstance().getString(SharedPreferencesUtils.KEY_PHONE_NUM, "");
     }
 
+    public void setUserName(String userName) {
+        SharedPreferencesUtils.getInstance().putString(SharedPreferencesUtils.KEY_USER_NAME, userName);
+    }
+
+    public String getUserName() {
+        return SharedPreferencesUtils.getInstance().getString(SharedPreferencesUtils.KEY_USER_NAME, "");
+    }
+
     public void setRealName(String realName) {
         SharedPreferencesUtils.getInstance().putString(SharedPreferencesUtils.KEY_REAL_NAME, realName);
     }

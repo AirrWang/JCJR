@@ -176,7 +176,7 @@ public class LoginActivity extends BaseActivity{
                 LogUtil.i("登录成功 " + responeJson);
                 LoginEntity entity = GsonParser.getParsedObj(responeJson, LoginEntity.class);
                 UserData.getInstance().setPhoneNumber(phone);
-                UserData.getInstance().setUSERID(entity.getResult().getUserId());
+                UserData.getInstance().setUSERID(entity.getResult().getToken());
                 //保存密码，以后token自登录时使用
                 savePswString();
 

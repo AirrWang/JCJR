@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ql.jcjr.R;
+import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.RealNameActivity;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.constant.AppConfig;
@@ -76,6 +77,27 @@ public class CommonToast extends Toast {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                        }
+                    });
+            dialog.create().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showTokenWrongDialog(final Context context, String s) {
+        try {
+            CommonDialog.Builder dialog = new CommonDialog.Builder(context);
+            dialog.setTitle(s);
+            dialog.setMessageSize(R.dimen.f03_34);
+            dialog.setCancelable(false);
+            dialog.setButtonTextSize(R.dimen.f03_34);
+            dialog.setPositiveButton(context.getString(R.string.submit),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(context,  LoginActivityCheck.class);
+                            context.startActivity(intent);
                         }
                     });
             dialog.create().show();

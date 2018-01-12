@@ -101,7 +101,7 @@ public class GestureLockViewGroup extends RelativeLayout{
     /**
      * 最大尝试次数
      */
-    private int mTryTimes = 4;
+    private int mTryTimes = 5;
     /**
      * 回调接口
      */

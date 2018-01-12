@@ -220,6 +220,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         UserData.getInstance().setRealName(mRealName);
 
                         UserData.getInstance().setIsSetPay(resultBean.getIssetPay());
+                        UserData.getInstance().setUserName(resultBean.getUsername());
                     }
 
                     @Override

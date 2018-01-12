@@ -44,19 +44,24 @@
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"
-                android:id="@+id/ithb_login_psw"
-                app:titleTextLess="登录密码"
-                app:rightTitleText="修改密码"/>
+                android:id="@+id/ithb_account_security"
+                app:titleTextLess="账户安全" />
 
-            <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                style="@style/ithb_no_left_icon"
-                android:id="@+id/ithb_trans_psw"
-                app:titleTextLess="交易密码" />
+            <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
+                <!--style="@style/ithb_no_left_icon"-->
+                <!--android:id="@+id/ithb_login_psw"-->
+                <!--app:titleTextLess="登录密码"-->
+                <!--app:rightTitleText="修改密码"/>-->
 
-            <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                style="@style/ithb_no_left_icon"
-                android:id="@+id/ithb_gesture_psw"
-                app:titleTextLess="手势密码" />
+            <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
+                <!--style="@style/ithb_no_left_icon"-->
+                <!--android:id="@+id/ithb_trans_psw"-->
+                <!--app:titleTextLess="交易密码" />-->
+
+            <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
+                <!--style="@style/ithb_no_left_icon"-->
+                <!--android:id="@+id/ithb_gesture_psw"-->
+                <!--app:titleTextLess="手势密码" />-->
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"
