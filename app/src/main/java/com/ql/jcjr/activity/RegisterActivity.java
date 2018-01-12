@@ -1,5 +1,6 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -93,6 +94,7 @@ public class RegisterActivity extends BaseActivity {
     /**
      * Handler
      */
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

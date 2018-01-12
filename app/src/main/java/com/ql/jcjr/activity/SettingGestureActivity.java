@@ -159,13 +159,13 @@ public class SettingGestureActivity extends BaseActivity implements
 
 
     private void showGestureDialog() {
-
+        mSwitch.setChecked(true);
         final Dialog dialog = new Dialog(this, R.style.DialogFullScreen);
         LayoutInflater inflater =
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.gesture_dialog, null);
         dialog.setContentView(view);
-        dialog.setCancelable(false);
+//        dialog.setCancelable(false);
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -196,21 +196,23 @@ public class SettingGestureActivity extends BaseActivity implements
                     @Override
                     public void onUnmatchedExceedBoundary() {
                         if(!isMatch) {
-                            mSwitch.setChecked(true);
                             dialog.dismiss();
                             CommonToast.makeCustomText(mContext, "解锁失败,暂时无法关闭");
+                            finish();
                         }
                     }
 
                     @Override
                     public void onFinshInput(List<Integer> mChoose, int tryTimes) {
                         if (mGestureView.checkAnswer(mChoose.toString(), UserData.getInstance().getGestureCipher())) {
+                            mSwitch.setChecked(false);
                             isMatch = true;
                             dialog.dismiss();
                             UserData.getInstance().setIsOpenGesture(false);
                             mDivider.setVisibility(View.GONE);
                             mLlSetting.setVisibility(View.GONE);
                             mTvDes.setText("开启后，进入积财金融需验证手势密码");
+                            finish();
                         } else {
                             isMatch = false;
                             mTvIndicator.setText("绘制错误，还可以输入" + tryTimes + "次");
