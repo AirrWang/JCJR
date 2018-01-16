@@ -102,7 +102,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "mumayi"]
         }
         oppo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo", app_name: "积财金融理财"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo", app_name: "积财金融-理财平台"]
         }
         meizu {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
