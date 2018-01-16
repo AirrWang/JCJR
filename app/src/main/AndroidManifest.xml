@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <!-- 6.0动态申请 -->
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>

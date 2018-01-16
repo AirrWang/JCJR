@@ -38,6 +38,34 @@
                 style="@style/ithb_no_left_icon"
                 android:id="@+id/ithb_gesture_psw"
                 app:titleTextLess="手势密码" />
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_finger_print"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_height"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/row_text_margin"
+                android:paddingRight="@dimen/row_text_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/text_s_m_c_b"
+                    android:text="指纹密码"/>
+
+                <Switch
+                    android:id="@+id/switch_finger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:switchMinWidth="@dimen/dimen_6px"
+                    android:thumb="@drawable/thumb_selector"
+                    android:track="@drawable/track_selector"
+                    android:textOn=" "
+                    android:textOff=" "/>
+
+            </LinearLayout>
 
 
 

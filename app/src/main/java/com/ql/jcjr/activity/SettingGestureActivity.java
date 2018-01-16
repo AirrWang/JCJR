@@ -205,7 +205,6 @@ public class SettingGestureActivity extends BaseActivity implements
                     @Override
                     public void onFinshInput(List<Integer> mChoose, int tryTimes) {
                         if (mGestureView.checkAnswer(mChoose.toString(), UserData.getInstance().getGestureCipher())) {
-                            mSwitch.setChecked(false);
                             isMatch = true;
                             dialog.dismiss();
                             UserData.getInstance().setIsOpenGesture(false);

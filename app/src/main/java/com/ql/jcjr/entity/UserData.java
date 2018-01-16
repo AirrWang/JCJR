@@ -151,4 +151,12 @@ public class UserData {
     public void setDay(int day) {
         SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.KEY_DAY, day);
     }
+
+    public void setFingerPrint(boolean isFinger) {
+        SharedPreferencesUtils.getInstance().putBoolean(SharedPreferencesUtils.KEY_IS_FINGER_PRINT, isFinger);
+    }
+
+    public boolean getFingerPrint() {
+        return SharedPreferencesUtils.getInstance().getBoolean(SharedPreferencesUtils.KEY_IS_FINGER_PRINT, false);
+    }
 }

@@ -49,6 +49,8 @@ public class SharedPreferencesUtils {
 
     public static final String KEY_HIDE_MY_MONEY = "hide_my_money";
 
+    public static final String KEY_IS_FINGER_PRINT = "is_finger_print";
+
     public static final String KEY_DAY = "day";
 
     private static SharedPreferencesUtils sharedPreferencesUtils;
