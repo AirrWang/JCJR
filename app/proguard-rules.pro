@@ -37,6 +37,8 @@
 -renamesourcefileattribute SourceFile
 #保留行号
 -keepattributes SourceFile,LineNumberTable
+ #混淆前后的映射
+-printmapping mapping.txt
 
 #保持 Serializable 不被混淆
 -keepnames class * implements java.io.Serializable

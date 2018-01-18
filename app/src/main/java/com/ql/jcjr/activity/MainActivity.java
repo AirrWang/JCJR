@@ -391,6 +391,8 @@ public class MainActivity extends BaseActivity
             permissionsNeeded.add("获取当前地理位置");
         if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
             permissionsNeeded.add("获取通讯录信息");
+        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
+            permissionsNeeded.add("系统提示");
 
         //存在未配置的权限
         if (permissionsList.size() > 0) {
@@ -459,6 +461,7 @@ public class MainActivity extends BaseActivity
                 perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.GET_ACCOUNTS, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.SYSTEM_ALERT_WINDOW,PackageManager.PERMISSION_GRANTED);
 
                 // 将第二个参数回传的所需权限及第三个参数回传的权限结果放入Map集合中，由于Map集合要求Key值不能重复，所以实际的权限结果将覆盖初始值
                 for (int i = 0; i < permissions.length; i++)
@@ -468,7 +471,8 @@ public class MainActivity extends BaseActivity
                 if (perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        && perms.get(Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED) {
+                        && perms.get(Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
+                        && perms.get(Manifest.permission.SYSTEM_ALERT_WINDOW) == PackageManager.PERMISSION_GRANTED) {
                     // All Permissions Granted
                 }
                 //否则弹出toast，告知用户需手动赋予权限
