@@ -420,8 +420,8 @@ public class GestureLockViewGroup extends RelativeLayout{
      */
     public boolean checkAnswer(String choose, String answer)
     {
-        LogUtil.i("checkAnswer choose" + choose.toString());
-        LogUtil.i("checkAnswer answer" + answer.toString());
+        LogUtil.i("checkAnswer choose" + choose);
+        LogUtil.i("checkAnswer answer" + answer);
         return choose.equals(answer);
     }
 

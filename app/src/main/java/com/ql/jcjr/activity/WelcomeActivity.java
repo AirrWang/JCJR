@@ -1,5 +1,6 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ public class WelcomeActivity extends Activity {
     /**
      * Handler
      */
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

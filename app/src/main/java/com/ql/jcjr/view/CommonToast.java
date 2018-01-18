@@ -17,6 +17,7 @@ import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.RealNameActivity;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.constant.AppConfig;
+import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.utils.LogUtil;
 
 /**
@@ -96,6 +97,7 @@ public class CommonToast extends Toast {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            UserData.getInstance().setUSERID("");
                             Intent intent = new Intent(context,  LoginActivityCheck.class);
                             context.startActivity(intent);
                         }

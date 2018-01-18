@@ -61,7 +61,24 @@ public class ParamsManager {
 
         return resultModel;
     }
+    /**
+     * 获取验证码
+     */
+    public static SenderResultModel senderGetVerifyCodeFirst(String phone, String url,String type) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("phone", phone);
+            object.put("type",type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        RequestParams params = SenderManager.buildRequestParams(object);
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, url);
+
+        return resultModel;
+    }
     /**
      * 注册 验证 验证码
      */
@@ -1072,6 +1089,23 @@ public class ParamsManager {
         }
         RequestParams params = SenderManager.buildRequestParams(object);
         SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.GET_MSG_HOME_INFO_URL);
+
+        return resultModel;
+    }
+
+    /**
+     * 资金统计
+     */
+    public static SenderResultModel getMyAccount() {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("userid", UserData.getInstance().getUSERID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.GET_MYACCOUNT_URL);
 
         return resultModel;
     }

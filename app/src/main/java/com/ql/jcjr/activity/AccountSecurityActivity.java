@@ -12,6 +12,7 @@ import android.support.v4.os.CancellationSignal;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -23,8 +24,14 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.entity.UserData;
+import com.ql.jcjr.utils.GlideUtil;
+import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.ImageTextHorizontalBarLess;
+import com.ql.jcjr.view.gesturecipher.GestureLockViewGroup;
+
+import java.util.List;
 
 /**
  * Created by Airr on 2018/1/11.
@@ -46,16 +53,19 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
     @ViewInject(R.id.ithb_trans_psw)
     private ImageTextHorizontalBarLess mTthbTransPsw;
 
-    @ViewInject(R.id.ithb_gesture_psw)
-    private ImageTextHorizontalBarLess mTthbGesturePsw;
-
     @ViewInject(R.id.switch_finger)
     private Switch switch_finger;
 
     @ViewInject(R.id.ll_finger_print)
     private LinearLayout ll_finger_print;
+
+    @ViewInject(R.id.switch_gesture)
+    private Switch switch_gesture;
+
     private TextView tv_status;
     private Dialog dialog;
+    private boolean mHasSet = false;
+    private boolean isMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +101,7 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
     }
 
     private void initView() {
-
+        getGesturePwd();
         manager=FingerprintManagerCompat.from(this);
         if (manager.isHardwareDetected()&&manager.hasEnrolledFingerprints()){
             ll_finger_print.setVisibility(View.VISIBLE);
@@ -110,15 +120,20 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
         }
 
         boolean isSetGesture = UserData.getInstance().getIsOpenGesture();
-        if(isSetGesture){
-            mTthbGesturePsw.setRightTitleText("已开启");
-            mTthbGesturePsw.setRightTitleColor(getResources().getColor(R.color.font_black));
-        }
-        else{
-            mTthbGesturePsw.setRightTitleText("未开启");
-            mTthbGesturePsw.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
-        }
+        switch_gesture.setChecked(isSetGesture);
 
+    }
+
+    private void getGesturePwd() {
+
+        String answer = UserData.getInstance().getGestureCipher();
+        if (StringUtils.isBlank(answer)) {
+//            mSettingType.setText("设置手势密码");
+            mHasSet = false;
+        } else {
+//            mSettingType.setText("修改手势密码");
+            mHasSet = true;
+        }
     }
 
     @Override
@@ -142,7 +157,7 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
     }
 
 
-    @OnClick({R.id.ithb_login_psw,R.id.ithb_trans_psw,R.id.ithb_gesture_psw,R.id.btn_left,R.id.switch_finger})
+    @OnClick({R.id.ithb_login_psw,R.id.ithb_trans_psw,R.id.btn_left,R.id.switch_finger,R.id.switch_gesture})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_left:
@@ -154,22 +169,24 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
                 break;
             case R.id.ithb_trans_psw:
                 Intent transPswIntent = new Intent();
-                switch (UserData.getInstance().getIsSetPay()) {
-                    case "0":
-                        transPswIntent.setClass(mContext, VerifyLoginPwdActivity.class);
-                        startActivity(transPswIntent);
-                        break;
-                    case "1":
-                        transPswIntent.setClass(mContext, VerifyPayPswActivity.class);
-                        startActivity(transPswIntent);
-                        break;
-                }
+                transPswIntent.setClass(mContext, SetPayPwdActivity.class);
+                startActivity(transPswIntent);
+//                switch (UserData.getInstance().getIsSetPay()) {
+//                    case "0":
+//                        transPswIntent.setClass(mContext, VerifyLoginPwdActivity.class);
+//                        startActivity(transPswIntent);
+//                        break;
+//                    case "1":
+//                        transPswIntent.setClass(mContext, VerifyPayPswActivity.class);
+//                        startActivity(transPswIntent);
+//                        break;
+//                }
                 break;
-            case R.id.ithb_gesture_psw:
-                Intent gestureIntent = new Intent(mContext, SettingGestureActivity.class);
-//                gestureIntent.putExtra("user_icon_url", mUserIconUrl);
-                startActivityForResult(gestureIntent, CODE_GESTURE);
-                break;
+//            case R.id.ithb_gesture_psw:
+//                Intent gestureIntent = new Intent(mContext, SettingGestureActivity.class);
+////                gestureIntent.putExtra("user_icon_url", mUserIconUrl);
+//                startActivityForResult(gestureIntent, CODE_GESTURE);
+//                break;
             case R.id.switch_finger:
                 boolean b=UserData.getInstance().getFingerPrint();
                 if (b){
@@ -178,8 +195,24 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
                 }else {
                     showFingerDialog(b);
                 }
-                default:
-                    break;
+
+            case R.id.switch_gesture:
+                if (!UserData.getInstance().getIsOpenGesture()) {
+                    if (!mHasSet) {
+                        Intent intent = new Intent(mContext, GestureCipherActivity.class);
+                        intent.putExtra("user_icon_url", getIntent().getStringExtra("user_icon_url"));
+                        startActivity(intent);
+                    } else {
+                        UserData.getInstance().setIsOpenGesture(true);
+                    }
+
+                } else {
+                    showGestureDialog();
+
+                }
+            default:
+                break;
+
 
         }
 
@@ -188,27 +221,27 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
     private void showFingerDialog(boolean b) {
         switch_finger.setChecked(b);
         dialog = new Dialog(this, R.style.CommonDialog);
-        LayoutInflater inflater =
-                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.finger_dialog, null);
+    LayoutInflater inflater =
+            (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View view = inflater.inflate(R.layout.finger_dialog, null);
         dialog.setContentView(view);
         dialog.setCancelable(false);
         dialog.show();
-        tv_status = (TextView) view.findViewById(R.id.tv_status);
-        Button btn_dis= (Button) view.findViewById(R.id.btn_dis);
+    tv_status = (TextView) view.findViewById(R.id.tv_status);
+    Button btn_dis= (Button) view.findViewById(R.id.btn_dis);
         handler.sendEmptyMessage(RESTART_FINGER_PRINT);
 //        manager.authenticate(null, 0, mCancellationSignal, new MyCallBack(), null);
 
 
         btn_dis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                mCancellationSignal.cancel();
-            }
-        });
-    }
-    private int a =4;
+        @Override
+        public void onClick(View view) {
+            dialog.dismiss();
+            mCancellationSignal.cancel();
+        }
+    });
+}
+    private int a =5;
 
     private class MyCallBack extends FingerprintManagerCompat.AuthenticationCallback {
         private static final String TAG = "MyCallBack";
@@ -253,5 +286,66 @@ public class AccountSecurityActivity extends BaseActivity implements  View.OnCli
             UserData.getInstance().setFingerPrint(!a);
             handler.sendEmptyMessage(CHANGE_STATE);
         }
+    }
+
+    private void showGestureDialog() {
+        switch_gesture.setChecked(true);
+        final Dialog dialog = new Dialog(this, R.style.DialogFullScreen);
+        LayoutInflater inflater =
+                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.gesture_dialog, null);
+        dialog.setContentView(view);
+//        dialog.setCancelable(false);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        CircleImageView mCircleImageView = (CircleImageView) view.findViewById(R.id.user_icon);
+        TextView mTvTel = (TextView) view.findViewById(R.id.tv_phone_num);
+        final TextView mTvIndicator = (TextView) view.findViewById(R.id.tv_indicator);
+        final GestureLockViewGroup mGestureView =
+                (GestureLockViewGroup) view.findViewById(R.id.gesture_view);
+        TextView mTvLogin = (TextView) view.findViewById(R.id.tv_login);
+        mTvLogin.setVisibility(View.GONE);
+        mGestureView.setUnMatchExceedBoundary(5);
+        GlideUtil.displayPic(mContext, UserData.getInstance().getUserIconUrl(),
+                R.drawable.gesture_user_icon, mCircleImageView);
+        mTvTel.setText(""+StringUtils.getHidePhoneNum(UserData.getInstance().getPhoneNumber()));
+
+        mGestureView.setOnGestureLockViewListener(
+                new GestureLockViewGroup.OnGestureLockViewListener() {
+                    @Override
+                    public void onBlockSelected(int cId) {
+
+                    }
+
+                    @Override
+                    public void onGestureEvent(boolean matched) {
+
+                    }
+
+                    @Override
+                    public void onUnmatchedExceedBoundary() {
+                        if(!isMatch) {
+                            dialog.dismiss();
+                            CommonToast.makeCustomText(mContext, "解锁失败,暂时无法关闭");
+                        }
+                    }
+
+                    @Override
+                    public void onFinshInput(List<Integer> mChoose, int tryTimes) {
+                        if (mGestureView.checkAnswer(mChoose.toString(), UserData.getInstance().getGestureCipher())) {
+                            isMatch = true;
+                            dialog.dismiss();
+                            UserData.getInstance().setIsOpenGesture(false);
+                            UserData.getInstance().setGestureCipher("");
+                            initView();
+                        } else {
+                            isMatch = false;
+                            mTvIndicator.setText("绘制错误，还可以输入" + tryTimes + "次");
+                            mTvIndicator.setTextColor(getResources().getColor(R.color.red));
+                        }
+                        mGestureView.reset();
+                    }
+                });
     }
 }

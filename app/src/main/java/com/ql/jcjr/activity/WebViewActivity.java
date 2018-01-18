@@ -437,7 +437,7 @@ public class WebViewActivity extends BaseActivity {
             //判断是否有登陆记录
             String uid = UserData.getInstance().getUSERID();
             if(null != uid && uid.length()>0){
-                webView.loadUrl("javascript:onRequestUidResult(" + uid +")");
+                webView.loadUrl("javascript:onRequestUidResult('" + uid +"')");
             }
 
         }

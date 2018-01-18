@@ -34,18 +34,14 @@ public class ChangePasswordActivity extends BaseActivity {
     private CancelEditTextWhite mOldPswET;
     @ViewInject(R.id.et_new_psw)
     private CancelEditTextWhite mNewPswET;
-    @ViewInject(R.id.et_confirm_psw)
-    private CancelEditTextWhite mConfirmPswET;
     @ViewInject(R.id.btn_confirm_change)
     private Button mConfirmChange;
 
     private Context mContext;
     private String mOldPwd;
     private String mNewPwd;
-    private String mConfirmPwd;
     private boolean isPswShow = false;
     private boolean isPswShow2 = false;
-    private boolean isPswShow3 = false;
 
     private static final int HANDLER_CHANGE_SUCCESS = 0;
 
@@ -138,44 +134,11 @@ public class ChangePasswordActivity extends BaseActivity {
             }
         });
 
-        mConfirmPswET.getCancelEditText().setTransformationMethod(
-                PasswordTransformationMethod.getInstance());
-
-        mConfirmPswET.setOnCancelEditEventListener(new CancelEditTextWhite.CancelEditEventListener() {
-            @Override
-            public void onCancelFocusChange(boolean hasFocus) {
-            }
-
-            @Override
-            public void onClickRightExtraTextView() {
-            }
-
-            @Override
-            public void onClickRightExtraImageView() {
-                if (!isPswShow3) {
-                    isPswShow3 = true;
-                    mConfirmPswET.getCancelEditText()
-                            .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    mConfirmPswET.setRightExtraImageIcon(R.drawable.show_psw_pressed_1);
-                } else {
-                    isPswShow3 = false;
-                    mConfirmPswET.getCancelEditText()
-                            .setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    mConfirmPswET.setRightExtraImageIcon(R.drawable.show_psw_normal_1);
-                }
-                mConfirmPswET.getCancelEditText().setSelection(
-                        mConfirmPswET.getEditTextContent().length());
-            }
-        });
-
-
-
     }
 
     private boolean checkInfo() {
         mOldPwd = mOldPswET.getEditTextContent().toString().trim();
         mNewPwd = mNewPswET.getEditTextContent().toString().trim();
-        mConfirmPwd = mConfirmPswET.getEditTextContent().toString().trim();
         if(StringUtils.isBlank(mOldPwd)) {
             CommonToast.showHintDialog(mContext,"请输入原密码！");
             return false;
@@ -184,15 +147,11 @@ public class ChangePasswordActivity extends BaseActivity {
             CommonToast.showHintDialog(mContext,"请输入新密码！");
             return false;
         }
-        if(!mNewPwd.equals(mConfirmPwd)) {
-            CommonToast.showHintDialog(mContext,"两次密码不一致！");
-            return false;
-        }
         return true;
     }
 
     public void changePsw() {
-        SenderResultModel resultModel = ParamsManager.senderChangeLoginPwd(mOldPwd, mNewPwd, mConfirmPwd);
+        SenderResultModel resultModel = ParamsManager.senderChangeLoginPwd(mOldPwd, mNewPwd, mNewPwd);
 
         HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
 

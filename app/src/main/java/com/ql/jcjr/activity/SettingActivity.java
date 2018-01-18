@@ -318,6 +318,8 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 UserData.getInstance().setUSERID("");
+                UserData.getInstance().setFingerPrint(false);
+                UserData.getInstance().setIsOpenGesture(false);
                 savePswString("");
                 finish();
             }

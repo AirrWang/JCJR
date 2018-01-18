@@ -12,11 +12,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +74,8 @@ public class MainActivity extends BaseActivity
     private final static int IDEX_HOME_PAGE = 0;
     private final static int INDEX_ME = 2;
     private final static int INDEX_MORE = 3;
+    private FingerprintManagerCompat manager;
+    private CancellationSignal mCancellationSignal;
     @ViewInject(R.id.viewpager)
     public ViewPager mViewPager;
     @ViewInject(R.id.bottom_tab)
@@ -95,6 +101,9 @@ public class MainActivity extends BaseActivity
             R.string.manage_money_title,
             R.string.me_title
     };
+    private TextView tv_status;
+    private Dialog dialog;
+    private Dialog dialogGesture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +123,74 @@ public class MainActivity extends BaseActivity
         dealPush(getIntent());
     }
 
+    private void showFingerDialog() {
+        manager=FingerprintManagerCompat.from(this);
+        mCancellationSignal = new CancellationSignal();
+
+        dialog = new Dialog(this, R.style.CommonDialog);
+        LayoutInflater inflater =
+                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.finger_dialog, null);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+        dialog.show();
+        tv_status = (TextView) view.findViewById(R.id.tv_status);
+        Button btn_dis= (Button) view.findViewById(R.id.btn_dis);
+        manager.authenticate(null, 0, mCancellationSignal, new MyCallBack(), null);
+
+
+        btn_dis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                mCancellationSignal.cancel();
+                if (dialogGesture==null){
+                    //TODO 操作待写
+                }
+            }
+        });
+
+    }
+    private class MyCallBack extends FingerprintManagerCompat.AuthenticationCallback {
+        private static final String TAG = "MyCallBack";
+        private int a =5;
+
+        // 当出现错误的时候回调此函数，比如多次尝试都失败了的时候，errString是错误信息
+        @Override
+        public void onAuthenticationError(int errMsgId, CharSequence errString) {
+            Log.d(TAG, "onAuthenticationError: " + errString);
+        }
+
+        // 当指纹验证失败的时候会回调此函数，失败之后允许多次尝试，失败次数过多会停止响应一段时间然后再停止sensor的工作
+        @Override
+        public void onAuthenticationFailed() {
+            Log.d(TAG, "onAuthenticationFailed: " + "验证失败");
+            tv_status.setText("再试一次");
+            a--;
+            if (a==0 ){
+                dialog.dismiss();
+                mCancellationSignal.cancel();
+                CommonToast.showHintDialog(mContext,"指纹验证失败");
+            }
+        }
+
+        @Override
+        public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+            Log.d(TAG, "onAuthenticationHelp: " + helpString);
+        }
+
+        // 当验证的指纹成功时会回调此函数，然后不再监听指纹sensor
+        @Override
+        public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult
+                                                      result) {
+            Log.d(TAG, "onAuthenticationSucceeded: " + "验证成功");
+            dialog.dismiss();
+            if (dialogGesture!=null) {
+                dialogGesture.dismiss();
+            }
+            mCancellationSignal.cancel();
+        }
+    }
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -240,6 +317,9 @@ public class MainActivity extends BaseActivity
         if (UserData.getInstance().isLogin() && UserData.getInstance().getIsOpenGesture()) {
             showGestureDialog();
         }
+        if (UserData.getInstance().isLogin() && UserData.getInstance().getFingerPrint()) {
+            showFingerDialog();
+        }
     }
 
 //    public void setCurrentItem(int index){
@@ -250,14 +330,14 @@ public class MainActivity extends BaseActivity
 
     private void showGestureDialog() {
 
-        final Dialog dialog = new Dialog(this, R.style.DialogFullScreen);
+        dialogGesture = new Dialog(this, R.style.DialogFullScreen);
         LayoutInflater inflater =
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.gesture_dialog, null);
-        dialog.setContentView(view);
-        dialog.setCancelable(false);
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialogGesture.setContentView(view);
+        dialogGesture.setCancelable(false);
+        dialogGesture.show();
+        dialogGesture.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         CircleImageView mCircleImageView = (CircleImageView) view.findViewById(R.id.user_icon);
         TextView mTvTel = (TextView) view.findViewById(R.id.tv_phone_num);
@@ -285,10 +365,11 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onUnmatchedExceedBoundary() {
                         if(!isMatch) {
-                            dialog.dismiss();
+                            dialogGesture.dismiss();
                             CommonToast.makeCustomText(mContext, "解锁失败，重新登录");
                             UserData.getInstance().setUSERID("");
                             UserData.getInstance().setIsOpenGesture(false);
+                            //TODO 指纹解锁关掉
                             UserData.getInstance().setGestureCipher("");
                             Intent intent = new Intent(mContext, LoginActivityCheck.class);
                             startActivity(intent);
@@ -299,7 +380,7 @@ public class MainActivity extends BaseActivity
                     public void onFinshInput(List<Integer> mChoose, int tryTimes) {
                         if (mGestureView.checkAnswer(mChoose.toString(), UserData.getInstance().getGestureCipher())) {
                             isMatch = true;
-                            dialog.dismiss();
+                            dialogGesture.dismiss();
                         } else {
                             isMatch = false;
                             mTvIndicator.setText("绘制错误，还可以输入" + tryTimes + "次");
@@ -313,7 +394,7 @@ public class MainActivity extends BaseActivity
         mTvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialogGesture.dismiss();
                 UserData.getInstance().setUSERID("");
                 UserData.getInstance().setIsOpenGesture(false);
                 UserData.getInstance().setGestureCipher("");
@@ -391,6 +472,8 @@ public class MainActivity extends BaseActivity
             permissionsNeeded.add("获取当前地理位置");
         if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
             permissionsNeeded.add("获取通讯录信息");
+        if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
+            permissionsNeeded.add("获取手机指纹信息");
 
         //存在未配置的权限
         if (permissionsList.size() > 0) {

@@ -325,6 +325,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.AccountSecurityActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CapitalStatisticsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SetPayPwdActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

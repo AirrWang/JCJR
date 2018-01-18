@@ -172,4 +172,7 @@ public class RequestURL {
 
     //获取消息中心信息
     public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";
+
+    //资金统计
+    public static final String GET_MYACCOUNT_URL = SERVICE_URL + "myAccount";
 }
