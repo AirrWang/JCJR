@@ -1,5 +1,6 @@
 package com.ql.jcjr.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -37,6 +38,7 @@ import java.util.concurrent.TimeUnit;
 public class IndicatorView extends FrameLayout {
     private final int RUNNING = 1;
     private final int STOP = 2;
+    @SuppressLint("HandlerLeak")
     private Handler autoHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -61,8 +63,10 @@ public class IndicatorView extends FrameLayout {
     private RelativeLayout dotRelativeLayout;
     private Context context;
     private int id;
-    private int normalDotRes = R.drawable.dot_cc_16px;
-    private int selectedDotRes = R.drawable.dot_24b279_15px;
+//    private int normalDotRes = R.drawable.dot_cc_16px;
+//    private int selectedDotRes = R.drawable.dot_24b279_15px;
+    private int normalDotRes = R.drawable.unselected_banner;
+    private int selectedDotRes = R.drawable.selected_banner;
     private ScheduledExecutorService autoService;
     private int currentAutoIndex = -1;
     private int preState = 0;
@@ -255,7 +259,7 @@ public class IndicatorView extends FrameLayout {
 
         if (typed.hasValue(R.styleable.IndicatorView_dots_layout_marginBottom)) {
             dotsMarginBottom = typed.getDimensionPixelSize(R.styleable.IndicatorView_dots_layout_alignParentBottom,
-                    (int)getResources().getDimension(R.dimen.dot_margin_bottom));
+                    (int)getResources().getDimension(R.dimen.dimen_30px));
         }
 
         if (typed.hasValue(R.styleable.IndicatorView_dots_layout_marginTop)) {
@@ -365,11 +369,11 @@ public class IndicatorView extends FrameLayout {
      */
     private void addImageIndicator(int position) {
         dotView = new ImageView(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.dimen_20px),
 
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
+                context.getResources().getDimensionPixelSize(R.dimen.dimen_4px));
         params.gravity = Gravity.CENTER_HORIZONTAL;
-        params.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dot_offset);
+        params.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.dot_margin_bottom);
 
         if (dotLayoutBottomMargin <= 0) {
             params.bottomMargin = 0;
@@ -383,6 +387,7 @@ public class IndicatorView extends FrameLayout {
         }
 
         dotView.setLayoutParams(params);
+        dotView.setScaleType(ImageView.ScaleType.CENTER);
         if (position == 0) {
             dotView.setImageResource(selectedDotRes);
         } else {

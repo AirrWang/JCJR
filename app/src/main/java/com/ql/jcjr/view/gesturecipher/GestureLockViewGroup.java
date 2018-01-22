@@ -306,11 +306,12 @@ public class GestureLockViewGroup extends RelativeLayout{
 
                 mPaint.setColor(mFingerUpColor);
                 mPaint.setAlpha(50);
-                this.mTryTimes--;
+
 
                 // 回调是否成功
                 if (mOnGestureLockViewListener != null && mChoose.size() > 0)
                 {
+                    this.mTryTimes--;
                     mOnGestureLockViewListener.onFinshInput(mChoose, mTryTimes);
 //                    mOnGestureLockViewListener.onGestureEvent(checkAnswer());
                     if (this.mTryTimes == 0)
@@ -320,7 +321,7 @@ public class GestureLockViewGroup extends RelativeLayout{
                 }
 
                 Log.e(TAG, "mUnMatchExceedBoundary = " + mTryTimes);
-                Log.e(TAG, "mChoose = " + mChoose);
+                Log.e(TAG, "mChoose = " + mChoose.size());
                 // 将终点设置位置为起点，即取消指引线
                 mTmpTarget.x = mLastPathX;
                 mTmpTarget.y = mLastPathY;
