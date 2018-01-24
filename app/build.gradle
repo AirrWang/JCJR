@@ -90,7 +90,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
         }
         zs360 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zs360"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zs360", app_name: "积财金融-理财平台"]
         }
         tencent {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tencent"]
