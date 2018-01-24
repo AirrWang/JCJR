@@ -564,8 +564,8 @@ public class MainActivity extends BaseActivity
             permissionsNeeded.add("获取当前地理位置");
         if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
             permissionsNeeded.add("获取通讯录信息");
-        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
-            permissionsNeeded.add("获取应用提示");
+//        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
+//            permissionsNeeded.add("获取应用提示");
         if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
             permissionsNeeded.add("获取手机指纹信息");
 
