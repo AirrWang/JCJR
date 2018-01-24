@@ -84,6 +84,7 @@ public class RedPacketEntityNew {
             private String remark;
             private String status;
             private int use_day;
+            private String newsign;
 
             public String getCashMoney() {
                 return cashMoney;
@@ -163,6 +164,14 @@ public class RedPacketEntityNew {
 
             public void setUse_day(int use_day) {
                 this.use_day = use_day;
+            }
+
+            public String getNewsign() {
+                return newsign;
+            }
+
+            public void setNewsign(String newsign) {
+                this.newsign = newsign;
             }
         }
 

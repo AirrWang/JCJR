@@ -86,6 +86,12 @@ public class RedPacketAdapterNew extends BaseAdapter {
         viewHolder.mTvUseCondition.setText(bean.getRemark().replace(",","\n"));
         viewHolder.mTvValidTerm.setText(bean.getLasttime());
         viewHolder.mTvLastTime.setText("剩余"+bean.getUse_day()+"天过期");
+        if (bean.getNewsign().equals("1")){
+            viewHolder.mIvSignNew.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.mIvSignNew.setVisibility(View.GONE);
+        }
+
 
         switch (mStatus){
             case Global.STATUS_AVAILABLE:
@@ -151,5 +157,8 @@ public class RedPacketAdapterNew extends BaseAdapter {
 
         @ViewInject(R.id.iv_status)
         ImageView mIvStatus;
+
+        @ViewInject(R.id.iv_sign_new)
+        ImageView mIvSignNew;
     }
 }

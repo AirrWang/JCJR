@@ -98,6 +98,8 @@ public class CommonToast extends Toast {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             UserData.getInstance().setUSERID("");
+                            UserData.getInstance().setFingerPrint(false);
+                            UserData.getInstance().setIsOpenGesture(false);
                             Intent intent = new Intent(context,  LoginActivityCheck.class);
                             context.startActivity(intent);
                         }
