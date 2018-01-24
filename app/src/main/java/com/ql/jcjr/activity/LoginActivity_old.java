@@ -264,7 +264,7 @@ public class LoginActivity_old extends BaseActivity implements CompoundButton.On
                 LogUtil.i("登录成功 " + responeJson);
                 LoginEntity entity = GsonParser.getParsedObj(responeJson, LoginEntity.class);
                 UserData.getInstance().setPhoneNumber(phone);
-                UserData.getInstance().setUSERID(entity.getResult().getUserId());
+                UserData.getInstance().setUSERID(entity.getResult().getToken());
 //                setResult(RESULT_OK);
                 savePswString();
 

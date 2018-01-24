@@ -34,6 +34,7 @@ public class SharedPreferencesUtils {
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_USER_ICON_URL= "user_icon_url";
     public static final String KEY_REAL_NAME = "real_name";
+    public static final String KEY_USER_NAME = "user_name";
     public static final String KEY_IS_SET_PAY= "is_set_pay";
     public static final String KEY_IS_OPEN_GESTURE= "is_open_gesture";
     public static final String KEY_GESTURE_CIPHER = "gesture_cipher";
@@ -47,6 +48,8 @@ public class SharedPreferencesUtils {
     public static final String KEY_MSG_NUM_NOTICE = "msg_num_notice";
 
     public static final String KEY_HIDE_MY_MONEY = "hide_my_money";
+
+    public static final String KEY_IS_FINGER_PRINT = "is_finger_print";
 
     public static final String KEY_DAY = "day";
 

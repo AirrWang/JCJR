@@ -1,6 +1,7 @@
 package com.ql.jcjr.http;
 
 import com.lidroid.xutils.http.RequestParams;
+import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.utils.LogUtil;
 
 import org.json.JSONException;
@@ -52,11 +53,12 @@ public class SenderManager {
     }
 
     public static RequestParams buildRequestParams(JSONObject jsonObject) {
-//        try {
-//            jsonObject.put("token", "1");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        String token= UserData.getInstance().getUSERID();
+        try {
+            jsonObject.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         LogUtil.i("请求参数 " + jsonObject.toString());
         RequestParams params = new RequestParams();
 //        String content = RSAEncrypt.encryptData(jsonObject.toString());

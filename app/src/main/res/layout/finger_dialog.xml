@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+    <ImageView
+        android:layout_marginTop="@dimen/dimen_40px"
+        android:layout_width="@dimen/dimen_68px"
+        android:src="@drawable/touchid"
+        android:layout_height="@dimen/dimen_68px" />
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_marginTop="@dimen/dimen_36px"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/dimen_32px"
+        android:textColor="@color/font_black"
+        android:layout_height="wrap_content"
+        android:text="积财金融Touch ID"/>
+    <TextView
+        android:id="@+id/tv_1"
+
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_25px"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/dimen_24px"
+        android:textColor="@color/font_black"
+        android:layout_height="wrap_content"
+        android:text="将手指放于Home键以启用指纹密码"/>
+    <View
+        android:layout_marginTop="@dimen/dimen_48px"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2px"
+        android:background="#DFDEDD" />
+    <Button
+        android:id="@+id/btn_dis"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:text="取消"
+        android:textSize="@dimen/dimen_30px"
+        android:textColor="@color/font_black"
+        android:layout_height="@dimen/dimen_100px" />
+
+
+</LinearLayout>

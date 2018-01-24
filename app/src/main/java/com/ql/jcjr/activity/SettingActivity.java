@@ -51,14 +51,17 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(R.id.ithb_bank)
     private ImageTextHorizontalBarLess mTthbBank;
 
-    @ViewInject(R.id.ithb_login_psw)
-    private ImageTextHorizontalBarLess mTthbLoginPsw;
+    @ViewInject(R.id.ithb_account_security)
+    private ImageTextHorizontalBarLess mSecurity;
 
-    @ViewInject(R.id.ithb_trans_psw)
-    private ImageTextHorizontalBarLess mTthbTransPsw;
+//    @ViewInject(R.id.ithb_login_psw)
+//    private ImageTextHorizontalBarLess mTthbLoginPsw;
 
-    @ViewInject(R.id.ithb_gesture_psw)
-    private ImageTextHorizontalBarLess mTthbGesturePsw;
+//    @ViewInject(R.id.ithb_trans_psw)
+//    private ImageTextHorizontalBarLess mTthbTransPsw;
+//
+//    @ViewInject(R.id.ithb_gesture_psw)
+//    private ImageTextHorizontalBarLess mTthbGesturePsw;
 
     @ViewInject(R.id.ithb_about_us)
     private ImageTextHorizontalBarLess mTthbAboutUs;
@@ -92,19 +95,7 @@ public class SettingActivity extends BaseActivity {
             needLoadInfo = false;
             getMineFragmentData();
         }
-        initGestureInfo();
-    }
-
-    private void initGestureInfo(){
-        boolean isSetGesture = UserData.getInstance().getIsOpenGesture();
-        if(isSetGesture){
-            mTthbGesturePsw.setRightTitleText("已开启");
-            mTthbGesturePsw.setRightTitleColor(getResources().getColor(R.color.font_black));
-        }
-        else{
-            mTthbGesturePsw.setRightTitleText("未开启");
-            mTthbGesturePsw.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
-        }
+//        initGestureInfo();
     }
 
     private void init() {
@@ -151,16 +142,17 @@ public class SettingActivity extends BaseActivity {
                             mTthbBank.setRightTitleColor(getResources().getColor(R.color.font_black));
                         }
                         //交易密码
-                        if(resultBean.getIssetPay().equals("0")){
-                            hasSetTransPwd = false;
-                            mTthbTransPsw.setRightTitleText("未设置");
-                            mTthbTransPsw.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
-                        }
-                        else{
-                            hasSetTransPwd = true;
-                            mTthbTransPsw.setRightTitleText("修改密码");
-                            mTthbTransPsw.setRightTitleColor(getResources().getColor(R.color.font_black));
-                        }
+//                        if(resultBean.getIssetPay().equals("0")){
+//                            UserData.getInstance().setHasSetTransPwd(false);
+//                            hasSetTransPwd = false;
+//                            mTthbTransPsw.setRightTitleText("未设置");
+//                            mTthbTransPsw.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
+//                        }else{
+//                            UserData.getInstance().setHasSetTransPwd(true);
+//                            hasSetTransPwd = true;
+//                            mTthbTransPsw.setRightTitleText("修改密码");
+//                            mTthbTransPsw.setRightTitleColor(getResources().getColor(R.color.font_black));
+//                        }
 
                         UserData.getInstance().setRealName(resultBean.getRealname());
                         UserData.getInstance().setIsSetPay(resultBean.getIssetPay());
@@ -226,7 +218,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     @OnClick({
-            R.id.btn_left, R.id.ithb_real_name, R.id.ithb_login_psw, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_gesture_psw, R.id.ithb_about_us, R.id.ithb_feedback
+            R.id.btn_left, R.id.ithb_real_name, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_about_us, R.id.ithb_feedback,R.id.ithb_account_security
     })
     public void onClick(View v) {
         switch (v.getId()) {
@@ -240,26 +232,26 @@ public class SettingActivity extends BaseActivity {
                 Intent realNameIntent = new Intent(mContext, RealNameActivity.class);
                 startActivity(realNameIntent);
                 break;
-            case R.id.ithb_login_psw:
-                Intent loginPswIntent = new Intent(mContext, ChangePasswordActivity.class);
-                startActivityForResult(loginPswIntent, CODE_CHANGE_LOGIN_PWD);
-                break;
-            case R.id.ithb_trans_psw:
-                if(!hasSetTransPwd){
-                    needLoadInfo = true;
-                }
-                Intent transPswIntent = new Intent();
-                switch (UserData.getInstance().getIsSetPay()) {
-                    case "0":
-                        transPswIntent.setClass(mContext, VerifyLoginPwdActivity.class);
-                        startActivity(transPswIntent);
-                        break;
-                    case "1":
-                        transPswIntent.setClass(mContext, VerifyPayPswActivity.class);
-                        startActivity(transPswIntent);
-                        break;
-                }
-                break;
+//            case R.id.ithb_login_psw:
+//                Intent loginPswIntent = new Intent(mContext, ChangePasswordActivity.class);
+//                startActivityForResult(loginPswIntent, CODE_CHANGE_LOGIN_PWD);
+//                break;
+//            case R.id.ithb_trans_psw:
+//                if(!hasSetTransPwd){
+//                    needLoadInfo = true;
+//                }
+//                Intent transPswIntent = new Intent();
+//                switch (UserData.getInstance().getIsSetPay()) {
+//                    case "0":
+//                        transPswIntent.setClass(mContext, VerifyLoginPwdActivity.class);
+//                        startActivity(transPswIntent);
+//                        break;
+//                    case "1":
+//                        transPswIntent.setClass(mContext, VerifyPayPswActivity.class);
+//                        startActivity(transPswIntent);
+//                        break;
+//                }
+//                break;
             case R.id.ithb_bank:
                 if(!hasBindBank){
                     needLoadInfo = true;
@@ -272,14 +264,18 @@ public class SettingActivity extends BaseActivity {
                     startActivity(bankIntent);
                 }
                 break;
+            case R.id.ithb_account_security:
+                Intent securityIntent = new Intent(mContext, AccountSecurityActivity.class);
+                startActivityForResult(securityIntent,CODE_CHANGE_LOGIN_PWD);
+                break;
             case R.id.tv_exit:
                 showExitDialog();
                 break;
-            case R.id.ithb_gesture_psw:
-                Intent gestureIntent = new Intent(mContext, SettingGestureActivity.class);
-                gestureIntent.putExtra("user_icon_url", mUserIconUrl);
-                startActivityForResult(gestureIntent, CODE_GESTURE);
-                break;
+//            case R.id.ithb_gesture_psw:
+//                Intent gestureIntent = new Intent(mContext, SettingGestureActivity.class);
+//                gestureIntent.putExtra("user_icon_url", mUserIconUrl);
+//                startActivityForResult(gestureIntent, CODE_GESTURE);
+//                break;
 
             case R.id.ithb_about_us:
                 Intent aboutUsIntent = new Intent(mContext, AboutUsActivity.class);
@@ -322,6 +318,8 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 UserData.getInstance().setUSERID("");
+                UserData.getInstance().setFingerPrint(false);
+                UserData.getInstance().setIsOpenGesture(false);
                 savePswString("");
                 finish();
             }

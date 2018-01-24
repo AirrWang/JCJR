@@ -33,6 +33,14 @@ public class UserData {
         return SharedPreferencesUtils.getInstance().getString(SharedPreferencesUtils.KEY_PHONE_NUM, "");
     }
 
+    public void setUserName(String userName) {
+        SharedPreferencesUtils.getInstance().putString(SharedPreferencesUtils.KEY_USER_NAME, userName);
+    }
+
+    public String getUserName() {
+        return SharedPreferencesUtils.getInstance().getString(SharedPreferencesUtils.KEY_USER_NAME, "");
+    }
+
     public void setRealName(String realName) {
         SharedPreferencesUtils.getInstance().putString(SharedPreferencesUtils.KEY_REAL_NAME, realName);
     }
@@ -142,5 +150,13 @@ public class UserData {
 
     public void setDay(int day) {
         SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.KEY_DAY, day);
+    }
+
+    public void setFingerPrint(boolean isFinger) {
+        SharedPreferencesUtils.getInstance().putBoolean(SharedPreferencesUtils.KEY_IS_FINGER_PRINT, isFinger);
+    }
+
+    public boolean getFingerPrint() {
+        return SharedPreferencesUtils.getInstance().getBoolean(SharedPreferencesUtils.KEY_IS_FINGER_PRINT, false);
     }
 }

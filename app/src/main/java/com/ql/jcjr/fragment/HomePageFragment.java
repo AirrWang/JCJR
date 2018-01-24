@@ -1,5 +1,6 @@
 package com.ql.jcjr.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -136,7 +137,7 @@ public class HomePageFragment extends BaseFragment{
         /**
          * 创建广告活动管理对象
          */
-        final AdManager adManager = new AdManager(getActivity(), advList);
+        final AdManager adManager = new AdManager((Activity) mContext, advList);
         adManager.setOverScreen(true)
                 .setWidthPerHeight(0.73f)
                 .setPageTransformer(new DepthPageTransformer());

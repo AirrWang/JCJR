@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -43,6 +44,8 @@ public class JcbApplication extends Application {
 
     public static Context appContext;
     private static JcbApplication sInstance;
+    public static final String HAS_FINGERPRINT_API = "hasFingerPrintApi";
+    public static final String SETTINGS = "settings";
     public List<Activity> activityManager; // 管理Activity栈
     private Context currentActivity = null;//当前activity
     private NetworkChangedReceiver networkChangedReceiver = null;
@@ -257,6 +260,21 @@ public class JcbApplication extends Application {
         initDisplayOpinion();
 
         Fresco.initialize(this);
+
+        SharedPreferences sp = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        if (sp.contains(HAS_FINGERPRINT_API)) { // 检查是否存在该值，不必每次都通过反射来检查
+            return;
+        }
+        SharedPreferences.Editor editor = sp.edit();
+        try {
+            Class.forName("android.hardware.fingerprint.FingerprintManager"); // 通过反射判断是否存在该类
+            editor.putBoolean(HAS_FINGERPRINT_API, true);
+        } catch (ClassNotFoundException e) {
+            editor.putBoolean(HAS_FINGERPRINT_API, false);
+            e.printStackTrace();
+        }
+        editor.apply();
+
     }
 
     private void initDisplayOpinion() {

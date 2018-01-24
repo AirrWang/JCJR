@@ -1,13 +1,15 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -22,30 +24,31 @@ import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.view.CancelEditTextWhite;
 import com.ql.jcjr.view.CommonToast;
 
 
 public class ChangePasswordActivity extends BaseActivity {
 
     @ViewInject(R.id.et_old_psw)
-    private EditText mOldPswET;
+    private CancelEditTextWhite mOldPswET;
     @ViewInject(R.id.et_new_psw)
-    private EditText mNewPswET;
-    @ViewInject(R.id.et_confirm_psw)
-    private EditText mConfirmPswET;
+    private CancelEditTextWhite mNewPswET;
     @ViewInject(R.id.btn_confirm_change)
     private Button mConfirmChange;
 
     private Context mContext;
     private String mOldPwd;
     private String mNewPwd;
-    private String mConfirmPwd;
+    private boolean isPswShow = false;
+    private boolean isPswShow2 = false;
 
     private static final int HANDLER_CHANGE_SUCCESS = 0;
 
     /**
      * Handler
      */
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -67,12 +70,75 @@ public class ChangePasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_change_password);
         ViewUtils.inject(this);
         mContext = this;
+        initEdit();
+    }
+
+    private void initEdit() {
+        mOldPswET.getCancelEditText().setTransformationMethod(
+                PasswordTransformationMethod.getInstance());
+
+        mOldPswET.setOnCancelEditEventListener(new CancelEditTextWhite.CancelEditEventListener() {
+            @Override
+            public void onCancelFocusChange(boolean hasFocus) {
+            }
+
+            @Override
+            public void onClickRightExtraTextView() {
+            }
+
+            @Override
+            public void onClickRightExtraImageView() {
+                if (!isPswShow) {
+                    isPswShow = true;
+                    mOldPswET.getCancelEditText()
+                            .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    mOldPswET.setRightExtraImageIcon(R.drawable.show_psw_pressed_1);
+                } else {
+                    isPswShow = false;
+                    mOldPswET.getCancelEditText()
+                            .setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mOldPswET.setRightExtraImageIcon(R.drawable.show_psw_normal_1);
+                }
+                mOldPswET.getCancelEditText().setSelection(
+                        mOldPswET.getEditTextContent().length());
+            }
+        });
+
+        mNewPswET.getCancelEditText().setTransformationMethod(
+                PasswordTransformationMethod.getInstance());
+
+        mNewPswET.setOnCancelEditEventListener(new CancelEditTextWhite.CancelEditEventListener() {
+            @Override
+            public void onCancelFocusChange(boolean hasFocus) {
+            }
+
+            @Override
+            public void onClickRightExtraTextView() {
+            }
+
+            @Override
+            public void onClickRightExtraImageView() {
+                if (!isPswShow2) {
+                    isPswShow2 = true;
+                    mNewPswET.getCancelEditText()
+                            .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    mNewPswET.setRightExtraImageIcon(R.drawable.show_psw_pressed_1);
+                } else {
+                    isPswShow2 = false;
+                    mNewPswET.getCancelEditText()
+                            .setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mNewPswET.setRightExtraImageIcon(R.drawable.show_psw_normal_1);
+                }
+                mNewPswET.getCancelEditText().setSelection(
+                        mNewPswET.getEditTextContent().length());
+            }
+        });
+
     }
 
     private boolean checkInfo() {
-        mOldPwd = mOldPswET.getText().toString().trim();
-        mNewPwd = mNewPswET.getText().toString().trim();
-        mConfirmPwd = mConfirmPswET.getText().toString().trim();
+        mOldPwd = mOldPswET.getEditTextContent().toString().trim();
+        mNewPwd = mNewPswET.getEditTextContent().toString().trim();
         if(StringUtils.isBlank(mOldPwd)) {
             CommonToast.showHintDialog(mContext,"请输入原密码！");
             return false;
@@ -81,15 +147,11 @@ public class ChangePasswordActivity extends BaseActivity {
             CommonToast.showHintDialog(mContext,"请输入新密码！");
             return false;
         }
-        if(!mNewPwd.equals(mConfirmPwd)) {
-            CommonToast.showHintDialog(mContext,"两次密码不一致！");
-            return false;
-        }
         return true;
     }
 
     public void changePsw() {
-        SenderResultModel resultModel = ParamsManager.senderChangeLoginPwd(mOldPwd, mNewPwd, mConfirmPwd);
+        SenderResultModel resultModel = ParamsManager.senderChangeLoginPwd(mOldPwd, mNewPwd, mNewPwd);
 
         HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
 

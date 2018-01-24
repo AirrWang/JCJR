@@ -100,7 +100,7 @@ public class GestureCipherActivity extends BaseActivity implements
         mSecondInput.addAll(mChoose);
         if (mGestureView.checkAnswer(mSecondInput.toString(), mFirstInput.toString())) {
             UserData.getInstance().setGestureCipher(mFirstInput.toString());
-            setResult(RESULT_OK);
+            UserData.getInstance().setIsOpenGesture(true);
             finish();
         } else {
             mTvIndicator.setText("两次绘制不一致，请重新绘制");

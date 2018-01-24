@@ -110,6 +110,7 @@ public class VerifyPayPswActivity extends BaseActivity implements
         }
         switch (requestCode) {
             case CODE_SET:
+                UserData.getInstance().setIsSetPay("1");
                 finish();
                 break;
         }

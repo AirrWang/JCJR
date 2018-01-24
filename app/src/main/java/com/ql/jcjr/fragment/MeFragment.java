@@ -16,6 +16,7 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.activity.AutoBidActivityNew;
 import com.ql.jcjr.activity.BidHistoryActivity;
 import com.ql.jcjr.activity.CapitalRecordActivity;
+import com.ql.jcjr.activity.CapitalStatisticsActivity;
 import com.ql.jcjr.activity.ContactUsActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MainActivity;
@@ -220,6 +221,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         UserData.getInstance().setRealName(mRealName);
 
                         UserData.getInstance().setIsSetPay(resultBean.getIssetPay());
+                        UserData.getInstance().setUserName(resultBean.getUsername());
                     }
 
                     @Override
@@ -279,7 +281,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
         }
     }
 
-    @OnClick({R.id.civ_user_icon, R.id.iv_wdzc, R.id.tv_withdrawals, R.id.tv_recharge, R.id.btn_notice, R.id.ithb_me_wdhb, R.id.ithb_me_zjjl, R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_me_kfzx, R.id.ithb_mesetting})
+    @OnClick({R.id.civ_user_icon, R.id.iv_wdzc, R.id.tv_withdrawals, R.id.tv_recharge, R.id.btn_notice, R.id.ithb_me_wdhb, R.id.ithb_me_zjjl,
+            R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_me_kfzx, R.id.ithb_mesetting,R.id.ll_me_info})
     public void onClick(View v) {
         Intent intent = new Intent();
 
@@ -443,6 +446,10 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 //设置
                 intent.setClass(mContext, SettingActivity.class);
                 intent.putExtra("user_icon_url", mUserIconUrl);
+                startActivity(intent);
+                break;
+            case R.id.ll_me_info:
+                intent.setClass(mContext,CapitalStatisticsActivity.class);
                 startActivity(intent);
                 break;
         }

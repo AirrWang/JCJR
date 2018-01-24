@@ -240,6 +240,12 @@
         <item name="android:layout_marginRight">@dimen/row_text_margin</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+    <style name="row_without_margin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/row_height</item>
+        <item name="android:layout_marginLeft">@dimen/row_text_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
     <style name="text_s_m_c_b">
         <item name="android:textColor">@color/font_black</item>

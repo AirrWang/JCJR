@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.ql.jcjr.activity.SetPayPwdActivity">
+
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="invisible"
+        bar:left_first_visibility="visible"
+        bar:title="设置支付密码"/>
+    <TextView
+        android:id="@+id/tv_set_paypsw"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_64px"
+        android:textColor="@color/btn_main"
+        android:textSize="@dimen/size_m"
+        android:gravity="center"
+        android:background="#FFF6E6"/>
+    <LinearLayout
+        style="@style/row_without_margin">
+
+        <TextView
+            style="@style/style_change_psw_title"
+            android:text="验证码"/>
+
+        <com.ql.jcjr.view.CancelEditTextWhite
+            android:id="@+id/et_sms_code"
+            app:common_input_style="number"
+            app:right_icon_visibility="gone"
+            app:right_extra_iv_visibility="gone"
+            app:right_extra_tv_visibility="visible"
+            app:right_extra_tv_content="发送验证码"
+            app:content_hint="请输入验证码"
+            app:left_icon_visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:single_line="true"/>
+
+    </LinearLayout>
+
+
+    <View style="@style/common_divider_with_margin"/>
+    <LinearLayout
+        style="@style/row_without_margin">
+
+        <TextView
+            style="@style/style_change_psw_title"
+            android:text="设置交易密码"/>
+
+        <com.ql.jcjr.view.CancelEditTextWhite
+            android:id="@+id/et_pay_psw"
+            app:common_input_style="numberPassword"
+            app:right_icon_visibility="gone"
+            app:right_extra_iv_visibility="visible"
+            app:right_extra_iv_icon="@drawable/show_psw_normal_1"
+            app:content_hint="请输入6位数字交易密码"
+            app:left_icon_visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:single_line="true"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_set_pay_pwd"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_176px"
+        android:text="完成设置"/>
+
+</LinearLayout>

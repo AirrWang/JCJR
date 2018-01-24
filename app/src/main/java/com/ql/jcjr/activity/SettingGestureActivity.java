@@ -1,9 +1,12 @@
 package com.ql.jcjr.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -14,8 +17,14 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.entity.UserData;
+import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.view.CircleImageView;
+import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.ImageTextHorizontalBarLess;
+import com.ql.jcjr.view.gesturecipher.GestureLockViewGroup;
+
+import java.util.List;
 
 public class SettingGestureActivity extends BaseActivity implements
         CompoundButton.OnCheckedChangeListener {
@@ -33,6 +42,7 @@ public class SettingGestureActivity extends BaseActivity implements
 
     private Context mContext;
     private boolean mHasSet = false;
+    private boolean isMatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +104,7 @@ public class SettingGestureActivity extends BaseActivity implements
 //                }
 
                 Intent intent = new Intent(mContext, VerifyGestureActivity.class);
-                intent.putExtra("user_icon_url", getIntent().getStringExtra("user_icon_url"));
+//                intent.putExtra("user_icon_url", getIntent().getStringExtra("user_icon_url"));
                 startActivityForResult(intent, 1);
 
                 break;
@@ -141,10 +151,87 @@ public class SettingGestureActivity extends BaseActivity implements
             }
 
         } else {
-            UserData.getInstance().setIsOpenGesture(false);
-            mDivider.setVisibility(View.GONE);
-            mLlSetting.setVisibility(View.GONE);
-            mTvDes.setText("开启后，进入积财金融需验证手势密码");
+            //TODO
+            showGestureDialog();
+
         }
+    }
+
+
+    private void showGestureDialog() {
+        mSwitch.setChecked(true);
+        final Dialog dialog = new Dialog(this, R.style.DialogFullScreen);
+        LayoutInflater inflater =
+                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.gesture_dialog, null);
+        dialog.setContentView(view);
+//        dialog.setCancelable(false);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        CircleImageView mCircleImageView = (CircleImageView) view.findViewById(R.id.user_icon);
+        TextView mTvTel = (TextView) view.findViewById(R.id.tv_phone_num);
+        final TextView mTvIndicator = (TextView) view.findViewById(R.id.tv_indicator);
+        final GestureLockViewGroup mGestureView =
+                (GestureLockViewGroup) view.findViewById(R.id.gesture_view);
+        TextView mTvLogin = (TextView) view.findViewById(R.id.tv_login);
+        mTvLogin.setVisibility(View.GONE);
+        mGestureView.setUnMatchExceedBoundary(5);
+        GlideUtil.displayPic(mContext, UserData.getInstance().getUserIconUrl(),
+                R.drawable.gesture_user_icon, mCircleImageView);
+        mTvTel.setText(""+StringUtils.getHidePhoneNum(UserData.getInstance().getPhoneNumber()));
+
+        mGestureView.setOnGestureLockViewListener(
+                new GestureLockViewGroup.OnGestureLockViewListener() {
+                    @Override
+                    public void onBlockSelected(int cId) {
+
+                    }
+
+                    @Override
+                    public void onGestureEvent(boolean matched) {
+
+                    }
+
+                    @Override
+                    public void onUnmatchedExceedBoundary() {
+                        if(!isMatch) {
+                            dialog.dismiss();
+                            CommonToast.makeCustomText(mContext, "解锁失败,暂时无法关闭");
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFinshInput(List<Integer> mChoose, int tryTimes) {
+                        if (mGestureView.checkAnswer(mChoose.toString(), UserData.getInstance().getGestureCipher())) {
+                            isMatch = true;
+                            dialog.dismiss();
+                            UserData.getInstance().setIsOpenGesture(false);
+                            mDivider.setVisibility(View.GONE);
+                            mLlSetting.setVisibility(View.GONE);
+                            mTvDes.setText("开启后，进入积财金融需验证手势密码");
+                            finish();
+                        } else {
+                            isMatch = false;
+                            mTvIndicator.setText("绘制错误，还可以输入" + tryTimes + "次");
+                            mTvIndicator.setTextColor(getResources().getColor(R.color.red));
+                        }
+
+                        mGestureView.reset();
+                    }
+                });
+
+//        mTvLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                UserData.getInstance().setUSERID("");
+//                UserData.getInstance().setIsOpenGesture(false);
+//                UserData.getInstance().setGestureCipher("");
+//                Intent intent = new Intent(mContext, LoginActivityCheck.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 }

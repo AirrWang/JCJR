@@ -56,6 +56,7 @@
             <enum name="plain" value="1"/>
             <enum name="secure" value="2"/>
             <enum name="number" value="3"/>
+            <enum name="numberPassword" value="4"/>
         </attr>
         <!-- 设置内容边距 -->
         <attr name="rl_layout_padding" format="reference|dimension"/>

@@ -37,6 +37,7 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionSheet;
+import com.ql.jcjr.view.CommonLoadingDialog;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.ImageTextHorizontalBarLess;
 import com.ql.jcjr.view.InputAmountEditText;
@@ -96,6 +97,7 @@ public class BidDetailActivity extends BaseActivity {
     private String bidPwd = "";
     private boolean isBuyAll;
     private String myMoney;
+    private CommonLoadingDialog loadingDialog;
 
     private BidDetailEntity.ResultBean resultBean;
 
@@ -106,9 +108,12 @@ public class BidDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bid_detail);
         ViewUtils.inject(this);
-
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mContext = this;
+
+        loadingDialog = new CommonLoadingDialog(mContext);
+        loadingDialog.setCancelable(false);// 需要根据是不是允许取消来设置dialog可以不可以取消
+        loadingDialog.setCanceledOnTouchOutside(false);
 
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 //        mTvAprGain.setTypeface(JcbApplication.getPingFangBoldTypeFace());
@@ -457,30 +462,11 @@ public class BidDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                loadingDialog.show();
                 if(checkInfo(etBIdAmt, balance)) {
-//                    bid(mBidId, etBIdAmt.getText().toString(), resultBean.getPwd(), resultBean.getType());
-
-//                    Intent intent = new Intent(BidDetailActivity.this, BidConfirmActivity.class);
-//                    intent.putExtra("money", etBIdAmt.getText().toString());
-//                    intent.putExtra("earn", tvExpectedReturn.getText().toString());
-//                    intent.putExtra("bid_id",mBidId);
-//
-//                    intent.putExtra("name", bidName);
-//                    intent.putExtra("is_day",resultBean.getIsday());
-//                    switch (resultBean.getIsday()) {
-//                        case "0":
-//                            intent.putExtra("time",resultBean.getTime_limit());
-//                            break;
-//                        case "1":
-//                            intent.putExtra("time",resultBean.getTime_limit_day());
-//                            break;
-//                    }
-//                    intent.putExtra("apr",resultBean.getApr());
-//                    intent.putExtra("repay_type",resultBean.getRepaytype());
-//                    intent.putExtra("pwd", bidPwd);
-//
-//                    BidDetailActivity.this.startActivity(intent);
                     gotoBidConfirm(etBIdAmt.getText().toString(), tvExpectedReturn.getText().toString());
+                }else {
+                    loadingDialog.dismiss();
                 }
             }
         });
@@ -521,6 +507,7 @@ public class BidDetailActivity extends BaseActivity {
     }
 
     private void gotoBidConfirm(String money, String earn){
+        loadingDialog.dismiss();
         Intent intent = new Intent(BidDetailActivity.this, BidConfirmActivity.class);
         intent.putExtra("money", money);
         intent.putExtra("earn", earn);
