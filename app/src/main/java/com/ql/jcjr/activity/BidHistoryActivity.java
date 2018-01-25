@@ -188,6 +188,7 @@ public class BidHistoryActivity extends BaseActivity  implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position==mList.size()){return;}
         BidHistoryEntity.ResultBean.ListBean bean = mList.get(position);
         Intent intent = new Intent(BidHistoryActivity.this, BidHistoryDetailActivity.class);
         intent.putExtra("bid_id",bean.getBorrow_id());

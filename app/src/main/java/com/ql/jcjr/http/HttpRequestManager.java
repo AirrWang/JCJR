@@ -2,6 +2,8 @@ package com.ql.jcjr.http;
 
 import android.content.Context;
 
+import com.ql.jcjr.application.JcbApplication;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -16,6 +18,9 @@ public class HttpRequestManager {
 
     public static HttpSenderController getRequestController(Context cls) {
         HttpSenderController serviceController = null;
+        if(cls==null){
+            cls= JcbApplication.appContext;
+        }
         serviceController = new HttpSenderController(cls);
         serviceControllers.put(cls, serviceController);
 
