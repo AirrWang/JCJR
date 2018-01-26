@@ -22,16 +22,13 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.GuideAdapter;
-import com.ql.jcjr.entity.SendIMEIEntity;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
-import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
 import com.ql.jcjr.utils.StringUtils;
-import com.ql.jcjr.view.CommonToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +64,8 @@ public class GuideActivity extends Activity {
         setValue();
         guideImage.setOnPageChangeListener(new MyOnPageChangeListener());
         guideImage.setAdapter(adapter);
-        getIEMI();
+        //今日头条渠道打开
+//        getIEMI();
 
     }
     private void getIEMI() {
@@ -100,13 +98,13 @@ public class GuideActivity extends Activity {
 
                     @Override
                     public void onSuccess(String responeJson) {
-                        SendIMEIEntity entity = GsonParser.getParsedObj(responeJson, SendIMEIEntity.class);
-                        Log.d("上传IMEI:","success");
-                        CommonToast.showHintDialog(mContext, "success");
+//                        SendIMEIEntity entity = GsonParser.getParsedObj(responeJson, SendIMEIEntity.class);
+//                        Log.d("上传IMEI:","success");
+//                        CommonToast.showHintDialog(mContext, "success");
                     }
                     @Override
                     public void onFailure(ResponseEntity entity) {
-                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                        CommonToast.showHintDialog(mContext, entity.errorInfo);
                     }
                 }, mContext);
     }
