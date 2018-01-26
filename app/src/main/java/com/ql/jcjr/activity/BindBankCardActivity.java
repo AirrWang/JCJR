@@ -468,7 +468,7 @@ public class BindBankCardActivity extends BaseActivity {
                 provinceName = provinceArrayList.get(provinceIndex);
                 provinceId = provinceList.get(provinceIndex).getId();
 
-                if(cityList != null && cityList.size() != 0) {
+                if(cityList != null && cityList.size() != 0&&cityIndex<=cityArrayList.size()) {
                     cityName = cityArrayList.get(cityIndex);
                     cityId = cityList.get(cityIndex).getId();
                     tvPlace.setText(provinceName + "，" + cityName);

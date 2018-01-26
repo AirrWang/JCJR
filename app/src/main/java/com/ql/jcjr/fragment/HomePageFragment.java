@@ -228,7 +228,9 @@ public class HomePageFragment extends BaseFragment{
             View advertView = mLayoutInflater.inflate(R.layout.item_advert, null);
             ImageView imageView = (ImageView) advertView.findViewById(R.id.image);
 //            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            GlideUtil.displayPic(mContext, urlList.get(i), -1, imageView);
+            if (mContext==null) return;
+                GlideUtil.displayPic(mContext, urlList.get(i), -1, imageView);
+
             views.add(advertView);
             final int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {

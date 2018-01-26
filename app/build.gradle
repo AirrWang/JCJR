@@ -171,6 +171,12 @@ android {
         jinritoutiao6 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao6"]
         }
+        jinritoutiao7 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao7"]
+        }
+        jinritoutiao8 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao8"]
+        }
         jinritoutiao11 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao11"]
         }
