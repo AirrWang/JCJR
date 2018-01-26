@@ -1,13 +1,18 @@
 package com.ql.jcjr.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +22,13 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.GuideAdapter;
+import com.ql.jcjr.http.HttpRequestManager;
+import com.ql.jcjr.http.HttpSenderController;
+import com.ql.jcjr.http.ParamsManager;
+import com.ql.jcjr.http.ResponseEntity;
+import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
+import com.ql.jcjr.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +64,49 @@ public class GuideActivity extends Activity {
         setValue();
         guideImage.setOnPageChangeListener(new MyOnPageChangeListener());
         guideImage.setAdapter(adapter);
+        //今日头条渠道打开
+//        getIEMI();
+
+    }
+    private void getIEMI() {
+        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(mContext.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            Log.d("唯一识别码:","用户没有授权");
+            return;
+        }
+        String imei = telephonyManager.getDeviceId();
+
+        Log.d("唯一识别码:",imei);
+
+        if (StringUtils.isNotBlank(imei)) {
+            sendIMEI(imei);
+        }
+    }
+
+    /**
+     * 今日头条所需激活监测
+     * @param imei
+     */
+
+
+    private void sendIMEI(String imei) {
+        SenderResultModel resultModel = ParamsManager.postIMEI(imei);
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+//                        SendIMEIEntity entity = GsonParser.getParsedObj(responeJson, SendIMEIEntity.class);
+//                        Log.d("上传IMEI:","success");
+//                        CommonToast.showHintDialog(mContext, "success");
+                    }
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+//                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+                    }
+                }, mContext);
     }
 
     /**

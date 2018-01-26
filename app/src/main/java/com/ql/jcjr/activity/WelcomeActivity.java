@@ -60,6 +60,7 @@ public class WelcomeActivity extends Activity {
         ViewUtils.inject(this);
         mContext = this;
         handler.sendEmptyMessageDelayed(HANDLER_WELCOME_PAGE, 2500);
+
     }
 
     private void checkNet(){

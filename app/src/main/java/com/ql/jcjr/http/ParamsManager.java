@@ -1109,4 +1109,20 @@ public class ParamsManager {
 
         return resultModel;
     }
+
+    /**
+     * 头条激活
+     */
+    public static SenderResultModel postIMEI(String imei) {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("imei", imei);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params,"http://www.jicaibaobao.com/export.php?sign=deviceinfocheck");
+        return resultModel;
+    }
 }
