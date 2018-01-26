@@ -299,6 +299,35 @@ public class CommonToast extends Toast {
         }
     }
 
+    public static void showNotificationDialog(final Context context, String s) {
+        try {
+            CommonDialog.Builder dialog = new CommonDialog.Builder(context);
+            dialog.setTitle(s);
+            dialog.setPositiveButton("修改投资金额",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            dialog.setNegativeButton("去充值",
+                    new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if(listener != null) {
+                                listener.oClickEvent();
+                            }
+                        }
+                    });
+            dialog.setCancelable(true);
+            dialog.create().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void showDailPrompt(final Context context, final String phoneNum) {
 
         CommonDialog.Builder builder = new CommonDialog.Builder(context);
