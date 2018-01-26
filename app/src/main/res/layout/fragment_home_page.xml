@@ -56,6 +56,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_marqueeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -65,6 +66,8 @@ public class HomePageFragment extends BaseFragment{
     private TextView mTvLowestAmt;
     @ViewInject(R.id.tv_term)
     private TextView mTvTerm;
+    @ViewInject(R.id.ll_marqueeView)
+    private LinearLayout mLlmarquee;
 
     private static final int INDEX_BEGINNER_WELFARE = 0;
     private static final int INDEX_INVITATION = 1;
@@ -90,12 +93,16 @@ public class HomePageFragment extends BaseFragment{
 
         mTvAnnualizedRate.setTypeface(JcbApplication.getPingFangBoldTypeFace());
         mTvTerm.setTypeface(JcbApplication.getPingFangBoldTypeFace());
-
-        banner();
-        initMarqueeView();
-        getNoviceExclusive();
     }
-
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if(isVisible) {
+            banner();
+            initMarqueeView();
+            getNoviceExclusive();
+        }
+    }
     private void banner() {
         SenderResultModel resultModel = ParamsManager.senderBanner();
 
@@ -177,6 +184,12 @@ public class HomePageFragment extends BaseFragment{
                 LogUtil.i("首页公告成功 " + responeJson);
                 RollNewsEntity entity = GsonParser.getParsedObj(responeJson, RollNewsEntity.class);
                 resultBeanList = entity.getResult();
+                if (resultBeanList.size()==0||resultBeanList==null){
+                    mLlmarquee.setVisibility(View.GONE);
+                    return;
+                }else {
+                    mLlmarquee.setVisibility(View.VISIBLE);
+                }
                 for (int i = 0; i < resultBeanList.size(); i++){
                     rollNewsTitleList.add(resultBeanList.get(i).getName());
                 }

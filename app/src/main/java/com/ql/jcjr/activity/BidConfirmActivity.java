@@ -253,7 +253,7 @@ public class BidConfirmActivity extends BaseActivity {
                                 CommonToast.unRegisteIPositiveButtonEventListener();
                             }
                         });
-                        CommonToast.showUnCancelableDialog(mContext, "可用余额不足！");
+                        CommonToast.showBidDetailDialog(mContext, "可用余额不足！");
                     }
                     else{
                         bid();

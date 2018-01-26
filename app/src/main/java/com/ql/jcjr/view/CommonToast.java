@@ -299,7 +299,7 @@ public class CommonToast extends Toast {
         }
     }
 
-    public static void showNotificationDialog(final Context context, String s) {
+    public static void showBidDetailDialog(final Context context, String s) {
         try {
             CommonDialog.Builder dialog = new CommonDialog.Builder(context);
             dialog.setTitle(s);
