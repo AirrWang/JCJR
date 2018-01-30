@@ -13,6 +13,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
+import com.ql.jcjr.activity.BidDetailActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
@@ -22,7 +23,6 @@ import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BannerEntity;
 import com.ql.jcjr.entity.HomeDataEntity;
-import com.ql.jcjr.entity.NoviceExclusiveEntity;
 import com.ql.jcjr.entity.RollNewsEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
@@ -90,6 +90,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
     private String mNoviceExclusiveId;
     private int banner=0;
+    private String mBidName;
 
     @Override
     protected int getContentView() {
@@ -115,7 +116,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         if(isVisible) {
             banner();
             initMarqueeView();
-            getNoviceExclusive();
+//            getNoviceExclusive();
             getData();
         }
     }
@@ -127,6 +128,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
             @Override
             public void onSuccess(String responeJson) {
+                mIvTitle.setImageResource(R.drawable.icon_xszx_sy);
                 LogUtil.i("首页数据获取成功 " + responeJson);
                 mPullRefresh.onHeaderRefreshFinish();
                 HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
@@ -145,6 +147,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 mTvAnnualizedRate.setText(entity.getResult().getResult2().getApr());
                 mTvTerm.setText(entity.getResult().getResult2().getTime_limit_day()+"天");
                 mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
+                mNoviceExclusiveId=entity.getResult().getResult2().getId();
+                mBidName = entity.getResult().getResult2().getName();
             }
 
             @Override
@@ -267,31 +271,31 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         }, mContext);
     }
 
-    private void getNoviceExclusive() {
-        SenderResultModel resultModel = ParamsManager.senderNoviceExclusive();
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                mPullRefresh.onHeaderRefreshFinish();
-                LogUtil.i("首页年化 " + responeJson);
-                NoviceExclusiveEntity entity = GsonParser.getParsedObj(responeJson,NoviceExclusiveEntity.class);
-//                mTvAnnualizedRate.setText(entity.getResult().getApr());
-//                mTvLowestAmt.setText(getResources().getString(R.string.str_lowest_account, entity.getResult().getLowestaccount()));
-//                mTvTerm.setText(entity.getResult().getBorrowTime().replace("天",""));
-                mNoviceExclusiveId = entity.getResult().getId();
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                mPullRefresh.onHeaderRefreshFinish();
-                LogUtil.i("首页年化失败 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, mContext);
-    }
+//    private void getNoviceExclusive() {
+//        SenderResultModel resultModel = ParamsManager.senderNoviceExclusive();
+//
+//        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+//
+//            @Override
+//            public void onSuccess(String responeJson) {
+//                mPullRefresh.onHeaderRefreshFinish();
+//                LogUtil.i("首页年化 " + responeJson);
+//                NoviceExclusiveEntity entity = GsonParser.getParsedObj(responeJson,NoviceExclusiveEntity.class);
+////                mTvAnnualizedRate.setText(entity.getResult().getApr());
+////                mTvLowestAmt.setText(getResources().getString(R.string.str_lowest_account, entity.getResult().getLowestaccount()));
+////                mTvTerm.setText(entity.getResult().getBorrowTime().replace("天",""));
+//                mNoviceExclusiveId = entity.getResult().getId();
+//            }
+//
+//            @Override
+//            public void onFailure(ResponseEntity entity) {
+//                mPullRefresh.onHeaderRefreshFinish();
+//                LogUtil.i("首页年化失败 " + entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//            }
+//
+//        }, mContext);
+//    }
 
     private void initAdvert(final List<BannerEntity.ResultBean> list) {
         List<String> urlList = new ArrayList<>();
@@ -349,9 +353,18 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         Intent intent = null;
         switch (view.getId()) {
             case R.id.btn_bid:
-                intent = new Intent(mContext, NoviceExclusiveActivity.class);
-                intent.putExtra("bid_id",mNoviceExclusiveId);
-                startActivity(intent);
+                if (banner==3){
+                    intent = new Intent(mContext, BidDetailActivity.class);
+                    intent.putExtra("bid_title", mBidName);
+                    intent.putExtra("bid_id", mNoviceExclusiveId);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                    intent.putExtra("bid_id",mNoviceExclusiveId);
+                    startActivity(intent);
+                }
+
+
                 break;
 
             case R.id.ll_ptjs:
@@ -404,7 +417,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     public void onHeaderRefresh(PullToRefreshView view) {
         banner();
         initMarqueeView();
-        getNoviceExclusive();
+//        getNoviceExclusive();
         getData();
     }
 

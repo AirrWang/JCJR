@@ -67,6 +67,7 @@ public class HomeDataEntity {
 
         public class ResultBeanTwo {
             private String id;
+            private String name;
             private String apr;
             private String time_limit_day;
             private String tender_times;
@@ -110,6 +111,14 @@ public class HomeDataEntity {
 
             public void setIsselled(String isselled) {
                 this.isselled = isselled;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
             }
         }
 
