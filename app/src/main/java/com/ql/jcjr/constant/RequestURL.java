@@ -73,6 +73,8 @@ public class RequestURL {
     public static final String BID_LIST_URL = SERVICE_URL + "borrowList";
     //首页公告
     public static final String ROLL_NEWS_URL = SERVICE_URL + "rollNews";
+    //首页公告
+    public static final String HOME_DATA_URL = SERVICE_URL + "home";
     //首页年化
     public static final String NOVICE_EXCLUSIVE_URL = SERVICE_URL + "borrowForNewer";
     //我的页面

@@ -203,6 +203,14 @@ public class ParamsManager {
     }
 
     /**
+     * 首页数据
+     */
+    public static SenderResultModel getHomeData() {
+        SenderResultModel resultModel = SenderManager.buildResultModel(null, RequestURL.HOME_DATA_URL, false);
+        return resultModel;
+    }
+
+    /**
      * 首页年化
      */
     public static SenderResultModel senderNoviceExclusive() {

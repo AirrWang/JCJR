@@ -73,6 +73,9 @@ public class WelcomeActivity extends Activity {
     }
 
     private void showNetDialog(){
+        if (mContext==null){
+            mContext=JcbApplication.appContext;
+        }
         CommonDialog.Builder builder = new CommonDialog.Builder(mContext);
         builder.setTitle("温馨提示")
                 .setMessage("您需要连接网络后才能继续使用服务，确认已经连接网络？")
