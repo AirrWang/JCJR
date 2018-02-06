@@ -75,9 +75,10 @@
                 android:orientation="horizontal"
                 android:gravity="center">
                 <TextView
+                    android:id="@+id/tv_diffrent_bid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="限购人数"
+                    android:text="累计申购"
                     android:textColor="@color/font_grey"
                     android:textSize="@dimen/size_xs" />
                 <TextView
@@ -99,7 +100,7 @@
             android:layout_width="@dimen/home_recom_biao_w"
             android:layout_height="@dimen/home_recom_biao_btn_h"
             android:layout_marginTop="@dimen/dimen_48px"
-            android:background="@drawable/btn_main_bg"
+            android:background="@drawable/bg_btn_ljjr_sy"
             android:text="立即加入"
             android:textColor="@color/c_fefefe"
             android:textSize="@dimen/size_l" />

@@ -1,6 +1,7 @@
 package com.ql.jcjr.entity;
 
 
+import java.util.List;
 
 public class HomeDataEntity {
 
@@ -19,6 +20,7 @@ public class HomeDataEntity {
         private ResultBeanOne result1;
         private ResultBeanTwo result2;
         private ResultBeanThree result3;
+        private List<ResultBeanFour> result4;
 
         public ResultBeanOne getResult1() {
             return result1;
@@ -42,6 +44,14 @@ public class HomeDataEntity {
 
         public void setResult3(ResultBeanThree result3) {
             this.result3 = result3;
+        }
+
+        public List<ResultBeanFour> getResult4() {
+            return result4;
+        }
+
+        public void setResult4(List<ResultBeanFour> result4) {
+            this.result4 = result4;
         }
 
         public class ResultBeanOne {
@@ -72,6 +82,7 @@ public class HomeDataEntity {
             private String time_limit_day;
             private String tender_times;
             private String isselled;
+            private String last_account;
 
             public String getId() {
                 return id;
@@ -120,6 +131,14 @@ public class HomeDataEntity {
             public void setName(String name) {
                 this.name = name;
             }
+
+            public String getLast_account() {
+                return last_account;
+            }
+
+            public void setLast_account(String last_account) {
+                this.last_account = last_account;
+            }
         }
 
         public class ResultBeanThree {
@@ -141,6 +160,37 @@ public class HomeDataEntity {
             public void setCount(String count) {
                 this.count = count;
             }
+        }
+
+        public class ResultBeanFour {
+                private String title;
+                private String link;
+                private String pic;
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getLink() {
+                    return link;
+                }
+
+                public void setLink(String link) {
+                    this.link = link;
+                }
+
+                public String getPic() {
+                    return pic;
+                }
+
+                public void setPic(String pic) {
+                    this.pic = pic;
+                }
+
         }
     }
 }

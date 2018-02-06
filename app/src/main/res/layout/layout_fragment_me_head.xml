@@ -34,6 +34,7 @@
             android:textColor="@color/font_grey"
             />
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="@dimen/dimen_8px"
             android:gravity="center"
             android:id="@+id/tv_level"
@@ -46,6 +47,7 @@
             android:textColor="@color/white"
             />
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="@dimen/dimen_8px"
             android:gravity="center"
             android:id="@+id/tv_vipj"

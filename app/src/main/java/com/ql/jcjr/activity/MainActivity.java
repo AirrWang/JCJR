@@ -36,22 +36,12 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.ViewPagerAdapter;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
-import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.constant.RequestURL;
-import com.ql.jcjr.entity.ApkInfoEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.fragment.HomePageFragment;
 import com.ql.jcjr.fragment.ManageMoneyFragment;
 import com.ql.jcjr.fragment.MeFragment;
-import com.ql.jcjr.http.HttpRequestManager;
-import com.ql.jcjr.http.HttpSenderController;
-import com.ql.jcjr.http.ParamsManager;
-import com.ql.jcjr.http.ResponseEntity;
-import com.ql.jcjr.http.SenderResultModel;
-import com.ql.jcjr.net.GsonParser;
-import com.ql.jcjr.utils.CommonUtils;
 import com.ql.jcjr.utils.GlideUtil;
-import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.ShareHelper;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
@@ -118,7 +108,6 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         ViewUtils.inject(this);
 //        ShareSDK.initSDK(this);
-        getAppInfo();
         initLayout();
         //锁屏展示
         isShowGestureDialog();
@@ -263,34 +252,6 @@ public class MainActivity extends BaseActivity
                 }catch (Exception e){}
             }
         }
-    }
-
-    private void getAppInfo() {
-        SenderResultModel resultModel = ParamsManager.senderGetAppInfo();
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("获取apk信息成功 " + responeJson);
-                ApkInfoEntity entity = GsonParser.getParsedObj(responeJson, ApkInfoEntity.class);
-                if(entity.getRSPCODE().equals(Global.RESULT_SUCCESS)){
-                    //设置分享信息
-                    CommonUtils.shareUrl = entity.getResult().getHome_url();
-                    CommonUtils.shareIcon = entity.getResult().getIcon_url();
-                    CommonUtils.shareTitle = entity.getResult().getShare_title();
-                    CommonUtils.shareContent = entity.getResult().getShare_content();
-                    //判断新版本
-                }
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("获取apk信息失败 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, this);
     }
 
     private void initLayout() {

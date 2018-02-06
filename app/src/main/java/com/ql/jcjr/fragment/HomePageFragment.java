@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,8 +59,6 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private MarqueeView mMarqueeView;
     @ViewInject(R.id.tv_annualized_rate)
     private TextView mTvAnnualizedRate;
-    @ViewInject(R.id.tv_lowest_amt)
-    private TextView mTvLowestAmt;
     @ViewInject(R.id.tv_term)
     private TextView mTvTerm;
     @ViewInject(R.id.ll_marqueeView)
@@ -78,6 +77,29 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private TextView mLimitPeople;
     @ViewInject(R.id.iv_bid_title)
     private ImageView mIvTitle;
+    @ViewInject(R.id.btn_bid)
+    private Button mBidJump;
+    @ViewInject(R.id.iv_0)
+    private ImageView iv_0;
+    @ViewInject(R.id.iv_1)
+    private ImageView iv_1;
+    @ViewInject(R.id.iv_2)
+    private ImageView iv_2;
+    @ViewInject(R.id.iv_3)
+    private ImageView iv_3;
+    @ViewInject(R.id.tv_0)
+    private TextView tv_0;
+    @ViewInject(R.id.tv_1)
+    private TextView tv_1;
+    @ViewInject(R.id.tv_2)
+    private TextView tv_2;
+    @ViewInject(R.id.tv_3)
+    private TextView tv_3;
+    @ViewInject(R.id.tv_diffrent_bid)
+    private TextView tv_diffrent_bid;
+
+
+
 
     private static final int INDEX_BEGINNER_WELFARE = 0;
     private static final int INDEX_INVITATION = 1;
@@ -91,6 +113,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private String mNoviceExclusiveId;
     private int banner=0;
     private String mBidName;
+    private String url0;
+    private String url1;
+    private String url2;
+    private String url3;
 
     @Override
     protected int getContentView() {
@@ -134,6 +160,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
                 mTotal.setText(entity.getResult().getResult3().getAccount());
                 mPeople.setText(entity.getResult().getResult3().getCount());
+                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
+                tv_diffrent_bid.setText("累计申购");
+                mLl.setVisibility(View.VISIBLE);
                 if (entity.getResult().getResult1().getCode().equals("1")){
                     banner=1;
                     mIvBanner.setImageResource(R.drawable.smrz_sy);
@@ -141,14 +170,30 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     banner=2;
                     mIvBanner.setImageResource(R.drawable.xszx_sy);
                 }else if (entity.getResult().getResult1().getCode().equals("3")){
+                    banner=3;
                     mLl.setVisibility(View.GONE);
                     mIvTitle.setImageResource(R.drawable.title_sy);
+                    tv_diffrent_bid.setText("剩余金额");
+                    mLimitPeople.setText(entity.getResult().getResult2().getLast_account()+"元");
+                }else if (entity.getResult().getResult1().getCode().equals("0")){
+                    mIvBanner.setImageResource(R.drawable.zcjs_sy);
                 }
                 mTvAnnualizedRate.setText(entity.getResult().getResult2().getApr());
                 mTvTerm.setText(entity.getResult().getResult2().getTime_limit_day()+"天");
-                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
+
+
+
                 mNoviceExclusiveId=entity.getResult().getResult2().getId();
                 mBidName = entity.getResult().getResult2().getName();
+                if (entity.getResult().getResult2().getIsselled().equals("0")){
+                    mBidJump.setEnabled(true);
+                    mBidJump.setText("立即加入");
+                }else {
+                    mBidJump.setEnabled(false);
+                    mBidJump.setText("已售罄");
+                }
+
+                initFour(entity.getResult().getResult4());
             }
 
             @Override
@@ -160,6 +205,21 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
         }, mContext);
 
+    }
+
+    private void initFour(List<HomeDataEntity.ResultBean.ResultBeanFour> entity) {
+        tv_0.setText(entity.get(0).getTitle());
+        tv_1.setText(entity.get(1).getTitle());
+        tv_2.setText(entity.get(2).getTitle());
+        tv_3.setText(entity.get(3).getTitle());
+        GlideUtil.displayPic(mContext,entity.get(0).getPic(),R.drawable.ptjs_sy,iv_0);
+        GlideUtil.displayPic(mContext,entity.get(1).getPic(),R.drawable.yqyl_sy,iv_1);
+        GlideUtil.displayPic(mContext,entity.get(2).getPic(),R.drawable.dhzx_sy,iv_2);
+        GlideUtil.displayPic(mContext,entity.get(3).getPic(),R.drawable.mrqd_sy,iv_3);
+        url0 = entity.get(0).getLink();
+        url1 = entity.get(1).getLink();
+        url2 = entity.get(2).getLink();
+        url3 = entity.get(3).getLink();
     }
 
     private void banner() {
@@ -353,6 +413,11 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         Intent intent = null;
         switch (view.getId()) {
             case R.id.btn_bid:
+                if (!UserData.getInstance().isLogin()){
+                    intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                    break;
+                }
                 if (banner==3){
                     intent = new Intent(mContext, BidDetailActivity.class);
                     intent.putExtra("bid_title", mBidName);
@@ -361,30 +426,32 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 }else {
                     intent = new Intent(mContext, NoviceExclusiveActivity.class);
                     intent.putExtra("bid_id",mNoviceExclusiveId);
+                    intent.putExtra("bid_title", mBidName);
                     startActivity(intent);
                 }
-
-
                 break;
 
             case R.id.ll_ptjs:
-                UrlUtil.showHtmlPage(mContext,"平台介绍", "");
+
+                UrlUtil.showHtmlPage(mContext,tv_0.getText().toString(), url0,true);
+
                 break;
 
             case R.id.ll_yqyl:
-                if(UserData.getInstance().isLogin()) {
-                    UrlUtil.showHtmlPage(mContext,"邀请有礼", RequestURL.YQYL_URL + UserData.getInstance().getUSERID());
-                }else {
-                    intent = new Intent(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
-                }
+
+                    UrlUtil.showHtmlPage(mContext,tv_1.getText().toString(), url1,true);
+
                 break;
 
             case R.id.ll_dhzx:
 
+                    UrlUtil.showHtmlPage(mContext,tv_2.getText().toString(), url2,true);
+
                 break;
 
             case R.id.ll_mrqd:
+
+                    UrlUtil.showHtmlPage(mContext,tv_3.getText().toString(), url3,true);
 
                 break;
 
@@ -404,9 +471,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     intent = new Intent(mContext, RealNameActivity.class);
                     startActivity(intent);
                 }else if (banner==2){
-                    //新手投资标 TODO
                     intent = new Intent(mContext, NoviceExclusiveActivity.class);
                     intent.putExtra("bid_id",mNoviceExclusiveId);
+                    intent.putExtra("bid_title", mBidName);
                     startActivity(intent);
                 }else {}
                 break;

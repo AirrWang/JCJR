@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 填充的颜色 -->
+    <solid android:color="@color/btn_main"/>
+    <!-- 边框宽度，颜色值 -->
+
+    <corners android:radius="100dp"/>
+</shape>

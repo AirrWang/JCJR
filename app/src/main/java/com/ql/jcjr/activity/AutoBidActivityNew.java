@@ -330,7 +330,7 @@ public class AutoBidActivityNew extends BaseActivity implements
                 finish();
                 break;
             case R.id.btn_right:
-                CommonToast.showHintDialog(AutoBidActivityNew.this, "每次新标发布后，系统将按照设定金额自动投标，如实际可用余额少于设定金额则按实际金额投标。\n自动投标暂不支持红包的自动使用！\n");
+                CommonToast.showHintDialog(AutoBidActivityNew.this, "每次新标发布后，系统将按照设定金额自动投标，如实际可用余额少于设定金额则按实际金额投标。");
                 break;
             case R.id.btn_setting:
                 if(isOnStatusScreen) {

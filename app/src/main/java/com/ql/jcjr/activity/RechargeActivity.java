@@ -19,6 +19,7 @@ import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.CheckBankEntity;
 import com.ql.jcjr.entity.RechargeEntity;
+import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -223,8 +224,12 @@ public class RechargeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_bind:
-                Intent intent = new Intent(mContext, BindBankCardActivity.class);
-                startActivityForResult(intent, CODE_BIND);
+                if (UserData.getInstance().getRealName().equals("")) {
+                    CommonToast.showShiMingDialog(mContext);
+                }else {
+                    Intent intent = new Intent(mContext, BindBankCardActivity.class);
+                    startActivityForResult(intent, CODE_BIND);
+                }
                 break;
             case R.id.btn_recharge:
                 if(checkInfo()) {

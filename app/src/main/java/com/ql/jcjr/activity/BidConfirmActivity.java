@@ -245,8 +245,7 @@ public class BidConfirmActivity extends BaseActivity {
                             public void oClickEvent() {
 //                                Intent intent = new Intent(mContext, RechargeActivity.class);
 //                                startActivity(intent);
-                                Intent intent = new Intent(mContext, MainActivity.class);
-                                intent.putExtra("main_index",2);
+                                Intent intent = new Intent(mContext, RechargeActivity.class);
                                 startActivity(intent);
                                 finish();
 

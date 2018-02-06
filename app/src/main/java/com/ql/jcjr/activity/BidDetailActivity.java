@@ -91,6 +91,7 @@ public class BidDetailActivity extends BaseActivity {
     @ViewInject(R.id.iv_calculator)
     private ImageView mIvCalculator;
 
+
     private Context mContext;
     private String mBidId;
     private String bidName;
@@ -196,7 +197,6 @@ public class BidDetailActivity extends BaseActivity {
                             mIvCalculator.setVisibility(View.GONE);
                             mTvBid.setBackgroundColor(getResources().getColor(R.color.font_grey));
                             mTvBid.setTextColor(getResources().getColor(R.color.font_grey_four));
-
                             mTvPercent.setText("100%");
                             mIvProgressLight.setVisibility(View.GONE);
                         }else{
@@ -306,7 +306,7 @@ public class BidDetailActivity extends BaseActivity {
                                 gotoBidConfirm(BidDetailActivity.this.resultBean.getSurplus(), caculate(BidDetailActivity.this.resultBean.getSurplus()));
                             }
                             else{
-                                CommonToast.showUnCancelableDialog(mContext, "投资金额不能少于"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
                             }
                         }
                         else{
@@ -538,34 +538,23 @@ public class BidDetailActivity extends BaseActivity {
             return false;
         }
 
-        double myBalance = Double.valueOf(balance);
         double surplus = Double.valueOf(resultBean.getSurplus());
         double lowestBid = Double.valueOf(resultBean.getLowest_account());
         double myEnter = Double.valueOf(etBIdAmt.getText().toString());
+        double mostBid=Double.valueOf(resultBean.getMost_account());
 
         if(surplus >= lowestBid){
             if (myEnter < lowestBid) {
-    //            CommonToast.showUnCancelableDialog(mContext, "起投金额 " + resultBean.getLowest_account() + " 元");
-                CommonToast.showUnCancelableDialog(mContext, "投资金额不能少于"+resultBean.getLowest_account()+"元！");
+                CommonToast.makeCustomText(mContext, "最小投资金额为"+lowestBid+"元！");
                 return false;
             }
         }
-
-//        if (myBalance < myEnter) {
-//            CommonToast.setIPositiveButtonEventListener(new CommonToast.IPositiveButtonEvent() {
-//                @Override
-//                public void oClickEvent() {
-//                    Intent intent = new Intent(mContext, RechargeActivity.class);
-//                    startActivity(intent);
-//                    CommonToast.unRegisteIPositiveButtonEventListener();
-//                }
-//            });
-//            CommonToast.showUnCancelableDialog(mContext, "可用余额不足！");
-//            return false;
-//        }
-
         if (surplus <myEnter){
-            CommonToast.showHintDialog(mContext, "投资金额超过剩余额度！");
+            CommonToast.makeCustomText(mContext, "剩余可投金额为"+surplus+"元！");
+            return false;
+        }
+        if (myEnter>mostBid){
+            CommonToast.makeCustomText(mContext, "最大投资金额为"+mostBid+"元！");
             return false;
         }
 
