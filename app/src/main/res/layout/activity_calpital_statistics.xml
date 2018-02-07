@@ -155,6 +155,7 @@
                     android:textColor="@color/font_black"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="0.5dp"
                 android:orientation="horizontal"
                 android:background="#FBFBFB"
                 android:gravity="center_vertical"
@@ -177,6 +178,7 @@
                     android:textColor="@color/font_black"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="0.5dp"
                 android:orientation="horizontal"
                 android:background="#FBFBFB"
                 android:gravity="center_vertical"

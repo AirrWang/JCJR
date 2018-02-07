@@ -189,9 +189,9 @@ android {
         jinritoutiao14 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao14"]
         }
-        chezhuwuyou {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
-        }
+//        chezhuwuyou {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
+//        }
     }
 
 //    productFlavors.all {
