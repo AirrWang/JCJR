@@ -27,6 +27,7 @@ import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
+import com.ql.jcjr.utils.NetworkUtil;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
 import com.ql.jcjr.utils.StringUtils;
 
@@ -65,7 +66,7 @@ public class GuideActivity extends Activity {
         guideImage.setOnPageChangeListener(new MyOnPageChangeListener());
         guideImage.setAdapter(adapter);
         //今日头条渠道打开
-//        getIEMI();
+        getIEMI();
 
     }
     private void getIEMI() {
@@ -75,7 +76,8 @@ public class GuideActivity extends Activity {
             Log.d("唯一识别码:","用户没有授权");
             return;
         }
-        String imei = telephonyManager.getDeviceId();
+        String imei = NetworkUtil.MD5Util.md5(telephonyManager.getDeviceId());
+//        CommonToast.showHintDialog(mContext, "imei:"+imei);
 
         Log.d("唯一识别码:",imei);
 

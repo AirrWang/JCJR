@@ -55,8 +55,6 @@ public class NoviceExclusiveActivity extends BaseActivity {
     private TextView mTvLoan;
     @ViewInject(R.id.tv_loan_after)
     private View mTvLoanAfter;
-//    @ViewInject(R.id.tv_repayment_type)
-//    private TextView mTvRepayType;
     @ViewInject(R.id.ithb_bid_record)
     private ImageTextHorizontalBarLess mTvBidRecord;
 
@@ -66,10 +64,15 @@ public class NoviceExclusiveActivity extends BaseActivity {
     private RelativeLayout mLlDetailRest;
     @ViewInject(R.id.ll_biao_detail_right)
     private LinearLayout mLinearLayoutDetailGain;
+    @ViewInject(R.id.tv_title_second)
+    private ImageTextHorizontalBarLess mTvTitleSecond;
+    @ViewInject(R.id.tv_repayment_type)
+    private ImageTextHorizontalBarLess mTvRepayType;
 
     private Context mContext;
     private String mBidId;
     private BidDetailEntity.ResultBean resultBean;
+    private String bidName;
 
     private InputMethodManager imm;
 
@@ -88,13 +91,14 @@ public class NoviceExclusiveActivity extends BaseActivity {
     }
 
     private void getIntentData() {
-//        mTvLoanAfter.setText("限购额度");
         mTvLoanAfter.setBackgroundResource(R.drawable.font_icon_xged);
         mLlDetailProgress.setVisibility(View.GONE);
         mLlDetailRest.setVisibility(View.GONE);
         mLinearLayoutDetailGain.setVisibility(View.GONE);
         mBidId = getIntent().getStringExtra("bid_id");
-        mTvTitle.setText("新手专享");
+        bidName = getIntent().getStringExtra("bid_title");
+        mTvTitle.setText(bidName);
+        mTvTitleSecond.setRightTitleText(bidName);
         getBidDetailData(mBidId);
     }
 
@@ -124,7 +128,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
 
                         mTvMinAmt.setText(resultBean.getLowest_account() + "元");
                         mTvLoan.setText(resultBean.getMost_account() + "元");
-
+                        mTvRepayType.setRightTitleText(resultBean.getRepaytype());
                         mTvBidRecord.setRightTitleText(resultBean.getTenderNum() + "人");
                     }
 
@@ -347,10 +351,11 @@ public class NoviceExclusiveActivity extends BaseActivity {
         double surplus = Double.valueOf(resultBean.getMost_account());
         double lowestBid = Double.valueOf(resultBean.getLowest_account());
         double myEnter = Double.valueOf(etBIdAmt.getText().toString());
+        double mostBid=Double.valueOf(resultBean.getMost_account());
+
 
         if (myEnter < lowestBid) {
-//            CommonToast.showUnCancelableDialog(mContext, "起投金额 " + resultBean.getLowest_account() + " 元");
-            CommonToast.showUnCancelableDialog(mContext, "投资金额低于起投金额！");
+            CommonToast.makeCustomText(mContext, "最小投资金额为"+lowestBid+"元！");
             return false;
         }
 
@@ -358,29 +363,25 @@ public class NoviceExclusiveActivity extends BaseActivity {
             CommonToast.setIPositiveButtonEventListener(new CommonToast.IPositiveButtonEvent() {
                 @Override
                 public void oClickEvent() {
-//                    Intent intent = new Intent(mContext, RechargeActivity.class);
-//                    startActivity(intent);
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    intent.putExtra("main_index",2);
+                    Intent intent = new Intent(mContext, RechargeActivity.class);
                     startActivity(intent);
                     finish();
-
                     CommonToast.unRegisteIPositiveButtonEventListener();
                 }
             });
-            CommonToast.showUnCancelableDialog(mContext, "可用余额不足！");
+            CommonToast.showBidDetailDialog(mContext, "可用余额不足！");
             return false;
         }
 
-        if (surplus < myEnter) {
-            CommonToast.showHintDialog(mContext, "投资金额超过限额！");
+        if (myEnter>mostBid){
+            CommonToast.makeCustomText(mContext, "最大投资金额为"+mostBid+"元！");
             return false;
         }
 
-//        if ((Double.valueOf(resultBean.getSurplus()) - Double.valueOf(etBIdAmt.getText().toString())) < 0) {
-//            CommonToast.showHintDialog(mContext, "投资金额超过剩余额度！");
-//            return false;
-//        }
+        if (surplus <myEnter){
+            CommonToast.makeCustomText(mContext, "剩余可投金额为"+surplus+"元！");
+            return false;
+        }
 
         return true;
     }

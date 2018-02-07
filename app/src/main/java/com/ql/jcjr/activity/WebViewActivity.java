@@ -261,6 +261,9 @@ public class WebViewActivity extends BaseActivity {
                     intent.putExtra("main_index",2);
                     WebViewActivity.this.startActivity(intent);
                     finish();
+                } else if(url != null && url.equals(RequestURL.INTERCEPT_MYREDPACKETS_URL)){
+                    Intent intent = new Intent(WebViewActivity.this, MyRedPacketsActivity.class);
+                    WebViewActivity.this.startActivity(intent);
                 }
                 else {
                     view.loadUrl(url);
@@ -297,10 +300,11 @@ public class WebViewActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.tv_second_left: {
                 finish();
+
                 break;
             }
             case R.id.btn_left:
-                finish();
+                webviewGoBack();
 //                webviewGoBack();///TODO 取消返回上一个页面，直接关闭
                 break;
             case R.id.btn_right:

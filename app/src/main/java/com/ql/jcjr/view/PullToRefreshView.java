@@ -316,6 +316,11 @@ public class PullToRefreshView extends LinearLayout {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mFooterViewHeight);
         addView(mFooterView, params);
     }
+    public void removeFootView(){
+        if (mFooterView!=null){
+            removeView(mFooterView);
+        }
+    }
 
 
     /**

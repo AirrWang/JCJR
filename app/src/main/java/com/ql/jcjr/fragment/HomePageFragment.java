@@ -5,21 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
+import com.ql.jcjr.activity.BidDetailActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
+import com.ql.jcjr.activity.RealNameActivity;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BannerEntity;
-import com.ql.jcjr.entity.NoviceExclusiveEntity;
+import com.ql.jcjr.entity.HomeDataEntity;
 import com.ql.jcjr.entity.RollNewsEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
@@ -33,7 +37,7 @@ import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.IndicatorView;
-import com.ql.jcjr.view.NoScrollListView;
+import com.ql.jcjr.view.PullToRefreshView;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.uuch.adlibrary.AdConstant;
 import com.uuch.adlibrary.AdManager;
@@ -47,24 +51,55 @@ import java.util.List;
 /**
  * Created by Liuchao on 2016/9/23.
  */
-public class HomePageFragment extends BaseFragment{
+public class HomePageFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener {
 
     @ViewInject(R.id.in_advert)
     private IndicatorView mIndicatorView;
-    @ViewInject(R.id.iv_fun_xsfl)
-    private ImageView mIVFunXsfl;
-    @ViewInject(R.id.iv_fun_yqyl)
-    private ImageView mIVFunYqyl;
     @ViewInject(R.id.marqueeView)
     private MarqueeView mMarqueeView;
     @ViewInject(R.id.tv_annualized_rate)
     private TextView mTvAnnualizedRate;
-    @ViewInject(R.id.lv_selective_finance)
-    private NoScrollListView mLvSelectiveFinance;
-    @ViewInject(R.id.tv_lowest_amt)
-    private TextView mTvLowestAmt;
     @ViewInject(R.id.tv_term)
     private TextView mTvTerm;
+    @ViewInject(R.id.ll_marqueeView)
+    private LinearLayout mLlmarquee;
+    @ViewInject(R.id.pull_refresh_view)
+    private PullToRefreshView mPullRefresh;
+    @ViewInject(R.id.tv_gf_total)
+    private TextView mTotal;
+    @ViewInject(R.id.tv_gf_people)
+    private TextView mPeople;
+    @ViewInject(R.id.iv_banner)
+    private ImageView mIvBanner;
+    @ViewInject(R.id.ll_1)
+    private LinearLayout mLl;
+    @ViewInject(R.id.tv_limit_people)
+    private TextView mLimitPeople;
+    @ViewInject(R.id.iv_bid_title)
+    private ImageView mIvTitle;
+    @ViewInject(R.id.btn_bid)
+    private Button mBidJump;
+    @ViewInject(R.id.iv_0)
+    private ImageView iv_0;
+    @ViewInject(R.id.iv_1)
+    private ImageView iv_1;
+    @ViewInject(R.id.iv_2)
+    private ImageView iv_2;
+    @ViewInject(R.id.iv_3)
+    private ImageView iv_3;
+    @ViewInject(R.id.tv_0)
+    private TextView tv_0;
+    @ViewInject(R.id.tv_1)
+    private TextView tv_1;
+    @ViewInject(R.id.tv_2)
+    private TextView tv_2;
+    @ViewInject(R.id.tv_3)
+    private TextView tv_3;
+    @ViewInject(R.id.tv_diffrent_bid)
+    private TextView tv_diffrent_bid;
+
+
+
 
     private static final int INDEX_BEGINNER_WELFARE = 0;
     private static final int INDEX_INVITATION = 1;
@@ -76,6 +111,12 @@ public class HomePageFragment extends BaseFragment{
     private List<RollNewsEntity.ResultBean> resultBeanList;
 
     private String mNoviceExclusiveId;
+    private int banner=0;
+    private String mBidName;
+    private String url0;
+    private String url1;
+    private String url2;
+    private String url3;
 
     @Override
     protected int getContentView() {
@@ -90,10 +131,95 @@ public class HomePageFragment extends BaseFragment{
 
         mTvAnnualizedRate.setTypeface(JcbApplication.getPingFangBoldTypeFace());
         mTvTerm.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+        mLimitPeople.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+        mPullRefresh.setOnHeaderRefreshListener(this);
+        mPullRefresh.setOnFooterLoadListener(this);
+        mPullRefresh.removeFootView();
+    }
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if(isVisible) {
+            banner();
+            initMarqueeView();
+//            getNoviceExclusive();
+            getData();
+        }
+    }
 
-        banner();
-        initMarqueeView();
-        getNoviceExclusive();
+    private void getData() {
+        SenderResultModel resultModel = ParamsManager.getHomeData();
+
+        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+
+            @Override
+            public void onSuccess(String responeJson) {
+                mIvTitle.setImageResource(R.drawable.icon_xszx_sy);
+                LogUtil.i("首页数据获取成功 " + responeJson);
+                mPullRefresh.onHeaderRefreshFinish();
+                HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
+                mTotal.setText(entity.getResult().getResult3().getAccount());
+                mPeople.setText(entity.getResult().getResult3().getCount());
+                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
+                tv_diffrent_bid.setText("累计申购");
+                mLl.setVisibility(View.VISIBLE);
+                if (entity.getResult().getResult1().getCode().equals("1")){
+                    banner=1;
+                    mIvBanner.setImageResource(R.drawable.smrz_sy);
+                }else if (entity.getResult().getResult1().getCode().equals("2")){
+                    banner=2;
+                    mIvBanner.setImageResource(R.drawable.xszx_sy);
+                }else if (entity.getResult().getResult1().getCode().equals("3")){
+                    banner=3;
+                    mLl.setVisibility(View.GONE);
+                    mIvTitle.setImageResource(R.drawable.title_sy);
+                    tv_diffrent_bid.setText("剩余金额");
+                    mLimitPeople.setText(entity.getResult().getResult2().getLast_account()+"元");
+                }else if (entity.getResult().getResult1().getCode().equals("0")){
+                    mIvBanner.setImageResource(R.drawable.zcjs_sy);
+                }
+                mTvAnnualizedRate.setText(entity.getResult().getResult2().getApr());
+                mTvTerm.setText(entity.getResult().getResult2().getTime_limit_day()+"天");
+
+
+
+                mNoviceExclusiveId=entity.getResult().getResult2().getId();
+                mBidName = entity.getResult().getResult2().getName();
+                if (entity.getResult().getResult2().getIsselled().equals("0")){
+                    mBidJump.setEnabled(true);
+                    mBidJump.setText("立即加入");
+                }else {
+                    mBidJump.setEnabled(false);
+                    mBidJump.setText("已售罄");
+                }
+
+                initFour(entity.getResult().getResult4());
+            }
+
+            @Override
+            public void onFailure(ResponseEntity entity) {
+                LogUtil.i("广告栏失败 " + entity.errorInfo);
+                CommonToast.showHintDialog(mContext, entity.errorInfo);
+                mPullRefresh.onHeaderRefreshFinish();
+            }
+
+        }, mContext);
+
+    }
+
+    private void initFour(List<HomeDataEntity.ResultBean.ResultBeanFour> entity) {
+        tv_0.setText(entity.get(0).getTitle());
+        tv_1.setText(entity.get(1).getTitle());
+        tv_2.setText(entity.get(2).getTitle());
+        tv_3.setText(entity.get(3).getTitle());
+        GlideUtil.displayPic(mContext,entity.get(0).getPic(),R.drawable.ptjs_sy,iv_0);
+        GlideUtil.displayPic(mContext,entity.get(1).getPic(),R.drawable.yqyl_sy,iv_1);
+        GlideUtil.displayPic(mContext,entity.get(2).getPic(),R.drawable.dhzx_sy,iv_2);
+        GlideUtil.displayPic(mContext,entity.get(3).getPic(),R.drawable.mrqd_sy,iv_3);
+        url0 = entity.get(0).getLink();
+        url1 = entity.get(1).getLink();
+        url2 = entity.get(2).getLink();
+        url3 = entity.get(3).getLink();
     }
 
     private void banner() {
@@ -106,15 +232,18 @@ public class HomePageFragment extends BaseFragment{
                 LogUtil.i("广告栏成功 " + responeJson);
 
                 BannerEntity entity = GsonParser.getParsedObj(responeJson, BannerEntity.class);
+                bannerUrlList.clear();
                 bannerUrlList.addAll(entity.getResult());
                 initDialog(entity.getResultTanPing());
                 initAdvert(bannerUrlList);
+                mPullRefresh.onHeaderRefreshFinish();
             }
 
             @Override
             public void onFailure(ResponseEntity entity) {
                 LogUtil.i("广告栏失败 " + entity.errorInfo);
                 CommonToast.showHintDialog(mContext, entity.errorInfo);
+                mPullRefresh.onHeaderRefreshFinish();
             }
 
         }, mContext);
@@ -174,9 +303,17 @@ public class HomePageFragment extends BaseFragment{
 
             @Override
             public void onSuccess(String responeJson) {
+                mPullRefresh.onHeaderRefreshFinish();
                 LogUtil.i("首页公告成功 " + responeJson);
                 RollNewsEntity entity = GsonParser.getParsedObj(responeJson, RollNewsEntity.class);
                 resultBeanList = entity.getResult();
+                if (resultBeanList.size()==0||resultBeanList==null){
+                    mLlmarquee.setVisibility(View.GONE);
+                    return;
+                }else {
+                    mLlmarquee.setVisibility(View.VISIBLE);
+                }
+                rollNewsTitleList.clear();
                 for (int i = 0; i < resultBeanList.size(); i++){
                     rollNewsTitleList.add(resultBeanList.get(i).getName());
                 }
@@ -186,6 +323,7 @@ public class HomePageFragment extends BaseFragment{
 
             @Override
             public void onFailure(ResponseEntity entity) {
+                mPullRefresh.onHeaderRefreshFinish();
                 LogUtil.i("首页公告失败 " + entity.errorInfo);
                 CommonToast.showHintDialog(mContext, entity.errorInfo);
             }
@@ -193,29 +331,31 @@ public class HomePageFragment extends BaseFragment{
         }, mContext);
     }
 
-    private void getNoviceExclusive() {
-        SenderResultModel resultModel = ParamsManager.senderNoviceExclusive();
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("首页年化 " + responeJson);
-                NoviceExclusiveEntity entity = GsonParser.getParsedObj(responeJson,NoviceExclusiveEntity.class);
-                mTvAnnualizedRate.setText(entity.getResult().getApr());
-                mTvLowestAmt.setText(getResources().getString(R.string.str_lowest_account, entity.getResult().getLowestaccount()));
-                mTvTerm.setText(entity.getResult().getBorrowTime().replace("天",""));
-                mNoviceExclusiveId = entity.getResult().getId();
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("首页年化失败 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, mContext);
-    }
+//    private void getNoviceExclusive() {
+//        SenderResultModel resultModel = ParamsManager.senderNoviceExclusive();
+//
+//        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+//
+//            @Override
+//            public void onSuccess(String responeJson) {
+//                mPullRefresh.onHeaderRefreshFinish();
+//                LogUtil.i("首页年化 " + responeJson);
+//                NoviceExclusiveEntity entity = GsonParser.getParsedObj(responeJson,NoviceExclusiveEntity.class);
+////                mTvAnnualizedRate.setText(entity.getResult().getApr());
+////                mTvLowestAmt.setText(getResources().getString(R.string.str_lowest_account, entity.getResult().getLowestaccount()));
+////                mTvTerm.setText(entity.getResult().getBorrowTime().replace("天",""));
+//                mNoviceExclusiveId = entity.getResult().getId();
+//            }
+//
+//            @Override
+//            public void onFailure(ResponseEntity entity) {
+//                mPullRefresh.onHeaderRefreshFinish();
+//                LogUtil.i("首页年化失败 " + entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//            }
+//
+//        }, mContext);
+//    }
 
     private void initAdvert(final List<BannerEntity.ResultBean> list) {
         List<String> urlList = new ArrayList<>();
@@ -268,29 +408,51 @@ public class HomePageFragment extends BaseFragment{
         stopPlay();
     }
 
-    @OnClick({R.id.btn_bid, R.id.iv_fun_xsfl, R.id.iv_fun_yqyl, R.id.tv_gonggao_more})
+    @OnClick({R.id.btn_bid, R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more,R.id.ll_dhzx,R.id.ll_mrqd,R.id.ll_1})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.btn_bid:
-//                final MainActivity mainActivity = (MainActivity) getActivity();
-//                mainActivity.mViewPager.setCurrentItem(INDEX_MANAGE_MONEY);
-                intent = new Intent(mContext, NoviceExclusiveActivity.class);
-                intent.putExtra("bid_id",mNoviceExclusiveId);
-                startActivity(intent);
-                break;
-
-            case R.id.iv_fun_xsfl:
-                UrlUtil.showHtmlPage(mContext,"新手福利", RequestURL.XSFL_URL);
-                break;
-
-            case R.id.iv_fun_yqyl:
-                if(UserData.getInstance().isLogin()) {
-                    UrlUtil.showHtmlPage(mContext,"邀请有礼", RequestURL.YQYL_URL + UserData.getInstance().getUSERID());
-                }else {
+                if (!UserData.getInstance().isLogin()){
                     intent = new Intent(mContext, LoginActivityCheck.class);
                     startActivity(intent);
+                    break;
                 }
+                if (banner==3){
+                    intent = new Intent(mContext, BidDetailActivity.class);
+                    intent.putExtra("bid_title", mBidName);
+                    intent.putExtra("bid_id", mNoviceExclusiveId);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                    intent.putExtra("bid_id",mNoviceExclusiveId);
+                    intent.putExtra("bid_title", mBidName);
+                    startActivity(intent);
+                }
+                break;
+
+            case R.id.ll_ptjs:
+
+                UrlUtil.showHtmlPage(mContext,tv_0.getText().toString(), url0,true);
+
+                break;
+
+            case R.id.ll_yqyl:
+
+                    UrlUtil.showHtmlPage(mContext,tv_1.getText().toString(), url1,true);
+
+                break;
+
+            case R.id.ll_dhzx:
+
+                    UrlUtil.showHtmlPage(mContext,tv_2.getText().toString(), url2,true);
+
+                break;
+
+            case R.id.ll_mrqd:
+
+                    UrlUtil.showHtmlPage(mContext,tv_3.getText().toString(), url3,true);
+
                 break;
 
             case R.id.tv_gonggao_more:
@@ -299,7 +461,38 @@ public class HomePageFragment extends BaseFragment{
                 intent.putExtra("msg_type",1);
                 startActivity(intent);
                 break;
+            case R.id.ll_1:
+                if (!UserData.getInstance().isLogin()||banner==0){
+                    intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                    break;
+                }
+                if (banner==1){
+                    intent = new Intent(mContext, RealNameActivity.class);
+                    startActivity(intent);
+                }else if (banner==2){
+                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                    intent.putExtra("bid_id",mNoviceExclusiveId);
+                    intent.putExtra("bid_title", mBidName);
+                    startActivity(intent);
+                }else {}
+                break;
         }
     }
 
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        banner();
+        initMarqueeView();
+//        getNoviceExclusive();
+        getData();
+    }
+
+    @Override
+    public void onFooterLoad(PullToRefreshView view) {
+        mPullRefresh.onFooterLoadFinish();
+        mPullRefresh.setOnHeaderRefreshListener(this);
+        mPullRefresh.setOnFooterLoadListener(this);
+        mPullRefresh.removeFootView();
+    }
 }

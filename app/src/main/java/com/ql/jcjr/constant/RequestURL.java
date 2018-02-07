@@ -24,6 +24,8 @@ public class RequestURL {
     public static final String INTERCEPT_XSFL_URL = SERVICE_URL_BASE+"newweixinlist/index.html";
     //充值成功H5页面 继续充值链接
     public static final String INTERCEPT_RECHARGE_URL = SERVICE_URL_BASE+"index.php?user&q=going/wxrecharge";
+    //我的红包跳转
+    public static final String INTERCEPT_MYREDPACKETS_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/myawards";
     //
     public static final String INTERCEPT_GOINGACCOUNT_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/myaccount";
     //公告详情
@@ -73,6 +75,8 @@ public class RequestURL {
     public static final String BID_LIST_URL = SERVICE_URL + "borrowList";
     //首页公告
     public static final String ROLL_NEWS_URL = SERVICE_URL + "rollNews";
+    //首页公告
+    public static final String HOME_DATA_URL = SERVICE_URL + "home";
     //首页年化
     public static final String NOVICE_EXCLUSIVE_URL = SERVICE_URL + "borrowForNewer";
     //我的页面

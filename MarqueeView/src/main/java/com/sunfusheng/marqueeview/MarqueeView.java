@@ -196,9 +196,10 @@ public class MarqueeView extends ViewFlipper {
         start(inAnimResId, outAnimResID);
     }
 
-    private boolean start(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
+    private void start(@AnimRes int inAnimResId, @AnimRes int outAnimResID) {
         removeAllViews();
         clearAnimation();
+        stopFlipping();
 
         position = 0;
         addView(createTextView(notices.get(position)));
@@ -206,6 +207,8 @@ public class MarqueeView extends ViewFlipper {
         if (notices.size() > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID);
             startFlipping();
+        }else {
+            return;
         }
 
         if (getInAnimation() != null) {
@@ -231,7 +234,6 @@ public class MarqueeView extends ViewFlipper {
                 }
             });
         }
-        return true;
     }
 
     private TextView createTextView(CharSequence text) {

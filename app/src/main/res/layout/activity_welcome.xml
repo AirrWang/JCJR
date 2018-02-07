@@ -4,28 +4,33 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-    <TextView
-        android:id="@+id/tv_welcome_tip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_32px"
-        android:layout_marginBottom="@dimen/dimen_40px"
-        android:gravity="center"
-        android:lineSpacingExtra="5dp"
-        android:textScaleX="1.1"
-        android:textSize="9sp"
-        android:textColor="#9598a1"
-        android:text="@string/copy_right_info"/>
-
     <ImageView
-        android:layout_width="140dp"
-        android:layout_height="68dp"
-        android:src="@drawable/login_logo"
-        android:scaleType="fitXY"
-        android:layout_centerInParent="true"
-        android:layout_above="@id/tv_welcome_tip"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/welcome"
+        android:scaleType="fitXY"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_welcome_tip"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="@dimen/dimen_32px"-->
+        <!--android:layout_marginBottom="@dimen/dimen_40px"-->
+        <!--android:gravity="center"-->
+        <!--android:lineSpacingExtra="5dp"-->
+        <!--android:textScaleX="1.1"-->
+        <!--android:textSize="9sp"-->
+        <!--android:textColor="#9598a1"-->
+        <!--android:text="@string/copy_right_info"/>-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="140dp"-->
+        <!--android:layout_height="68dp"-->
+        <!--android:src="@drawable/login_logo"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_above="@id/tv_welcome_tip"/>-->
 
 </RelativeLayout>

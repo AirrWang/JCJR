@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:scrollbars="none"
     android:background="@color/c_page_bg">
-
-    <RelativeLayout
+    <com.ql.jcjr.view.PullToRefreshView
+        android:id="@+id/pull_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -28,39 +34,109 @@
             android:id="@+id/ll_funs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/in_advert"
+            android:layout_below="@+id/ll_marqueeView"
             android:background="#fff"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/dimen_36px"
+            android:paddingBottom="@dimen/dimen_44px"
             android:paddingTop="@dimen/dimen_36px">
-
-            <ImageView
-                android:id="@+id/iv_fun_xsfl"
-                android:layout_width="@dimen/home_fun_w"
-                android:layout_height="@dimen/home_fun_h"
-                android:layout_marginRight="@dimen/dimen_42px"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_xsfl_sy" />
-
-            <View style="@style/common_divider_without_margin_v" />
-
-            <ImageView
-                android:id="@+id/iv_fun_yqyl"
-                android:layout_width="@dimen/home_fun_w"
-                android:layout_height="@dimen/home_fun_h"
-                android:layout_marginLeft="@dimen/dimen_42px"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_yqyl_sy" />
+            <LinearLayout
+                android:id="@+id/ll_ptjs"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_0"
+                    android:layout_width="@dimen/dimen_60px"
+                    android:layout_height="@dimen/dimen_60px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ptjs_sy" />
+                <TextView
+                    android:id="@+id/tv_0"
+                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平台介绍"
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_black_grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_yqyl"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:id="@+id/iv_1"
+                    android:layout_width="@dimen/dimen_60px"
+                    android:layout_height="@dimen/dimen_60px"
+                    android:src="@drawable/yqyl_sy" />
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="邀请有礼"
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_black_grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_dhzx"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_2"
+                    android:layout_width="@dimen/dimen_60px"
+                    android:layout_height="@dimen/dimen_60px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dhzx_sy" />
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="兑换中心"
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_black_grey"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_mrqd"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_3"
+                    android:layout_width="@dimen/dimen_60px"
+                    android:layout_height="@dimen/dimen_60px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mrqd_sy" />
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="每日签到"
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_black_grey"/>
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_marqueeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll_funs"
-            android:layout_marginTop="@dimen/dimen_20px"
+            android:layout_below="@id/in_advert"
             android:paddingBottom="@dimen/dimen_20px"
             android:paddingTop="@dimen/dimen_20px"
             android:gravity="center_vertical"
@@ -99,12 +175,27 @@
                 android:text="更多"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_marginTop="@dimen/dimen_20px"
+            android:layout_below="@+id/ll_funs"
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/zcjs_sy"
+                android:id="@+id/iv_banner"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_200px" />
+        </LinearLayout>
+
 
         <FrameLayout
             android:id="@+id/ling_qian_bao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_marqueeView">
+            android:layout_below="@+id/ll_1">
 
             <include
                 layout="@layout/layout_ling_qian_bao"
@@ -115,6 +206,7 @@
                 android:layout_marginTop="@dimen/dimen_20px"/>
 
             <ImageView
+                android:id="@+id/iv_bid_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_xszx_sy"
@@ -124,9 +216,99 @@
         </FrameLayout>
 
         <LinearLayout
+            android:layout_marginTop="@dimen/dimen_34px"
+            android:id="@+id/ll_gf"
+            android:gravity="center"
+            android:layout_below="@id/ling_qian_bao"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="@color/font_grey_four"
+                android:layout_width="@dimen/dimen_120px"
+                android:layout_height="@dimen/dimen_2px"/>
+            <com.ql.jcjr.view.CircleImageView
+                android:layout_marginLeft="@dimen/dimen_14px"
+                android:layout_width="@dimen/dimen_8px"
+                android:src="@color/font_grey_four"
+                android:layout_height="@dimen/dimen_8px" />
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_40px"
+                android:layout_marginRight="@dimen/dimen_40px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平台数据"
+                android:textSize="@dimen/dimen_30px"
+                android:textColor="@color/font_black"/>
+            <com.ql.jcjr.view.CircleImageView
+                android:layout_marginRight="@dimen/dimen_14px"
+                android:layout_width="@dimen/dimen_8px"
+                android:src="@color/font_grey_four"
+                android:layout_height="@dimen/dimen_8px" />
+            <View
+                android:background="@color/font_grey_four"
+                android:layout_width="@dimen/dimen_120px"
+                android:layout_height="@dimen/dimen_2px"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="@dimen/dimen_40px"
+            android:paddingBottom="@dimen/dimen_28px"
+            android:id="@+id/ll_num"
+            android:layout_below="@+id/ll_gf"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="累计投资额（元）"
+                    android:textColor="@color/font_grey"
+                    android:textSize="@dimen/dimen_24px"/>
+                <TextView
+                    android:id="@+id/tv_gf_total"
+                    android:layout_marginTop="@dimen/dimen_2px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/dimen_26px"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/dimen_2px"
+                android:layout_height="match_parent"
+                android:src="@drawable/doted"/>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平台注册人数"
+                    android:textColor="@color/font_grey"
+                    android:textSize="@dimen/dimen_24px"/>
+                <TextView
+                    android:id="@+id/tv_gf_people"
+                    android:layout_marginTop="@dimen/dimen_2px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:textSize="@dimen/dimen_26px"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ling_qian_bao"
+            android:layout_below="@id/ll_num"
             android:layout_marginTop="@dimen/dimen_16px"
             android:layout_marginBottom="@dimen/dimen_16px"
             android:orientation="horizontal"
@@ -176,5 +358,6 @@
 
 
     </RelativeLayout>
-
-</ScrollView>
+        </ScrollView>
+    </com.ql.jcjr.view.PullToRefreshView>
+</RelativeLayout>

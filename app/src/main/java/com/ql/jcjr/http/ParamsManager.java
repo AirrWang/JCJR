@@ -27,7 +27,7 @@ public class ParamsManager {
     public static SenderResultModel senderGetAppInfo() {
         JSONObject object = new JSONObject();
         try {
-            object.put("imei", DeviceInfoUtil.imei);
+//            object.put("imei", DeviceInfoUtil.imei);
             object.put("phone_model", DeviceInfoUtil.phone_model);
             object.put("os_version", DeviceInfoUtil.os_version);
             object.put("channel", DeviceInfoUtil.channel);
@@ -199,6 +199,16 @@ public class ParamsManager {
      */
     public static SenderResultModel senderRollNews() {
         SenderResultModel resultModel = SenderManager.buildResultModel(null, RequestURL.ROLL_NEWS_URL, false);
+        return resultModel;
+    }
+
+    /**
+     * 首页数据
+     */
+    public static SenderResultModel getHomeData() {
+        JSONObject object = new JSONObject();
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.HOME_DATA_URL, false);
         return resultModel;
     }
 

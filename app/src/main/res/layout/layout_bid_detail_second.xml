@@ -13,19 +13,6 @@
         app:rightTitleVisibility="gone"
         app:titleTextLess="项目详情" />
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/ithb_project_detail"-->
-        <!--style="@style/bid_detail_bar_rl"-->
-        <!--android:background="#fff">-->
-
-        <!--<TextView-->
-            <!--style="@style/bid_detail_bar_title"-->
-            <!--android:text="项目详情"/>-->
-
-        <!--<ImageView-->
-            <!--style="@style/bid_detail_bar_arrow"/>-->
-
-    <!--</RelativeLayout>-->
 
     <com.ql.jcjr.view.ImageTextHorizontalBarLess
         style="@style/ithb_no_left_icon"
@@ -33,26 +20,6 @@
         app:rightTitleColor="@color/font_grey_three"
         app:titleTextLess="投资记录" />
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/ithb_bid_record"-->
-        <!--style="@style/bid_detail_bar_rl"-->
-        <!--android:background="#FBFBFB">-->
-
-        <!--<TextView-->
-            <!--style="@style/bid_detail_bar_title"-->
-            <!--android:text="投资记录"/>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/ithb_bid_record_arrow"-->
-            <!--style="@style/bid_detail_bar_arrow"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_buy_num"-->
-            <!--style="@style/bid_detail_bar_title"-->
-            <!--android:layout_toLeftOf="@id/ithb_bid_record_arrow"-->
-            <!--android:text="5人"/>-->
-
-    <!--</RelativeLayout>-->
 
     <com.ql.jcjr.view.ImageTextHorizontalBarLess
         style="@style/ithb_no_left_icon"
@@ -61,18 +28,5 @@
         app:rightTitleVisibility="gone"
         app:titleTextLess="安全保障" />
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/ithb_bid_reward"-->
-        <!--style="@style/bid_detail_bar_rl"-->
-        <!--android:background="#fff">-->
-
-        <!--<TextView-->
-            <!--style="@style/bid_detail_bar_title"-->
-            <!--android:text="安全保障"/>-->
-
-        <!--<ImageView-->
-            <!--style="@style/bid_detail_bar_arrow"/>-->
-
-    <!--</RelativeLayout>-->
 
 </LinearLayout>

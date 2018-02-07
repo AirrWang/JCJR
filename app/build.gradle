@@ -19,8 +19,8 @@ android {
         applicationId "com.ql.jcjr"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 11
-        versionName "1.7.1"
+        versionCode 12
+        versionName "1.8.0"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 
@@ -90,7 +90,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
         }
         zs360 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zs360", app_name: "积财金融-理财平台"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zs360", app_name: "积财金融理财"]
         }
         tencent {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tencent"]
@@ -102,7 +102,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "mumayi"]
         }
         oppo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo", app_name: "积财金融-理财平台"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo", app_name: "积财金融理财"]
         }
         meizu {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
@@ -189,9 +189,9 @@ android {
         jinritoutiao14 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao14"]
         }
-        chezhuwuyou {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
-        }
+//        chezhuwuyou {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
+//        }
     }
 
 //    productFlavors.all {

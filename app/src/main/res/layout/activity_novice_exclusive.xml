@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.ql.jcjr.activity.NoviceExclusiveActivity">
@@ -44,7 +44,25 @@
         android:layout_marginBottom="@dimen/dimen_132px">
 
         <include layout="@layout/layout_bid_detail_first"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/row_distance"
+            android:orientation="vertical">
 
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_right_icon"
+                android:id="@+id/tv_title_second"
+                app:titleTextLess="项目名称" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_right_icon"
+                android:id="@+id/tv_repayment_type"
+                app:bottomLineVisibilityLess="gone"
+                app:titleTextLess="还款方式" />
+
+
+        </LinearLayout>
         <include layout="@layout/layout_bid_detail_second"/>
 
     </LinearLayout>
