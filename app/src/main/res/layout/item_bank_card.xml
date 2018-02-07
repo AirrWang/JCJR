@@ -43,7 +43,7 @@
             android:textColor="@color/font_grey"
             android:textSize="@dimen/size_xs"
             android:layout_marginTop="@dimen/dimen_28px"
-            android:text="单笔限额100000，单日无限额，单月无限额"/>
+            android:text="单笔限额100000"/>
 
     </LinearLayout>
 

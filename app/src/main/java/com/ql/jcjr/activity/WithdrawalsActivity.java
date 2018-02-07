@@ -234,7 +234,7 @@ public class WithdrawalsActivity extends BaseActivity {
                                     lastFour = cardNum;
                                 }
                                 mTvAcctNum.setText(resultBean.getBankname() + " (" + lastFour + ")");
-                                mTvQuota.setText("单笔限额" + resultBean.getTotalMoney() + "元，单日无限额，单月无限额");
+                                mTvQuota.setText("单笔限额" + resultBean.getTotalMoney() + "元");
 
                                 totalMoney = resultBean.getTotalMoney();
                                 break;

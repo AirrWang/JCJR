@@ -302,11 +302,11 @@
         </provider>
         <!-- tencent bugly end -->
 
-        <service
-            android:name="com.ql.jcjr.service.DownloadApkService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
+        <!--<service-->
+            <!--android:name="com.ql.jcjr.service.DownloadApkService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+        <!--</service>-->
 
         <meta-data android:value="59ffcc96f43e486f5300001d" android:name="UMENG_APPKEY"/>
         <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
