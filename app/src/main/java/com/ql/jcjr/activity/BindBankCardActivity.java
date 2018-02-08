@@ -203,6 +203,7 @@ public class BindBankCardActivity extends BaseActivity {
                                 data.setBankno(resultBean.getBankno());
                                 data.setBranch(resultBean.getBranch());
                                 data.setImgUrl(resultBean.getImgUrl());
+                                data.setTotalMoney(resultBean.getTotalMoney());
                                 mBankCardList.add(data);
                                 mBankCardListAdapter.notifyDataSetChanged();
 

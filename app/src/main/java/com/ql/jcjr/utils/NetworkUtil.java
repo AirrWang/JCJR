@@ -165,6 +165,9 @@ public class NetworkUtil {
     public static class MD5Util {
 
         public static String md5(String string) {
+            if (string==null){
+                return "";
+            }
             byte[] hash;
             try {
                 hash = MessageDigest.getInstance("MD5").digest(string.getBytes("UTF-8"));
