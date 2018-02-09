@@ -109,12 +109,10 @@ public class YyyAdapter extends BaseAdapter {
 //        viewHolder.mLowestAmt.setText(mContext.getString(R.string.str_lowest_account_2, resultBean.getLowest_account()));
         //总额
         String result = "项目总额" + resultBean.getAccount_format() + "元";
-        SpannableString ss = StringUtils.getSpannableString(result, resources.getColor(R.color.font_black), 4, result.length() - 1);
-        viewHolder.mTvAvailableTotal.setText(ss);
+
         //可投
         String resultRest = "剩余" + resultBean.getSurplus() + "元";
-        SpannableString ssRest = StringUtils.getSpannableString(resultRest, resources.getColor(R.color.font_black), 2, resultRest.length() - 1);
-        viewHolder.mTvAvailableRest.setText(ssRest);
+
 
         //百分比
         viewHolder.mProgressBar.setMax(resultBean.getAccount());
@@ -125,22 +123,30 @@ public class YyyAdapter extends BaseAdapter {
 //            viewHolder.mBtnBid.setBackgroundResource(R.drawable.btn_bg_enable);
             view.setBackgroundColor(resources.getColor(R.color.item_yyy_bg_gery));
             viewHolder.mTvPercent.setText("100%");
+            viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mIvIcon.setImageResource(R.drawable.icon_decorate_disable_lclb);
 
-            viewHolder.mTvTag.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.mTvTag.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mTvTag.setBackgroundResource(R.drawable.bg_tag_grey);
 
             viewHolder.mLinearLayoutGain.setBackgroundResource(R.drawable.bg_yyy_apr_grey);
 
-            viewHolder.mApr.setTextColor(resources.getColor(R.color.font_grey));
-            viewHolder.mAprAfter.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.mApr.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mAprAfter.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
-            viewHolder.mAnnualizedRate.setTextColor(resources.getColor(R.color.font_grey));
-            viewHolder.mAnnualizedRateAfter.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.mAnnualizedRate.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mAnnualizedRateAfter.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
-            viewHolder.mAnnualizedRateGainBefore.setTextColor(resources.getColor(R.color.font_grey));
-            viewHolder.mAnnualizedRateGain.setTextColor(resources.getColor(R.color.font_grey));
-            viewHolder.mAnnualizedRateGainAfter.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.mAnnualizedRateGainBefore.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mAnnualizedRateGain.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mAnnualizedRateGainAfter.setTextColor(resources.getColor(R.color.c_cbcbcb));
+
+            viewHolder.mTvAvailableTotal.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mTvAvailableTotal.setText(result);
+            viewHolder.mTvAvailableRest.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mTvAvailableRest.setText(resultRest);
+            viewHolder.mTvTerm.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mTvTitle.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
             viewHolder.mProgressBar.setProgress(0);
             viewHolder.mProgressBar.setSecondaryProgress(resultBean.getAccount());
@@ -154,6 +160,7 @@ public class YyyAdapter extends BaseAdapter {
             }
 
             viewHolder.mTvPercent.setText(percent+"%");
+            viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.font_grey));
             viewHolder.mIvIcon.setImageResource(R.drawable.icon_decorate_lclb);
 
             viewHolder.mTvTag.setTextColor(resources.getColor(R.color.font_red));
@@ -171,21 +178,17 @@ public class YyyAdapter extends BaseAdapter {
             viewHolder.mAnnualizedRateGain.setTextColor(resources.getColor(R.color.font_red));
             viewHolder.mAnnualizedRateGainAfter.setTextColor(resources.getColor(R.color.font_red));
 
+            SpannableString ss = StringUtils.getSpannableString(result, resources.getColor(R.color.font_black), 4, result.length() - 1);
+            viewHolder.mTvAvailableTotal.setText(ss);
+            SpannableString ssRest = StringUtils.getSpannableString(resultRest, resources.getColor(R.color.font_black), 2, resultRest.length() - 1);
+            viewHolder.mTvAvailableRest.setText(ssRest);
+            viewHolder.mTvTerm.setTextColor(resources.getColor(R.color.font_black));
+            viewHolder.mTvTitle.setTextColor(resources.getColor(R.color.font_black));
+
             viewHolder.mProgressBar.setProgress(resultBean.getAccount_yes());
             viewHolder.mProgressBar.setSecondaryProgress(0);
-//            viewHolder.mBtnBid.setText("立即投资");
-//            viewHolder.mBtnBid.setBackgroundResource(R.drawable.btn_bid_selector);
-        }
 
-//        viewHolder.mBtnBid.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, BidDetailActivity.class);
-//                intent.putExtra("bid_title", resultBean.getName());
-//                intent.putExtra("bid_id", resultBean.getId());
-//                mContext.startActivity(intent);
-//            }
-//        });
+        }
 
         return view;
     }

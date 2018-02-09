@@ -23,7 +23,7 @@
 
     <color name="font_pink_light">#ebd4aa</color>
 
-    <color name="item_yyy_bg_gery">#ebeced</color>
+    <color name="item_yyy_bg_gery">#095A5A64</color>
 
     <!-- 主要的按钮颜色 -->
     <color name="btn_main">#CCA970</color>
@@ -98,6 +98,7 @@
 
     <color name="c_04a722">#04a722</color>
     <color name="c_d1d1d1">#d1d1d1</color>
+    <color name="c_cbcbcb">#CBCBCB</color>
 
     <color name="half_transparent">#af000000</color>
 </resources>

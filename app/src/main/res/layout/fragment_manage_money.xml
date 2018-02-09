@@ -31,7 +31,7 @@
             android:id="@+id/lv_yyy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
+            android:divider="@color/c_page_bg"
             android:dividerHeight="@dimen/dimen_20px"
             android:listSelector="@color/transparent"
             android:paddingTop="@dimen/dimen_20px"
