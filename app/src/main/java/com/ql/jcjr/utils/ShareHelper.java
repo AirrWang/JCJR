@@ -1,6 +1,7 @@
 package com.ql.jcjr.utils;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -19,8 +20,10 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     private Activity mActivity;
     private int shareType;
     private final int SHARE_TYPE_WEB = 1;
+    private final int SHARE_TYPE_IMAGE = 2;
     private UMWeb umWeb;
     private ShareAction mShareAction;
+    private UMImage image;
 
     public ShareHelper(Activity activity){
         mActivity = activity;
@@ -34,12 +37,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
         shareType = SHARE_TYPE_WEB;
         umWeb = new UMWeb(url);
         umWeb.setTitle(shareTitle);//标题
-        UMImage image = new UMImage(mActivity, imgUrl);//网络图片
-        //        UMImage image = new UMImage(ShareActivity.this, "imageurl");//网络图片
-//        UMImage image = new UMImage(ShareActivity.this, file);//本地文件
-//        UMImage image = new UMImage(ShareActivity.this, R.drawable.xxx);//资源文件
-//        UMImage image = new UMImage(ShareActivity.this, bitmap);//bitmap文件
-//        UMImage image = new UMImage(ShareActivity.this, byte[]);//字节流
+        image = new UMImage(mActivity, imgUrl);//网络图片
         umWeb.setThumb(image);  //缩略图
         umWeb.setDescription(shareContent);//描述
     }
@@ -49,7 +47,20 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
         umWeb.setTitle(shareTitle);//标题
         umWeb.setDescription(shareContent);//描述
     }
+    public void setShareImageView(String imageUrl){
+        shareType = SHARE_TYPE_IMAGE;
 
+        image = new UMImage(mActivity, imageUrl);
+        image.setThumb(image);
+        image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+    }
+    public void setShareImageView(Bitmap bitmap){
+        shareType = SHARE_TYPE_IMAGE;
+
+        image = new UMImage(mActivity, bitmap);
+        image.setThumb(image);
+        image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+    }
     public void share(){
         mShareAction.open();
     }
@@ -57,14 +68,20 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     @Override
     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
         if(share_media.toString().equals("SMS")){
-            String smsContent = umWeb.getTitle()+"，"+umWeb.getDescription()+",点击地址查看详情"+umWeb.toUrl();
-//            UMWeb temp = new UMWeb("");
-//            temp.setTitle(smsContent);
-//            mShareAction.withText(smsContent).setPlatform(share_media).share();
-            new ShareAction(mActivity).withText(smsContent).setPlatform(share_media).share();
+            if (shareType==SHARE_TYPE_WEB) {
+                String smsContent = umWeb.getTitle()+"，"+umWeb.getDescription()+",点击地址查看详情"+umWeb.toUrl();
+                new ShareAction(mActivity).withText(smsContent).setPlatform(share_media).share();
+            }else {
+                new ShareAction(mActivity).withMedia(image).setPlatform(share_media).share();
+            }
+
         }
         else{
-            mShareAction.withMedia(umWeb).setPlatform(share_media).share();
+            if (shareType==SHARE_TYPE_WEB) {
+                mShareAction.withMedia(umWeb).setPlatform(share_media).share();
+            }else {
+                mShareAction.withMedia(image).setPlatform(share_media).share();
+            }
         }
     }
 
@@ -80,7 +97,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-        LogUtil.i("shareHelper share: onError");
+        LogUtil.i("shareHelper share: onError"+throwable.getMessage());
     }
 
     @Override

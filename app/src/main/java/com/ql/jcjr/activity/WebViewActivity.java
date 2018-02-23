@@ -69,6 +69,7 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_REQUEST_LOGIN = 5;
     private final int INTERFACE_UPDATE_TITLE = 6;
     private final int INTERFACE_START_ACTIVITY = 7;
+    private final int INTERFACE_SHARE_IMAGE = 8;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
     private Boolean isShare;
@@ -109,6 +110,10 @@ public class WebViewActivity extends BaseActivity {
                         break;
 
                     case INTERFACE_SHARE_CONTENT:
+
+                        break;
+
+                    case INTERFACE_SHARE_IMAGE:
 
                         break;
 
@@ -378,6 +383,15 @@ public class WebViewActivity extends BaseActivity {
                 webInterfaceHandler.sendEmptyMessage(INTERFACE_SHARE_CONTENT);
             }
         }
+
+        @JavascriptInterface
+        public void setShareImage(final String imageUri) {
+            if(null != imageUri){
+                mShare.setShareImageView(imageUri);
+                webInterfaceHandler.sendEmptyMessage(INTERFACE_SHARE_IMAGE);
+            }
+        }
+
 
         /**
          * 网页 调用 客户端 分享功能

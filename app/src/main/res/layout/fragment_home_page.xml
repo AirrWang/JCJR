@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_0"
-                    android:layout_width="@dimen/dimen_60px"
-                    android:layout_height="@dimen/dimen_60px"
+                    android:layout_width="@dimen/dimen_120px"
+                    android:layout_height="@dimen/dimen_120px"
                     android:scaleType="fitXY"
                     android:src="@drawable/ptjs_sy" />
                 <TextView
@@ -72,8 +72,8 @@
                 <ImageView
                     android:scaleType="fitXY"
                     android:id="@+id/iv_1"
-                    android:layout_width="@dimen/dimen_60px"
-                    android:layout_height="@dimen/dimen_60px"
+                    android:layout_width="@dimen/dimen_120px"
+                    android:layout_height="@dimen/dimen_120px"
                     android:src="@drawable/yqyl_sy" />
                 <TextView
                     android:id="@+id/tv_1"
@@ -93,8 +93,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_2"
-                    android:layout_width="@dimen/dimen_60px"
-                    android:layout_height="@dimen/dimen_60px"
+                    android:layout_width="@dimen/dimen_120px"
+                    android:layout_height="@dimen/dimen_120px"
                     android:scaleType="fitXY"
                     android:src="@drawable/dhzx_sy" />
                 <TextView
@@ -115,8 +115,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_3"
-                    android:layout_width="@dimen/dimen_60px"
-                    android:layout_height="@dimen/dimen_60px"
+                    android:layout_width="@dimen/dimen_120px"
+                    android:layout_height="@dimen/dimen_120px"
                     android:scaleType="fitXY"
                     android:src="@drawable/mrqd_sy" />
                 <TextView
