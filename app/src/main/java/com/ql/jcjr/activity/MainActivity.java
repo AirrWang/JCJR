@@ -223,6 +223,7 @@ public class MainActivity extends BaseActivity
         int mainIndex = intent.getIntExtra("main_index",1);
         if(mainIndex==2){
             ((MeFragment)(mFragmentList.get(2))).getMineFragmentData();
+            ((MeFragment)(mFragmentList.get(2))).getMsgInfo();
         }
         mViewPager.setCurrentItem(mainIndex);
 

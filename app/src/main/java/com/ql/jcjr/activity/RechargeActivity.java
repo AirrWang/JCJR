@@ -16,6 +16,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
+import com.ql.jcjr.constant.AppConfig;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.CheckBankEntity;
 import com.ql.jcjr.entity.RechargeEntity;
@@ -29,6 +30,8 @@ import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.UrlUtil;
+import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.InputAmountEditText;
 
@@ -56,6 +59,8 @@ public class RechargeActivity extends BaseActivity {
     private TextView mTvBind;
     @ViewInject(R.id.btn_recharge)
     private Button mBtnRecharge;
+    @ViewInject(R.id.ab_header)
+    private ActionBar ab_header;
 
     private Context mContext;
     private static final int CODE_BIND = 0;
@@ -95,6 +100,8 @@ public class RechargeActivity extends BaseActivity {
         });
 
         checkBank();
+
+        ab_header.setRightText("        ？");
     }
 
     private void checkBank() {
@@ -217,7 +224,7 @@ public class RechargeActivity extends BaseActivity {
         return true;
     }
 
-    @OnClick({R.id.btn_left, R.id.tv_bind, R.id.btn_recharge})
+    @OnClick({R.id.btn_left, R.id.tv_bind, R.id.btn_recharge,R.id.btn_right})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -235,6 +242,10 @@ public class RechargeActivity extends BaseActivity {
                 if(checkInfo()) {
                     recharge(mEtAmt.getText().toString());
                 }
+                break;
+            case R.id.btn_right:
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL+"?id=3");
+
                 break;
         }
     }

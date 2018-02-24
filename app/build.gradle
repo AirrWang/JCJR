@@ -19,6 +19,7 @@ android {
         applicationId "com.ql.jcjr"
         minSdkVersion 16
         targetSdkVersion 23
+        multiDexEnabled true
         versionCode 12
         versionName "1.8.0"
         manifestPlaceholders = [app_name: "积财金融"]
@@ -234,5 +235,7 @@ dependencies {
     compile 'cn.yipianfengye.android:ad-library:1.0'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
     //    compile 'com.jaeger.statusbarutil:library:1.4.0'
+    compile 'com.qiyukf.unicorn:unicorn:3.13.0'
+    compile 'com.android.support:multidex:1.0.1'
     compile project(':PushSDK')
 }

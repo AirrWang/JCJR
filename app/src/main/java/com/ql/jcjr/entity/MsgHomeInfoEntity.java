@@ -1,5 +1,7 @@
 package com.ql.jcjr.entity;
 
+import java.io.Serializable;
+
 /**
  * ClassName: AutoBidEntity
  * Description:
@@ -38,7 +40,7 @@ public class MsgHomeInfoEntity {
         this.RSPMSG = RSPMSG;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
 
         private StatusBean message;
         private StatusBean active;

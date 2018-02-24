@@ -21,6 +21,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
+import com.ql.jcjr.constant.AppConfig;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.CashServiceEntity;
 import com.ql.jcjr.entity.CheckBankEntity;
@@ -34,6 +35,8 @@ import com.ql.jcjr.timer.TimerHandler;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.UrlUtil;
+import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.ActionSheet;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.InputAmountEditText;
@@ -63,6 +66,8 @@ public class WithdrawalsActivity extends BaseActivity {
     private ImageView mIvBankLogo;
     @ViewInject(R.id.tv_balance)
     private TextView mTvBalance;
+    @ViewInject(R.id.ab_header)
+    private ActionBar ab_header;
 
     //免费次数
     @ViewInject(R.id.tv_last_free_time)
@@ -96,6 +101,7 @@ public class WithdrawalsActivity extends BaseActivity {
         ViewUtils.inject(this);
         mContext = this;
 
+        ab_header.setRightText("        ？");
         init();
         getServiceCash();
     }
@@ -272,7 +278,7 @@ public class WithdrawalsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all})
+    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.btn_right})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -299,6 +305,9 @@ public class WithdrawalsActivity extends BaseActivity {
             case R.id.tv_bind_card:
                 Intent intent = new Intent(mContext, BindBankCardActivity.class);
                 startActivityForResult(intent, CODE_BIND);
+                break;
+            case R.id.btn_right:
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL+"?id=2");
                 break;
         }
     }

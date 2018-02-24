@@ -72,6 +72,7 @@ public class MineFragmentEntity {
         private String bank;
         private String rank;
         private String rankname;
+        private String cashcount;
 
         public String getTotal() {
             return total;
@@ -167,6 +168,14 @@ public class MineFragmentEntity {
 
         public void setRankname(String rankname) {
             this.rankname = rankname;
+        }
+
+        public String getCashcount() {
+            return cashcount;
+        }
+
+        public void setCashcount(String cashcount) {
+            this.cashcount = cashcount;
         }
     }
 }

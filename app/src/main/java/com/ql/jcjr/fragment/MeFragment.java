@@ -30,6 +30,7 @@ import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.MineFragmentEntity;
+import com.ql.jcjr.entity.MsgHomeInfoEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
@@ -44,6 +45,7 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
+import com.ql.jcjr.view.ImageTextHorizontalBarLess;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -75,6 +77,10 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private TextView tv_level;
     @ViewInject(R.id.tv_vipj)
     private TextView tv_vipj;
+    @ViewInject(R.id.ithb_me_wdhb)
+    private ImageTextHorizontalBarLess ithb_me_wdhb;
+    @ViewInject(R.id.btn_notice)
+    private ImageView btn_notice;
 
 
     private String myTotalMoney;
@@ -166,6 +172,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
+            getMsgInfo();
         } else {
             mLlMeLogin.setVisibility(View.VISIBLE);
             mLlMeInfo.setVisibility(View.GONE);
@@ -177,9 +184,46 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             tv_vipj.setVisibility(View.GONE);
         }
     }
+    public void getMsgInfo() {
+        SenderResultModel resultModel = ParamsManager.getMsgCenterInfo();
 
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("获取消息中心信息 " + responeJson);
+                        MsgHomeInfoEntity entity = GsonParser.getParsedObj(responeJson, MsgHomeInfoEntity.class);
+                        MsgHomeInfoEntity.ResultBean result = entity.getResult();
+
+                       int msgNum = Integer.parseInt(result.getMessage().getNum());
+                       int actNum = Integer.parseInt(result.getActive().getNum());
+                       int noticeNum = Integer.parseInt(result.getGonggao().getNum());
+
+                        //获取历史中的数据
+                        int historyMsgNum = UserData.getInstance().getMsgNum();
+                        int historyActNum = UserData.getInstance().getActNum();
+                        int historyNoticeNum = UserData.getInstance().getNoticeNum();
+
+                        //红点提示
+                        if(msgNum >0 && msgNum>historyMsgNum || actNum >0 && actNum>historyActNum || noticeNum >0 && noticeNum>historyNoticeNum){
+                            //TODO
+
+//                            btn_notice.setImageResource();
+                        }else {
+                            btn_notice.setImageResource(R.drawable.ic_notice);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("获取消息中心信息 " + entity.errorInfo);
+                    }
+
+                }, mContext);
+    }
     public void getMineFragmentData() {
-//        Toast.makeText(getActivity(),"getMineFragmentData", Toast.LENGTH_SHORT).show();
         SenderResultModel resultModel = ParamsManager.senderMineFragment();
 
         HttpRequestManager.httpRequestService(resultModel,
@@ -190,6 +234,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         LogUtil.i("我的页面 " + responeJson);
                         MineFragmentEntity entity = GsonParser.getParsedObj(responeJson, MineFragmentEntity.class);
                         MineFragmentEntity.ResultBean resultBean = entity.getResult();
+
+                        ithb_me_wdhb.setRightTitleText(resultBean.getCashcount()+"张可用");
 
                         myTotalMoney = StringUtils.formatMoney(resultBean.getTotal());
                         myBalanceMoney = StringUtils.formatMoney(resultBean.getUse_money());

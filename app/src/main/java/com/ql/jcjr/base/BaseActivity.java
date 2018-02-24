@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +42,16 @@ public class BaseActivity extends FragmentActivity{
     private ImageView iv;
     private ShareHelper mShare;
 
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+           if (popupWindow.isShowing()&&popupWindow!=null){
+               popupWindow.dismiss();
+           }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +84,7 @@ public class BaseActivity extends FragmentActivity{
         popupWindow.setContentView(popView);
         popupWindow.setWidth(DisplayUnitUtils.getDisplayWidth(this));
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setFocusable(true);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         iv = (ImageView) popView.findViewById(R.id.iv_2);
         iv.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +123,7 @@ public class BaseActivity extends FragmentActivity{
 
     private void showPop() {
         popupWindow.showAtLocation(this.findViewById(android.R.id.content), Gravity.TOP,0,0);
+        handler.postDelayed(runnable,6000);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
