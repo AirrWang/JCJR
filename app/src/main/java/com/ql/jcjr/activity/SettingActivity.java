@@ -15,6 +15,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.Global;
+import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.CheckRealNameEntity;
 import com.ql.jcjr.entity.MineFragmentEntity;
 import com.ql.jcjr.entity.UserData;
@@ -29,6 +30,7 @@ import com.ql.jcjr.utils.CommonUtils;
 import com.ql.jcjr.utils.FileUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.utils.crypt.DesUtil;
 import com.ql.jcjr.view.ActionSheet;
 import com.ql.jcjr.view.CircleImageView;
@@ -47,6 +49,9 @@ public class SettingActivity extends BaseActivity {
     private ImageTextHorizontalBarLess mIthbMobile;
     @ViewInject(R.id.ithb_real_name)
     private ImageTextHorizontalBarLess mTthbRealName;
+
+    @ViewInject(R.id.ithb_address)
+    private ImageTextHorizontalBarLess getmTthbAddress;
 
     @ViewInject(R.id.ithb_bank)
     private ImageTextHorizontalBarLess mTthbBank;
@@ -129,6 +134,7 @@ public class SettingActivity extends BaseActivity {
                         } else {
                             hasShiMing = true;
                             mTthbRealName.setRightTitleText(resultBean.getRealname());
+                            mTthbRealName.setRightIconVisibility(View.INVISIBLE);
                             mTthbRealName.setRightTitleColor(getResources().getColor(R.color.font_black));
                         }
                         //银行卡
@@ -140,6 +146,14 @@ public class SettingActivity extends BaseActivity {
                             hasBindBank = true;
                             mTthbBank.setRightTitleText(resultBean.getBank());
                             mTthbBank.setRightTitleColor(getResources().getColor(R.color.font_black));
+                        }
+                        //收货地址
+                        if (resultBean.getIsbindaddress().equals("0")){
+                            getmTthbAddress.setRightTitleText("未设置");
+                            getmTthbAddress.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
+                        }else {
+                            getmTthbAddress.setRightTitleText("修改");
+                            getmTthbAddress.setRightTitleColor(getResources().getColor(R.color.font_black));
                         }
                         //交易密码
 //                        if(resultBean.getIssetPay().equals("0")){
@@ -218,19 +232,25 @@ public class SettingActivity extends BaseActivity {
     }
 
     @OnClick({
-            R.id.btn_left, R.id.ithb_real_name, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_about_us, R.id.ithb_feedback,R.id.ithb_account_security
+            R.id.btn_left, R.id.ithb_real_name, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_about_us, R.id.ithb_feedback,
+            R.id.ithb_account_security,R.id.ithb_app_condition,R.id.ithb_address
     })
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
                 break;
+            case R.id.ithb_address:
+                needLoadInfo = true;
+                UrlUtil.showHtmlPage(mContext,"收货地址", RequestURL.Address_URL,true);
+                break;
             case R.id.ithb_real_name:
                 if(!hasShiMing){
                     needLoadInfo = true;
+                    Intent realNameIntent = new Intent(mContext, RealNameActivity.class);
+                    startActivity(realNameIntent);
                 }
-                Intent realNameIntent = new Intent(mContext, RealNameActivity.class);
-                startActivity(realNameIntent);
+
                 break;
 //            case R.id.ithb_login_psw:
 //                Intent loginPswIntent = new Intent(mContext, ChangePasswordActivity.class);
@@ -285,6 +305,10 @@ public class SettingActivity extends BaseActivity {
             case  R.id.ithb_feedback:
                 Intent feedBackIntent = new Intent(mContext, FeedbackActivity.class);
                 startActivity(feedBackIntent);
+                break;
+            case R.id.ithb_app_condition:
+                Intent intent=new Intent(mContext,AppConditionActivity.class);
+                startActivity(intent);
                 break;
         }
     }

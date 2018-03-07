@@ -172,7 +172,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
-            getMsgInfo();
+
         } else {
             mLlMeLogin.setVisibility(View.VISIBLE);
             mLlMeInfo.setVisibility(View.GONE);
@@ -182,11 +182,12 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             mTvPhoneNum.setVisibility(View.GONE);
             tv_level.setVisibility(View.GONE);
             tv_vipj.setVisibility(View.GONE);
+            ithb_me_wdhb.setRightTitleText("");
         }
     }
     public void getMsgInfo() {
         SenderResultModel resultModel = ParamsManager.getMsgCenterInfo();
-
+        resultModel.isShowLoadding = false;
         HttpRequestManager.httpRequestService(resultModel,
                 new HttpSenderController.ViewSenderCallback() {
 
@@ -207,9 +208,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
                         //红点提示
                         if(msgNum >0 && msgNum>historyMsgNum || actNum >0 && actNum>historyActNum || noticeNum >0 && noticeNum>historyNoticeNum){
-                            //TODO
-
-//                            btn_notice.setImageResource();
+                            btn_notice.setImageResource(R.drawable.ic_have_notice);
                         }else {
                             btn_notice.setImageResource(R.drawable.ic_notice);
                         }
@@ -231,11 +230,12 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
                     @Override
                     public void onSuccess(String responeJson) {
+                        getMsgInfo();
                         LogUtil.i("我的页面 " + responeJson);
                         MineFragmentEntity entity = GsonParser.getParsedObj(responeJson, MineFragmentEntity.class);
                         MineFragmentEntity.ResultBean resultBean = entity.getResult();
 
-                        ithb_me_wdhb.setRightTitleText(resultBean.getCashcount()+"张可用");
+                        ithb_me_wdhb.setRightTitleText(resultBean.getCashcount() + "张未使用");
 
                         myTotalMoney = StringUtils.formatMoney(resultBean.getTotal());
                         myBalanceMoney = StringUtils.formatMoney(resultBean.getUse_money());
@@ -391,6 +391,11 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 }
                 break;
             case R.id.btn_notice:
+                if (!UserData.getInstance().isLogin()) {
+                    intent.setClass(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(mContext, MsgHomeActivity.class);
 //                intent.setClass(mContext, MessageCenterActivity.class);
                 startActivity(intent);
@@ -474,7 +479,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 }
 
                 //邀请有礼
-                UrlUtil.showHtmlPage(mContext,"邀请有礼", RequestURL.YQYL_URL + UserData.getInstance().getUSERID());
+                UrlUtil.showHtmlPage(mContext,"邀请有礼", RequestURL.YQYL_URL + UserData.getInstance().getUSERID(),true);
                 break;
 
             case R.id.ithb_me_kfzx:

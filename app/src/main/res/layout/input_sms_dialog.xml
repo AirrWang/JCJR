@@ -11,13 +11,24 @@
     android:gravity="center_horizontal"
     android:background="@drawable/corner_white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_34px"
-        android:layout_marginBottom="@dimen/dimen_34px"
-        style="@style/text_36_666"
-        android:text="输入短信验证码"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/tv_close"
+            android:layout_width="@dimen/dimen_36px"
+            android:layout_height="@dimen/dimen_36px"
+            android:scaleType="fitXY"
+            android:src="@drawable/login_check_icon_close"
+            android:layout_margin="@dimen/dimen_36px"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_36_666"
+            android:text="输入短信验证码"/>
+    </RelativeLayout>
+
 
     <View style="@style/common_divider_without_margin"/>
 

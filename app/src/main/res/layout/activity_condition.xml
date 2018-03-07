@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:bottom_divider_visibility="gone"
+        bar:left_first_visibility="visible"
+        bar:title="系统状况" />
+    <TextView
+        android:id="@+id/tv_register_send"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_98px"
+        android:textColor="@color/btn_main"
+        android:textSize="@dimen/size_m"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:paddingRight="@dimen/dimen_30px"
+        android:text="客户端出现问题时，可将此页面截图发送给客服，方便技术团队尽快找到问题。"
+        android:background="#FFF6E6"/>
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        android:layout_marginTop="@dimen/dimen_30px"
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_bind_mobile"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="注册手机号" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_bind_time"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="本地时间" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_mobile_type"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="手机型号" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_mobile_id"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="设备ID" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_app_version"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="版本号" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_net_state"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="网络状态" />
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_ip_address"
+        app:rightIconVisibilityLess="invisible"
+        app:titleTextLess="IP地址" />
+
+</LinearLayout>

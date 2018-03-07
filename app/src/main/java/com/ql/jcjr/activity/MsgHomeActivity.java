@@ -11,6 +11,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
+import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.entity.MsgHomeInfoEntity;
 import com.ql.jcjr.entity.UserData;
@@ -53,6 +54,7 @@ public class MsgHomeActivity extends BaseActivity {
         ViewUtils.inject(this);
         mContext = this;
         init();
+        JcbApplication.needReloadMyInfo=true;
     }
 
     private void init() {

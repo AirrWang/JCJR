@@ -10,26 +10,29 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
+import com.qiyukf.unicorn.api.ConsultSource;
+import com.qiyukf.unicorn.api.Unicorn;
 import com.ql.jcjr.R;
 import com.ql.jcjr.application.JcbApplication;
-import com.ql.jcjr.utils.DisplayUnitUtils;
+import com.ql.jcjr.constant.AppConfig;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.ScreenShotListenManager;
 import com.ql.jcjr.utils.ShareHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -47,6 +50,7 @@ public class BaseActivity extends FragmentActivity{
         @Override
         public void run() {
            if (popupWindow.isShowing()&&popupWindow!=null){
+               Log.d("dimiss","timeover");
                popupWindow.dismiss();
            }
         }
@@ -82,17 +86,14 @@ public class BaseActivity extends FragmentActivity{
         popupWindow = new PopupWindow(context);
         View popView= LayoutInflater.from(context).inflate(R.layout.pop_view,null);
         popupWindow.setContentView(popView);
-        popupWindow.setWidth(DisplayUnitUtils.getDisplayWidth(this));
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
         iv = (ImageView) popView.findViewById(R.id.iv_2);
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
+
         Button button= (Button) popView.findViewById(R.id.btn_share);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,27 +102,32 @@ public class BaseActivity extends FragmentActivity{
                 popupWindow.dismiss();
             }
         });
+        Button btn_tokf= (Button) popView.findViewById(R.id.btn_tokf);
+        btn_tokf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                String title = "积财客服";
+                ConsultSource source = new ConsultSource(AppConfig.OFFICIAL_WEBSITE_URL, "积财金融", "Android");
+                source.productDetail = null;
+                Unicorn.openServiceActivity(context, title, source);
+            }
+        });
         manager.setListener(
                 new ScreenShotListenManager.OnScreenShotListener() {
 
                     public void onShot(String imagePath) {
-                        //TODO
-                        FileInputStream fis = null;
-                        try {
-                            fis = new FileInputStream(imagePath);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        Bitmap bitmap  = BitmapFactory.decodeStream(fis);
+                        Bitmap bitmap  = BitmapFactory.decodeFile(imagePath);
+                        File file=new File(imagePath);
+                        GlideUtil.displayPic(context,file,R.color.white,iv);
                         mShare.setShareImageView(bitmap);
-                        GlideUtil.displayPic(context,imagePath,R.color.white, iv);
-                        showPop();
+                        showPop(bitmap);
                     }
                 }
         );
     }
 
-    private void showPop() {
+    private void showPop(Bitmap bitmap) {
         popupWindow.showAtLocation(this.findViewById(android.R.id.content), Gravity.TOP,0,0);
         handler.postDelayed(runnable,6000);
     }
@@ -160,7 +166,10 @@ public class BaseActivity extends FragmentActivity{
         super.onPause();
         MobclickAgent.onPause(this);
         manager.stopListen();
-        popupWindow.dismiss();
+        if (popupWindow.isShowing()&&popupWindow!=null){
+            Log.d("dimiss","onPause");
+            popupWindow.dismiss();
+        }
     }
 
     @Override
@@ -168,7 +177,10 @@ public class BaseActivity extends FragmentActivity{
         super.onDestroy();
         JcbApplication.getInstance().removeActivity(this);
         manager.stopListen();
-        popupWindow.dismiss();
+        if (popupWindow.isShowing()&&popupWindow!=null){
+            Log.d("dimiss","onDestroy");
+            popupWindow.dismiss();
+        }
     }
 
 }

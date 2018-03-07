@@ -88,27 +88,27 @@ public class InputVerifyCodeActivity extends BaseActivity implements PwdEditText
         mTimerHandler.startTask();
     }
 
-    public void getVerifyCode(String phone, String url) {
-
-        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("获取验证码 " + responeJson);
-                mTimerHandler.setITimerListener(mITimerListener);
-                mTimerHandler.startTask();
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("获取验证码 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, this);
-    }
+//    public void getVerifyCode(String phone, String url) {
+//
+//        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
+//
+//        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+//
+//            @Override
+//            public void onSuccess(String responeJson) {
+//                LogUtil.i("获取验证码 " + responeJson);
+//                mTimerHandler.setITimerListener(mITimerListener);
+//                mTimerHandler.startTask();
+//            }
+//
+//            @Override
+//            public void onFailure(ResponseEntity entity) {
+//                LogUtil.i("获取验证码 " + entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//            }
+//
+//        }, this);
+//    }
 
     public void validateCode(String phone, String code, String url) {
 
@@ -182,7 +182,7 @@ public class InputVerifyCodeActivity extends BaseActivity implements PwdEditText
                 finish();
                 break;
             case R.id.tv_get_verify_code:
-                getVerifyCode(mPhoneNum, mGetUrl);
+//                getVerifyCode(mPhoneNum, mGetUrl);
                 break;
         }
     }

@@ -269,6 +269,14 @@ public class WebViewActivity extends BaseActivity {
                 } else if(url != null && url.equals(RequestURL.INTERCEPT_MYREDPACKETS_URL)){
                     Intent intent = new Intent(WebViewActivity.this, MyRedPacketsActivity.class);
                     WebViewActivity.this.startActivity(intent);
+                }else if (url != null && url.equals(RequestURL.TO_MINE_URL)) {
+//                    view.loadUrl("http://www.jicaibaobao.com/index.action?user&q=going/login1");
+                    Intent intent = new Intent(WebViewActivity.this, MainActivity.class);
+                    intent.putExtra("main_index",3);
+                    WebViewActivity.this.startActivity(intent);
+                    finish();
+                }else if(url != null && url.equals(RequestURL.FINISH_URL)){
+                    finish();
                 }
                 else {
                     view.loadUrl(url);

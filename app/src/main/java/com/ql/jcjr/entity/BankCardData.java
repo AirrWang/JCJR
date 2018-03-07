@@ -26,6 +26,7 @@ public class BankCardData {
         private String branch;
         private String imgUrl;
         private int totalMoney;
+        private int oneday;
 
 
         public String getBankname() {
@@ -67,5 +68,15 @@ public class BankCardData {
     public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
+
+    public int getOneday() {
+        return oneday;
+    }
+
+    public void setOneday(int oneday) {
+        this.oneday = oneday;
+    }
+
+
 //    }
 }

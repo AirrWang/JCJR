@@ -110,16 +110,31 @@
                 android:paddingRight="@dimen/actionbar_padding_right"
                 android:paddingTop="@dimen/dimen_6px"
                 android:visibility="gone" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="@dimen/actionbar_ic_share_wh"
+                    android:layout_height="@dimen/actionbar_ic_share_wh"
+                    android:src="@drawable/bar_share"
+                    android:paddingBottom="@dimen/dimen_6px"
+                    android:paddingRight="@dimen/actionbar_padding_right"
+                    android:paddingTop="@dimen/dimen_6px"
+                    android:visibility="gone"
+                    />
+                <ImageView
+                    android:id="@+id/iv_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/txsm_cz"
+                    android:paddingBottom="@dimen/dimen_6px"
+                    android:paddingRight="@dimen/actionbar_padding_right"
+                    android:paddingTop="@dimen/dimen_6px"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="@dimen/actionbar_ic_share_wh"
-                android:layout_height="@dimen/actionbar_ic_share_wh"
-                android:src="@drawable/bar_share"
-                android:paddingBottom="@dimen/dimen_6px"
-                android:paddingRight="@dimen/actionbar_padding_right"
-                android:paddingTop="@dimen/dimen_6px"
-                android:visibility="gone" />
         </LinearLayout>
 
     </RelativeLayout>

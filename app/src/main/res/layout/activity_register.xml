@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/rl_container"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.ql.jcjr.activity.RegisterActivity">
@@ -17,12 +18,14 @@
         bar:left_first_visibility="visible"
         bar:title="注册"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ab_header">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/ab_header">-->
 
         <LinearLayout
+            android:layout_below="@+id/ab_header"
+            android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -91,7 +94,7 @@
                 android:text="完成注册"/>
 
             <LinearLayout
-                android:padding="@dimen/dimen_36px"
+                android:paddingTop="@dimen/dimen_36px"
                 android:id="@+id/ll_register_agreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,31 +138,31 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    <!--</ScrollView>-->
 
-    <LinearLayout
-        android:id="@+id/ll_register_888"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/dimen_74px">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_register_888"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="@dimen/dimen_74px">-->
 
-        <ImageView
-            android:layout_width="@dimen/dimen_160px"
-            android:layout_height="@dimen/dimen_128px"
-            android:src="@drawable/login_check_icon_888"
-            android:scaleType="fitXY"/>
+        <!--<ImageView-->
+            <!--android:layout_width="@dimen/dimen_160px"-->
+            <!--android:layout_height="@dimen/dimen_128px"-->
+            <!--android:src="@drawable/login_check_icon_888"-->
+            <!--android:scaleType="fitXY"/>-->
 
-        <TextView
-            style="@style/text_s_m_c_g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_26px"
-            android:text="注册即送 888 元红包"
-            />
+        <!--<TextView-->
+            <!--style="@style/text_s_m_c_g"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/dimen_26px"-->
+            <!--android:text="注册即送 888 元红包"-->
+            <!--/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

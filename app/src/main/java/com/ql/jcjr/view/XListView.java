@@ -61,4 +61,6 @@ public class XListView extends ListView{
 			removeFooterView(mFooterView);
 		}
 	}
+
+
 }

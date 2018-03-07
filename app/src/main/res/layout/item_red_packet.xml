@@ -3,127 +3,150 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_horizontal">
-
     <LinearLayout
-        android:id="@+id/ll_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_marginTop="1dp"
-                android:id="@+id/ll_container_left"
-                android:layout_width="@dimen/hb_item_left_w"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_hb_active_l"
-                android:orientation="vertical">
-
-
+        android:id="@+id/ll_containerall"
+        android:background="@drawable/img_hbbg1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="12.5dp"
+        android:layout_marginRight="12.5dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="wrap_content">
                 <LinearLayout
+                    android:paddingLeft="@dimen/dimen_60px"
+                    android:layout_marginTop="1dp"
+                    android:id="@+id/ll_container_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_red_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_24px"
+                        android:singleLine="true"
+                        android:text="返现红包"
+                        android:textColor="@color/c_fffff"
+                        android:textSize="@dimen/dimen_40px" />
+
+                    <TextView
+                        android:id="@+id/tv_use_condition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_20px"
+                        android:text="单笔投资月月盈1投资月月盈2单笔投资月月盈3单笔投资月月盈4单笔投资月月盈5笔投资资月月盈5笔投资"
+                        android:maxLines="3"
+                        android:textColor="@color/c_fffff"
+                        android:textSize="@dimen/dimen_20px" />
+
+
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_sign_new"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/sign_new"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <ImageView
+                android:layout_marginTop="@dimen/dimen_10px"
+                android:layout_marginBottom="@dimen/dimen_10px"
+                android:src="@drawable/img_hbbgxx"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_amt_pre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:layout_marginLeft="@dimen/dimen_20px"
+                    android:layout_marginTop="@dimen/dimen_6px"
+                    android:textColor="@color/c_fffff"
+                    android:textSize="@dimen/dimen_50px" />
+                <LinearLayout
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_amt_pre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥ "
-                        android:textColor="@color/font_red"
-                        android:textSize="@dimen/size_xxl" />
-
                     <TextView
                         android:id="@+id/tv_amt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100"
-                        android:textStyle="bold"
-                        android:textColor="@color/font_red"
-                        android:textSize="@dimen/size_big" />
-
+                        android:text="50"
+                        android:textColor="@color/c_fffff"
+                        android:textSize="@dimen/dimen_100px" />
                     <TextView
                         android:id="@+id/tv_amt_suf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" %"
-                        android:textColor="@color/font_red"
-                        android:textSize="@dimen/size_xxl" />
-
+                        android:text="%"
+                        android:textColor="@color/c_fffff"
+                        android:textSize="@dimen/dimen_50px" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_use_condition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10px"
-                    android:text="单笔投资月月盈1单笔投资月月盈2单笔投资月月盈3单笔投资月月盈4单笔投资月月盈5笔投资资月月盈5笔投资"
-                    android:maxLines="3"
-                    android:textColor="@color/font_grey"
-                    android:textSize="@dimen/size_s" />
+            </RelativeLayout>
 
 
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/iv_sign_new"
-                android:layout_width="wrap_content"
-                android:src="@drawable/sign_new"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-        
 
+
+        </LinearLayout>
         <LinearLayout
-            android:id="@+id/ll_container_right"
-            android:layout_width="@dimen/hb_item_right_w"
-            android:layout_marginTop="1dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_hb_active_r"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_red_type"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="31dp">
+            <ImageView
+                android:id="@+id/iv_hbtx"
+                android:layout_marginLeft="@dimen/dimen_60px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_24px"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="返现红包"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/size_m" />
-
+                android:src="@drawable/hbdq1"/>
             <TextView
-                android:id="@+id/tv_last_time"
+                android:id="@+id/tv_1"
+                android:layout_marginLeft="@dimen/dimen_16px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16px"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="剩余1天过期"
-                android:textColor="@color/font_red"
-                android:textSize="@dimen/size_s" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16px"
                 android:text="有效期至:"
-                android:textColor="@color/font_grey"
-                android:textSize="@dimen/size_xs" />
+                android:textColor="@color/font_red"
+                android:textSize="10sp" />
 
             <TextView
+                android:layout_marginLeft="@dimen/dimen_10px"
                 android:id="@+id/tv_valid_term"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="2017-01-29 13:50"
-                android:textColor="@color/font_grey"
-                android:textSize="11sp" />
+                android:textColor="@color/font_red"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_marginRight="@dimen/dimen_54px"
+                android:id="@+id/tv_last_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:singleLine="true"
+                android:text="剩余1天过期"
+                android:textColor="@color/font_red"
+                android:textSize="@dimen/size_s" />
         </LinearLayout>
-
-
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_status"

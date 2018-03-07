@@ -30,6 +30,7 @@
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"
                 android:id="@+id/ithb_bind_mobile"
+                app:rightIconVisibilityLess="invisible"
                 app:titleTextLess="手机号" />
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
@@ -44,8 +45,17 @@
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_address"
+                app:titleTextLess="收货地址" />
+
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
                 android:id="@+id/ithb_account_security"
                 app:titleTextLess="账户安全" />
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_app_condition"
+                app:titleTextLess="系统状况" />
 
             <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
                 <!--style="@style/ithb_no_left_icon"-->

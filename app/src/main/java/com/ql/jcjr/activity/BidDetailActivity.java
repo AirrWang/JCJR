@@ -570,20 +570,21 @@ public class BidDetailActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String responeJson) {
                         LogUtil.i("客户投标 " + responeJson);
-                        Intent intent = new Intent(mContext, BidResultActivity.class);
-                        intent.putExtra("isSuccess", true);
-                        intent.putExtra("result_text", "投标成功");
-                        startActivity(intent);
+//                        Intent intent = new Intent(mContext, BidResultActivity.class);
+//                        intent.putExtra("isSuccess", true);
+//                        intent.putExtra("result_text", "投标成功");
+//                        startActivity(intent);
+                        UrlUtil.showHtmlPage(mContext,"投标成功",RequestURL.BID_SUCCESS_URL,true);
                     }
 
                     @Override
                     public void onFailure(ResponseEntity entity) {
                         LogUtil.i("客户投标 " + entity.errorInfo);
-//                        CommonToast.showHintDialog(mContext, entity.errorInfo);
-                        Intent intent = new Intent(mContext, BidResultActivity.class);
-                        intent.putExtra("isSuccess", false);
-                        intent.putExtra("result_text", entity.errorInfo);
-                        startActivity(intent);
+                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                        Intent intent = new Intent(mContext, BidResultActivity.class);
+//                        intent.putExtra("isSuccess", false);
+//                        intent.putExtra("result_text", entity.errorInfo);
+//                        startActivity(intent);
                     }
 
                 }, mContext);
@@ -626,7 +627,7 @@ public class BidDetailActivity extends BaseActivity {
 //                    intentReward.putExtra("tender_reward", resultBean.getAward());
 //                    startActivity(intentReward);
 //                }
-                UrlUtil.showHtmlPage(mContext,"安全保障", RequestURL.BID_AQBZ_URL);
+                UrlUtil.showHtmlPage(mContext,"安全保障", RequestURL.BID_AQBZ_URL,true);
                 break;
             case R.id.ithb_project_detail:
                 if(resultBean != null) {
@@ -634,7 +635,7 @@ public class BidDetailActivity extends BaseActivity {
                     datas.put("bid",mBidId);
                     MobclickAgent.onEventValue(this, "kick_bid_detail", datas, 2);
 
-                    UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId());
+                    UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId(),true);
                 }
                 break;
         }

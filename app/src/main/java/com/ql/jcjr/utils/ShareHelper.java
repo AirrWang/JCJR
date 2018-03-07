@@ -2,12 +2,14 @@ package com.ql.jcjr.utils;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
@@ -24,6 +26,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     private UMWeb umWeb;
     private ShareAction mShareAction;
     private UMImage image;
+    private final ShareBoardConfig config;
 
     public ShareHelper(Activity activity){
         mActivity = activity;
@@ -31,6 +34,15 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
                 SHARE_MEDIA.SINA, SHARE_MEDIA.SMS)
                 .setShareboardclickCallback(this).setCallback(this);
+
+        //新建ShareBoardConfig               config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);//设置位置
+        config = new ShareBoardConfig();
+        config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR);
+        config.setTitleVisibility(false);
+        config.setCancelButtonVisibility(true);
+        config.setCancelButtonText("取消");
+        config.setShareboardBackgroundColor(Color.parseColor("#FFFFFF"));
+        config.setIndicatorVisibility(false);
     }
 
     public void setShareWebInfo(String url, String imgUrl, String shareTitle, String shareContent){
@@ -62,7 +74,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
         image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
     }
     public void share(){
-        mShareAction.open();
+        mShareAction.open(config);
     }
 
     @Override

@@ -39,6 +39,7 @@ public class BannerEntity {
     public static class ResultBean {
         private String url;
         private String pic;
+        private String share;
 
         public String getUrl() {
             return url;
@@ -54,6 +55,14 @@ public class BannerEntity {
 
         public void setPic(String pic) {
             this.pic = pic;
+        }
+
+        public String getShare() {
+            return share;
+        }
+
+        public void setShare(String share) {
+            this.share = share;
         }
     }
 }

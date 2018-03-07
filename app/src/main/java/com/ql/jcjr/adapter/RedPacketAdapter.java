@@ -73,16 +73,16 @@ public class RedPacketAdapter extends BaseAdapter {
 
         switch (mStatus){
             case Global.STATUS_AVAILABLE:
-                viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_active_l);
-                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_active_r);
+//                viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_active_l);
+//                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_active_r);
                 break;
             case Global.STATUS_USED:
                 viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_unuse_l);
-                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_unuse_r);
+//                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_unuse_r);
                 break;
             case Global.STATUS_OVERDUE:
                 viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_unuse_l);
-                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_unuse_r);
+//                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_unuse_r);
                 break;
         }
 
@@ -95,8 +95,8 @@ public class RedPacketAdapter extends BaseAdapter {
 
         @ViewInject(R.id.ll_container_left)
         LinearLayout mLlContainerLeft;
-        @ViewInject(R.id.ll_container_right)
-        LinearLayout mLlContainerRight;
+//        @ViewInject(R.id.ll_container_right)
+//        LinearLayout mLlContainerRight;
 
         @ViewInject(R.id.tv_red_type)
         TextView mTvRedType;

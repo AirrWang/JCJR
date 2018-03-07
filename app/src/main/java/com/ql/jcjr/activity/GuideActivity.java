@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +24,13 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.GuideAdapter;
+import com.ql.jcjr.entity.SendIMEIEntity;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
+import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.NetworkUtil;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
 import com.ql.jcjr.utils.StringUtils;
@@ -65,8 +69,10 @@ public class GuideActivity extends Activity {
         setValue();
         guideImage.setOnPageChangeListener(new MyOnPageChangeListener());
         guideImage.setAdapter(adapter);
+
+
         //今日头条渠道打开
-        getIEMI();
+//        getIEMI();
 
     }
     private void getIEMI() {
@@ -92,23 +98,53 @@ public class GuideActivity extends Activity {
      */
 
 
-    private void sendIMEI(String imei) {
-        SenderResultModel resultModel = ParamsManager.postIMEI(imei);
+    private void sendIMEI(final String imei) {
+        final String channelNumber = getAppMetaData(getBaseContext(), "UMENG_CHANNEL");//获取app当前的渠道号
+        Log.d("channelNumber:",channelNumber);
+
+        SenderResultModel resultModel = ParamsManager.postIMEI(imei,channelNumber);
 
         HttpRequestManager.httpRequestService(resultModel,
                 new HttpSenderController.ViewSenderCallback() {
 
                     @Override
                     public void onSuccess(String responeJson) {
-//                        SendIMEIEntity entity = GsonParser.getParsedObj(responeJson, SendIMEIEntity.class);
-//                        Log.d("上传IMEI:","success");
-//                        CommonToast.showHintDialog(mContext, "success");
+                        SendIMEIEntity entity = GsonParser.getParsedObj(responeJson, SendIMEIEntity.class);
+                        Log.d("上传IMEI:","success");
+//                        CommonToast.showHintDialog(mContext, "channel:"+channelNumber+",imei:"+imei);
                     }
                     @Override
                     public void onFailure(ResponseEntity entity) {
-//                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+                        Log.d("上传IMEI:","failure"+entity.errorInfo);
+//                        CommonToast.showHintDialog(mContext, "channel:"+channelNumber+",imei:"+imei);
                     }
                 }, mContext);
+    }
+
+    /**
+     * 获取app当前的渠道号或application中指定的meta-data
+     *
+     * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
+     */
+    public static String getAppMetaData(Context context, String key) {
+        if (context == null || TextUtils.isEmpty(key)) {
+            return null;
+        }
+        String channelNumber = null;
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo != null) {
+                    if (applicationInfo.metaData != null) {
+                        channelNumber = applicationInfo.metaData.getString(key);
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return channelNumber;
     }
 
     /**

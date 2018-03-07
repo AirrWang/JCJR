@@ -1,77 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center_horizontal"
+    android:id="@+id/rl_container"
     android:orientation="vertical"
     tools:context="com.ql.jcjr.activity.LoginActivity">
 
     <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         bar:bottom_divider_visibility="invisible"
         bar:left_first_visibility="visible"
         bar:title="登录"/>
-
-    <ImageView
-        android:layout_width="@dimen/dimen_100px"
-        android:layout_height="@dimen/dimen_100px"
-        android:layout_marginTop="@dimen/dimen_90px"
-        android:scaleType="fitXY"
-        android:src="@drawable/gesture_user_icon" />
-
-    <TextView
-        android:id="@+id/et_phone_number"
-        style="@style/text_s_m_c_g"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_24px"/>
-
-    <com.ql.jcjr.view.CancelEditTextGrey
-        android:id="@+id/et_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_100px"
-        app:common_input_style="secure"
-        app:right_icon_visibility="gone"
-        app:right_extra_iv_visibility="visible"
-        app:right_extra_iv_icon="@drawable/show_psw_normal_1"
-        app:content_hint="请输入登录密码"
-        app:left_icon="@drawable/login_check_icon_pwd"
-        app:single_line="true" />
-
     <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_below="@+id/ab_header"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="@dimen/dimen_30px"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/dimen_100px"
+            android:layout_height="@dimen/dimen_100px"
+            android:layout_marginTop="@dimen/dimen_90px"
+            android:scaleType="fitXY"
+            android:src="@drawable/gesture_user_icon" />
 
         <TextView
-            android:id="@+id/tv_forget_password"
+            android:id="@+id/et_phone_number"
+            style="@style/text_s_m_c_g"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="忘记密码？"
-            android:textColor="@color/btn_main"
-            android:textSize="@dimen/size_m" />
+            android:layout_marginTop="@dimen/dimen_24px"/>
 
+        <com.ql.jcjr.view.CancelEditTextGrey
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_100px"
+            app:common_input_style="secure"
+            app:right_icon_visibility="gone"
+            app:right_extra_iv_visibility="visible"
+            app:right_extra_iv_icon="@drawable/show_psw_normal_1"
+            app:content_hint="请输入登录密码"
+            app:left_icon="@drawable/login_check_icon_pwd"
+            app:single_line="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="@dimen/dimen_30px"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码？"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_m" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/common_btn_style"
+            android:layout_marginTop="@dimen/dimen_120px"
+            android:layout_marginBottom="@dimen/dimen_40px"
+            android:text="登录"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        style="@style/common_btn_style"
-        android:layout_marginTop="@dimen/dimen_120px"
-        android:layout_marginBottom="@dimen/dimen_40px"
-        android:text="登录"/>
 
-</LinearLayout>
+</RelativeLayout>

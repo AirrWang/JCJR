@@ -1,10 +1,12 @@
 package com.ql.jcjr.activity;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,9 +14,11 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -36,6 +40,7 @@ import com.ql.jcjr.utils.AppConfigCommon;
 import com.ql.jcjr.utils.FileUtil;
 import com.ql.jcjr.utils.JsonUtils;
 import com.ql.jcjr.utils.LogUtil;
+import com.ql.jcjr.utils.NetworkUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
 import com.ql.jcjr.utils.UrlUtil;
@@ -75,8 +80,13 @@ public class RegisterActivity extends BaseActivity {
 
     private boolean isChechAgreement = true;
 
-    @ViewInject(R.id.ll_register_888)
-    private LinearLayout mLlRegister888;
+//    @ViewInject(R.id.ll_register_888)
+//    private LinearLayout mLlRegister888;
+
+    @ViewInject(R.id.rl_container)
+    private RelativeLayout rl_container;
+    @ViewInject(R.id.ll_container)
+    private LinearLayout ll_container;
 
     private Context mContext;
     private String mPhoneNum;
@@ -90,6 +100,7 @@ public class RegisterActivity extends BaseActivity {
     private static final int HANDLER_REG_SUCCESS = 0;
     private static final int HANDLER_FINDPSW_SUCCESS = 1;
     private final String PSW_FILE_NAME = "wjthnfkghj";
+    private final String APP_KEY = "IK7C7Y0AY4GZYYIDANQUMM5JTQNG5Qfurmht";
 
     /**
      * Handler
@@ -136,6 +147,9 @@ public class RegisterActivity extends BaseActivity {
             mEtSmsCode.setRightExtraTextViewEnable(true);
         }
     };
+    private String appid;
+    private String time;
+    private String sign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,12 +158,58 @@ public class RegisterActivity extends BaseActivity {
         ViewUtils.inject(this);
         mContext = this;
         init();
+
+
         getGetVerifyCode(mPhoneNum, mRequestCodeUrl);
     }
-
+    private void scrollToPos(int start, int end) {
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.setDuration(250);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
+    }
     private void init() {
+        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            private int[] sc;
+            private int scrollHegit;
+
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rl_container.getWindowVisibleDisplayFrame(r);
+                if (sc == null) {
+                    sc = new int[2];
+                    ll_container.getLocationOnScreen(sc);
+                }
+                //r.top 是状态栏高度
+                int screenHeight = rl_container.getRootView().getHeight();
+                int softHeight = screenHeight - r.bottom;
+
+
+                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
+                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+                        scrollToPos(0, scrollHegit);
+                } else {//否则判断为输入法隐藏了
+                    if (rl_container.getScrollY() != 0)
+                        scrollToPos(scrollHegit, 0);
+                }
+            }
+        });
+
+        time = String.valueOf(System.currentTimeMillis());
         mPhoneNum = getIntent().getStringExtra("phone_num");
         mFlag = getIntent().getStringExtra("flag");
+        appid = getIntent().getStringExtra("appid");
+
+        String s="appid="+appid+"&timestamp="+time+APP_KEY;
+        sign = NetworkUtil.MD5Util.md5(s);
 
         mTvRegisterSend.setText("短信验证码已发送至"+mPhoneNum+"，请查收");
         mEtSmsCode.setOnCancelEditEventListener(new CancelEditTextGrey.CancelEditEventListener() {
@@ -211,7 +271,7 @@ public class RegisterActivity extends BaseActivity {
                 mEtInviter.setVisibility(View.GONE);
                 mBtnRegister.setText("设置密码");
                 mLlRegisterAgreement.setVisibility(View.GONE);
-                mLlRegister888.setVisibility(View.GONE);
+//                mLlRegister888.setVisibility(View.GONE);
                 break;
         }
 
@@ -239,7 +299,7 @@ public class RegisterActivity extends BaseActivity {
      */
     public void getGetVerifyCode(String phone, String url) {
 
-        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
+        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url,sign,time,appid);
 
         HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
 

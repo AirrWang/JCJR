@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
+import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.RedPacketEntityNew;
 import com.ql.jcjr.fragment.MyRedPacketFragment;
@@ -69,6 +70,11 @@ public class RedPacketAdapterNew extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
+        viewHolder.mTvAmtPre.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+        viewHolder.mTvAmt.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+        viewHolder.mTvAmtSuf.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+        viewHolder.mTvRedType.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+
         RedPacketEntityNew.ResultBean.ListBean bean = mList.get(i);
         viewHolder.mTvRedType.setText(bean.getQuanbaoname());
         if(typeHB == MyRedPacketFragment.TYPE_HB_DK){
@@ -95,16 +101,20 @@ public class RedPacketAdapterNew extends BaseAdapter {
 
         switch (mStatus){
             case Global.STATUS_AVAILABLE:
-                viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_active_l);
-                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_active_r);
+                viewHolder.ll_containerall.setBackgroundResource(R.drawable.img_hbbg1);
                 break;
             case Global.STATUS_USED:
+                viewHolder.ll_containerall.setBackgroundResource(R.drawable.img_hbbg2);
                 int color = mContext.getResources().getColor(R.color.font_grey);
                 viewHolder.mTvAmtPre.setTextColor(color);
                 viewHolder.mTvAmt.setTextColor(color);
                 viewHolder.mTvAmtSuf.setTextColor(color);
                 viewHolder.mTvRedType.setTextColor(color);
+                viewHolder.tv_1.setTextColor(color);
+                viewHolder.mTvValidTerm.setTextColor(color);
+                viewHolder.mTvLastTime.setTextColor(color);
                 viewHolder.mTvLastTime.setVisibility(View.INVISIBLE);
+                viewHolder.iv_hbtx.setImageResource(R.drawable.hbdq2);
 
                 viewHolder.mIvStatus.setVisibility(View.VISIBLE);
                 if(bean.getStatus().equals("0")){
@@ -114,8 +124,6 @@ public class RedPacketAdapterNew extends BaseAdapter {
                     viewHolder.mIvStatus.setImageResource(R.drawable.img_hb_status_used);
                 }
 
-                viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_unuse_l);
-                viewHolder.mLlContainerRight.setBackgroundResource(R.drawable.bg_hb_unuse_r);
                 break;
 //            case Global.STATUS_OVERDUE:
 //                viewHolder.mLlContainerLeft.setBackgroundResource(R.drawable.bg_hb_unuse_l);
@@ -132,8 +140,6 @@ public class RedPacketAdapterNew extends BaseAdapter {
 
         @ViewInject(R.id.ll_container_left)
         LinearLayout mLlContainerLeft;
-        @ViewInject(R.id.ll_container_right)
-        LinearLayout mLlContainerRight;
 
         @ViewInject(R.id.tv_red_type)
         TextView mTvRedType;
@@ -160,5 +166,14 @@ public class RedPacketAdapterNew extends BaseAdapter {
 
         @ViewInject(R.id.iv_sign_new)
         ImageView mIvSignNew;
+
+        @ViewInject(R.id.ll_containerall)
+        LinearLayout ll_containerall;
+
+        @ViewInject(R.id.iv_hbtx)
+        ImageView iv_hbtx;
+
+        @ViewInject(R.id.tv_1)
+        TextView tv_1;
     }
 }

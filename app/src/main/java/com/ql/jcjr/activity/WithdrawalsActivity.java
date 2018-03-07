@@ -23,8 +23,10 @@ import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.AppConfig;
 import com.ql.jcjr.constant.Global;
+import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.CashServiceEntity;
 import com.ql.jcjr.entity.CheckBankEntity;
+import com.ql.jcjr.entity.WithdrawalsEntity;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -43,7 +45,6 @@ import com.ql.jcjr.view.InputAmountEditText;
 import com.ql.jcjr.view.PwdEditText;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 
 public class WithdrawalsActivity extends BaseActivity {
@@ -60,14 +61,17 @@ public class WithdrawalsActivity extends BaseActivity {
     private InputAmountEditText mEtAmt;
     @ViewInject(R.id.tv_bank_name)
     private TextView mTvAcctNum;
-    @ViewInject(R.id.tv_bank_info)
-    private TextView mTvQuota;
+//    @ViewInject(R.id.tv_bank_info)
+//    private TextView mTvQuota;
     @ViewInject(R.id.civ_icon)
     private ImageView mIvBankLogo;
     @ViewInject(R.id.tv_balance)
     private TextView mTvBalance;
     @ViewInject(R.id.ab_header)
     private ActionBar ab_header;
+
+    @ViewInject(R.id.iv_question)
+    private ImageView iv_question;
 
     //免费次数
     @ViewInject(R.id.tv_last_free_time)
@@ -76,8 +80,8 @@ public class WithdrawalsActivity extends BaseActivity {
     @ViewInject(R.id.tv_cash_service_tip)
     private TextView mTvCashServiceTip;
     //说明
-    @ViewInject(R.id.tv_tip)
-    private TextView mTvTip;
+//    @ViewInject(R.id.tv_tip)
+//    private TextView mTvTip;
 
     @ViewInject(R.id.btn_withdrawals)
     private Button mBtnWithdrawals;
@@ -91,7 +95,11 @@ public class WithdrawalsActivity extends BaseActivity {
     private int cashServiceType = 1;
     private int cashServiceCost = 0;
 
-    private int totalMoney = 100000;
+//    private int totalMoney = 100000;
+    private String freeTip;
+    private int min;
+    private int max;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +108,16 @@ public class WithdrawalsActivity extends BaseActivity {
 
         ViewUtils.inject(this);
         mContext = this;
+        mBtnWithdrawals.setEnabled(false);
+        mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
+        iv_question.setVisibility(View.VISIBLE);
 
-        ab_header.setRightText("        ？");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         init();
-        getServiceCash();
     }
 
     //获取手续费数据
@@ -117,9 +131,8 @@ public class WithdrawalsActivity extends BaseActivity {
                     public void onSuccess(String responeJson) {
                         LogUtil.i("手续费详情 " + responeJson);
                         CashServiceEntity entity = GsonParser.getParsedObj(responeJson, CashServiceEntity.class);
-//                        LogUtil.i("手续费详情 " + entity.getResult().getRemind().toString());
 
-                        String freeTip = "剩余" + entity.getResult().getLast_num() + "次免费提现";
+                        freeTip = "本月剩余" + entity.getResult().getLast_num() + "次免费提现";
 //                        int colorId = getResources().getColor(R.color.c_f99903);
 //                        SpannableString ss = StringUtils.getSpannableString(freeTip, colorId, 7, freeTip.length() - 1);
                         mTvLastFree.setText(freeTip);
@@ -127,16 +140,18 @@ public class WithdrawalsActivity extends BaseActivity {
                         cashServiceType = entity.getResult().getType();
                         cashServiceCost = entity.getResult().getFee();
 
-                        List<String> tips = entity.getResult().getRemind();
-                        StringBuffer sb = new StringBuffer();
-                        for (int i=0;i<tips.size();i++){
-                            sb.append(tips.get(i));
-                            if(i<tips.size()-1){
-                                sb.append("\n");
-                            }
-                        }
-                        mTvTip.setText(sb.toString());
+                        min = entity.getResult().getMin();
+                        max = entity.getResult().getMax();
 
+//                        List<String> tips = entity.getResult().getRemind();
+//                        StringBuffer sb = new StringBuffer();
+//                        for (int i=0;i<tips.size();i++){
+//                            sb.append(tips.get(i));
+//                            if(i<tips.size()-1){
+//                                sb.append("\n");
+//                            }
+//                        }
+//                        mTvTip.setText(sb.toString());
                     }
 
                     @Override
@@ -161,7 +176,7 @@ public class WithdrawalsActivity extends BaseActivity {
         //设置提款账户
         mTvBindCard.setVisibility(View.VISIBLE);
         mLlBankInfo.setVisibility(View.GONE);
-        mBtnWithdrawals.setEnabled(false);
+
 //        getCashInfo();
         checkBank();
 
@@ -178,34 +193,57 @@ public class WithdrawalsActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
-                    mEtAmt.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.size_xl));
+                    mEtAmt.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.size_xxxl));
 //                    LogUtil.i("Editable " + Float.parseFloat(s.toString()));
                         float getCash = Float.parseFloat(s.toString());
-                        if(getCash<100){
-                            mTvCashServiceTip.setText("提现金额不能小于100元");
+                    int colorId = getResources().getColor(R.color.btn_main);
+                    String tip = null;
+                    String getTip = null;
+                    if(cashServiceType == 1){
+
+                        getTip = "到账："+(getCash-cashServiceCost)+"元，";
+                        if (getCash-cashServiceCost<0){
+                            getTip = "到账：0元，";
                         }
-                        else{
-                            int colorId = getResources().getColor(R.color.btn_main);
-                            String tip = null;
-                            String getTip = null;
-                            if(cashServiceType == 1){
-                                getTip = "到账："+(getCash-cashServiceCost)+"元，";
-                                tip = getTip +"所需手续费"+cashServiceCost+"元";
-                                SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
+                        tip = getTip +"所需手续费"+cashServiceCost+"元";
+                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
 
-                                mTvCashServiceTip.setText(ss);
-                            }
-                            else if(cashServiceType == 2){
-                                getTip = "到账："+(getCash-getCash*cashServiceCost/100)+"元，";
-                                tip = getTip +"所需手续费"+getCash*cashServiceCost/100+"元";
-                                SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
+                        mTvCashServiceTip.setText(ss);
+                    }
+                    else if(cashServiceType == 2){
+                        getTip = "到账："+(getCash-getCash*cashServiceCost/100)+"元，";
+                        if (getCash-getCash*cashServiceCost/100<0){
+                            getTip = "到账：0元，";
+                        }
+                        tip = getTip +"所需手续费"+getCash*cashServiceCost/100+"元";
+                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
 
-                                mTvCashServiceTip.setText(ss);
-                            }
+                        mTvCashServiceTip.setText(ss);
+                    }
+                        if(getCash<min){
+                            mTvLastFree.setText("单笔最低"+min+"元！");
+                            mTvLastFree.setTextColor(getResources().getColor(R.color.font_red));
+                            mBtnWithdrawals.setEnabled(false);
+                            mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
+                        }else if (getCash>max){
+                            mTvLastFree.setText("单笔最高"+max+"元！");
+                            mTvLastFree.setTextColor(getResources().getColor(R.color.font_red));
+                            mBtnWithdrawals.setEnabled(false);
+                            mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
+                        } else{
+                            mTvLastFree.setText(freeTip);
+                            mTvLastFree.setTextColor(getResources().getColor(R.color.font_grey));
+                            mBtnWithdrawals.setEnabled(true);
+                            mBtnWithdrawals.setBackgroundResource(R.drawable.login_button_selector);
                         }
                 } else {
                     mEtAmt.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                             getResources().getDimension(R.dimen.size_m));
+                    mTvLastFree.setText(freeTip);
+                    mBtnWithdrawals.setEnabled(false);
+                    mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
+                    mTvLastFree.setTextColor(getResources().getColor(R.color.font_grey));
+                    mTvCashServiceTip.setText("所需手续费0元");
                 }
             }
         });
@@ -219,16 +257,15 @@ public class WithdrawalsActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(String responeJson) {
+                        getServiceCash();
                         LogUtil.i("是否绑定银行卡 " + responeJson);
                         CheckBankEntity entity = GsonParser.getParsedObj(responeJson, CheckBankEntity.class);
                         CheckBankEntity.ResultBean resultBean = entity.getResult();
-                        String status = resultBean.getStatus();
+                        status = resultBean.getStatus();
                         switch (status) {
                             case Global.STATUS_PASS:
                                 mLlBankInfo.setVisibility(View.VISIBLE);
                                 mTvBindCard.setVisibility(View.GONE);
-                                mBtnWithdrawals.setEnabled(true);
-                                mBtnWithdrawals.setBackgroundResource(R.drawable.login_button_selector);
                                 GlideUtil.displayPic(mContext,resultBean.getImgUrl(), R.drawable.ic_bank_logo, mIvBankLogo);
 
                                 String lastFour;
@@ -240,16 +277,14 @@ public class WithdrawalsActivity extends BaseActivity {
                                     lastFour = cardNum;
                                 }
                                 mTvAcctNum.setText(resultBean.getBankname() + " (" + lastFour + ")");
-                                mTvQuota.setText("单笔限额" + resultBean.getTotalMoney() + "元");
+//                                mTvQuota.setText("单笔限额" + resultBean.getTotalMoney() + "元");
 
-                                totalMoney = resultBean.getTotalMoney();
+//                                totalMoney = resultBean.getTotalMoney();
                                 break;
 
                             case Global.STATUS_UN_PASS:
                                 mLlBankInfo.setVisibility(View.GONE);
                                 mTvBindCard.setVisibility(View.VISIBLE);
-                                mBtnWithdrawals.setEnabled(false);
-                                mBtnWithdrawals.setBackgroundResource(R.drawable.btn_bg_enable);
                                 break;
                         }
                     }
@@ -278,7 +313,7 @@ public class WithdrawalsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.btn_right})
+    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -287,7 +322,11 @@ public class WithdrawalsActivity extends BaseActivity {
             case R.id.btn_withdrawals:
                 if (checkInfo()) {
 //                    showPwdDialog();
-                    getSmsCode();
+                    if (status.equals("1")) {
+                        getSmsCode();
+                    }else {
+                        CommonToast.makeText("请绑定银行卡");
+                    }
                 }
                 break;
 
@@ -306,8 +345,8 @@ public class WithdrawalsActivity extends BaseActivity {
                 Intent intent = new Intent(mContext, BindBankCardActivity.class);
                 startActivityForResult(intent, CODE_BIND);
                 break;
-            case R.id.btn_right:
-                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL+"?id=2");
+            case R.id.iv_question:
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL+"?id=2",true);
                 break;
         }
     }
@@ -331,10 +370,10 @@ public class WithdrawalsActivity extends BaseActivity {
             CommonToast.showHintDialog(mContext,"提现金额需大于100元！");
             return false;
         }
-        if(input > totalMoney){
-            CommonToast.showHintDialog(mContext,"单笔提现金额上限"+totalMoney+"元！");
-            return false;
-        }
+//        if(input > totalMoney){
+//            CommonToast.showHintDialog(mContext,"单笔提现金额上限"+totalMoney+"元！");
+//            return false;
+//        }
         if(Double.parseDouble(mAvailableBalance) < input){
             CommonToast.showHintDialog(mContext,"可用余额不足！");
             isJumpToRecharge = true;
@@ -385,10 +424,11 @@ public class WithdrawalsActivity extends BaseActivity {
         String amt = mEtAmt.getText().toString().trim();
         String formatAmt = StringUtils.formatMoney(Double.valueOf(amt));
         tvAmt.setText("¥ " + formatAmt);
+        ImageView tv_close= (ImageView) view.findViewById(R.id.tv_close);
 
         final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
         dialog.setContentView(view);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
         tvReGet.setOnClickListener(new View.OnClickListener() {
@@ -396,6 +436,12 @@ public class WithdrawalsActivity extends BaseActivity {
             public void onClick(View v) {
 //                dialog.dismiss();
                 getReGetSmsCode(tvReGet);
+            }
+        });
+        tv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 
@@ -406,6 +452,7 @@ public class WithdrawalsActivity extends BaseActivity {
                 cash(mEtAmt.getText().toString().trim(), password);
             }
         });
+
 
 
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -477,26 +524,28 @@ public class WithdrawalsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String responeJson) {
                         LogUtil.i("提现 " + responeJson);
+                        WithdrawalsEntity entity = GsonParser.getParsedObj(responeJson, WithdrawalsEntity.class);
                         JcbApplication.needReloadMyInfo = true;
-//                CommonToast.showHintDialog(mContext, "您的提现已经提交，我们将尽快审核打款");
-                        Intent intent = new Intent(mContext, WithdrawalsResultActivity.class);
-                        intent.putExtra("ab_title", "提现成功");
-                        intent.putExtra("is_success", true);
-                        intent.putExtra("result_text", "您的提现已经提交，我们将尽快审核打款");
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(mContext, WithdrawalsResultActivity.class);
+//                        intent.putExtra("fee",entity.getResult().getFee());
+//                        intent.putExtra("time",entity.getResult().getTime());
+//                        intent.putExtra("amount",mEtAmt.getText().toString().trim());
+//                        startActivity(intent);
+                        UrlUtil.showHtmlPage(mContext,"提现", RequestURL.BID_GETMONEY_URL+"&account="+entity.getResult().getAccount()+
+                                "&fee="+entity.getResult().getFee() +"&credited="+entity.getResult().getCredited());
 
                     }
 
                     @Override
                     public void onFailure(ResponseEntity entity) {
                         LogUtil.i("提现 " + entity.errorInfo);
-                        Intent intent = new Intent(mContext, WithdrawalsResultActivity.class);
-                        intent.putExtra("ab_title", "提现失败");
-                        intent.putExtra("is_success", false);
-                        intent.putExtra("result_text", entity.errorInfo);
-                        startActivity(intent);
-                        finish();
+                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                        Intent intent = new Intent(mContext, WithdrawalsResultActivity.class);
+//                        intent.putExtra("ab_title", "提现失败");
+//                        intent.putExtra("is_success", false);
+//                        intent.putExtra("result_text", entity.errorInfo);
+//                        startActivity(intent);
+//                        finish();
                     }
 
                 }, mContext);

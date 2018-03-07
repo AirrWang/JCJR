@@ -12,14 +12,6 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.constant.RequestURL;
-import com.ql.jcjr.entity.VerificationCodeEntity;
-import com.ql.jcjr.http.HttpRequestManager;
-import com.ql.jcjr.http.HttpSenderController;
-import com.ql.jcjr.http.ParamsManager;
-import com.ql.jcjr.http.ResponseEntity;
-import com.ql.jcjr.http.SenderResultModel;
-import com.ql.jcjr.net.GsonParser;
-import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CancelEditText;
@@ -72,28 +64,28 @@ public class InputPhoneNumActivity extends BaseActivity {
         return true;
     }
 
-    public void getGetVerifyCode(String phone, String url) {
-
-        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("获取验证码 " + responeJson);
-                VerificationCodeEntity mEntity = GsonParser.getParsedObj(responeJson, VerificationCodeEntity.class);
-                getGetVerifyCodesuccess();
-
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("获取验证码 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, this);
-    }
+//    public void getGetVerifyCode(String phone, String url) {
+//
+//        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
+//
+//        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+//
+//            @Override
+//            public void onSuccess(String responeJson) {
+//                LogUtil.i("获取验证码 " + responeJson);
+//                VerificationCodeEntity mEntity = GsonParser.getParsedObj(responeJson, VerificationCodeEntity.class);
+//                getGetVerifyCodesuccess();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(ResponseEntity entity) {
+//                LogUtil.i("获取验证码 " + entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//            }
+//
+//        }, this);
+//    }
 
     private void getGetVerifyCodesuccess() {
         switch (mFlag){
@@ -120,7 +112,7 @@ public class InputPhoneNumActivity extends BaseActivity {
                 break;
             case R.id.btn_next:
                 if(checkInfo()) {
-                    getGetVerifyCode(mCetPhone.getEditTextContent(), mRequestUrl);
+//                    getGetVerifyCode(mCetPhone.getEditTextContent(), mRequestUrl);
                 }
                 break;
         }

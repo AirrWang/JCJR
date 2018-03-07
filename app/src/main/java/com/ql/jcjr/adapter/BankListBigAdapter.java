@@ -65,6 +65,7 @@ public class BankListBigAdapter extends BaseAdapter {
 
         BankListEntity.ResultBean data = mList.get(i);
         viewHolder.mTvBankName.setText(data.getName());
+        viewHolder.tv_bank_info.setText("单笔限额"+data.getOneorder()+"    每日限额"+data.getOneday());
         GlideUtil.displayPic(mContext, data.getImgUrl(), -1, viewHolder.mCivIcon);
         return view;
     }
@@ -78,5 +79,8 @@ public class BankListBigAdapter extends BaseAdapter {
 //        TextView mTvCardNum;
         @ViewInject(R.id.civ_icon)
         ImageView mCivIcon;
+
+        @ViewInject(R.id.tv_bank_info)
+        TextView tv_bank_info;
     }
 }

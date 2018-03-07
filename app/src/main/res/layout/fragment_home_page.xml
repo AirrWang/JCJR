@@ -38,8 +38,8 @@
             android:background="#fff"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/dimen_44px"
-            android:paddingTop="@dimen/dimen_36px">
+            android:paddingBottom="@dimen/dimen_36px"
+            android:paddingTop="@dimen/dimen_12px">
             <LinearLayout
                 android:id="@+id/ll_ptjs"
                 android:gravity="center_horizontal"
@@ -49,13 +49,13 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_0"
-                    android:layout_width="@dimen/dimen_120px"
-                    android:layout_height="@dimen/dimen_120px"
+                    android:layout_width="@dimen/dimen_90px"
+                    android:layout_height="@dimen/dimen_90px"
                     android:scaleType="fitXY"
                     android:src="@drawable/ptjs_sy" />
                 <TextView
                     android:id="@+id/tv_0"
-                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_marginTop="@dimen/dimen_15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="平台介绍"
@@ -72,12 +72,12 @@
                 <ImageView
                     android:scaleType="fitXY"
                     android:id="@+id/iv_1"
-                    android:layout_width="@dimen/dimen_120px"
-                    android:layout_height="@dimen/dimen_120px"
+                    android:layout_width="@dimen/dimen_90px"
+                    android:layout_height="@dimen/dimen_90px"
                     android:src="@drawable/yqyl_sy" />
                 <TextView
                     android:id="@+id/tv_1"
-                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_marginTop="@dimen/dimen_15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="邀请有礼"
@@ -93,13 +93,13 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_2"
-                    android:layout_width="@dimen/dimen_120px"
-                    android:layout_height="@dimen/dimen_120px"
+                    android:layout_width="@dimen/dimen_90px"
+                    android:layout_height="@dimen/dimen_90px"
                     android:scaleType="fitXY"
                     android:src="@drawable/dhzx_sy" />
                 <TextView
                     android:id="@+id/tv_2"
-                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_marginTop="@dimen/dimen_15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="兑换中心"
@@ -115,13 +115,13 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_3"
-                    android:layout_width="@dimen/dimen_120px"
-                    android:layout_height="@dimen/dimen_120px"
+                    android:layout_width="@dimen/dimen_90px"
+                    android:layout_height="@dimen/dimen_90px"
                     android:scaleType="fitXY"
                     android:src="@drawable/mrqd_sy" />
                 <TextView
                     android:id="@+id/tv_3"
-                    android:layout_marginTop="@dimen/dimen_26px"
+                    android:layout_marginTop="@dimen/dimen_15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="每日签到"
@@ -140,7 +140,7 @@
             android:paddingBottom="@dimen/dimen_20px"
             android:paddingTop="@dimen/dimen_20px"
             android:gravity="center_vertical"
-            android:background="@color/white"
+            android:background="#FBFBFB"
             android:orientation="horizontal">
 
             <ImageView

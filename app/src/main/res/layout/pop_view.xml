@@ -2,24 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="@dimen/row_text_margin"
-    android:orientation="horizontal">
+    android:background="#E53F434F"
+    android:orientation="vertical">
+    <LinearLayout
+        android:paddingTop="@dimen/dimen_25px"
+        android:paddingLeft="@dimen/dimen_44px"
+        android:paddingBottom="@dimen/dimen_30px"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="@dimen/dimen_78px"
+            android:layout_height="@dimen/dimen_88px" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_26px"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_30px"
+                android:textColor="@color/font_actionbar_color"
+                android:text="截图成功"/>
+            <TextView
+                android:layout_marginTop="@dimen/dimen_10px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_26px"
+                android:textColor="@color/c_fffff"
+                android:text="是否分享页面或者反馈问题"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2px"
+        android:background="@color/divider_color"/>
+    <LinearLayout
+        android:paddingTop="@dimen/dimen_20px"
+        android:paddingBottom="@dimen/dimen_25px"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_share"
+            android:text="分享"
+            android:background="@drawable/bg_jietu_share"
+            android:textColor="@color/c_fffff"
+            android:textSize="@dimen/dimen_26px"
+            android:layout_width="@dimen/dimen_210px"
+            android:layout_height="@dimen/dimen_68px" />
+        <Button
+            android:layout_marginLeft="@dimen/dimen_118px"
+            android:id="@+id/btn_tokf"
+            android:background="@drawable/bg_jietu_share"
+            android:text="联系客服"
+            android:textColor="@color/c_fffff"
+            android:textSize="@dimen/dimen_26px"
+            android:layout_width="@dimen/dimen_210px"
+            android:layout_height="@dimen/dimen_68px" />
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_2"
-        android:layout_width="@dimen/dimen_120px"
-        android:layout_height="@dimen/dimen_120px" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_50px"
-        android:text="截图成功"/>
-    <Button
-        android:id="@+id/btn_share"
-        android:layout_marginLeft="@dimen/dimen_50px"
-        android:text="分享"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

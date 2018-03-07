@@ -73,6 +73,7 @@ public class MineFragmentEntity {
         private String rank;
         private String rankname;
         private String cashcount;
+        private String isbindaddress;
 
         public String getTotal() {
             return total;
@@ -176,6 +177,14 @@ public class MineFragmentEntity {
 
         public void setCashcount(String cashcount) {
             this.cashcount = cashcount;
+        }
+
+        public String getIsbindaddress() {
+            return isbindaddress;
+        }
+
+        public void setIsbindaddress(String isbindaddress) {
+            this.isbindaddress = isbindaddress;
         }
     }
 }

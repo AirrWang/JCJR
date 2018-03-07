@@ -82,6 +82,8 @@ public class BindBankCardActivity extends BaseActivity {
     private TextView tvPlace;
     @ViewInject(R.id.lv_bank_card)
     private SwipeMenuListView mLvBankCard;
+    @ViewInject(R.id.iv_question)
+    private ImageView iv_question;
 
     private Context mContext;
     private String mRealName;
@@ -116,7 +118,7 @@ public class BindBankCardActivity extends BaseActivity {
         mContext = this;
         ViewUtils.inject(this);
         init();
-        mActionBar.setRightText("        ？");
+        iv_question.setVisibility(View.VISIBLE);
     }
 
     private void init() {
@@ -205,6 +207,7 @@ public class BindBankCardActivity extends BaseActivity {
                                 data.setBranch(resultBean.getBranch());
                                 data.setImgUrl(resultBean.getImgUrl());
                                 data.setTotalMoney(resultBean.getTotalMoney());
+                                data.setOneday(resultBean.getOneday());
                                 mBankCardList.add(data);
                                 mBankCardListAdapter.notifyDataSetChanged();
 
@@ -520,14 +523,14 @@ public class BindBankCardActivity extends BaseActivity {
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank,R.id.btn_right})
+    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank,R.id.iv_question})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
                 break;
-            case R.id.btn_right:
-                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL);
+            case R.id.iv_question:
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL,true);
                 break;
             case R.id.ll_bank:
                 if(mEtCardNum.hasFocus()){

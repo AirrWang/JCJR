@@ -70,7 +70,7 @@ public class BankCardListAdapter extends BaseAdapter {
         viewHolder.mTvBankName.setText(data.getBankname()+" ("+bankNo+")");
 //        viewHolder.mTvBankBranch.setText(data.getBranch());
 //        viewHolder.mTvCardNum.setText(data.getBankno());
-        viewHolder.mTvBankInfo.setText("单笔限额"+data.getTotalMoney());
+        viewHolder.mTvBankInfo.setText("单笔限额"+data.getTotalMoney()+"   每日限额"+data.getOneday());
         GlideUtil.displayPic(mContext, data.getImgUrl(), -1, viewHolder.mCivIcon);
 
         return view;

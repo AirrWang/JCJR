@@ -66,7 +66,7 @@ public class ContactUsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ithb_customer_service_qa:
-                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL);
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL,true);
                 break;
             case R.id.ithb_customer_service_hotline:
                 showDailPrompt();
@@ -88,12 +88,8 @@ public class ContactUsActivity extends BaseActivity {
                  * @param title   聊天窗口的标题
                  * @param source  咨询的发起来源，包括发起咨询的url，title，描述信息等
                  */
-//                CommonToast.showHintDialog(mContext,Unicorn.isServiceAvailable()+"");
                 Unicorn.openServiceActivity(mContext, title, source);
 
-//                ConsultSource source = new ConsultSource(uri, title, null);
-//                source.productDetail = productDetail;
-//                Unicorn.openServiceActivity(context, staffName(), source);
                 break;
         }
     }

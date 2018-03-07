@@ -20,8 +20,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 12
-        versionName "1.8.0"
+        versionCode 13
+        versionName "1.8.1"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 
@@ -189,6 +189,9 @@ android {
         }
         jinritoutiao14 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao14"]
+        }
+        zhongyi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zhongyi"]
         }
 //        chezhuwuyou {
 //            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
