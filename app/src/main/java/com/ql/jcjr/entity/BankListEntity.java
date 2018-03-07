@@ -68,6 +68,8 @@ public class BankListEntity {
         private String name;
         private String id;
         private String imgUrl;
+        private String oneorder;
+        private String oneday;
 
         public String getName() {
             return name;
@@ -91,6 +93,22 @@ public class BankListEntity {
 
         public void setImgUrl(String imgUrl) {
             this.imgUrl = imgUrl;
+        }
+
+        public String getOneorder() {
+            return oneorder;
+        }
+
+        public void setOneorder(String oneorder) {
+            this.oneorder = oneorder;
+        }
+
+        public String getOneday() {
+            return oneday;
+        }
+
+        public void setOneday(String oneday) {
+            this.oneday = oneday;
         }
     }
 }

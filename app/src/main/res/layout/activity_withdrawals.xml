@@ -33,13 +33,32 @@
                 android:layout_marginLeft="@dimen/row_text_margin"
                 android:layout_marginTop="@dimen/dimen_16px"
                 android:layout_marginBottom="@dimen/dimen_16px"/>
+            <LinearLayout
 
-            <include
-                layout="@layout/item_bank_card"
                 android:id="@+id/ll_bank_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_height="@dimen/dimen_98px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dimen_62px"
+                        android:id="@+id/civ_icon"
+                        android:layout_width="@dimen/dimen_76px"
+                        android:layout_height="@dimen/dimen_76px"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_bank_logo"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/dimen_50px"
+                        android:id="@+id/tv_bank_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/size_m"
+                        android:text="工商银行"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_bind_card"
@@ -118,27 +137,38 @@
                         android:gravity="center"
                         android:text="余额全提"
                         android:textColor="@color/btn_main"
-                        android:textSize="@dimen/size_m"/>
+                        android:textSize="@dimen/size_l"/>
 
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1px"
+                    android:background="@color/divider_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/row_height"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/row_text_margin"
+                    android:paddingLeft="@dimen/row_text_margin">
+                    <TextView
+                        android:id="@+id/tv_last_free_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/size_xs"
+                        android:textColor="@color/font_grey"
+                        android:text="本月剩余3次免费提现"
+                        />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_last_free_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/size_xs"
-                    android:textColor="@color/btn_main"
-                    android:layout_marginLeft="@dimen/row_text_margin"
-                    android:layout_marginTop="@dimen/dimen_16px"
-                    android:layout_marginBottom="@dimen/dimen_16px"
-                    android:text="免费提现次数：3次"/>
             </LinearLayout>
 
 
             <Button
                 android:id="@+id/btn_withdrawals"
                 style="@style/common_btn_style"
-                android:layout_marginTop="@dimen/dimen_120px"
+                android:layout_marginTop="@dimen/dimen_80px"
                 android:text="确认"/>
 
             <TextView
@@ -151,27 +181,27 @@
                 android:textColor="@color/font_grey"
                 android:textSize="@dimen/size_xs"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_48px"
-                android:layout_marginLeft="@dimen/row_text_margin"
-                android:drawableLeft="@drawable/icon_warming"
-                android:drawablePadding="@dimen/dimen_16px"
-                android:textSize="@dimen/size_xs"
-                android:textColor="@color/font_grey"
-                android:text="提现说明："/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/dimen_48px"-->
+                <!--android:layout_marginLeft="@dimen/row_text_margin"-->
+                <!--android:drawableLeft="@drawable/icon_warming"-->
+                <!--android:drawablePadding="@dimen/dimen_16px"-->
+                <!--android:textSize="@dimen/size_xs"-->
+                <!--android:textColor="@color/font_grey"-->
+                <!--android:text="提现说明："/>-->
 
-            <TextView
-                android:id="@+id/tv_tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16px"
-                android:layout_marginLeft="@dimen/row_text_margin"
-                android:layout_marginRight="@dimen/row_text_margin"
-                android:textSize="@dimen/size_xs"
-                android:textColor="@color/font_grey"
-                android:text="16:00之前提现当天到帐，16:00之后提现第二天到帐；特殊情况除外，用户充值资金在15天内提现将扣除1%的提现手续费。"/>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_tip"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/dimen_16px"-->
+                <!--android:layout_marginLeft="@dimen/row_text_margin"-->
+                <!--android:layout_marginRight="@dimen/row_text_margin"-->
+                <!--android:textSize="@dimen/size_xs"-->
+                <!--android:textColor="@color/font_grey"-->
+                <!--android:text="16:00之前提现当天到帐，16:00之后提现第二天到帐；特殊情况除外，用户充值资金在15天内提现将扣除1%的提现手续费。"/>-->
 
         </LinearLayout>
 

@@ -14,7 +14,7 @@
         xmlns:bar="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        bar:title="绑定银行卡"/>
+        bar:title="绑定银行卡" />
 
     <LinearLayout
         android:id="@+id/ll_first"

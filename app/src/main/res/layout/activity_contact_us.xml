@@ -27,6 +27,12 @@
 
     <com.ql.jcjr.view.ImageTextHorizontalBarLess
         style="@style/ithb_no_left_icon"
+        android:id="@+id/ithb_customer_service_online"
+        app:rightTitleVisibility="gone"
+        app:titleTextLess="在线客服" />
+
+    <com.ql.jcjr.view.ImageTextHorizontalBarLess
+        style="@style/ithb_no_left_icon"
         android:id="@+id/ithb_customer_service_hotline"
         app:bottomLineVisibilityLess="gone"
         app:titleTextLess="电话客服"

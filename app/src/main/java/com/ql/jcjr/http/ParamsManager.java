@@ -47,10 +47,13 @@ public class ParamsManager {
     /**
      * 获取验证码
      */
-    public static SenderResultModel senderGetVerifyCode(String phone, String url) {
+    public static SenderResultModel senderGetVerifyCode(String phone, String url,String sign,String timestamp,String appid) {
         JSONObject object = new JSONObject();
         try {
             object.put("phone", phone);
+            object.put("sign", sign);
+            object.put("timestamp", timestamp);
+            object.put("appid", appid);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -158,6 +161,17 @@ public class ParamsManager {
         }
         RequestParams params = SenderManager.buildRequestParams(object);
         SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.LOGIN_CHECK_URL);
+        return resultModel;
+    }
+
+    /**
+     * 获取appId
+     */
+    public static SenderResultModel getAppId() {
+        JSONObject object = new JSONObject();
+
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.GETAPPID_URL);
         return resultModel;
     }
 
@@ -357,6 +371,20 @@ public class ParamsManager {
     }
 
     /**
+     * 获取外部ip
+     */
+    public static SenderResultModel getIP() {
+        JSONObject object = new JSONObject();
+
+        RequestParams params = SenderManager.buildRequestParams(object);
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.GET_IP);
+
+        return resultModel;
+    }
+
+
+    /**
      * 待收明细
      */
     public static SenderResultModel senderReceiptDetails(String page) {
@@ -428,7 +456,7 @@ public class ParamsManager {
     /**
      * 我的投资
      */
-    public static SenderResultModel senderMyBidHistory(String page, String epage, String status) {
+    public static SenderResultModel senderMyBidHistory(String page, String epage, String status,String order) {
         JSONObject object = new JSONObject();
         try {
             object.put("userid", UserData.getInstance().getUSERID());
@@ -436,6 +464,9 @@ public class ParamsManager {
             object.put("epage", epage);
             if(null != status){
                 object.put("status", status);
+            }
+            if (null!=order){
+                object.put("orderby", order);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1123,16 +1154,17 @@ public class ParamsManager {
     /**
      * 头条激活
      */
-    public static SenderResultModel postIMEI(String imei) {
+    public static SenderResultModel postIMEI(String imei,String channel) {
 
         JSONObject object = new JSONObject();
         try {
             object.put("imei", imei);
+            object.put("channel", channel);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestParams params = SenderManager.buildRequestParams(object);
-        SenderResultModel resultModel = SenderManager.buildResultModel(params,"http://www.jicaibaobao.com/export.php?sign=deviceinfocheck");
+        SenderResultModel resultModel = SenderManager.buildResultModel(params,"http://www.jicaibaobao.com/export.php?sign=deviceinfocheck",false);
         return resultModel;
     }
 }

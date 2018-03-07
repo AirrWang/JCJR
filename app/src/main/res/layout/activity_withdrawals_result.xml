@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ql.jcjr.activity.WithdrawalsResultActivity">
+    android:background="@color/c_fffff"
+    tools:context="com.ql.jcjr.activity.WithdrawalsResultActivity"
+    >
 
     <com.ql.jcjr.view.ActionBar
         xmlns:bar="http://schemas.android.com/apk/res-auto"
@@ -14,30 +16,121 @@
         android:layout_height="wrap_content"
         bar:bottom_divider_visibility="invisible"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:background="@color/white">
-
         <ImageView
             android:id="@+id/iv_result"
-            android:layout_width="@dimen/dimen_120px"
-            android:layout_height="@dimen/dimen_120px"
-            android:layout_marginTop="@dimen/dimen_100px"
+            android:layout_width="@dimen/dimen_214px"
+            android:layout_height="@dimen/dimen_240px"
+            android:layout_marginTop="@dimen/dimen_84px"
+            android:src="@drawable/business_success"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_68px"
-            android:layout_marginBottom="@dimen/dimen_90px"
+            android:layout_marginTop="@dimen/dimen_52px"
+            android:text="提现申请成功"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dimen_36px"
-            android:textColor="@color/c03_333333"/>
+            android:textSize="@dimen/dimen_34px"
+            android:textColor="@color/title_bg_color"/>
+        <TextView
+        android:id="@+id/tv_result_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_14px"
+        android:text="时间时间时间"
+        android:layout_marginBottom="@dimen/dimen_50px"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/dimen_24px"
+        android:textColor="@color/font_grey"/>
+    <LinearLayout
+        android:paddingLeft="@dimen/dimen_24px"
+        android:paddingRight="@dimen/dimen_24px"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
 
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_98px">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="提现金额"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999.00元"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1px"
+            android:background="@color/divider_color"/>
+        <LinearLayout
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_98px">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="到账金额"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+            <TextView
+                android:id="@+id/tv_account_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999.00元"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1px"
+            android:background="@color/divider_color"/>
+        <LinearLayout
+
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_98px">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="手续费"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+            <TextView
+                android:id="@+id/tv_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999.00元"
+                android:textSize="@dimen/dimen_28px"
+                android:textColor="@color/title_bg_color"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1px"
+            android:background="@color/divider_color"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_finsh"
+        style="@style/common_btn_style"
+        android:layout_marginTop="@dimen/dimen_95px"
+        android:layout_marginBottom="@dimen/dimen_40px"
+        android:text="完成"/>
 
 </LinearLayout>

@@ -15,6 +15,7 @@
  */
 package com.ql.jcjr.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,7 @@ public class ToastUtil {
 
     public static final int     SHOW_TOAST = 0;
     private static      Context mContext   = null;
+    @SuppressLint("HandlerLeak")
     private static Handler baseHandler = new Handler() {
 
         @Override
@@ -47,7 +49,7 @@ public class ToastUtil {
     public static void showToast(Context context, String text) {
         mContext = context;
         if (!TextUtils.isEmpty(text)) {
-            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
         }
 
     }

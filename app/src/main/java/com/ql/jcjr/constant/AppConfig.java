@@ -10,7 +10,7 @@ public class AppConfig {
     //常见问题
     public static final String COMMON_PROBLEM_URL = "http://www.jicaibaobao.com/addition/faq.html";
     //关于我们
-    public static final String ABOUT_US_URL = "http://www.jicaibaobao.com/addition/about.html";
+    public static final String ABOUT_US_URL = "http://www.jicaibaobao.com/addition/appabout.html";
     //客服电话
     public static final String SERVICE_HOTLINE_NUM = "4008525558";
 

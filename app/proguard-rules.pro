@@ -316,3 +316,7 @@ public void *(android.view.View);
 
 
 -keep class org.apache.**{*;}
+
+#--------------------------在线客服  网易七鱼-----------------
+-dontwarn com.qiyukf.**
+-keep class com.qiyukf.** {*;}

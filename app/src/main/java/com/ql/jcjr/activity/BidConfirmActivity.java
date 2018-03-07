@@ -288,22 +288,23 @@ public class BidConfirmActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String responeJson) {
                         LogUtil.i("客户投标 " + responeJson);
-                        Intent intent = new Intent(mContext, BidResultActivity.class);
-                        intent.putExtra("isSuccess", true);
-                        intent.putExtra("result_text", "投标成功");
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(mContext, BidResultActivity.class);
+//                        intent.putExtra("isSuccess", true);
+//                        intent.putExtra("result_text", "投标成功");
+//                        startActivity(intent);
+//                        finish();
+                        UrlUtil.showHtmlPage(mContext,"投标成功",RequestURL.BID_SUCCESS_URL,true);
                     }
 
                     @Override
                     public void onFailure(ResponseEntity entity) {
                         LogUtil.i("客户投标 " + entity.errorInfo);
-//                        CommonToast.showHintDialog(mContext, entity.errorInfo);
-                        Intent intent = new Intent(mContext, BidResultActivity.class);
-                        intent.putExtra("isSuccess", false);
-                        intent.putExtra("result_text", entity.errorInfo);
-                        startActivity(intent);
-                        finish();
+                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                        Intent intent = new Intent(mContext, BidResultActivity.class);
+//                        intent.putExtra("isSuccess", false);
+//                        intent.putExtra("result_text", entity.errorInfo);
+//                        startActivity(intent);
+//                        finish();
                     }
 
                 }, mContext);

@@ -1,5 +1,6 @@
 package com.ql.jcjr.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -27,6 +28,7 @@ public class DeviceInfoUtil {
 //    public static String service_provider;
 //    public static String mac;
 
+    @SuppressLint("MissingPermission")
     public static void initDeviceInfo(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 

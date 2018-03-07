@@ -10,13 +10,18 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
+import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.qiyukf.unicorn.api.StatusBarNotificationConfig;
+import com.qiyukf.unicorn.api.Unicorn;
+import com.qiyukf.unicorn.api.YSFOptions;
 import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.receiver.NetworkChangedReceiver;
 import com.ql.jcjr.utils.DeviceInfoUtil;
+import com.ql.jcjr.utils.GlideImageLoader;
 import com.ql.jcjr.utils.LogUtil;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
@@ -188,6 +193,8 @@ public class JcbApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        MultiDex.install(this);//分包用的
+
         PlatformConfig.setWeixin("wxf22b8c0d7c7c9046", "ece139ef283d7be8453b3bc8a2f1ff55");
         PlatformConfig.setQQZone("1106445851", "fxXfEk4nvdmPeAo2");
         PlatformConfig.setSinaWeibo("903029770", "6a9532807816c2264f1e8da58e60f510", "http://www.jicaibaobao.com/newweixin/index.html");
@@ -221,6 +228,9 @@ public class JcbApplication extends Application {
         MiPushRegistar.register(this, "2882303761517637479", "5221763775479");
         //华为Push初始化
         HuaWeiRegister.register(this);
+
+        //初始化在线客服
+        Unicorn.init(this, "75037075a464e34ad75594adfacdd043", options(), new GlideImageLoader(this));
 
         //其他初始化放入线程中
         new InitThread().start();
@@ -261,6 +271,7 @@ public class JcbApplication extends Application {
 
         Fresco.initialize(this);
 
+        //指纹识别判断
         SharedPreferences sp = getSharedPreferences(SETTINGS, MODE_PRIVATE);
         if (sp.contains(HAS_FINGERPRINT_API)) { // 检查是否存在该值，不必每次都通过反射来检查
             return;
@@ -277,6 +288,12 @@ public class JcbApplication extends Application {
 
     }
 
+    // 如果返回值为null，则全部使用默认参数。
+    private YSFOptions options() {
+        YSFOptions options = new YSFOptions();
+        options.statusBarNotificationConfig = new StatusBarNotificationConfig();
+        return options;
+    }
     private void initDisplayOpinion() {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         DisplayUtil.density = dm.density;

@@ -1,13 +1,18 @@
 package com.ql.jcjr.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -47,6 +52,11 @@ public class LoginActivity extends BaseActivity{
     private TextView etPhoneNum;
     @ViewInject(R.id.et_password)
     private CancelEditTextGrey etPassword;
+    @ViewInject(R.id.rl_container)
+    private RelativeLayout rl_container;
+    @ViewInject(R.id.ll_container)
+    private LinearLayout ll_container;
+
 
     static StringBuffer validateErrorMsg;
     private final String PSW_FILE_NAME = "wjthnfkghj";
@@ -64,7 +74,47 @@ public class LoginActivity extends BaseActivity{
         init();
     }
 
+    private void scrollToPos(int start, int end) {
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.setDuration(250);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
+    }
+
     private void init() {
+
+        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            private int[] sc;
+            private int scrollHegit;
+
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rl_container.getWindowVisibleDisplayFrame(r);
+                if (sc == null) {
+                    sc = new int[2];
+                    ll_container.getLocationOnScreen(sc);
+                }
+                //r.top 是状态栏高度
+                int screenHeight = rl_container.getRootView().getHeight();
+                int softHeight = screenHeight - r.bottom;
+
+                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
+                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+                        scrollToPos(0, scrollHegit);
+                } else {//否则判断为输入法隐藏了
+                    if (rl_container.getScrollY() != 0)
+                        scrollToPos(scrollHegit, 0);
+                }
+            }
+        });
         phoneNumber = getIntent().getStringExtra("phone_num");
         etPhoneNum.setText(phoneNumber);
 

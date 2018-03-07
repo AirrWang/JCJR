@@ -64,6 +64,7 @@ public class CheckBankEntity {
         private String imgUrl;
         private String shortNo;
         private int totalMoney;
+        private int oneday;
 
         public String getStatus() {
             return status;
@@ -119,6 +120,14 @@ public class CheckBankEntity {
 
         public void setTotalMoney(int totalMoney) {
             this.totalMoney = totalMoney;
+        }
+
+        public int getOneday() {
+            return oneday;
+        }
+
+        public void setOneday(int oneday) {
+            this.oneday = oneday;
         }
     }
 }

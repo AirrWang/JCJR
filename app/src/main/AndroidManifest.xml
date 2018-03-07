@@ -81,7 +81,8 @@
         <activity
             android:name="com.ql.jcjr.activity.LoginActivityCheck"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name="com.ql.jcjr.activity.InputPhoneNumActivity"
@@ -328,6 +329,8 @@
         <activity android:name=".activity.CapitalStatisticsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SetPayPwdActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AppConditionActivity"
             android:screenOrientation="portrait"/>
     </application>
 

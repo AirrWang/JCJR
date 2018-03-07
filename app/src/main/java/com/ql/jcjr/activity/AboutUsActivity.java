@@ -49,7 +49,7 @@ public class AboutUsActivity extends BaseActivity {
                 UrlUtil.showHtmlPage(mContext,"官方网站", AppConfig.OFFICIAL_WEBSITE_URL);
                 break;
             case R.id.tv_about_us:
-                UrlUtil.showHtmlPage(mContext,"关于积财", AppConfig.ABOUT_US_URL);
+                UrlUtil.showHtmlPage(mContext,"关于积财", AppConfig.ABOUT_US_URL,true);
                 break;
             case R.id.tv_praise:
                 try{

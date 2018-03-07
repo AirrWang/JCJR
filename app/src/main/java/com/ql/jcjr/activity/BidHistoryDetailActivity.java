@@ -184,7 +184,7 @@ public class BidHistoryDetailActivity extends BaseActivity {
                 break;
 
             case R.id.tv_history_detail_ht:
-                UrlUtil.showHtmlPage(mContext,"积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId);
+                UrlUtil.showHtmlPage(mContext,"积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
                 break;
         }
     }

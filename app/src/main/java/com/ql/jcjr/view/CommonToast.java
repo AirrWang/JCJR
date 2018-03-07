@@ -104,6 +104,7 @@ public class CommonToast extends Toast {
                             context.startActivity(intent);
                         }
                     });
+
             dialog.create().show();
         } catch (Exception e) {
             e.printStackTrace();

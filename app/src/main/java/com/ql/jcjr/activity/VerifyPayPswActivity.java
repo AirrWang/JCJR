@@ -12,15 +12,12 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.Global;
-import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.UserData;
-import com.ql.jcjr.entity.VerificationCodeEntity;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
-import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.view.CommonToast;
@@ -71,29 +68,29 @@ public class VerifyPayPswActivity extends BaseActivity implements
         }, mContext);
     }
 
-    public void getGetVerifyCode(String phone, String url) {
-
-        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("获取验证码 " + responeJson);
-                VerificationCodeEntity
-                        mEntity = GsonParser.getParsedObj(responeJson, VerificationCodeEntity.class);
-                getGetVerifyCodesuccess();
-
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("获取验证码 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-            }
-
-        }, this);
-    }
+//    public void getGetVerifyCode(String phone, String url) {
+//
+//        SenderResultModel resultModel = ParamsManager.senderGetVerifyCode(phone, url);
+//
+//        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+//
+//            @Override
+//            public void onSuccess(String responeJson) {
+//                LogUtil.i("获取验证码 " + responeJson);
+//                VerificationCodeEntity
+//                        mEntity = GsonParser.getParsedObj(responeJson, VerificationCodeEntity.class);
+//                getGetVerifyCodesuccess();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(ResponseEntity entity) {
+//                LogUtil.i("获取验证码 " + entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//            }
+//
+//        }, this);
+//    }
 
     private void getGetVerifyCodesuccess() {
         Intent forgetIntent = new Intent(mContext, InputVerifyCodeActivity.class);
@@ -133,7 +130,7 @@ public class VerifyPayPswActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.tv_forget_pay_psw:
-                getGetVerifyCode(UserData.getInstance().getPhoneNumber(), RequestURL.TRANS_PWD_VERIFY_URL);
+//                getGetVerifyCode(UserData.getInstance().getPhoneNumber(), RequestURL.TRANS_PWD_VERIFY_URL);
                 break;
             case R.id.btn_next:
                 if(checkInfo()) {

@@ -151,7 +151,7 @@ public class SetPayPwdActivity extends BaseActivity{
         if (isFirst){
             resultModel = ParamsManager.senderGetVerifyCodeFirst(phone, url,"1");
         }else {
-            resultModel = ParamsManager.senderGetVerifyCode(phone, url);
+            resultModel = ParamsManager.senderGetVerifyCode(phone, url,"","","");
         }
 
         HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {

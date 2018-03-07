@@ -17,6 +17,7 @@
     <dimen name="actionbar_arrow_distance">15dp</dimen>
     <!--底部tab高度，实名认证引导用了，小心修改-->
     <dimen name="bottom_tab_height">60dp</dimen>
+    <dimen name="dimen_1px">0.5dp</dimen>
     <dimen name="dimen_2px">1dp</dimen>
     <dimen name="dimen_lose_2px">-1dp</dimen>
     <dimen name="dimen_3px">2dp</dimen>
@@ -175,8 +176,8 @@
     <dimen name="hb_item_left_tv_w">160dp</dimen>
     <dimen name="hb_item_left_w">216dp</dimen>
     <dimen name="hb_item_right_w">126dp</dimen>
-    <dimen name="hb_item_status_top">40dp</dimen>
-    <dimen name="hb_item_status_left">168dp</dimen>
+    <dimen name="hb_item_status_top">20dp</dimen>
+    <dimen name="hb_item_status_left">148dp</dimen>
 
     <dimen name="bid_operate_bar_h">54dp</dimen>
 

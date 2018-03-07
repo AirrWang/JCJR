@@ -376,7 +376,12 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UrlUtil.showHtmlPage(mContext,"详情", list.get(finalI).getUrl());
+                    if (list.get(finalI).getShare().equals("0")){
+                        UrlUtil.showHtmlPage(mContext,"详情", list.get(finalI).getUrl(),true);
+                    }else {
+                        UrlUtil.showHtmlPage(mContext,"详情", list.get(finalI).getUrl());
+                    }
+
                 }
             });
         }

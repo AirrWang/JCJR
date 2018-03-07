@@ -54,6 +54,8 @@ public class CashServiceEntity {
         private int fee;
         private List<String> remind;
         private int type;
+        private int min;
+        private int max;
 
         public int getLast_num() {
             return last_num;
@@ -85,6 +87,22 @@ public class CashServiceEntity {
 
         public void setType(int type) {
             this.type = type;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public void setMin(int min) {
+            this.min = min;
+        }
+
+        public int getMax() {
+            return max;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
         }
     }
 }

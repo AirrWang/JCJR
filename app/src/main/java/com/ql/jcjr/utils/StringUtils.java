@@ -350,6 +350,7 @@ public class StringUtils {
         return "";
     }
 
+
     //*/转换成8DA43EE0格式16进制
     public static final String hexString = "0123456789ABCDEF";
     public static String decode(String bytes,boolean isUpperCase) {

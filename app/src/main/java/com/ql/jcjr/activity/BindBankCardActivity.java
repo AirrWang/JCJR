@@ -13,8 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.freeme.swipemenu.SwipeMenu;
-import com.freeme.swipemenu.SwipeMenuCreator;
-import com.freeme.swipemenu.SwipeMenuItem;
 import com.freeme.swipemenu.SwipeMenuListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -23,6 +21,7 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.BankCardListAdapter;
 import com.ql.jcjr.adapter.BankListAdapter;
 import com.ql.jcjr.base.BaseActivity;
+import com.ql.jcjr.constant.AppConfig;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.BankCardData;
 import com.ql.jcjr.entity.BankListEntity;
@@ -39,6 +38,7 @@ import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.ActionSheet;
 import com.ql.jcjr.view.CommonToast;
@@ -82,6 +82,8 @@ public class BindBankCardActivity extends BaseActivity {
     private TextView tvPlace;
     @ViewInject(R.id.lv_bank_card)
     private SwipeMenuListView mLvBankCard;
+    @ViewInject(R.id.iv_question)
+    private ImageView iv_question;
 
     private Context mContext;
     private String mRealName;
@@ -116,6 +118,7 @@ public class BindBankCardActivity extends BaseActivity {
         mContext = this;
         ViewUtils.inject(this);
         init();
+        iv_question.setVisibility(View.VISIBLE);
     }
 
     private void init() {
@@ -148,7 +151,7 @@ public class BindBankCardActivity extends BaseActivity {
     }
 
     private void initListView() {
-        mLvBankCard.setMenuCreator(addMenuItem());
+//        mLvBankCard.setMenuCreator(addMenuItem());
         mBankCardListAdapter = new BankCardListAdapter(mContext, mBankCardList);
         mLvBankCard.setAdapter(mBankCardListAdapter);
 
@@ -166,21 +169,21 @@ public class BindBankCardActivity extends BaseActivity {
         });
     }
 
-    private SwipeMenuCreator addMenuItem() {
-        return new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                int itemSize = (int)getResources().getDimension(R.dimen.dimen_136px);
-                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext);
-                deleteItem.setId(ID_MENU_DELETE);
-                deleteItem.setBackground(R.drawable.bg_delete_gradient);
-                deleteItem.setWidth(itemSize);
-                deleteItem.setTitle("删除");
-                deleteItem.setIcon(R.drawable.ic_bank_card_delete);
-                menu.addMenuItem(deleteItem);
-            }
-        };
-    }
+//    private SwipeMenuCreator addMenuItem() {
+//        return new SwipeMenuCreator() {
+//            @Override
+//            public void create(SwipeMenu menu) {
+//                int itemSize = (int)getResources().getDimension(R.dimen.dimen_136px);
+//                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext);
+//                deleteItem.setId(ID_MENU_DELETE);
+//                deleteItem.setBackground(R.drawable.bg_delete_gradient);
+//                deleteItem.setWidth(itemSize);
+//                deleteItem.setTitle("删除");
+//                deleteItem.setIcon(R.drawable.ic_bank_card_delete);
+//                menu.addMenuItem(deleteItem);
+//            }
+//        };
+//    }
 
     private void checkBank() {
         SenderResultModel resultModel = ParamsManager.senderCheckBank();
@@ -204,6 +207,7 @@ public class BindBankCardActivity extends BaseActivity {
                                 data.setBranch(resultBean.getBranch());
                                 data.setImgUrl(resultBean.getImgUrl());
                                 data.setTotalMoney(resultBean.getTotalMoney());
+                                data.setOneday(resultBean.getOneday());
                                 mBankCardList.add(data);
                                 mBankCardListAdapter.notifyDataSetChanged();
 
@@ -519,11 +523,14 @@ public class BindBankCardActivity extends BaseActivity {
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank})
+    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank,R.id.iv_question})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
+                break;
+            case R.id.iv_question:
+                UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL,true);
                 break;
             case R.id.ll_bank:
                 if(mEtCardNum.hasFocus()){

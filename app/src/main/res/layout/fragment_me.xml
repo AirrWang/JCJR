@@ -137,6 +137,7 @@
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
                     android:id="@+id/ithb_me_wdhb"
+                    app:rightTitleColor="@color/font_grey"
                     app:leftIconLess="@drawable/icon_wdhb_wd"
                     app:titleTextLess="我的红包" />
 

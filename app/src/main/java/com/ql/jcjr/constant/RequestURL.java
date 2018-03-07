@@ -47,6 +47,8 @@ public class RequestURL {
 
     //获取app信息
     public static final String GETAPP_URL = SERVICE_URL + "appDownload";
+    //获取app信息
+    public static final String GETAPPID_URL = SERVICE_URL + "getOauthId";
     //登录
     public static final String LOGIN_URL = SERVICE_URL + "login";
     //登录检查
@@ -174,9 +176,28 @@ public class RequestURL {
     //注册协议
     public static final String REGISTE_URL = SERVICE_URL_BASE+"addition/zhucexieyi.html";
 
+    //收货地址
+    public static final String Address_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/address";
+
     //获取消息中心信息
     public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";
 
     //资金统计
     public static final String GET_MYACCOUNT_URL = SERVICE_URL + "myAccount";
+
+    //投标成功
+    public static final String BID_SUCCESS_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/tender_result&sign=success";
+
+    //提现成功
+    public static final String BID_GETMONEY_URL = SERVICE_URL + "cash_result";
+
+
+    //跳转我的页面
+    public static final String TO_MINE_URL = SERVICE_URL_BASE + "addition/clz/index.html.php";
+
+    //H5关闭当前页
+    public static final String FINISH_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/setup";
+
+    //获取外部ip
+    public static final String GET_IP = SERVICE_URL + "getip";
 }

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_bid_history_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:id="@+id/ll_bid_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="@dimen/row_text_margin">
+
+        <LinearLayout
+            android:id="@+id/ll_bid_history_topbg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_wdtz"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimen_54px"
+            android:paddingTop="@dimen/dimen_54px">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=""-->
+                    <!--android:textColor="@color/font_bid_history"-->
+                    <!--android:textSize="@dimen/size_m" />-->
+
+                    <TextView
+                        android:id="@+id/tv_bid_history_total_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textColor="@color/font_bid_history"
+                        android:textSize="@dimen/size_xxxl" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_bid_history_total_money_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_32px"
+                    android:text="待收本金(元)"
+                    android:textColor="@color/font_bid_history"
+                    android:textSize="@dimen/size_m" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_divider"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@drawable/list_divider_v_white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=""-->
+                    <!--android:textColor="@color/font_bid_history"-->
+                    <!--android:textSize="@dimen/size_m" />-->
+
+                    <TextView
+                        android:id="@+id/tv_bid_history_total_get"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textColor="@color/font_bid_history"
+                        android:textSize="@dimen/size_xxxl" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_bid_history_total_get_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_32px"
+                    android:text="待收利息(元)"
+                    android:textColor="@color/font_bid_history"
+                    android:textSize="@dimen/size_m" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        android:background="@color/divider_color"/>
+    <LinearLayout
+        android:id="@+id/ll_bid_history_bottom"
+        android:background="@color/c_fffff"
+        android:layout_below="@+id/ab_header"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_98px">
+        <RelativeLayout
+            android:id="@+id/rl_pay_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_order_paytime"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投资时间"
+                android:textColor="@color/btn_main"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_60px"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_order_paytime"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_0"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_yellow_down_wdtz" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <ImageView
+            android:src="@drawable/doted"
+            android:paddingTop="@dimen/dimen_12px"
+            android:paddingBottom="@dimen/dimen_12px"
+            android:layout_width="@dimen/dimen_2px"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:id="@+id/rl_get_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_order_datatime"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="到期时间"
+                android:textColor="@color/title_bg_color"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_60px"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_order_datatime"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_3"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 
+import java.io.File;
+
 /**
  * ClassName: GlideUtil
  * Description:
@@ -20,6 +22,15 @@ public class GlideUtil {
         Glide
                 .with(context)
                 .load(url)
+                .dontAnimate()
+                .placeholder(srcId)
+                .error(srcId)
+                .into(view);
+    }
+    public static void displayPic(Context context, File file, int srcId, ImageView view) {
+        Glide
+                .with(context)
+                .load(file)
                 .dontAnimate()
                 .placeholder(srcId)
                 .error(srcId)

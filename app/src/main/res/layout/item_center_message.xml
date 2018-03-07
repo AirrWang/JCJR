@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_16px"
             android:text="红包到期提"
-            android:lines="2"
             android:textColor="@color/font_grey"
             android:textSize="@dimen/size_xs"/>
 
