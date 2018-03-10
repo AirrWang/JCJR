@@ -532,7 +532,7 @@ public class WithdrawalsActivity extends BaseActivity {
 //                        intent.putExtra("amount",mEtAmt.getText().toString().trim());
 //                        startActivity(intent);
                         UrlUtil.showHtmlPage(mContext,"提现", RequestURL.BID_GETMONEY_URL+"&account="+entity.getResult().getAccount()+
-                                "&fee="+entity.getResult().getFee() +"&credited="+entity.getResult().getCredited());
+                                "&fee="+entity.getResult().getFee() +"&credited="+entity.getResult().getCredited(),true);
 
                     }
 
