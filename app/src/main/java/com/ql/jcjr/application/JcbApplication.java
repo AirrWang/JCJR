@@ -324,6 +324,7 @@ public class JcbApplication extends Application {
                                     }
                                 });
                     }
+
                 }
 
                 @Override
