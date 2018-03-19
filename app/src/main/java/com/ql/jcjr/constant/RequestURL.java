@@ -189,8 +189,7 @@ public class RequestURL {
     public static final String BID_SUCCESS_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/tender_result&sign=success";
 
     //提现成功
-    public static final String BID_GETMONEY_URL = SERVICE_URL + "cash_result";
-
+    public static final String BID_GETMONEY_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/cash_result";
 
     //跳转我的页面
     public static final String TO_MINE_URL = SERVICE_URL_BASE + "addition/clz/index.html.php";

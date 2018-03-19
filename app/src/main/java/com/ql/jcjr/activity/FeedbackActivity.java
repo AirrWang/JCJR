@@ -1,5 +1,6 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +37,7 @@ public class FeedbackActivity extends BaseActivity {
     /**
      * Handler
      */
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

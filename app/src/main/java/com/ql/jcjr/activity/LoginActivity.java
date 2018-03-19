@@ -247,6 +247,7 @@ public class LoginActivity extends BaseActivity{
                     }
                 }catch(Exception e){
                 }
+                String device_token=JcbApplication.getInstance().getPushAgent().getRegistrationId();
                 //登录后上传设备信息
                 getAppInfo();
                 finish();

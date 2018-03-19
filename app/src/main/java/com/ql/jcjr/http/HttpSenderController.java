@@ -1,5 +1,6 @@
 package com.ql.jcjr.http;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -47,6 +48,7 @@ public class HttpSenderController {
      */
     private ViewSenderCallback viewCallback;
 
+    @SuppressLint("HandlerLeak")
     private Handler mainHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -154,7 +156,7 @@ public class HttpSenderController {
      * @param url
      */
     public void cancelHttpRequest(String url) {
-        hideLoading();
+        this.hideLoading();
         if (tasks.contains(url)) {
             tasks.remove(tasks.get(url));
         }
@@ -223,9 +225,9 @@ public class HttpSenderController {
 
         cancelHttpRequest(entity.url);
 
-        if (loadingDialog != null && loadingDialog.isShowing()) {
-            this.hideLoading();
-        }
+//        if (loadingDialog != null && loadingDialog.isShowing()) {
+//            this.hideLoading();
+//        }
         if (!entity.isError) {
 
             try {
