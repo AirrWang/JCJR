@@ -49,7 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="理财期限"
+                    android:text="项目期限"
                     android:textColor="@color/font_grey"
                     android:textSize="@dimen/size_xs" />
                 <TextView

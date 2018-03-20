@@ -2,6 +2,7 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -22,7 +23,6 @@ import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
-import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CommonToast;
 
@@ -184,7 +184,13 @@ public class BidHistoryDetailActivity extends BaseActivity {
                 break;
 
             case R.id.tv_history_detail_ht:
-                UrlUtil.showHtmlPage(mContext,"积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
+                Intent urlIntent= new Intent();
+                urlIntent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
+                urlIntent.setData(content_url);
+                startActivity(urlIntent);
+//                UrlUtil.showHtmlPage(mContext,"积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1",true);
+//                Log.d("积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
                 break;
         }
     }

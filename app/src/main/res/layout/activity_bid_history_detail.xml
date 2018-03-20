@@ -93,7 +93,7 @@
 
                     <TextView
                         style="@style/bit_history_detail_title"
-                        android:text="预期年化"/>
+                        android:text="预期利率"/>
 
                     <TextView
                         android:id="@+id/tv_history_detail_apr"
@@ -107,7 +107,7 @@
 
                     <TextView
                         style="@style/bit_history_detail_title"
-                        android:text="投资期限"/>
+                        android:text="项目期限"/>
 
                     <TextView
                         android:id="@+id/tv_history_detail_duration"

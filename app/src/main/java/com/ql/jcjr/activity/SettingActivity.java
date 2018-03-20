@@ -233,7 +233,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick({
             R.id.btn_left, R.id.ithb_real_name, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_about_us, R.id.ithb_feedback,
-            R.id.ithb_account_security,R.id.ithb_app_condition,R.id.ithb_address
+            R.id.ithb_account_security,R.id.ithb_app_condition,R.id.ithb_address,R.id.ithb_test_danger
     })
     public void onClick(View v) {
         switch (v.getId()) {
@@ -243,6 +243,10 @@ public class SettingActivity extends BaseActivity {
             case R.id.ithb_address:
                 needLoadInfo = true;
                 UrlUtil.showHtmlPage(mContext,"收货地址", RequestURL.Address_URL,true);
+                break;
+            case R.id.ithb_test_danger:
+                needLoadInfo = true;
+                UrlUtil.showHtmlPage(mContext,"风险测评", RequestURL.RISKTEST_URL,true);
                 break;
             case R.id.ithb_real_name:
                 if(!hasShiMing){

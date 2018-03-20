@@ -32,13 +32,13 @@
         <com.ql.jcjr.view.ImageTextHorizontalBarLess
             style="@style/ithb_no_left_right_icon"
             android:id="@+id/tv_annualized_rate"
-            app:titleTextLess="预期年化" />
+            app:titleTextLess="预期利率" />
 
         <com.ql.jcjr.view.ImageTextHorizontalBarLess
             style="@style/ithb_no_left_right_icon"
             android:id="@+id/tv_term"
             app:bottomLineVisibilityLess="gone"
-            app:titleTextLess="投资期限" />
+            app:titleTextLess="项目期限" />
 
         <com.ql.jcjr.view.ImageTextHorizontalBarLess
             style="@style/ithb_no_left_right_icon"
@@ -103,6 +103,21 @@
                 android:textColor="@color/btn_main"
                 android:textSize="@dimen/size_xs"
                 android:text="《借款协议》"/>
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_xs"
+                android:text="和"/>
+            <TextView
+                android:id="@+id/tv_bid_danger_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_xs"
+                android:text="《风险提示书》"/>
+
             
         </LinearLayout>
 

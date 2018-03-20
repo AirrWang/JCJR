@@ -47,6 +47,10 @@
                 style="@style/ithb_no_left_icon"
                 android:id="@+id/ithb_address"
                 app:titleTextLess="收货地址" />
+            <com.ql.jcjr.view.ImageTextHorizontalBarLess
+                style="@style/ithb_no_left_icon"
+                android:id="@+id/ithb_test_danger"
+                app:titleTextLess="风险测评" />
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"

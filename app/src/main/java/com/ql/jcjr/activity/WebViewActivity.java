@@ -251,7 +251,6 @@ public class WebViewActivity extends BaseActivity {
             public boolean interceptUrl(WebView view, String url) {
 
                 if (url != null && url.equals(RequestURL.INTERCEPT_XSFL_URL)) {
-//                    view.loadUrl("http://www.jicaibaobao.com/index.action?user&q=going/login1");
                     Intent intent = new Intent(WebViewActivity.this, MainActivity.class);
                     intent.putExtra("main_index",1);
                     WebViewActivity.this.startActivity(intent);
@@ -270,7 +269,6 @@ public class WebViewActivity extends BaseActivity {
                     Intent intent = new Intent(WebViewActivity.this, MyRedPacketsActivity.class);
                     WebViewActivity.this.startActivity(intent);
                 }else if (url != null && url.equals(RequestURL.TO_MINE_URL)) {
-//                    view.loadUrl("http://www.jicaibaobao.com/index.action?user&q=going/login1");
                     Intent intent = new Intent(WebViewActivity.this, MainActivity.class);
                     intent.putExtra("main_index",3);
                     WebViewActivity.this.startActivity(intent);

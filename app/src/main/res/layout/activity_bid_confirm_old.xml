@@ -101,7 +101,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="预期年化"
+                        android:text="预期利率"
                         android:textColor="@color/font_actionbar_color"
                         android:textSize="@dimen/size_xs" />
 

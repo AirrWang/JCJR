@@ -16,7 +16,9 @@ public class RequestURL {
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
     //积财金融协议
-    public static final String JCJR_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement&borrow_id=";
+    public static final String JCJR_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement1&show=1&borrow_id=";
+    //风险提示书
+    public static final String JCJR_DANGER_URL = SERVICE_URL_BASE+"addition/riskpoint.html";
     //投资合同
     public static final String JCJR_TOUZI_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement&sign=1&tender_id=";
 
@@ -179,6 +181,9 @@ public class RequestURL {
     //收货地址
     public static final String Address_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/address";
 
+    //风险测评
+    public static final String RISKTEST_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/risktest";
+
     //获取消息中心信息
     public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";
 
@@ -192,7 +197,7 @@ public class RequestURL {
     public static final String BID_GETMONEY_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/cash_result";
 
     //跳转我的页面
-    public static final String TO_MINE_URL = SERVICE_URL_BASE + "addition/clz/index.html.php";
+    public static final String TO_MINE_URL = SERVICE_URL_BASE + "index.php?user&a=newweixin";
 
     //H5关闭当前页
     public static final String FINISH_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/setup";

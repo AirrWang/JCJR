@@ -64,6 +64,10 @@ public class BidConfirmActivity extends BaseActivity {
     private TextView mTvBidConfirmRead;
     @ViewInject(R.id.tv_bid_confirm_agreement)
     private TextView mTvBidConfirmAgreement;
+    @ViewInject(R.id.tv_1)
+    private TextView mTv1;
+    @ViewInject(R.id.tv_bid_danger_agreement)
+    private TextView mTvBidDangerAgreement;
 
     private boolean isChechAgreement = true;
 
@@ -205,7 +209,7 @@ public class BidConfirmActivity extends BaseActivity {
         mTvBidConfirmPay.setText(StringUtils.subAllZero(money));
     }
 
-    @OnClick({R.id.btn_left, R.id.ll_bid_confirm_checkbox, R.id.tv_bid_confirm_agreement, R.id.tv_bid, R.id.tv_bid_confirm_hb})
+    @OnClick({R.id.btn_left, R.id.ll_bid_confirm_checkbox, R.id.tv_bid_confirm_agreement, R.id.tv_bid, R.id.tv_bid_confirm_hb,R.id.tv_bid_danger_agreement})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -217,6 +221,8 @@ public class BidConfirmActivity extends BaseActivity {
                     mIvBidConfirmCheckbox.setImageResource(R.drawable.checkbox_normal);
                     mTvBidConfirmRead.setTextColor(getResources().getColor(R.color.font_grey));
                     mTvBidConfirmAgreement.setTextColor(getResources().getColor(R.color.font_grey));
+                    mTv1.setTextColor(getResources().getColor(R.color.font_grey));
+                    mTvBidDangerAgreement.setTextColor(getResources().getColor(R.color.font_grey));
                     mTvBid.setBackgroundColor(getResources().getColor(R.color.light_gray));
                     mTvBid.setTextColor(getResources().getColor(R.color.font_grey));
                     isChechAgreement = false;
@@ -225,7 +231,8 @@ public class BidConfirmActivity extends BaseActivity {
                     mIvBidConfirmCheckbox.setImageResource(R.drawable.checkbox_select);
                     mTvBidConfirmRead.setTextColor(getResources().getColor(R.color.font_user_agreement));
                     mTvBidConfirmAgreement.setTextColor(getResources().getColor(R.color.btn_main));
-
+                    mTv1.setTextColor(getResources().getColor(R.color.btn_main));
+                    mTvBidDangerAgreement.setTextColor(getResources().getColor(R.color.btn_main));
                     mTvBid.setBackgroundColor(getResources().getColor(R.color.btn_main));
                     mTvBid.setTextColor(getResources().getColor(R.color.white));
                     isChechAgreement = true;
@@ -233,8 +240,13 @@ public class BidConfirmActivity extends BaseActivity {
                 break;
             case R.id.tv_bid_confirm_agreement:
                 //打开用户协议
-                UrlUtil.showHtmlPage(mContext,"借款协议", RequestURL.JCJR_OFFICIAL_URL+mBidId);
+                UrlUtil.showHtmlPage(mContext,"借款协议", RequestURL.JCJR_OFFICIAL_URL+mBidId,true);
                 break;
+            case R.id.tv_bid_danger_agreement:
+                //打开用户协议
+                UrlUtil.showHtmlPage(mContext,"风险提示书", RequestURL.JCJR_DANGER_URL,true);
+                break;
+
             case R.id.tv_bid:
                 if(isChechAgreement){
                     double costMoney = Double.valueOf(mTvBidConfirmPay.getText().toString());
