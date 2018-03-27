@@ -38,6 +38,7 @@ import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.UserData;
+import com.ql.jcjr.fragment.FindFragment;
 import com.ql.jcjr.fragment.HomePageFragment;
 import com.ql.jcjr.fragment.ManageMoneyFragment;
 import com.ql.jcjr.fragment.MeFragment;
@@ -59,16 +60,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Liuchao on 2016/9/23.
- */
+
 public class MainActivity extends BaseActivity
         implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public final static int INDEX_MANAGE_MONEY = 1;
     private final static int IDEX_HOME_PAGE = 0;
-    private final static int INDEX_ME = 2;
-    private final static int INDEX_MORE = 3;
+    private final static int INDEX_ME = 3;
+    private final static int INDEX_FIND= 2;
     private FingerprintManagerCompat manager;
     private CancellationSignal mCancellationSignal;
     @ViewInject(R.id.viewpager)
@@ -88,12 +87,14 @@ public class MainActivity extends BaseActivity
     private int[] mIndexPage = new int[]{
             R.id.tab_home_page,
             R.id.tab_manage_money,
+            R.id.tab_find,
             R.id.tab_me
             };
 
     private int[] mTitles = new int[]{
             R.string.home_page_title,
             R.string.manage_money_title,
+            R.string.find_title,
             R.string.me_title
     };
     private TextView tv_status;
@@ -155,7 +156,6 @@ public class MainActivity extends BaseActivity
         @Override
         public void onAuthenticationError(int errMsgId, CharSequence errString) {
             Log.d(TAG, "onAuthenticationError: " + errString);
-            //TODO
             tv_status.setText(""+errString);
             String a =errString+"";
 
@@ -221,8 +221,8 @@ public class MainActivity extends BaseActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         int mainIndex = intent.getIntExtra("main_index",1);
-        if(mainIndex==2){
-            ((MeFragment)(mFragmentList.get(2))).getMineFragmentData();
+        if(mainIndex==3){
+            ((MeFragment)(mFragmentList.get(3))).getMineFragmentData();
         }
         mViewPager.setCurrentItem(mainIndex);
 
@@ -270,9 +270,9 @@ public class MainActivity extends BaseActivity
 
         mFragmentList.add(new ManageMoneyFragment());
 
-        mFragmentList.add(new MeFragment());
+        mFragmentList.add(new FindFragment());
 
-//        mFragmentList.add(new MoreFragment());
+        mFragmentList.add(new MeFragment());
 
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList));
         mViewPager.setOffscreenPageLimit(mFragmentList.size() - 1);
@@ -296,9 +296,9 @@ public class MainActivity extends BaseActivity
                     case R.id.tab_me:
                         mViewPager.setCurrentItem(INDEX_ME);
                         break;
-//                    case R.id.tab_more:
-//                        mViewPager.setCurrentItem(INDEX_MORE);
-//                        break;
+                    case R.id.tab_find:
+                        mViewPager.setCurrentItem(INDEX_FIND);
+                        break;
                 }
             }
         });
@@ -529,6 +529,8 @@ public class MainActivity extends BaseActivity
 //            permissionsNeeded.add("获取应用提示");
         if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
             permissionsNeeded.add("获取手机指纹信息");
+        if(!addPermission(permissionsList,Manifest.permission.CAMERA))
+            permissionsNeeded.add("获取手机相机信息");
 
 
         //存在未配置的权限
@@ -595,6 +597,7 @@ public class MainActivity extends BaseActivity
 
                 // 向Map集合中加入元素，初始时所有权限均设置为被赋予（PackageManager.PERMISSION_GRANTED）
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.GET_ACCOUNTS, PackageManager.PERMISSION_GRANTED);
@@ -609,6 +612,7 @@ public class MainActivity extends BaseActivity
                         && perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
+                        && perms.get(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.SYSTEM_ALERT_WINDOW) == PackageManager.PERMISSION_GRANTED) {
                     // All Permissions Granted
                 }

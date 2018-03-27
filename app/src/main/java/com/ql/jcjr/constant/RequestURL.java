@@ -10,8 +10,8 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
@@ -20,12 +20,14 @@ public class RequestURL {
     //风险提示书
     public static final String JCJR_DANGER_URL = SERVICE_URL_BASE+"addition/riskpoint.html";
     //投资合同
-    public static final String JCJR_TOUZI_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement&sign=1&tender_id=";
+    public static final String JCJR_TOUZI_OFFICIAL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/borrowAgreement1&sign=1&tender_id=";
 
     //新手福利 立即投标链接
     public static final String INTERCEPT_XSFL_URL = SERVICE_URL_BASE+"newweixinlist/index.html";
     //充值成功H5页面 继续充值链接
     public static final String INTERCEPT_RECHARGE_URL = SERVICE_URL_BASE+"index.php?user&q=going/wxrecharge";
+    //兑换中心H5
+    public static final String INTERCEPT_EXCHANGE_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/exchangecenter";
     //我的红包跳转
     public static final String INTERCEPT_MYREDPACKETS_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/myawards";
     //
@@ -158,6 +160,20 @@ public class RequestURL {
     //设置头像
     public static final String HEAD_IMG_URL = SERVICE_URL + "headImg";
     //设置支付密码
+    public static final String AGREEMENT_URL = SERVICE_URL_BASE+"addition/agreement.html";
+
+    //注册协议
+    public static final String REGISTE_URL = SERVICE_URL_BASE+"addition/zhucexieyi.html";
+
+    //收货地址
+    public static final String Address_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/address";
+
+    //风险测评
+    public static final String RISKTEST_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/risktest";
+
+    //获取消息中心信息
+    public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";
+
     public static final String FIND_PAY_PSW_URL = SERVICE_URL + "findPayPassword";
     //提现 获取 验证码
     public static final String CASH_SMS_URL = SERVICE_URL + "cashSms";
@@ -173,20 +189,6 @@ public class RequestURL {
     public static final String GET_MY_BID_HISTORY = SERVICE_URL + "tenderlist";
 
     //服务协议
-    public static final String AGREEMENT_URL = SERVICE_URL_BASE+"addition/agreement.html";
-
-    //注册协议
-    public static final String REGISTE_URL = SERVICE_URL_BASE+"addition/zhucexieyi.html";
-
-    //收货地址
-    public static final String Address_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/address";
-
-    //风险测评
-    public static final String RISKTEST_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/risktest";
-
-    //获取消息中心信息
-    public static final String GET_MSG_HOME_INFO_URL = SERVICE_URL + "activemodule";
-
     //资金统计
     public static final String GET_MYACCOUNT_URL = SERVICE_URL + "myAccount";
 
@@ -204,4 +206,10 @@ public class RequestURL {
 
     //获取外部ip
     public static final String GET_IP = SERVICE_URL + "getip";
+
+    //风险测评结果
+    public static final String GET_RISK_DATA = SERVICE_URL + "riskWarning";
+
+    //风险测评结果
+    public static final String FIND = SERVICE_URL + "find";
 }

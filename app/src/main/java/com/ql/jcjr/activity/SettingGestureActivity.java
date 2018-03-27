@@ -104,7 +104,6 @@ public class SettingGestureActivity extends BaseActivity implements
 //                }
 
                 Intent intent = new Intent(mContext, VerifyGestureActivity.class);
-//                intent.putExtra("user_icon_url", getIntent().getStringExtra("user_icon_url"));
                 startActivityForResult(intent, 1);
 
                 break;

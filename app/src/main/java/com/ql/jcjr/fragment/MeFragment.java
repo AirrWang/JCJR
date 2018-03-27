@@ -247,8 +247,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 //                        mTvBalance.setText(StringUtils.formatMoney(resultBean.getUse_money()));
 //                        mTvAccumulatedIncome.setText(StringUtils.formatMoney(resultBean.getCollection_interest1()));
 
-//                        mUserIconUrl = resultBean.getHeadImgUrl();
-                        mUserIconUrl = "";
+                        mUserIconUrl = resultBean.getHeadImgUrl();
+
                         UserData.getInstance().setUserIconUrl(mUserIconUrl);
                         GlideUtil.displayPic(mContext, mUserIconUrl, R.drawable.default_user_icon, mUserIcon);
 
@@ -496,7 +496,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 }
                 //设置
                 intent.setClass(mContext, SettingActivity.class);
-                intent.putExtra("user_icon_url", mUserIconUrl);
                 startActivity(intent);
                 break;
             case R.id.ll_me_info:

@@ -83,7 +83,7 @@ public class RechargePayActivity extends BaseActivity {
                 }
                 else if(url != null && url.indexOf(RequestURL.INTERCEPT_GOINGACCOUNT_URL)!=-1){
                     Intent intent = new Intent(RechargePayActivity.this, MainActivity.class);
-                    intent.putExtra("main_index",2);
+                    intent.putExtra("main_index",3);
                     RechargePayActivity.this.startActivity(intent);
                     finish();
                 }else {

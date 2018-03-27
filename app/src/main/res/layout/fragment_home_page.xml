@@ -13,7 +13,7 @@
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <RelativeLayout
+            <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -219,7 +219,7 @@
             android:layout_marginTop="@dimen/dimen_34px"
             android:id="@+id/ll_gf"
             android:gravity="center"
-            android:layout_below="@id/ling_qian_bao"
+            android:layout_below="@+id/lv_selective_finance"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -331,29 +331,52 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_20px"
+            android:background="@color/c_fffff"
+            android:id="@+id/ll_bottom"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/ling_qian_bao"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="@dimen/dimen_108px">
+            <View
+                android:background="@drawable/bg_little"
+                android:layout_marginLeft="@dimen/dimen_30px"
+                android:layout_width="@dimen/dimen_4px"
+                android:layout_height="@dimen/dimen_34px"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_30px"
+                android:textSize="@dimen/dimen_30px"
+                android:textColor="@color/c_101010"
+                android:text="资讯"
+                />
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/tv_zixun_more"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/dimen_30px"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dimen_30px"
+                android:textSize="@dimen/dimen_30px"
+                android:textColor="@color/c_101010"
+                android:text="更多"
+                />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_selective_finance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ling_qian_bao"
-            android:layout_marginTop="@dimen/dimen_26px"
-            android:layout_marginBottom="@dimen/dimen_14px"
-            android:layout_marginLeft="@dimen/dimen_30px"
-            android:textSize="@dimen/dimen_20px"
-            android:textColor="@color/c_101010"
-            android:text="精选理财"
-            android:visibility="gone"/>
 
         <com.ql.jcjr.view.NoScrollListView
             android:id="@+id/lv_selective_finance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_25px"
-            android:layout_below="@id/tv_selective_finance"
+            android:layout_below="@id/ll_bottom"
             android:divider="@null"
             android:listSelector="@color/transparent"
-            android:visibility="gone"/>
+            />
 
 
 

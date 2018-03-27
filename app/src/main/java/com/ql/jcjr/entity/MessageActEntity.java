@@ -62,6 +62,7 @@ public class MessageActEntity {
         private String content;
         private String litpic;
         private String addtime;
+        private String share;
 
         public String getId() {
             return id;
@@ -101,6 +102,14 @@ public class MessageActEntity {
 
         public void setLitpic(String litpic) {
             this.litpic = litpic;
+        }
+
+        public String getShare() {
+            return share;
+        }
+
+        public void setShare(String share) {
+            this.share = share;
         }
     }
 }

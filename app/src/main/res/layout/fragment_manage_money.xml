@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         bar:bottom_divider_visibility="gone"
         bar:left_first_visibility="invisible"
-        bar:title="理财列表"/>
+        bar:title="产品列表"/>
 
     <com.ql.jcjr.view.PullToRefreshView
         android:id="@+id/pull_refresh_view"
@@ -34,8 +34,7 @@
             android:divider="@color/c_page_bg"
             android:dividerHeight="@dimen/dimen_20px"
             android:listSelector="@color/transparent"
-            android:paddingTop="@dimen/dimen_20px"
-            android:paddingBottom="@dimen/dimen_20px"/>
+             />
 
     </com.ql.jcjr.view.PullToRefreshView>
 

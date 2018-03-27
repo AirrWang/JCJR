@@ -114,10 +114,20 @@
     <com.ql.jcjr.view.NoScrollViewPager
         android:id="@+id/cvw_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/another_login"
-        android:layout_below="@+id/ll_layout"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:flipInterval="30"
         android:persistentDrawingCache="animation"/>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_to_bid"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bid_operate_bar_h"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_l"
+        android:background="@color/btn_main"
+        android:gravity="center"
+        android:text="去投资" />
+
 
 </LinearLayout>

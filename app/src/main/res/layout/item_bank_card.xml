@@ -42,8 +42,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/font_grey"
             android:textSize="@dimen/size_xs"
-            android:layout_marginTop="@dimen/dimen_28px"
-            android:text="单笔限额100000"/>
+            android:layout_marginTop="@dimen/dimen_28px" />
 
     </LinearLayout>
 

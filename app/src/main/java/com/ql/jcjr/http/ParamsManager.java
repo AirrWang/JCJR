@@ -774,7 +774,7 @@ public class ParamsManager {
 
         JSONObject object = new JSONObject();
         try {
-            object.put("userid", UserData.getInstance().getUSERID());
+            object.put("token", UserData.getInstance().getUSERID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1029,14 +1029,16 @@ public class ParamsManager {
             if(msgType == 0){
                 object.put("type", "active");
             }
-            else{
+            else if (msgType==1){
                 object.put("type", "gonggao");
+            }else {
+                object.put("type", "zixun");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         RequestParams params = SenderManager.buildRequestParams(object);
-        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.MESSAGE_ACT_URL);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.MESSAGE_ACT_URL,false);
 
         return resultModel;
     }
@@ -1165,6 +1167,33 @@ public class ParamsManager {
         }
         RequestParams params = SenderManager.buildRequestParams(object);
         SenderResultModel resultModel = SenderManager.buildResultModel(params,"http://www.jicaibaobao.com/export.php?sign=deviceinfocheck",false);
+        return resultModel;
+    }
+
+    /**
+     * 风险测评结果
+     */
+    public static SenderResultModel getRisk() {
+        JSONObject object = new JSONObject();
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params,RequestURL.GET_RISK_DATA,false);
+        return resultModel;
+    }
+
+    /**
+     * 发现页
+     */
+    public static SenderResultModel getFind() {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("type", "4");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.FIND,false);
+
         return resultModel;
     }
 }

@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/ll_container"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
+            android:layout_height="88dp"
             android:orientation="horizontal">
             <RelativeLayout
                 android:layout_width="0dp"
@@ -31,7 +31,7 @@
                         android:id="@+id/tv_red_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_24px"
+                        android:layout_marginTop="@dimen/dimen_20px"
                         android:singleLine="true"
                         android:text="返现红包"
                         android:textColor="@color/c_fffff"
@@ -41,9 +41,10 @@
                         android:id="@+id/tv_use_condition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_20px"
+                        android:layout_marginTop="@dimen/dimen_16px"
+                        android:lineSpacingExtra="8dp"
                         android:text="单笔投资月月盈1投资月月盈2单笔投资月月盈3单笔投资月月盈4单笔投资月月盈5笔投资资月月盈5笔投资"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:textColor="@color/c_fffff"
                         android:textSize="@dimen/dimen_20px" />
 
@@ -56,8 +57,8 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
             <ImageView
-                android:layout_marginTop="@dimen/dimen_10px"
-                android:layout_marginBottom="@dimen/dimen_10px"
+                android:layout_marginTop="@dimen/dimen_20px"
+                android:layout_marginBottom="@dimen/dimen_20px"
                 android:src="@drawable/img_hbbgxx"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -72,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥"
                     android:layout_marginLeft="@dimen/dimen_20px"
-                    android:layout_marginTop="@dimen/dimen_6px"
+                    android:layout_marginTop="@dimen/dimen_8px"
                     android:textColor="@color/c_fffff"
                     android:textSize="@dimen/dimen_50px" />
                 <LinearLayout
@@ -86,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:text="50"
                         android:textColor="@color/c_fffff"
-                        android:textSize="@dimen/dimen_100px" />
+                        android:textSize="@dimen/dimen_90px" />
                     <TextView
                         android:id="@+id/tv_amt_suf"
                         android:layout_width="wrap_content"
@@ -153,7 +154,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_hb_status_used"
-        android:layout_marginTop="@dimen/hb_item_status_top"
+        android:layout_marginTop="@dimen/dimen_30px"
         android:layout_marginLeft="@dimen/hb_item_status_left"
         android:visibility="gone"/>
 

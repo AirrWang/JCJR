@@ -169,11 +169,16 @@ public class RechargeActivity extends BaseActivity {
                                 }
                                 mTvBankName.setText(resultBean.getBankname()+" ("+lastFour+")");
 
+
                                 int colorId = getResources().getColor(R.color.font_black);
                                 String max=resultBean.getTotalMoney()+"";
+                                String oneDay=resultBean.getOneday()+"";
+                                if (max==null||oneDay==null){
+                                    return;
+                                }
                                 String getTip = "单笔限额："+max+"元，";
                                 SpannableString ss = StringUtils.getSpannableString(getTip, colorId, 5, max.length());
-                                String oneDay=resultBean.getOneday()+"";
+
                                 String tip = "每日限额："+oneDay+"元";
                                 SpannableString sss = StringUtils.getSpannableString(tip, colorId, 5, oneDay.length());
 

@@ -1,5 +1,7 @@
 package com.ql.jcjr.constant;
 
+import android.os.Environment;
+
 /**
  * Created by Liuchao on 2016/9/22.
  */
@@ -16,13 +18,14 @@ public class AppConfig {
 
     /**
      * 用来保存拍照图片的目录
+     * Environment.getExternalStorageDirectory().getAbsolutePath() + "/HSS/hss_img_save";
      */
-    public static final String APP_PICTURE_FOLDER = "积财宝/Picture/";
+    public static final String APP_PICTURE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/JCBB/image";
 
     /**
      * 用来下载app的目录
      */
-    public static final String APP_UPDATE_FOLDER = "积财宝/app/";
+    public static final String APP_UPDATE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/JCBB/save";
     /**
      * apk的name
      */

@@ -1,8 +1,10 @@
 package com.ql.jcjr.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
 import com.lidroid.xutils.ViewUtils;
@@ -12,6 +14,7 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.MessageCenterAdapter;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.entity.MessageCenterEntity;
+import com.ql.jcjr.fragment.MyRedPacketFragment;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageCenterActivity extends BaseActivity implements PullToRefreshView.OnHeaderRefreshListener,
-        PullToRefreshView.OnFooterLoadListener{
+        PullToRefreshView.OnFooterLoadListener, AdapterView.OnItemClickListener {
 
     @ViewInject(R.id.lv_message_center)
     private XListView mLvMessageCenter;
@@ -52,6 +55,7 @@ public class MessageCenterActivity extends BaseActivity implements PullToRefresh
         mContext = this;
         initListView();
         getMessageCneterList(String.valueOf(mPageIndex));
+        mLvMessageCenter.setOnItemClickListener(this);
     }
 
     private void initListView() {
@@ -144,5 +148,30 @@ public class MessageCenterActivity extends BaseActivity implements PullToRefresh
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+       String type= mMessageList.get(i).getType();
+        Intent intent=new Intent();
+       if (type.contains("award")){ //红包
+           intent.setClass(mContext, MyRedPacketsActivity.class);
+           intent.putExtra("use_type", MyRedPacketFragment.TYPE_MY_HB);
+           startActivity(intent);
+       }else if (type.equals("loan_yes_account")||type.equals("borrow_review_yes")){  //我的投资
+           intent.setClass(mContext, BidHistoryActivity.class);
+           startActivity(intent);
+
+       }else if (type.equals("loan_pay")){  //历史投资
+           intent = new Intent(mContext, BidHistoryActivity.class);
+           intent.putExtra("tag_history",true);
+           startActivity(intent);
+       }else if (type.equals("loan_no_account")||type.equals("recharge")||type.equals("withdraw_yes")||type.equals("withdraw_no")){ //交易记录
+           intent.setClass(mContext, CapitalRecordActivity.class);
+           startActivity(intent);
+       }else {
+           return;
+       }
+
     }
 }

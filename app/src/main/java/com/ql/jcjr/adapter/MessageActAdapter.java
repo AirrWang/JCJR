@@ -78,16 +78,22 @@ public class MessageActAdapter extends BaseAdapter {
             viewHolder.mTvContent.setText(resultBean.getContent());
         }
         viewHolder.mTvMessageTitle.setText(resultBean.getName());
+        final Boolean noShare;
+        if (resultBean.getShare().equals("0")){
+            noShare=true;
+        }else {
+            noShare=true;
+        }
 
         viewHolder.mLlDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                UrlUtil.showHtmlPage(mContext,"消息详情", RequestURL.MESSAGE_DETAIL_URL + resultBean.getId());
                 if(msgType==0){
-                    UrlUtil.showHtmlPage(mContext,"精选活动", resultBean.getId());
+                        UrlUtil.showHtmlPage(mContext,"精选活动", resultBean.getId(),noShare);
                 }
                 else{
-                    UrlUtil.showHtmlPage(mContext,"公告详情", RequestURL.NOTICE_DETAILS_URL + resultBean.getId());
+                    UrlUtil.showHtmlPage(mContext,"公告详情", RequestURL.NOTICE_DETAILS_URL + resultBean.getId(),noShare);
                 }
             }
         });

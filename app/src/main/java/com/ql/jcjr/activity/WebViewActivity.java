@@ -194,6 +194,8 @@ public class WebViewActivity extends BaseActivity {
     protected void onDestroy() {
         UMShareAPI.get(this).release();
         super.onDestroy();
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent);
     }
 
     private void initWebView(String url) {
@@ -262,7 +264,7 @@ public class WebViewActivity extends BaseActivity {
                 }
                 else if(url != null && url.indexOf(RequestURL.INTERCEPT_GOINGACCOUNT_URL)!=-1){
                     Intent intent = new Intent(WebViewActivity.this, MainActivity.class);
-                    intent.putExtra("main_index",2);
+                    intent.putExtra("main_index",3);
                     WebViewActivity.this.startActivity(intent);
                     finish();
                 } else if(url != null && url.equals(RequestURL.INTERCEPT_MYREDPACKETS_URL)){
@@ -466,5 +468,7 @@ public class WebViewActivity extends BaseActivity {
 
         }
     }
+
+
 
 }
