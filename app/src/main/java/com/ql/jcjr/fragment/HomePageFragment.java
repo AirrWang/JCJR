@@ -201,7 +201,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 }else {
                     noShare=true;
                 }
-                UrlUtil.showHtmlPage(mContext,result.get(i).getName(),result.get(i).getId(),noShare);
+                UrlUtil.showHtmlPage(mContext,result.get(i).getName(),RequestURL.INTERCEPT_ZIXUNDETAIL_URL+result.get(i).getId(),noShare);
             }
         });
     }
@@ -503,7 +503,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
             case R.id.tv_zixun_more:
 
-                UrlUtil.showHtmlPage(mContext,tv_0.getText().toString(), url0,true);  //积财学堂
+                UrlUtil.showHtmlPage(mContext,"积财学堂", RequestURL.INTERCEPT_ZIXUNMORE_URL,true);  //积财学堂
 
                 break;
 

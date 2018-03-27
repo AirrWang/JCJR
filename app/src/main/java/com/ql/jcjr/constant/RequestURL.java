@@ -10,8 +10,8 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
@@ -28,6 +28,10 @@ public class RequestURL {
     public static final String INTERCEPT_RECHARGE_URL = SERVICE_URL_BASE+"index.php?user&q=going/wxrecharge";
     //兑换中心H5
     public static final String INTERCEPT_EXCHANGE_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/exchangecenter";
+    //资讯详情
+    public static final String INTERCEPT_ZIXUNDETAIL_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/noticecontent&isread=1&id=";
+    //积财学堂 资讯更多
+    public static final String INTERCEPT_ZIXUNMORE_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/jcschool";
     //我的红包跳转
     public static final String INTERCEPT_MYREDPACKETS_URL = SERVICE_URL_BASE+"index.action?newfunc&q=going/myawards";
     //
@@ -212,4 +216,7 @@ public class RequestURL {
 
     //风险测评结果
     public static final String FIND = SERVICE_URL + "find";
+
+    //分享成功后
+    public static final String SHARE_SUCCESS = SERVICE_URL + "articleOp";
 }

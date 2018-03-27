@@ -1196,4 +1196,21 @@ public class ParamsManager {
 
         return resultModel;
     }
+
+    /**
+     * 分享成功
+     */
+    public static SenderResultModel shareSuccess() {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("type", "0");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.SHARE_SUCCESS,false);
+
+        return resultModel;
+    }
 }
