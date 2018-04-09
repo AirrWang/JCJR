@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
+import com.ql.jcjr.utils.GlideUtil;
 
 /**
  * Created by liuchao on 2015/4/16.
@@ -39,6 +40,8 @@ public class ImageTextHorizontalBarLess extends LinearLayout {
     private TextView tvRightName;
     @ViewInject(R.id.tv_right_description)
     private TextView tvRightDescription;
+    @ViewInject(R.id.civ_right_image)
+    private CircleImageView civ_right_image;
 
     public ImageTextHorizontalBarLess(Context context) {
         super(context);
@@ -189,6 +192,10 @@ public class ImageTextHorizontalBarLess extends LinearLayout {
             this.ivLeftIcon.setImageResource(drawableId);
         }
     }
+    public void setRightImage(String url) {
+        civ_right_image.setVisibility(View.VISIBLE);
+        GlideUtil.displayPic(mContext,url,R.drawable.default_user_icon,civ_right_image);
+    }
 
     /**
      * 设置左边的Icon的显示大小(宽、高)
@@ -203,6 +210,15 @@ public class ImageTextHorizontalBarLess extends LinearLayout {
         lp.width = (int) size;
         lp.height = (int) size;
         this.ivLeftIcon.setLayoutParams(lp);
+    }
+
+    /**
+     * 设置左边Icon的可见性
+     *
+     * @param visibility
+     */
+    public void setRightImageVisibility(int visibility) {
+        this.civ_right_image.setVisibility(visibility);
     }
 
     /**

@@ -33,7 +33,7 @@ public class UrlUtil {
 //        context.startActivity(intent);
         showHtmlPage(context,title,url,false);
     }
-    public static void showHtmlPage(Context context, String title, String url,Boolean isShare) {
+    public static void showHtmlPage(Context context, String title, String url,Boolean noShare) {
         H5Request h5Request = new H5Request();
         h5Request.setTitle(title);
         h5Request.setUrl(url);
@@ -43,7 +43,7 @@ public class UrlUtil {
         Bundle bundle = new Bundle();
         bundle.putSerializable("h5Request", h5Request);
         intent.putExtras(bundle);
-        intent.putExtra("isShare",isShare);
+        intent.putExtra("isShare",noShare);
         context.startActivity(intent);
     }
 }

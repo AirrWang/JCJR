@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -82,6 +83,15 @@
 
         </LinearLayout>
 
+        <com.ql.jcjr.view.CircleImageView
+            android:visibility="gone"
+            android:src="@drawable/default_user_icon"
+            android:id="@+id/civ_right_image"
+            android:layout_width="@dimen/dimen_78px"
+            android:layout_height="@dimen/dimen_78px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <!--<View-->

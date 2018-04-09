@@ -62,6 +62,7 @@ public class MessageCenterEntity {
         private String content;
         private String addtime;
         private String instr;
+        private String type;
 
         public String getId() {
             return id;
@@ -101,6 +102,14 @@ public class MessageCenterEntity {
 
         public void setInstr(String instr) {
             this.instr = instr;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
 }

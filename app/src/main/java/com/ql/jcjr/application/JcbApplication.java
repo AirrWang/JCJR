@@ -204,12 +204,13 @@ public class JcbApplication extends Application {
 
         //初始化设备信息
         DeviceInfoUtil.initDeviceInfo(this);
-        //打开统计的调试模式
-        UMConfigure.setLogEnabled(false);
         //设置统计模式
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         //初始化统计
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "a79231cbde4d7b2d6f6ba2a5f8664e2b");
+
+        //打开统计的调试模式
+        UMConfigure.setLogEnabled(false);
         //打开分享调式模式
         Config.DEBUG = false;
         //初始化分享

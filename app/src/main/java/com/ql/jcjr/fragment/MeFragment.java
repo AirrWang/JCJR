@@ -46,6 +46,10 @@ import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.ImageTextHorizontalBarLess;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -138,6 +142,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, LoginActivityCheck.class);
                 startActivity(intent);
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "click_mine_register", datas, 1);
             }
         });
         tv_vipj.setOnClickListener(new View.OnClickListener() {
@@ -247,8 +253,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 //                        mTvBalance.setText(StringUtils.formatMoney(resultBean.getUse_money()));
 //                        mTvAccumulatedIncome.setText(StringUtils.formatMoney(resultBean.getCollection_interest1()));
 
-//                        mUserIconUrl = resultBean.getHeadImgUrl();
-                        mUserIconUrl = "";
+                        mUserIconUrl = resultBean.getHeadImgUrl();
+
                         UserData.getInstance().setUserIconUrl(mUserIconUrl);
                         GlideUtil.displayPic(mContext, mUserIconUrl, R.drawable.default_user_icon, mUserIcon);
 
@@ -496,7 +502,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 }
                 //设置
                 intent.setClass(mContext, SettingActivity.class);
-                intent.putExtra("user_icon_url", mUserIconUrl);
                 startActivity(intent);
                 break;
             case R.id.ll_me_info:

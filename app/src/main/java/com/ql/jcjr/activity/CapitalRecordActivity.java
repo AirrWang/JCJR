@@ -3,9 +3,11 @@ package com.ql.jcjr.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RadioGroup;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -20,17 +22,20 @@ import com.ql.jcjr.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 
-public class CapitalRecordActivity extends BaseActivity {
+public class CapitalRecordActivity extends BaseActivity implements ViewTreeObserver.OnGlobalLayoutListener{
 
     @ViewInject(R.id.cvw_pager)
     private NoScrollViewPager mViewPager;
-    @ViewInject(R.id.rg_record)
-    private RadioGroup mRadioGroup;
+    @ViewInject(R.id.bottom_line)
+    private FrameLayout mBottomLine;
 
+    @ViewInject(R.id.ll_hb_title)
+    private FrameLayout mLLHbTitle;
+
+    private int screenWidth = 0;
     private final static int IDEX_TRANSACTION = 0;//交易记录
-    private final static int INDEX_WITHDRAWALS = 1;//提现记录
-    private final static int INDEX_RECHARGE = 2;//充值记录
-//    private final static int INDEX_BID = 3;//投标记录
+    private final static int INDEX_WITHDRAWALS = 2;//提现记录
+    private final static int INDEX_RECHARGE = 1;//充值记录
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -49,54 +54,76 @@ public class CapitalRecordActivity extends BaseActivity {
 
     private void init() {
         initViewPager();
-        initBottomTab();
+        ViewTreeObserver viewTreeObserver = mLLHbTitle.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(this);
     }
 
     private void initViewPager() {
         mFragmentList.clear();
 
         mFragmentList.add(new TransRecordFragment());
-        mFragmentList.add(new WithdrawalsRecordFragment());
         mFragmentList.add(new RechargeRecordFragment());
-//        mFragmentList.add(new BidRecordFragment());
+        mFragmentList.add(new WithdrawalsRecordFragment());
 
         mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), mFragmentList));
         mViewPager.setOffscreenPageLimit(mFragmentList.size() - 1);
         mViewPager.setScanScroll(false);
         mViewPager.setCurrentItem(0);
-    }
 
-    private void initBottomTab() {
-        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.tab_transaction:
-                        mViewPager.setCurrentItem(IDEX_TRANSACTION);
-                        break;
-
-                    case R.id.tab_withdrawals:
-                        mViewPager.setCurrentItem(INDEX_WITHDRAWALS);
-                        break;
-
-                    case R.id.tab_recharge:
-                        mViewPager.setCurrentItem(INDEX_RECHARGE);
-                        break;
-
-//                    case R.id.tab_bid:
-//                        mViewPager.setCurrentItem(INDEX_BID);
-//                        break;
+            public void onPageScrolled(int index, float positionOffset, int pixes) {
+                if (pixes != 0) {
+                    mBottomLine.layout(
+                            (int) ((index + positionOffset) * screenWidth / 3), 0,
+                            (int) ((index + 1 + positionOffset) * screenWidth / 3),
+                            mBottomLine.getWidth());
                 }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                changeIndicatorIndex(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
 
-    @OnClick({R.id.btn_left})
+    private void changeIndicatorIndex(int index) {
+        mBottomLine.layout((int) (index * screenWidth / 3), 0,(int) ((index + 1) * screenWidth / 3), mBottomLine.getWidth());
+    }
+
+    @OnClick({R.id.iv_back, R.id.tab_tv0, R.id.tab_tv1, R.id.tab_tv2})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_left:
+            case R.id.iv_back:
                 finish();
                 break;
+
+            case R.id.tab_tv0:
+                mViewPager.setCurrentItem(IDEX_TRANSACTION);
+                break;
+
+            case R.id.tab_tv1:
+                mViewPager.setCurrentItem(INDEX_RECHARGE);
+                break;
+
+            case R.id.tab_tv2:
+                mViewPager.setCurrentItem(INDEX_WITHDRAWALS);
+                break;
         }
+    }
+
+
+    @Override
+    public void onGlobalLayout() {
+        screenWidth = mLLHbTitle.getWidth();
+        changeIndicatorIndex(0);
+
+        mLLHbTitle.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 }

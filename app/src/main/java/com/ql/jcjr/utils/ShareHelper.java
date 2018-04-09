@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import com.ql.jcjr.http.HttpRequestManager;
+import com.ql.jcjr.http.HttpSenderController;
+import com.ql.jcjr.http.ParamsManager;
+import com.ql.jcjr.http.ResponseEntity;
+import com.ql.jcjr.http.SenderResultModel;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -74,6 +79,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
         image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
     }
     public void share(){
+
         mShareAction.open(config);
     }
 
@@ -105,6 +111,26 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     @Override
     public void onResult(SHARE_MEDIA share_media) {
         LogUtil.i("shareHelper share: onResult");
+        sureShare();
+    }
+
+    private void sureShare() {
+        SenderResultModel resultModel = ParamsManager.shareSuccess();
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("分享成功 " + responeJson);
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("分享成功 " + entity.errorInfo);
+                    }
+
+                }, mActivity);
     }
 
     @Override

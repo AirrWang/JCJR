@@ -25,7 +25,23 @@
                 android:layout_height="@dimen/dimen_100px"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_me_operate">
+                <TextView
+                    android:id="@+id/tv_withdrawals"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="提现"
+                    android:textColor="@color/font_actionbar_color"
+                    android:textSize="@dimen/size_l"/>
 
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_30px"
+                    android:layout_marginTop="@dimen/dimen_30px"
+                    android:background="@drawable/list_divider_v_gold"/>
                 <TextView
                     android:id="@+id/tv_recharge"
                     android:layout_width="0dp"
@@ -36,22 +52,6 @@
                     android:textColor="@color/font_actionbar_color"
                     android:textSize="@dimen/size_l"/>
 
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/dimen_30px"
-                    android:layout_marginTop="@dimen/dimen_30px"
-                    android:background="@drawable/list_divider_v_gold"/>
-
-                <TextView
-                    android:id="@+id/tv_withdrawals"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="提现"
-                    android:textColor="@color/font_actionbar_color"
-                    android:textSize="@dimen/size_l"/>
 
             </LinearLayout>
 

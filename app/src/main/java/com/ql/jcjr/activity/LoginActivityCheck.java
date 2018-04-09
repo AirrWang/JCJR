@@ -35,9 +35,13 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
 import com.ql.jcjr.view.CancelEditTextGrey;
 import com.ql.jcjr.view.CommonToast;
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -66,6 +70,8 @@ public class LoginActivityCheck extends BaseActivity {
         setContentView(R.layout.activity_login_check);
         ViewUtils.inject(this);
         mContext = this;
+        Map<String, String> datas = new HashMap<String, String>();
+        MobclickAgent.onEventValue(this, "register_phonenumber", datas, 1);
         init();
     }
 
@@ -139,6 +145,9 @@ public class LoginActivityCheck extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_login:
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "click_phonenumber_next", datas, 1);
+
                 phoneNumber = etPhoneNum.getEditTextContent();
 
                 if (!validateLogin(phoneNumber)) {

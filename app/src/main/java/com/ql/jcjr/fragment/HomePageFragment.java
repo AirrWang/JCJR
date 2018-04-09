@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,11 +20,13 @@ import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.activity.RealNameActivity;
+import com.ql.jcjr.adapter.HomeZixunListAdapter;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BannerEntity;
 import com.ql.jcjr.entity.HomeDataEntity;
+import com.ql.jcjr.entity.MessageActEntity;
 import com.ql.jcjr.entity.RollNewsEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
@@ -37,8 +40,10 @@ import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.IndicatorView;
+import com.ql.jcjr.view.NoScrollListView;
 import com.ql.jcjr.view.PullToRefreshView;
 import com.sunfusheng.marqueeview.MarqueeView;
+import com.umeng.analytics.MobclickAgent;
 import com.uuch.adlibrary.AdConstant;
 import com.uuch.adlibrary.AdManager;
 import com.uuch.adlibrary.bean.AdInfo;
@@ -46,7 +51,9 @@ import com.uuch.adlibrary.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -97,8 +104,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private TextView tv_3;
     @ViewInject(R.id.tv_diffrent_bid)
     private TextView tv_diffrent_bid;
-
-
+    @ViewInject(R.id.lv_selective_finance)
+    private NoScrollListView lv_selective_finance;
 
 
     private static final int INDEX_BEGINNER_WELFARE = 0;
@@ -109,14 +116,16 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private List<BannerEntity.ResultBean> bannerUrlList = new ArrayList<>();
     private List<String> rollNewsTitleList = new ArrayList<>();
     private List<RollNewsEntity.ResultBean> resultBeanList;
+    private List<MessageActEntity.ResultBean> mMessageList = new ArrayList<>();
 
     private String mNoviceExclusiveId;
     private int banner=0;
     private String mBidName;
-    private String url0;
-    private String url1;
-    private String url2;
-    private String url3;
+    private String url0="";
+    private String url1="";
+    private String url2="";
+    private String url3="";
+    private HomeZixunListAdapter mAdapter;
 
     @Override
     protected int getContentView() {
@@ -135,7 +144,17 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnHeaderRefreshListener(this);
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
+        initListView();
+        mIndicatorView.setFocusable(true);
+        mIndicatorView.setFocusableInTouchMode(true);
+        mIndicatorView.requestFocus();
     }
+
+    private void initListView() {
+        mAdapter = new HomeZixunListAdapter(mContext, mMessageList);
+        lv_selective_finance.setAdapter(mAdapter);
+    }
+
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
@@ -143,8 +162,51 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             banner();
             initMarqueeView();
 //            getNoviceExclusive();
+            getZiXun();
             getData();
         }
+    }
+
+    private void getZiXun() {
+        SenderResultModel resultModel = ParamsManager.senderMessageAct("1","4",3);
+
+        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+
+            @Override
+            public void onSuccess(String responeJson) {
+                LogUtil.i("首页资讯 " + responeJson);
+                MessageActEntity entity = GsonParser.getParsedObj(responeJson, MessageActEntity.class);
+
+                mMessageList.clear();
+                mMessageList.addAll(entity.getResult());
+                mAdapter.notifyDataSetChanged();
+                initToset(entity.getResult());
+            }
+
+            @Override
+            public void onFailure(ResponseEntity entity) {
+                LogUtil.i("首页资讯 " + entity.errorInfo);
+                CommonToast.showHintDialog(mContext, entity.errorInfo);
+                mPullRefresh.onHeaderRefreshFinish();
+            }
+
+        }, mContext);
+
+    }
+
+    private void initToset(final List<MessageActEntity.ResultBean> result) {
+        lv_selective_finance.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                 Boolean noShare;
+                if (result.get(i).getShare().equals("0")){
+                    noShare=true;
+                }else {
+                    noShare=true;
+                }
+                UrlUtil.showHtmlPage(mContext,result.get(i).getName(),RequestURL.INTERCEPT_ZIXUNDETAIL_URL+result.get(i).getId(),noShare);
+            }
+        });
     }
 
     private void getData() {
@@ -192,8 +254,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     mBidJump.setEnabled(false);
                     mBidJump.setText("已售罄");
                 }
-
-                initFour(entity.getResult().getResult4());
+                if (entity.getResult().getResult4().size()>=4){
+                    initFour(entity.getResult().getResult4());
+                }
             }
 
             @Override
@@ -413,7 +476,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         stopPlay();
     }
 
-    @OnClick({R.id.btn_bid, R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more,R.id.ll_dhzx,R.id.ll_mrqd,R.id.ll_1})
+    @OnClick({R.id.btn_bid, R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more,R.id.ll_dhzx,R.id.ll_mrqd,R.id.ll_1,R.id.tv_zixun_more})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -439,6 +502,12 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             case R.id.ll_ptjs:
 
                 UrlUtil.showHtmlPage(mContext,tv_0.getText().toString(), url0,true);
+
+                break;
+
+            case R.id.tv_zixun_more:
+
+                UrlUtil.showHtmlPage(mContext,"积财学堂", RequestURL.INTERCEPT_ZIXUNMORE_URL,true);  //积财学堂
 
                 break;
 
@@ -470,6 +539,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 if (!UserData.getInstance().isLogin()||banner==0){
                     intent = new Intent(mContext, LoginActivityCheck.class);
                     startActivity(intent);
+                    Map<String, String> datas = new HashMap<String, String>();
+                    MobclickAgent.onEventValue(mContext, "click_index_getredbag", datas, 1);
                     break;
                 }
                 if (banner==1){
@@ -490,6 +561,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         banner();
         initMarqueeView();
 //        getNoviceExclusive();
+        getZiXun();
         getData();
     }
 

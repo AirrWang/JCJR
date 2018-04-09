@@ -31,7 +31,6 @@ public class GestureCipherActivity extends BaseActivity implements
     private CircleImageView mUserIcon;
 
     private Context mContext;
-    private String mUserIconUrl;
 
     private List<Integer> mFirstInput = new ArrayList<>();
     private List<Integer> mSecondInput = new ArrayList<>();
@@ -48,8 +47,7 @@ public class GestureCipherActivity extends BaseActivity implements
     }
 
     private void init() {
-        mUserIconUrl = getIntent().getStringExtra("user_icon_url");
-        GlideUtil.displayPic(mContext, mUserIconUrl, R.drawable.gesture_user_icon, mUserIcon);
+        GlideUtil.displayPic(mContext, UserData.getInstance().getUserIconUrl(), R.drawable.gesture_user_icon, mUserIcon);
 //        mTvPhoneNum.setText(StringUtils.getHidePhoneNum(UserData.getInstance().getPhoneNumber()));
         mGestureView.setOnGestureLockViewListener(this);
     }

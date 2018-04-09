@@ -176,7 +176,6 @@
     <dimen name="hb_item_left_tv_w">160dp</dimen>
     <dimen name="hb_item_left_w">216dp</dimen>
     <dimen name="hb_item_right_w">126dp</dimen>
-    <dimen name="hb_item_status_top">20dp</dimen>
     <dimen name="hb_item_status_left">148dp</dimen>
 
     <dimen name="bid_operate_bar_h">54dp</dimen>

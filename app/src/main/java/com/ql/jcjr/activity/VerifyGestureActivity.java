@@ -30,7 +30,6 @@ public class VerifyGestureActivity extends BaseActivity implements
     private CircleImageView mUserIcon;
 
     private Context mContext;
-    private String mUserIconUrl;
     private String mAnswer;
 
     @Override
@@ -44,8 +43,7 @@ public class VerifyGestureActivity extends BaseActivity implements
 
     private void init() {
         mGestureView.setOnGestureLockViewListener(this);
-        mUserIconUrl = getIntent().getStringExtra("user_icon_url");
-        GlideUtil.displayPic(mContext, mUserIconUrl, R.drawable.gesture_user_icon, mUserIcon);
+        GlideUtil.displayPic(mContext, UserData.getInstance().getUserIconUrl(), R.drawable.gesture_user_icon, mUserIcon);
 
         mAnswer = UserData.getInstance().getGestureCipher();
     }
@@ -81,7 +79,6 @@ public class VerifyGestureActivity extends BaseActivity implements
         isMatch = mGestureView.checkAnswer(mChoose.toString(), mAnswer);
         if(isMatch) {
             Intent intent = new Intent(mContext, GestureCipherActivity.class);
-            intent.putExtra("user_icon_url", mUserIconUrl);
             finish();
             startActivityForResult(intent, 0);
         }else{

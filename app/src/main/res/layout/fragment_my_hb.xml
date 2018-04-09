@@ -35,28 +35,57 @@
 
     </RelativeLayout>
 
-    <com.ql.jcjr.view.PullToRefreshView
-        android:id="@+id/pull_refresh_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <com.ql.jcjr.view.PullToRefreshView
 
-        <com.ql.jcjr.view.XListView
-            android:id="@+id/lv_available"
+            android:id="@+id/pull_refresh_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="@dimen/dimen_22px"
-            android:listSelector="@color/transparent"
-            android:paddingTop="@dimen/dimen_30px"
-            android:paddingBottom="@dimen/dimen_30px"/>
+            android:layout_height="match_parent">
 
-    </com.ql.jcjr.view.PullToRefreshView>
+            <com.ql.jcjr.view.XListView
+                android:id="@+id/lv_available"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="@dimen/dimen_22px"
+                android:listSelector="@color/transparent"
+                android:paddingTop="@dimen/dimen_30px"
+                />
 
-    <include
+        </com.ql.jcjr.view.PullToRefreshView>
+
+
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:paddingBottom="120dp"
         android:id="@+id/ll_tip_none"
-        layout="@layout/tip_none"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/dimen_300px"
+            android:layout_height="@dimen/dimen_284px"
+            android:src="@drawable/img_none"
+            android:scaleType="fitXY"/>
+        <TextView
+            android:id="@+id/tv_none_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_30px"
+            android:textSize="@dimen/size_xl"
+            android:textColor="@color/font_grey"
+            android:text="暂无可用红包"/>
+        <TextView
+            android:id="@+id/tv_jump_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_30px"
+            android:textSize="@dimen/size_xl"
+            android:textColor="@color/btn_main"
+            android:text="使用积财币兑换 >>"/>
+    </LinearLayout>
+
 
 </LinearLayout>

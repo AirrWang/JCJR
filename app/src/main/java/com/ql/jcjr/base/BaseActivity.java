@@ -34,9 +34,7 @@ import com.umeng.message.PushAgent;
 
 import java.io.File;
 
-/**
- * Created by Liuchao on 2016/9/23.
- */
+
 public class BaseActivity extends FragmentActivity{
 
     private ScreenShotListenManager manager;

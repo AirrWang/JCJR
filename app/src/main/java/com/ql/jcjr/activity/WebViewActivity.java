@@ -70,6 +70,7 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_UPDATE_TITLE = 6;
     private final int INTERFACE_START_ACTIVITY = 7;
     private final int INTERFACE_SHARE_IMAGE = 8;
+    private final int INTERFACE_SHARE_CAN = 9;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
     private Boolean isShare;
@@ -136,6 +137,16 @@ public class WebViewActivity extends BaseActivity {
                         actionBar.setTitle(title);
                         break;
 
+                    case INTERFACE_SHARE_CAN:
+                        String b = (String) msg.obj;
+                        if (b.equals("1")){
+                            actionBar.showShareIcon(new MyShareClickListener());
+                        }else {
+                            actionBar.dissShareIcon();
+                        }
+
+                        break;
+
                     case INTERFACE_START_ACTIVITY:
 
                         Bundle bundle = msg.getData();
@@ -194,6 +205,8 @@ public class WebViewActivity extends BaseActivity {
     protected void onDestroy() {
         UMShareAPI.get(this).release();
         super.onDestroy();
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent);
     }
 
     private void initWebView(String url) {
@@ -240,10 +253,10 @@ public class WebViewActivity extends BaseActivity {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress > 95) {
+                progressbar.setVisibility(View.VISIBLE);
+                progressbar.setProgress(newProgress);
+                if (newProgress >= 100) {
                     progressbar.setVisibility(View.GONE);
-                } else {
-                    progressbar.setVisibility(View.VISIBLE);
                 }
             }
         }, new MyWebView.IInterceptUrl() {
@@ -262,7 +275,7 @@ public class WebViewActivity extends BaseActivity {
                 }
                 else if(url != null && url.indexOf(RequestURL.INTERCEPT_GOINGACCOUNT_URL)!=-1){
                     Intent intent = new Intent(WebViewActivity.this, MainActivity.class);
-                    intent.putExtra("main_index",2);
+                    intent.putExtra("main_index",3);
                     WebViewActivity.this.startActivity(intent);
                     finish();
                 } else if(url != null && url.equals(RequestURL.INTERCEPT_MYREDPACKETS_URL)){
@@ -432,6 +445,13 @@ public class WebViewActivity extends BaseActivity {
                 webInterfaceHandler.sendMessage(msg);
             }
         }
+        @JavascriptInterface
+        public void isShare(final String boolea) {
+                Message msg = new Message();
+                msg.obj = boolea;
+                msg.what = INTERFACE_SHARE_CAN;
+                webInterfaceHandler.sendMessage(msg);
+        }
 
         /**
          * 打开应用界面
@@ -466,5 +486,7 @@ public class WebViewActivity extends BaseActivity {
 
         }
     }
+
+
 
 }

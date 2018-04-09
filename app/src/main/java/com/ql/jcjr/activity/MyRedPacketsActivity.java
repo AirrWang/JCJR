@@ -157,7 +157,7 @@ public class MyRedPacketsActivity extends BaseActivity implements ViewTreeObserv
         mBottomLine.layout((int) (index * screenWidth / 3), 0,(int) ((index + 1) * screenWidth / 3), mBottomLine.getWidth());
     }
 
-    @OnClick({R.id.iv_back, R.id.tab_tv0, R.id.tab_tv1, R.id.tab_tv2})
+    @OnClick({R.id.iv_back, R.id.tab_tv0, R.id.tab_tv1, R.id.tab_tv2,R.id.btn_to_bid})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
@@ -174,6 +174,12 @@ public class MyRedPacketsActivity extends BaseActivity implements ViewTreeObserv
 
             case R.id.tab_tv2:
                 mViewPager.setCurrentItem(IDEX_TAB2);
+                break;
+            case R.id.btn_to_bid:
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.putExtra("main_index",1);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

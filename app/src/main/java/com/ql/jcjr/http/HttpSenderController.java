@@ -12,6 +12,7 @@ import com.lidroid.xutils.http.HttpHandler;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.util.LogUtils;
 import com.ql.jcjr.constant.Global;
+import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.view.CommonLoadingDialog;
 import com.ql.jcjr.view.CommonToast;
@@ -237,7 +238,11 @@ public class HttpSenderController {
                 if (Global.RESULT_SUCCESS.equals(code)) {
                     success(entity.responeJson);
                 } else if (Global.RESULT_TOKEN_WRONG.equals(code)){
-                    CommonToast.showTokenWrongDialog(mContext,"您的账号在另一台设备上登陆，您已被迫下线，请重新登陆");
+                    if (!UserData.getInstance().isLogin()) {
+
+                    }else {
+                        CommonToast.showTokenWrongDialog(mContext, "您的账号在另一台设备上登陆，您已被迫下线，请重新登陆");
+                    }
                 }
                 else {
                     entity.errorInfo = (String) object.get(Global.RESULT_MESSAGE);

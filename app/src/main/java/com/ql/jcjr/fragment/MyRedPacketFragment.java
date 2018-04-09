@@ -2,9 +2,10 @@ package com.ql.jcjr.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -12,15 +13,18 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.activity.HongBaoHistoryActivity;
+import com.ql.jcjr.activity.WebViewActivity;
 import com.ql.jcjr.adapter.RedPacketAdapterNew;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.Global;
+import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.RedPacketEntityNew;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
+import com.ql.jcjr.model.H5Request;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.view.CommonToast;
@@ -47,7 +51,7 @@ public class MyRedPacketFragment extends BaseFragment implements AdapterView.OnI
     private XListView mLvAvailable;
 
     @ViewInject(R.id.ll_tip_none)
-    private RelativeLayout mLlTipNone;
+    private LinearLayout mLlTipNone;
 
     private Context mContext;
     private RedPacketAdapterNew mAdapter;
@@ -91,11 +95,13 @@ public class MyRedPacketFragment extends BaseFragment implements AdapterView.OnI
         mContext = getActivity();
     }
 
+
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
         init();
     }
+
 
     private void init() {
         initListView();
@@ -197,7 +203,7 @@ public class MyRedPacketFragment extends BaseFragment implements AdapterView.OnI
         }, mContext);
     }
 
-    @OnClick({R.id.tv_hb_unuse})
+    @OnClick({R.id.tv_hb_unuse,R.id.tv_jump_tip})
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_hb_unuse:
@@ -213,6 +219,19 @@ public class MyRedPacketFragment extends BaseFragment implements AdapterView.OnI
                         clickListener.clickNoUse();
                     }
                 }
+                break;
+            case R.id.tv_jump_tip:
+                H5Request h5Request = new H5Request();
+                h5Request.setTitle("兑换中心");
+                h5Request.setUrl(RequestURL.INTERCEPT_EXCHANGE_URL);
+                h5Request.setIsLeftable(true);
+                h5Request.setIsShowActionBar(false);
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("h5Request", h5Request);
+                intent.putExtras(bundle);
+                intent.putExtra("isShare",true);
+                startActivityForResult(intent,1);
                 break;
         }
     }
@@ -264,9 +283,18 @@ public class MyRedPacketFragment extends BaseFragment implements AdapterView.OnI
         getAvailableCoupon(String.valueOf(mPageIndex));
     }
 
-    public static interface RedPacketClickListener{
-        public void clickNoUse();
-        public void clickUseHb(String cashid, String hbType, String hbMoney, String cashApr);
+    public interface RedPacketClickListener{
+        void clickNoUse();
+        void clickUseHb(String cashid, String hbType, String hbMoney, String cashApr);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1){
+            init();
+        }
     }
 
 }
