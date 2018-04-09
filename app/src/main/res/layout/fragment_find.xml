@@ -83,7 +83,7 @@
                         android:layout_marginTop="@dimen/dimen_10px"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="积财资讯"
+                        android:text="风险测评"
                         android:textSize="@dimen/dimen_28px"
                         android:textColor="@color/font_black_grey"/>
                 </LinearLayout>

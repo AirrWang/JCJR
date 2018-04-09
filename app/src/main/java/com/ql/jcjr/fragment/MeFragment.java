@@ -46,6 +46,10 @@ import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.ImageTextHorizontalBarLess;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -138,6 +142,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, LoginActivityCheck.class);
                 startActivity(intent);
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "click_mine_register", datas, 1);
             }
         });
         tv_vipj.setOnClickListener(new View.OnClickListener() {

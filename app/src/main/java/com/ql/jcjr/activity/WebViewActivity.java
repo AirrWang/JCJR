@@ -70,6 +70,7 @@ public class WebViewActivity extends BaseActivity {
     private final int INTERFACE_UPDATE_TITLE = 6;
     private final int INTERFACE_START_ACTIVITY = 7;
     private final int INTERFACE_SHARE_IMAGE = 8;
+    private final int INTERFACE_SHARE_CAN = 9;
     private Handler webInterfaceHandler;
     private ShareHelper mShare;
     private Boolean isShare;
@@ -134,6 +135,16 @@ public class WebViewActivity extends BaseActivity {
                     case INTERFACE_UPDATE_TITLE:
                         String title = (String)msg.obj;
                         actionBar.setTitle(title);
+                        break;
+
+                    case INTERFACE_SHARE_CAN:
+                        String b = (String) msg.obj;
+                        if (b.equals("1")){
+                            actionBar.showShareIcon(new MyShareClickListener());
+                        }else {
+                            actionBar.dissShareIcon();
+                        }
+
                         break;
 
                     case INTERFACE_START_ACTIVITY:
@@ -242,10 +253,10 @@ public class WebViewActivity extends BaseActivity {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress > 95) {
+                progressbar.setVisibility(View.VISIBLE);
+                progressbar.setProgress(newProgress);
+                if (newProgress >= 100) {
                     progressbar.setVisibility(View.GONE);
-                } else {
-                    progressbar.setVisibility(View.VISIBLE);
                 }
             }
         }, new MyWebView.IInterceptUrl() {
@@ -433,6 +444,13 @@ public class WebViewActivity extends BaseActivity {
                 msg.what = INTERFACE_UPDATE_TITLE;
                 webInterfaceHandler.sendMessage(msg);
             }
+        }
+        @JavascriptInterface
+        public void isShare(final String boolea) {
+                Message msg = new Message();
+                msg.obj = boolea;
+                msg.what = INTERFACE_SHARE_CAN;
+                webInterfaceHandler.sendMessage(msg);
         }
 
         /**

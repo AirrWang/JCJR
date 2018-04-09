@@ -214,7 +214,7 @@ public class RequestURL {
     //风险测评结果
     public static final String GET_RISK_DATA = SERVICE_URL + "riskWarning";
 
-    //风险测评结果
+    //发现
     public static final String FIND = SERVICE_URL + "find";
 
     //分享成功后

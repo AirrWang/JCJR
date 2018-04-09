@@ -64,7 +64,7 @@ public class HomeZixunListAdapter extends BaseAdapter {
         }
         viewHolder.tv_zixun_title.setText(mList.get(i).getName());
         viewHolder.tv_zixun_time.setText(mList.get(i).getAddtime());
-        GlideUtil.displayPic(mContext, mList.get(i).getLitpic(), -1, viewHolder.im_zixun_item);
+        GlideUtil.displayPic(mContext, mList.get(i).getLitpic(), R.drawable.zixun_noimage, viewHolder.im_zixun_item);
 
         return view;
     }

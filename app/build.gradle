@@ -20,8 +20,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 15
-        versionName "1.8.3"
+        versionCode 16
+        versionName "1.9.0.1"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 

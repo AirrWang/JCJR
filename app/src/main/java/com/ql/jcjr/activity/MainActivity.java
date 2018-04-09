@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -48,7 +47,6 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CircleImageView;
-import com.ql.jcjr.view.CommonDialog;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.gesturecipher.GestureLockViewGroup;
 import com.umeng.socialize.UMShareAPI;
@@ -521,8 +519,8 @@ public class MainActivity extends BaseActivity
             permissionsNeeded.add("保存应用数据");
         if (!addPermission(permissionsList, Manifest.permission.READ_EXTERNAL_STORAGE))
             permissionsNeeded.add("读取应用数据");
-        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
-            permissionsNeeded.add("获取当前地理位置");
+//        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
+//            permissionsNeeded.add("获取当前地理位置");
         if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
             permissionsNeeded.add("获取通讯录信息");
 //        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
@@ -531,6 +529,8 @@ public class MainActivity extends BaseActivity
             permissionsNeeded.add("获取手机指纹信息");
         if(!addPermission(permissionsList,Manifest.permission.CAMERA))
             permissionsNeeded.add("获取手机相机信息");
+//        if(!addPermission(permissionsList,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS))
+//            permissionsNeeded.add("读取手机存储信息");
 
 
         //存在未配置的权限
@@ -538,31 +538,31 @@ public class MainActivity extends BaseActivity
 
             //若用户赋之前拒绝过一部分权限，则需要提示用户开启其余权限并返回，否则该功能将无法执行
             if (permissionsNeeded.size() > 0) {
-
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
                 // Need Rationale
-                String message = "我们需要您授权下列权限：\n";
-                for (int i = 0; i < permissionsNeeded.size(); i++)
-                    message = message + "\n" + permissionsNeeded.get(i);
-
-                //弹出对话框，提示用户需要手动开启的权限
-                try {
-                    final CommonDialog.Builder dialog = new CommonDialog.Builder(this);
-                    dialog.setTitle(message);
-                    dialog.setMessageSize(R.dimen.f03_34);
-                    dialog.setButtonTextSize(R.dimen.f03_34);
-                    dialog.setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
-                                            REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-                                }
-                            });
-                    dialog.create().show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                String message = "我们需要您授权下列权限：\n";
+//                for (int i = 0; i < permissionsNeeded.size(); i++)
+//                    message = message + "\n" + permissionsNeeded.get(i);
+//
+//                //弹出对话框，提示用户需要手动开启的权限
+//                try {
+//                    final CommonDialog.Builder dialog = new CommonDialog.Builder(this);
+//                    dialog.setTitle(message);
+//                    dialog.setMessageSize(R.dimen.f03_34);
+//                    dialog.setButtonTextSize(R.dimen.f03_34);
+//                    dialog.setPositiveButton("确定",
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//
+//                                }
+//                            });
+//                    dialog.create().show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 return;
             }
 
@@ -599,9 +599,10 @@ public class MainActivity extends BaseActivity
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
-                perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
-                perms.put(Manifest.permission.GET_ACCOUNTS, PackageManager.PERMISSION_GRANTED);
+//                perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
+//                perms.put(Manifest.permission.GET_ACCOUNTS, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.SYSTEM_ALERT_WINDOW,PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,PackageManager.PERMISSION_GRANTED);
 
                 // 将第二个参数回传的所需权限及第三个参数回传的权限结果放入Map集合中，由于Map集合要求Key值不能重复，所以实际的权限结果将覆盖初始值
                 for (int i = 0; i < permissions.length; i++)
@@ -610,9 +611,10 @@ public class MainActivity extends BaseActivity
                 // 若所有权限均被赋予，则执行方法
                 if (perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                        && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        && perms.get(Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
+//                        && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+//                        && perms.get(Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                        && perms.get(Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS) == PackageManager.PERMISSION_GRANTED
                         && perms.get(Manifest.permission.SYSTEM_ALERT_WINDOW) == PackageManager.PERMISSION_GRANTED) {
                     // All Permissions Granted
                 }

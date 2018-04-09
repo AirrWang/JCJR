@@ -123,6 +123,9 @@ public class FindFragment extends BaseFragment implements PullToRefreshView.OnHe
                         LogUtil.i("发现 " + responeJson);
                         mPullRefresh.onHeaderRefreshFinish();
                         FindEntity entity = GsonParser.getParsedObj(responeJson, FindEntity.class);
+                        if (entity.getResult().size()<4){
+                            return;
+                        }
                         initFour(entity.getResult());
                     }
 

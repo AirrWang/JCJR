@@ -11,6 +11,10 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.view.ActionBar;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Airr on 2018/1/8.
@@ -30,6 +34,8 @@ public class RegisterFinishActivity extends BaseActivity{
         setContentView(R.layout.activity_register_finish);
         ViewUtils.inject(this);
         mActionBar.setRightText("完成");
+        Map<String, String> datas = new HashMap<String, String>();
+        MobclickAgent.onEventValue(this, "register_sucess", datas, 1);
 
     }
     @OnClick({R.id.btn_to_real_name, R.id.btn_right})

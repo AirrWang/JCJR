@@ -43,6 +43,7 @@ import com.ql.jcjr.view.IndicatorView;
 import com.ql.jcjr.view.NoScrollListView;
 import com.ql.jcjr.view.PullToRefreshView;
 import com.sunfusheng.marqueeview.MarqueeView;
+import com.umeng.analytics.MobclickAgent;
 import com.uuch.adlibrary.AdConstant;
 import com.uuch.adlibrary.AdManager;
 import com.uuch.adlibrary.bean.AdInfo;
@@ -50,7 +51,9 @@ import com.uuch.adlibrary.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -251,8 +254,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     mBidJump.setEnabled(false);
                     mBidJump.setText("已售罄");
                 }
-
-                initFour(entity.getResult().getResult4());
+                if (entity.getResult().getResult4().size()>=4){
+                    initFour(entity.getResult().getResult4());
+                }
             }
 
             @Override
@@ -535,6 +539,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 if (!UserData.getInstance().isLogin()||banner==0){
                     intent = new Intent(mContext, LoginActivityCheck.class);
                     startActivity(intent);
+                    Map<String, String> datas = new HashMap<String, String>();
+                    MobclickAgent.onEventValue(mContext, "click_index_getredbag", datas, 1);
                     break;
                 }
                 if (banner==1){

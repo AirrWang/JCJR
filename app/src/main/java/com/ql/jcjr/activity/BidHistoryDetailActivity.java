@@ -189,7 +189,7 @@ public class BidHistoryDetailActivity extends BaseActivity {
 //                Uri content_url = Uri.parse(RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
 //                urlIntent.setData(content_url);
 //                startActivity(urlIntent);
-                UrlUtil.showHtmlPage(mContext,"积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1",true);
+                UrlUtil.showHtmlPage(mContext,"借款合同", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1",true);
 //                Log.d("积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
                 break;
         }

@@ -72,7 +72,7 @@ public class GuideActivity extends Activity {
 
 
         //今日头条渠道打开
-        getIEMI();
+//        getIEMI();
 
     }
     private void getIEMI() {

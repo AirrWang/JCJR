@@ -48,7 +48,11 @@ import com.ql.jcjr.utils.crypt.DesUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CancelEditTextGrey;
 import com.ql.jcjr.view.CommonToast;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.UTrack;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -157,6 +161,8 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         ViewUtils.inject(this);
         mContext = this;
+        Map<String, String> datas = new HashMap<String, String>();
+        MobclickAgent.onEventValue(this, "register_setpassword", datas, 1);
         init();
 
 
@@ -220,6 +226,8 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClickRightExtraTextView() {
                 getGetVerifyCode(mPhoneNum, mRequestCodeUrl);
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "click_pin_resend", datas, 1);
             }
 
             @Override
@@ -472,6 +480,8 @@ public class RegisterActivity extends BaseActivity {
                 break;
 
             case R.id.btn_register:
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "click_password_next", datas, 1);
                 if(checkInfo()) {
                     if(mFlag.equals(Global.FLAG_REGISTER) && !isChechAgreement){
                         ToastUtil.showToast(RegisterActivity.this, "您必须先同意积财金融协议");

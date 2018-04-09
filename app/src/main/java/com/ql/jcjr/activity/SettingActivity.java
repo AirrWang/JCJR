@@ -222,17 +222,9 @@ public class SettingActivity extends BaseActivity {
             case CAPTURE_IMAGE:
                 try {
                     if (imageFile != null) {
-                        if (imageFile.exists()) {
-                            initToseeDongTai(mContext, imageFile);//通知相册扫描
-                            imageUri = Uri.fromFile(imageFile);
-                            if (imageUri != null) {
-                                cropImage(imageUri);
-                            }
-                        } else {
-                            ToastUtil.showToast(mContext, "权限受限，文件创建失败");
-                        }
+                        cropImage(imageUri);
                     } else {
-                        ToastUtil.showToast(mContext, "权限受限，文件创建失败");
+                        ToastUtil.showToast(mContext, "未加载到图片");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -242,7 +234,6 @@ public class SettingActivity extends BaseActivity {
             case CROP_IMAGE:
                 try {
                     if (imageFile != null) {
-                        if (imageFile.exists()) {
                             Bitmap bmp = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                             if (bmp != null) {
                                 bmp = zoomBitmap(bmp, 320, 320);
@@ -251,11 +242,8 @@ public class SettingActivity extends BaseActivity {
                                     bmp.recycle();
                                 }
                             }
-                        } else {
-                            ToastUtil.showToast(mContext, "权限受限，文件创建失败");
-                        }
                     } else {
-                        ToastUtil.showToast(mContext, "权限受限，文件创建失败");
+                        ToastUtil.showToast(mContext, "未加载到图片");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -264,16 +252,11 @@ public class SettingActivity extends BaseActivity {
             case SELECT_IMAGE:
                 try {
                     if (imageFile != null) {
-                        if (imageFile.exists()) {
-                            imageUri = Uri.fromFile(imageFile);
                             if (imageUri != null) {
                                 cropImage(data.getData());
                             }
-                        } else {
-                            ToastUtil.showToast(mContext, "权限受限，文件创建失败");
-                        }
                     } else {
-                        ToastUtil.showToast(mContext, "权限受限，文件创建失败");
+                        ToastUtil.showToast(mContext, "未加载到图片");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -283,6 +266,7 @@ public class SettingActivity extends BaseActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
     @OnClick({
             R.id.btn_left, R.id.ithb_real_name, R.id.ithb_trans_psw, R.id.ithb_bank, R.id.tv_exit, R.id.ithb_about_us, R.id.ithb_feedback,
@@ -375,10 +359,11 @@ public class SettingActivity extends BaseActivity {
                     public void run() {
                         filePathMineUserInfo = AppConfig.APP_PICTURE_FOLDER
                                 + "/"
-                                + System.currentTimeMillis()+".jpg";
+                                + System.currentTimeMillis()
+                                + AppConfig.JPG;
                         imageFile = new File(filePathMineUserInfo);
                         imageUri = Uri.fromFile(imageFile);
-                        btnclick(imageUri, imageFile, mContext, AppConfig.APP_UPDATE_FOLDER);
+                        btnclick(imageUri, imageFile, mContext, AppConfig.APP_PICTURE_FOLDER);
                     }
                 });
             }
@@ -391,10 +376,11 @@ public class SettingActivity extends BaseActivity {
                 dialog.dismiss();
                 filePathMineUserInfo = AppConfig.APP_PICTURE_FOLDER
                         + "/"
-                        + System.currentTimeMillis()+".jpg";
+                        + System.currentTimeMillis()
+                        + AppConfig.JPG;
                 imageFile = new File(filePathMineUserInfo);
                 imageUri = Uri.fromFile(imageFile);
-                btnclickxc(imageUri, imageFile, mContext, AppConfig.APP_UPDATE_FOLDER);
+                btnclickxc(imageFile, mContext, AppConfig.APP_PICTURE_FOLDER);
             }
         });
 
@@ -406,6 +392,8 @@ public class SettingActivity extends BaseActivity {
             }
         });
     }
+
+
     /**
      * 点击按钮后调用相机拍照
      */
@@ -413,18 +401,18 @@ public class SettingActivity extends BaseActivity {
     public void btnclick(Uri imageUri, File imageFile, Context context, String wenJianJia) {
         // 如果初始化文件成功，则调用相机
         if (initImageFile(imageFile, wenJianJia)) {
-            startTakePhoto(imageUri, imageFile, context);
+            startTakePhoto(imageUri);
         } else {
             ToastUtil.showToast(mContext,"初始化文件失败，无法调用相机拍照！");
         }
     }
 
-    private  void startTakePhoto(Uri imageUri, File imageFile, Context context) {
+    private  void startTakePhoto(Uri imgUri) {
         try {
             Intent intent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
             // 设置拍照后保存的图片存储在文件中
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
             // 启动activity并获取返回数据
             startActivityForResult(intent, CAPTURE_IMAGE);
         } catch (Exception e) {
@@ -562,16 +550,11 @@ public class SettingActivity extends BaseActivity {
      *
      * @param file
      */
-    public void initToseeDongTai(Context context, File file) {
+    public static void initToseeDongTai(Context context, File file) {
         if (file != null) {
-            if (file.exists()) {
                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri uri = Uri.fromFile(file);
-                intent.setData(uri);
+                intent.setData(Uri.parse(file.getAbsolutePath()));
                 JcbApplication.getInstance().sendBroadcast(intent);
-            } else {
-                ToastUtil.showToast(context, "由于手机权限原因，图片拍摄失败");
-            }
         } else {
             ToastUtil.showToast(context, "由于手机权限原因，图片拍摄失败");
         }
@@ -588,6 +571,8 @@ public class SettingActivity extends BaseActivity {
         intent.putExtra("return-data", false);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         startActivityForResult(intent, CROP_IMAGE);
     }
 
@@ -602,36 +587,32 @@ public class SettingActivity extends BaseActivity {
         return newbmp;
     }
 
+
+    /**
+     * 调用系统相册
+
+     */
+    public  void selectImage() {
+
+        Intent intent = new Intent(Intent.ACTION_PICK, null);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, SELECT_IMAGE);
+    }
+
     /**
      * 点击照片后选择系统相册
      *
-     * @param imageUri
      * @param imageFile
      * @param context
      * @param wenJianJia
      */
 
-    public  void btnclickxc(Uri imageUri, File imageFile, Context context, String wenJianJia) {
+    public  void btnclickxc( File imageFile, Context context, String wenJianJia) {
         // 如果初始化文件成功，则调用相机
         if (initImageFile(imageFile, wenJianJia)) {
-            selectImage(imageUri, imageFile, context);
+            selectImage();
         } else {
-            ToastUtil.showToast(context, "初始化文件失败，无法调用系统相册");
+            ToastUtil.showToast(context, "无法加载图片");
         }
-    }
-
-
-    /**
-     * 调用系统相册
-     *
-     * @param imageUri
-     * @param imageFile
-     * @param context
-     */
-    public void selectImage(Uri imageUri, File imageFile, Context context) {
-
-        Intent intent = new Intent(Intent.ACTION_PICK, null);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, SELECT_IMAGE);
     }
 }

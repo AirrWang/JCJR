@@ -12,7 +12,7 @@ public class AppConfig {
     //常见问题
     public static final String COMMON_PROBLEM_URL = "http://www.jicaibaobao.com/addition/faq.html";
     //关于我们
-    public static final String ABOUT_US_URL = "http://www.jicaibaobao.com/addition/appabout.html";
+    public static final String ABOUT_US_URL = "http://www.jicaibaobao.com/addition/newabout.html";
     //客服电话
     public static final String SERVICE_HOTLINE_NUM = "4008525558";
 
@@ -20,7 +20,7 @@ public class AppConfig {
      * 用来保存拍照图片的目录
      * Environment.getExternalStorageDirectory().getAbsolutePath() + "/HSS/hss_img_save";
      */
-    public static final String APP_PICTURE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/JCBB/image";
+    public static final String APP_PICTURE_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/JCBB/jcbb_img";
 
     /**
      * 用来下载app的目录
@@ -30,4 +30,7 @@ public class AppConfig {
      * apk的name
      */
     public static final String APP_UPDATE_NAME = "积财宝.apk";
+
+
+    public static String JPG = ".jpg";
 }
