@@ -7,20 +7,22 @@
     android:background="@android:color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="@dimen/status_bar_view_height"
     android:id="@+id/rl_container"
     tools:context="com.ql.jcjr.activity.LoginActivityCheck">
-    <LinearLayout
+    <ScrollView
+        android:fillViewport="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/ll_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <FrameLayout
+                android:layout_marginTop="@dimen/dimen_34px"
+                android:layout_marginLeft="@dimen/dimen_54px"
                 android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -29,8 +31,8 @@
                     android:layout_width="@dimen/dimen_36px"
                     android:layout_height="@dimen/dimen_36px"
                     android:scaleType="fitXY"
-                    android:src="@drawable/login_check_icon_close"
-                    android:layout_margin="@dimen/dimen_36px"/>
+                    android:src="@drawable/back_dlzc"
+                    android:layout_margin="@dimen/dimen_32px"/>
 
             </FrameLayout>
 
@@ -40,7 +42,7 @@
                 android:scaleType="fitXY"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/login_check_icon_logo"
-                android:layout_marginTop="@dimen/dimen_36px"/>
+                android:layout_marginTop="@dimen/dimen_48px"/>
 
             <com.ql.jcjr.view.CancelEditTextGrey
                 android:id="@+id/et_phone_number"
@@ -55,13 +57,21 @@
             <Button
                 android:id="@+id/btn_login"
                 style="@style/common_btn_style"
-                android:layout_marginTop="@dimen/dimen_210px"
-                android:layout_marginBottom="@dimen/dimen_40px"
+                android:layout_marginTop="@dimen/dimen_156px"
+                android:layout_marginBottom="@dimen/dimen_10px"
                 android:text="下一步"/>
 
         </LinearLayout>
-    </LinearLayout>
 
+
+    </ScrollView>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:id="@+id/ll_jianpan"
+        layout="@layout/layout_jianpan"/>
 
 
     <!--<LinearLayout-->

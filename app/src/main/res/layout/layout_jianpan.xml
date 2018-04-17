@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_fffff"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2px"
+        android:background="@color/divider_color"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_78px">
+        <LinearLayout
+            android:id="@+id/ll_jianpan_top"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_78px">
+            <ImageView
+                android:layout_width="@dimen/dimen_28px"
+                android:layout_height="@dimen/dimen_30px"
+                android:src="@drawable/icon_yhck_sy1"/>
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_15px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="积财金融安全键盘"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_close"
+            android:paddingRight="@dimen/dimen_44px"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:scaleType="fitCenter"
+            android:layout_height="@dimen/dimen_78px"
+            android:src="@drawable/kb_tzjesr"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2px"
+        android:background="@color/divider_color"/>
+    <com.ql.jcjr.view.MyKeyboredView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:background="@color/divider_color"
+        android:focusable="true"
+        android:shadowRadius="0.0"
+        android:shadowColor="@color/c_fffff"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/keyboard_key"
+        android:keyTextColor="@color/colorPrimaryDark"
+
+        />
+
+</LinearLayout>

@@ -31,6 +31,7 @@
 
             <com.ql.jcjr.view.ImageTextHorizontalBarLess
                 style="@style/ithb_no_left_icon"
+                android:visibility="gone"
                 android:id="@+id/ithb_trans_psw"
                 app:titleTextLess="交易密码" />
 

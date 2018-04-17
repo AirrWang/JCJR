@@ -131,8 +131,14 @@ public class MsgHomeActivity extends BaseActivity {
 
             case R.id.ll_msg_home_msg:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
 

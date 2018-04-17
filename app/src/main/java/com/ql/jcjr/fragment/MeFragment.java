@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -17,7 +19,7 @@ import com.ql.jcjr.activity.AutoBidActivityNew;
 import com.ql.jcjr.activity.BidHistoryActivity;
 import com.ql.jcjr.activity.CapitalRecordActivity;
 import com.ql.jcjr.activity.CapitalStatisticsActivity;
-import com.ql.jcjr.activity.ContactUsActivity;
+import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.activity.MsgHomeActivity;
@@ -85,6 +87,13 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private ImageTextHorizontalBarLess ithb_me_wdhb;
     @ViewInject(R.id.btn_notice)
     private ImageView btn_notice;
+    @ViewInject(R.id.rl_nologin)
+    private RelativeLayout rl_nologin;
+    @ViewInject(R.id.sv_me)
+    private ScrollView sv_me;
+    @ViewInject(R.id.rl_nologin_2)  //华为 oppo vivo 360 今日头条 百度
+    private RelativeLayout rl_nologin_2;
+
 
 
     private String myTotalMoney;
@@ -140,8 +149,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
         mTvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                startActivity(intent);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
                 Map<String, String> datas = new HashMap<String, String>();
                 MobclickAgent.onEventValue(mContext, "click_mine_register", datas, 1);
             }
@@ -168,29 +183,49 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     }
 
     private void isLoginOrNot() {
+        sv_me.fullScroll(ScrollView.FOCUS_UP);
         if (UserData.getInstance().isLogin()) {
-            mLlMeLogin.setVisibility(View.GONE);
-            mLlMeInfo.setVisibility(View.VISIBLE);
-            mLlMeOperate.setVisibility(View.VISIBLE);
-            mUserIcon.setVisibility(View.VISIBLE);
+//            mLlMeLogin.setVisibility(View.GONE);
+//            rl_nologin.setVisibility(View.GONE);
+           rl_nologin_2.setVisibility(View.GONE);
+
             mTvPhoneNum.setVisibility(View.VISIBLE);
-            tv_level.setVisibility(View.VISIBLE);
-            tv_vipj.setVisibility(View.VISIBLE);
+
+//            mLlMeInfo.setVisibility(View.VISIBLE);
+//            mLlMeOperate.setVisibility(View.VISIBLE);
+//            mUserIcon.setVisibility(View.VISIBLE);
+//            mTvPhoneNum.setVisibility(View.VISIBLE);
+//            tv_level.setVisibility(View.VISIBLE);
+//            tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
 
         } else {
-            mLlMeLogin.setVisibility(View.VISIBLE);
-            mLlMeInfo.setVisibility(View.GONE);
-            mLlMeOperate.setVisibility(View.GONE);
 
-            mUserIcon.setVisibility(View.GONE);
+//            rl_nologin.setVisibility(View.VISIBLE);
+            rl_nologin_2.setVisibility(View.VISIBLE);
+
+            mTvTotalNum.setText("- -");
+            mTvBalance.setText("——");
+            mTvAccumulatedIncome.setText("——");
             mTvPhoneNum.setVisibility(View.GONE);
+            tv_vipj.setText("立即投资，获取收益");
+            tv_vipj.setVisibility(View.VISIBLE);
             tv_level.setVisibility(View.GONE);
-            tv_vipj.setVisibility(View.GONE);
+            GlideUtil.displayPic(mContext, "", R.drawable.default_user_icon, mUserIcon);
+//            mLlMeLogin.setVisibility(View.VISIBLE);
+//            mLlMeInfo.setVisibility(View.GONE);
+//            mLlMeOperate.setVisibility(View.GONE);
+//
+//            mUserIcon.setVisibility(View.GONE);
+//            mTvPhoneNum.setVisibility(View.GONE);
+//            tv_level.setVisibility(View.GONE);
+//            tv_vipj.setVisibility(View.GONE);
             ithb_me_wdhb.setRightTitleText("");
         }
     }
+
+
     public void getMsgInfo() {
         SenderResultModel resultModel = ParamsManager.getMsgCenterInfo();
         resultModel.isShowLoadding = false;
@@ -264,7 +299,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         if (StringUtils.isBlank(resultBean.getRealname())) {
 //                            mTvUserName.setText("去完善身份认证");
                             mRealName = "";
-                            mTvPhoneNum.setText(resultBean.getUsername());
+//                            mTvPhoneNum.setText(resultBean.getUsername());
+                            mTvPhoneNum.setText("未实名");
                         } else {
 //                            mTvUserName.setText(resultBean.getRealname());
                             mRealName = resultBean.getRealname();
@@ -334,7 +370,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     }
 
     @OnClick({R.id.civ_user_icon, R.id.iv_wdzc, R.id.tv_withdrawals, R.id.tv_recharge, R.id.btn_notice, R.id.ithb_me_wdhb, R.id.ithb_me_zjjl,
-            R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_me_kfzx, R.id.ithb_mesetting,R.id.ll_me_info})
+            R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_mesetting,R.id.ll_me_info,R.id.btn_to_login,R.id.btn_to_logincheck,
+            R.id.iv_login_me})
     public void onClick(View v) {
         Intent intent = new Intent();
 
@@ -364,8 +401,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.tv_withdrawals:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
 
@@ -382,8 +425,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.tv_recharge:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                       intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
 
@@ -398,8 +447,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 break;
             case R.id.btn_notice:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 intent.setClass(mContext, MsgHomeActivity.class);
@@ -415,8 +470,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.ithb_me_wdhb:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 //我的红包
@@ -427,8 +488,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.ithb_me_zjjl:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 //交易记录
@@ -457,8 +524,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.ithb_me_zdtb:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 //自动投标
@@ -468,8 +541,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.ithb_me_wdtz:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 //投资记录
@@ -479,8 +558,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
             case R.id.ithb_me_yqyl:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
 
@@ -488,16 +573,17 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 UrlUtil.showHtmlPage(mContext,"邀请有礼", RequestURL.YQYL_URL + UserData.getInstance().getUSERID(),true);
                 break;
 
-            case R.id.ithb_me_kfzx:
-                intent.setClass(mContext, ContactUsActivity.class);
-                startActivity(intent);
-                break;
-
             case R.id.civ_user_icon:
             case R.id.ithb_mesetting:
                 if (!UserData.getInstance().isLogin()) {
-                    intent.setClass(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     return;
                 }
                 //设置
@@ -507,6 +593,36 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             case R.id.ll_me_info:
                 intent.setClass(mContext,CapitalStatisticsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_to_login:
+                Map<String, String> data = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "mine_daily_sign", data, 1);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
+                break;
+            case R.id.btn_to_logincheck:
+                Map<String, String> data1 = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "mine_daily_register", data1, 1);
+                intent = new Intent(mContext, LoginActivityCheck.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_login_me:
+                Map<String, String> datas = new HashMap<String, String>();
+                MobclickAgent.onEventValue(mContext, "mine_rebag_register", datas, 1);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
                 break;
         }
     }

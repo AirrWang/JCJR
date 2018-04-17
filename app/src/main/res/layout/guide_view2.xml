@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/guide2">
-    
-</RelativeLayout>
+    android:orientation="vertical"
+    android:background="@color/c_fffff">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="814"
+        android:scaleType="fitXY"
+        android:src="@drawable/guide2"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="186">
+        <LinearLayout
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:onClick="immediateExperience"
+                android:src="@drawable/guide21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:onClick="guideToLogin"
+                android:layout_marginLeft="@dimen/dimen_64px"
+                android:src="@drawable/guide22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -34,9 +34,12 @@ import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.NetworkUtil;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
 import com.ql.jcjr.utils.StringUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 引导页
@@ -50,6 +53,7 @@ public class GuideActivity extends Activity {
     private List<View> views;
     private GuideAdapter adapter;
     private Context mContext;
+    private int page=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,12 +177,14 @@ public class GuideActivity extends Activity {
 
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         public void onPageSelected(int arg0) {
+            page=arg0;
         }
 
         public void onPageScrolled(int arg0, float arg1, int arg2) {
         }
 
         public void onPageScrollStateChanged(int arg0) {
+
         }
     }
 
@@ -188,9 +194,33 @@ public class GuideActivity extends Activity {
      * @param v
      */
     public void immediateExperience(View v) {
+
         SharedPreferencesUtils.getInstance(mContext).putBoolean("isImmediateExperienceClick", true);
         Intent intent = new Intent(GuideActivity.this, MainActivity.class);
         startActivity(intent);
+        this.finish();
+    }
+
+    /**
+     * 注册登录
+     */
+
+    public void guideToLogin(View v){
+        if (page==0){
+            Map<String, String> datas = new HashMap<String, String>();
+            MobclickAgent.onEventValue(mContext, "bootpage1_register", datas, 1);
+        }else if (page==1){
+            Map<String, String> datas = new HashMap<String, String>();
+            MobclickAgent.onEventValue(mContext, "bootpage2_register", datas, 1);
+        }else {
+            Map<String, String> datas = new HashMap<String, String>();
+            MobclickAgent.onEventValue(mContext, "bootpage3_register", datas, 1);
+        }
+        SharedPreferencesUtils.getInstance(mContext).putBoolean("isImmediateExperienceClick", true);
+        Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+        startActivity(intent);
+        Intent intent2 = new Intent(GuideActivity.this, LoginActivityCheck.class);
+        startActivity(intent2);
         this.finish();
     }
 }

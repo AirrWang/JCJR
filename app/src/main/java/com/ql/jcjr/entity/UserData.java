@@ -159,4 +159,12 @@ public class UserData {
     public boolean getFingerPrint() {
         return SharedPreferencesUtils.getInstance().getBoolean(SharedPreferencesUtils.KEY_IS_FINGER_PRINT, false);
     }
+
+    public void setRiskWarning(boolean isTest) {
+        SharedPreferencesUtils.getInstance().putBoolean(SharedPreferencesUtils.KEY_IS_RISK_TEST, isTest);
+    }
+
+    public boolean getRiskWarning() {
+        return SharedPreferencesUtils.getInstance().getBoolean(SharedPreferencesUtils.KEY_IS_RISK_TEST, false);
+    }
 }

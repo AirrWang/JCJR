@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="@dimen/dimen_100px"
             android:layout_height="@dimen/dimen_100px"
-            android:layout_marginTop="@dimen/dimen_90px"
+            android:layout_marginTop="@dimen/dimen_38px"
             android:scaleType="fitXY"
             android:src="@drawable/gesture_user_icon" />
 
@@ -42,7 +42,7 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_100px"
+            android:layout_marginTop="@dimen/dimen_48px"
             app:common_input_style="secure"
             app:right_icon_visibility="gone"
             app:right_extra_iv_visibility="visible"
@@ -51,20 +51,35 @@
             app:left_icon="@drawable/login_check_icon_pwd"
             app:single_line="true" />
 
+
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/common_btn_style"
+            android:layout_marginTop="@dimen/dimen_126px"
+            android:layout_marginBottom="@dimen/dimen_10px"
+            android:text="登录"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="@dimen/dimen_30px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
-
+            <TextView
+                android:padding="@dimen/dimen_30px"
+                android:id="@+id/btn_login_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="其他账号登陆"
+                android:textColor="@color/btn_main"
+                android:textSize="@dimen/size_m" />
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <TextView
+                android:padding="@dimen/dimen_30px"
                 android:id="@+id/tv_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,14 +88,6 @@
                 android:textSize="@dimen/size_m" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            style="@style/common_btn_style"
-            android:layout_marginTop="@dimen/dimen_120px"
-            android:layout_marginBottom="@dimen/dimen_40px"
-            android:text="登录"/>
     </LinearLayout>
-
 
 </RelativeLayout>

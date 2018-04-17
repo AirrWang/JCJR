@@ -677,4 +677,5 @@ public class ImageTextHorizontalBar extends LinearLayout {
     public void setOnClickListener(OnClickListener listener) {
         this.viewContainer.setOnClickListener(listener);
     }
+
 }

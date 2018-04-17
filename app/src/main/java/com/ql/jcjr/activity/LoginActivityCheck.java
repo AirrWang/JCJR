@@ -1,15 +1,16 @@
 package com.ql.jcjr.activity;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
@@ -57,6 +59,7 @@ public class LoginActivityCheck extends BaseActivity {
     @ViewInject(R.id.ll_container)
     private LinearLayout ll_container;
 
+    public static LoginActivityCheck instance = null;
 
     private StringBuffer validateErrorMsg;
     private String phoneNumber;
@@ -70,57 +73,101 @@ public class LoginActivityCheck extends BaseActivity {
         setContentView(R.layout.activity_login_check);
         ViewUtils.inject(this);
         mContext = this;
+        instance = this;
         Map<String, String> datas = new HashMap<String, String>();
         MobclickAgent.onEventValue(this, "register_phonenumber", datas, 1);
         init();
+        loginButton.setEnabled(false);
+        loginButton.setBackgroundResource(R.drawable.btn_pressed_enable);
     }
 
     private void init() {
         etPhoneNum.getCancelEditText().setInputType(InputType.TYPE_CLASS_NUMBER |
                 InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        etPhoneNum.setEditTextContent(UserData.getInstance().getPhoneNumber());
-//根布局
-        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//        etPhoneNum.setEditTextContent(UserData.getInstance().getPhoneNumber());
 
-            private int[] sc;
-            private int scrollHegit;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            etPhoneNum.getCancelEditText().setShowSoftInputOnFocus(false);
+
+        }else {
+            etPhoneNum.getCancelEditText().setInputType(InputType.TYPE_NULL);
+
+        }
+        etPhoneNum.getCancelEditText().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new KeyboardUtil(mContext, LoginActivityCheck.this, etPhoneNum.getCancelEditText(),0).showKeyboard();
+                return false;
+            }
+        });
+
+        etPhoneNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                rl_container.getWindowVisibleDisplayFrame(r);
-                if (sc == null) {
-                    sc = new int[2];
-                    ll_container.getLocationOnScreen(sc);
-                }
-                //r.top 是状态栏高度
-                int screenHeight = rl_container.getRootView().getHeight();
-                int softHeight = screenHeight - r.bottom;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
-                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
-                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+            }
 
-                        scrollToPos(0, scrollHegit);
-                } else {//否则判断为输入法隐藏了
-                    if (rl_container.getScrollY() != 0)
-                        scrollToPos(scrollHegit, 0);
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    loginButton.setEnabled(true);
+                    loginButton.setBackgroundResource(R.drawable.login_button_selector);
+                    if (s.length()>11){
+                        s.replace(11,s.length(),"");
+                    }
+                } else {
+                    loginButton.setEnabled(false);
+                    loginButton.setBackgroundResource(R.drawable.btn_pressed_enable);
                 }
             }
         });
+
+//        //根布局
+//        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//
+//            private int[] sc;
+//            private int scrollHegit;
+//
+//            @Override
+//            public void onGlobalLayout() {
+//                Rect r = new Rect();
+//                rl_container.getWindowVisibleDisplayFrame(r);
+//                if (sc == null) {
+//                    sc = new int[2];
+//                    ll_container.getLocationOnScreen(sc);
+//                }
+//                //r.top 是状态栏高度
+//                int screenHeight = rl_container.getRootView().getHeight();
+//                int softHeight = screenHeight - r.bottom;
+//
+//                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+//                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
+//                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+//
+//                        scrollToPos(0, scrollHegit);
+//                } else {//否则判断为输入法隐藏了
+//                    if (rl_container.getScrollY() != 0)
+//                        scrollToPos(scrollHegit, 0);
+//                }
+//            }
+//        });
     }
 
-    private void scrollToPos(int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.setDuration(250);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-        animator.start();
-    }
+//    private void scrollToPos(int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.setDuration(250);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+//            }
+//        });
+//        animator.start();
+//    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -151,7 +198,8 @@ public class LoginActivityCheck extends BaseActivity {
                 phoneNumber = etPhoneNum.getEditTextContent();
 
                 if (!validateLogin(phoneNumber)) {
-                    CommonToast.showHintDialog(mContext, validateErrorMsg.toString());
+
+                    CommonToast.makeText(validateErrorMsg.toString());
                     return;
                 } else {
                     if (isConnect()) {
@@ -188,10 +236,10 @@ public class LoginActivityCheck extends BaseActivity {
     private boolean validateLogin(String phoneNumber) {
         validateErrorMsg = new StringBuffer();
 
-        if (StringUtils.isBlank(phoneNumber)) {
-            validateErrorMsg.append("请输入手机号码");
-            return false;
-        }
+//        if (StringUtils.isBlank(phoneNumber)) {
+//            validateErrorMsg.append("请输入手机号码");
+//            return false;
+//        }
         if (!StringUtils.isPhoneNumber(phoneNumber)){
             validateErrorMsg.append("手机号码格式错误");
             return false;
@@ -217,9 +265,7 @@ public class LoginActivityCheck extends BaseActivity {
                     else{
                         //未注册 去注册
                         getAPPID();
-
                     }
-                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

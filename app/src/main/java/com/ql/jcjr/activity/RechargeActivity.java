@@ -2,11 +2,14 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.GlideUtil;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
@@ -84,7 +88,19 @@ public class RechargeActivity extends BaseActivity {
 
         checkBank();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtAmt.setShowSoftInputOnFocus(false);
+        }else {
+            mEtAmt.setInputType(InputType.TYPE_NULL);
+        }
 
+        mEtAmt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                new KeyboardUtil(mContext, RechargeActivity.this, mEtAmt,0).showKeyboard();
+                return false;
+            }
+        });
         mBtnRecharge.setBackgroundResource(R.drawable.btn_pressed_enable);
         mEtAmt.addTextChangedListener(new TextWatcher() {
             @Override

@@ -66,8 +66,14 @@ public class VerifyGestureActivity extends BaseActivity implements
             UserData.getInstance().setUSERID("");
             UserData.getInstance().setIsOpenGesture(false);
             UserData.getInstance().setGestureCipher("");
-            Intent intent = new Intent(mContext, LoginActivityCheck.class);
-            startActivity(intent);
+            if (UserData.getInstance().getPhoneNumber().equals("")) {
+                Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                startActivity(intent);
+            }
             finish();
         }
 

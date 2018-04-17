@@ -13,50 +13,48 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32px">
+        android:layout_height="@dimen/actionbar_height">
 
         <com.ql.jcjr.view.CircleImageView
             android:id="@+id/civ_user_icon"
-            android:layout_width="@dimen/dimen_88px"
-            android:layout_height="@dimen/dimen_88px"
-            android:layout_marginLeft="@dimen/dimen_24px"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dimen_75px"
+            android:layout_height="@dimen/dimen_75px"
+            android:layout_marginLeft="@dimen/dimen_30px"
             android:src="@drawable/default_user_icon"/>
 
         <TextView
-            android:layout_marginTop="@dimen/dimen_8px"
+            android:layout_centerVertical="true"
             android:id="@+id/tv_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_34px"
+            android:layout_marginLeft="@dimen/dimen_15px"
             android:layout_toRightOf="@id/civ_user_icon"
-            android:textSize="@dimen/dimen_24px"
+            android:textSize="14sp"
             android:textColor="@color/font_grey"
             />
         <TextView
             android:visibility="gone"
-            android:layout_marginTop="@dimen/dimen_8px"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:id="@+id/tv_level"
-            android:layout_below="@+id/tv_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_34px"
-            android:layout_toRightOf="@id/civ_user_icon"
-            android:textSize="@dimen/dimen_26px"
+            android:layout_marginLeft="@dimen/dimen_10px"
+            android:layout_toRightOf="@id/tv_phone_number"
+            android:textSize="14sp"
             android:textColor="@color/white"
             />
         <TextView
             android:visibility="gone"
-            android:layout_marginTop="@dimen/dimen_8px"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:id="@+id/tv_vipj"
-            android:layout_below="@+id/tv_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_34px"
-            android:layout_toRightOf="@id/civ_user_icon"
-            android:textSize="@dimen/dimen_26px"
+            android:layout_marginLeft="@dimen/dimen_10px"
+            android:layout_toRightOf="@id/tv_phone_number"
+            android:textSize="14sp"
             android:textColor="@color/font_actionbar_color"
             />
 
@@ -103,13 +101,13 @@
         android:id="@+id/ll_me_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_32px"
-        android:layout_marginLeft="@dimen/dimen_64px"
-        android:layout_marginRight="@dimen/dimen_64px"
+        android:layout_marginTop="@dimen/dimen_25px"
+        android:layout_marginLeft="@dimen/dimen_75px"
+        android:layout_marginRight="@dimen/dimen_75px"
         android:paddingTop="@dimen/dimen_32px"
-        android:paddingBottom="@dimen/dimen_20px"
-        android:paddingLeft="@dimen/dimen_48px"
-        android:paddingRight="@dimen/dimen_48px"
+        android:paddingBottom="@dimen/dimen_26px"
+        android:paddingLeft="@dimen/dimen_60px"
+        android:paddingRight="@dimen/dimen_60px"
         android:background="@drawable/bg_me_info"
         android:orientation="vertical"
         android:gravity="center"
@@ -144,7 +142,7 @@
             android:id="@+id/tv_total_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8px"
+            android:layout_marginTop="@dimen/dimen_10px"
             android:text="*****"
             android:textColor="@color/font_bid_history"
             android:textSize="@dimen/size_xxxl"/>
@@ -152,7 +150,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_24px"
+            android:layout_marginTop="@dimen/dimen_38px"
             android:gravity="center_vertical">
 
             <LinearLayout

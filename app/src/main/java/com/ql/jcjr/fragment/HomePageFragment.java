@@ -16,6 +16,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.activity.BidDetailActivity;
+import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
@@ -27,6 +28,7 @@ import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BannerEntity;
 import com.ql.jcjr.entity.HomeDataEntity;
 import com.ql.jcjr.entity.MessageActEntity;
+import com.ql.jcjr.entity.RiskWarningEntity;
 import com.ql.jcjr.entity.RollNewsEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
@@ -37,6 +39,7 @@ import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
+import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.IndicatorView;
@@ -164,7 +167,41 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 //            getNoviceExclusive();
             getZiXun();
             getData();
+            if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
+                getRiskWarning();
+            }
         }
+    }
+
+
+
+
+    private void getRiskWarning() {
+        SenderResultModel resultModel = ParamsManager.getRisk();
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("风险测评 " + responeJson);
+                        RiskWarningEntity entity = GsonParser.getParsedObj(responeJson, RiskWarningEntity.class);
+                        RiskWarningEntity.ResultBean resultBean = entity.getResult();
+                        if(StringUtils.isBlank(resultBean.getType())||resultBean.getType()==null){
+                            //未测评
+                            UserData.getInstance().setRiskWarning(false);
+                        }else {
+                            //已测评
+                            UserData.getInstance().setRiskWarning(true);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("风险测评 " + entity.errorInfo);
+                    }
+
+                }, mContext);
     }
 
     private void getZiXun() {
@@ -222,15 +259,23 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
                 mTotal.setText(entity.getResult().getResult3().getAccount());
                 mPeople.setText(entity.getResult().getResult3().getCount());
-                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
-                tv_diffrent_bid.setText("累计申购");
+//                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
+//                tv_diffrent_bid.setText("累计申购");
+                tv_diffrent_bid.setText("限购额度");
+                mLimitPeople.setText(entity.getResult().getResult2().getMost_account()+"元");
                 mLl.setVisibility(View.VISIBLE);
                 if (entity.getResult().getResult1().getCode().equals("1")){
                     banner=1;
                     mIvBanner.setImageResource(R.drawable.smrz_sy);
+
                 }else if (entity.getResult().getResult1().getCode().equals("2")){
-                    banner=2;
-                    mIvBanner.setImageResource(R.drawable.xszx_sy);
+                    if (!UserData.getInstance().getRiskWarning()){
+                        banner=4;
+                        mIvBanner.setImageResource(R.drawable.zcjs_cp);
+                    }else {
+                        banner = 2;
+                        mIvBanner.setImageResource(R.drawable.xszx_sy);
+                    }
                 }else if (entity.getResult().getResult1().getCode().equals("3")){
                     banner=3;
                     mLl.setVisibility(View.GONE);
@@ -465,6 +510,13 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     @Override
     public void onResume() {
         super.onResume();
+        banner();
+        initMarqueeView();
+        getZiXun();
+        getData();
+        if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
+            getRiskWarning();
+        }
         if (mIndicatorView == null)
             return;
         mIndicatorView.startAutoPlay();
@@ -482,8 +534,14 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         switch (view.getId()) {
             case R.id.btn_bid:
                 if (!UserData.getInstance().isLogin()){
-                    intent = new Intent(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                         intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                         intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                     break;
                 }
                 if (banner==3){
@@ -537,8 +595,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 break;
             case R.id.ll_1:
                 if (!UserData.getInstance().isLogin()||banner==0){
-                    intent = new Intent(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+
+                        intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+
                     Map<String, String> datas = new HashMap<String, String>();
                     MobclickAgent.onEventValue(mContext, "click_index_getredbag", datas, 1);
                     break;
@@ -551,7 +611,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     intent.putExtra("bid_id",mNoviceExclusiveId);
                     intent.putExtra("bid_title", mBidName);
                     startActivity(intent);
-                }else {}
+                }else if (banner==4){
+                    UrlUtil.showHtmlPage(mContext,"风险测评", RequestURL.RISKTEST_URL,true);
+                }
+                else {}
                 break;
         }
     }
@@ -563,6 +626,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 //        getNoviceExclusive();
         getZiXun();
         getData();
+        if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
+            getRiskWarning();
+        }
     }
 
     @Override

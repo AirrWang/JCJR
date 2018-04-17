@@ -1,11 +1,15 @@
 package com.ql.jcjr.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -48,6 +52,8 @@ import com.ql.jcjr.view.ImageTextHorizontalBarLess;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingActivity extends BaseActivity {
 
@@ -109,7 +115,7 @@ public class SettingActivity extends BaseActivity {
             needLoadInfo = false;
             getMineFragmentData();
         }
-        getRiskWarning();
+
 
     }
 
@@ -127,9 +133,11 @@ public class SettingActivity extends BaseActivity {
                         if(StringUtils.isBlank(resultBean.getType())||resultBean.getType()==null){
                             ithb_test_danger.setRightTitleText("未测评");
                             ithb_test_danger.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
+                            UserData.getInstance().setRiskWarning(false);
                         }else {
                             ithb_test_danger.setRightTitleText(resultBean.getType());
                             ithb_test_danger.setRightTitleColor(getResources().getColor(R.color.font_black));
+                            UserData.getInstance().setRiskWarning(true);
                         }
                     }
 
@@ -159,6 +167,7 @@ public class SettingActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(String responeJson) {
+                        getRiskWarning();
                         LogUtil.i("我的信息 " + responeJson);
                         MineFragmentEntity entity = GsonParser.getParsedObj(responeJson, MineFragmentEntity.class);
                         MineFragmentEntity.ResultBean resultBean = entity.getResult();
@@ -293,7 +302,9 @@ public class SettingActivity extends BaseActivity {
                 }
 
                 break;
-            case R.id.ithb_user_icon:
+            case R.id.ithb_user_icon: //头像
+
+
                 showDialog();
                 break;
             case R.id.ithb_bank:
@@ -353,19 +364,39 @@ public class SettingActivity extends BaseActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        filePathMineUserInfo = AppConfig.APP_PICTURE_FOLDER
-                                + "/"
-                                + System.currentTimeMillis()
-                                + AppConfig.JPG;
-                        imageFile = new File(filePathMineUserInfo);
-                        imageUri = Uri.fromFile(imageFile);
-                        btnclick(imageUri, imageFile, mContext, AppConfig.APP_PICTURE_FOLDER);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
+                        dialog.dismiss();
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                filePathMineUserInfo = AppConfig.APP_PICTURE_FOLDER
+                                        + "/"
+                                        + System.currentTimeMillis()
+                                        + AppConfig.JPG;
+                                imageFile = new File(filePathMineUserInfo);
+                                imageUri = Uri.fromFile(imageFile);
+                                btnclick(imageUri, imageFile, mContext, AppConfig.APP_PICTURE_FOLDER);
+                            }
+                        });
+                    }else {
+                        insertDummyContactWrapper();
                     }
-                });
+                }else {
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            filePathMineUserInfo = AppConfig.APP_PICTURE_FOLDER
+                                    + "/"
+                                    + System.currentTimeMillis()
+                                    + AppConfig.JPG;
+                            imageFile = new File(filePathMineUserInfo);
+                            imageUri = Uri.fromFile(imageFile);
+                            btnclick(imageUri, imageFile, mContext, AppConfig.APP_PICTURE_FOLDER);
+                        }
+                    });
+                }
             }
         });
 
@@ -614,5 +645,88 @@ public class SettingActivity extends BaseActivity {
         } else {
             ToastUtil.showToast(context, "无法加载图片");
         }
+    }
+
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean insertDummyContactWrapper() {
+        //提示用户需要手动开启的权限集合
+        List<String> permissionsNeeded = new ArrayList<String>();
+
+        //功能所需权限的集合
+        final List<String> permissionsList = new ArrayList<String>();
+
+        //若用户拒绝了该权限申请，则将该申请的提示添加到“用户需要手动开启的权限集合”中
+//        if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+//            permissionsNeeded.add("保存应用数据");
+//        if (!addPermission(permissionsList, Manifest.permission.READ_EXTERNAL_STORAGE))
+//            permissionsNeeded.add("读取应用数据");
+//        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
+//            permissionsNeeded.add("获取当前地理位置");
+//        if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
+//            permissionsNeeded.add("获取通讯录信息");
+//        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
+//            permissionsNeeded.add("获取应用提示");
+//        if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
+//            permissionsNeeded.add("获取手机指纹信息");
+        if(!addPermission(permissionsList,Manifest.permission.CAMERA))
+            permissionsNeeded.add("获取手机相机信息");
+//        if(!addPermission(permissionsList,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS))
+//            permissionsNeeded.add("读取手机存储信息");
+
+
+        //存在未配置的权限
+        if (permissionsList.size() > 0) {
+
+            //若用户赋之前拒绝过一部分权限，则需要提示用户开启其余权限并返回，否则该功能将无法执行
+            if (permissionsNeeded.size() > 0) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                // Need Rationale
+//                String message = "我们需要您授权下列权限：\n";
+//                for (int i = 0; i < permissionsNeeded.size(); i++)
+//                    message = message + "\n" + permissionsNeeded.get(i);
+//
+//                //弹出对话框，提示用户需要手动开启的权限
+//                try {
+//                    final CommonDialog.Builder dialog = new CommonDialog.Builder(this);
+//                    dialog.setTitle(message);
+//                    dialog.setMessageSize(R.dimen.f03_34);
+//                    dialog.setButtonTextSize(R.dimen.f03_34);
+//                    dialog.setPositiveButton("确定",
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//
+//                                }
+//                            });
+//                    dialog.create().show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+            }
+
+            requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+    //判断用户是否授予了所需权限
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        //若配置了该权限，返回true
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            //若未配置该权限，将其添加到所需权限的集合，返回true
+            permissionsList.add(permission);
+            // 若用户勾选了“永不询问”复选框，并拒绝了权限，则返回false
+            if (!shouldShowRequestPermissionRationale(permission))
+                return false;
+        }
+
+        return true;
     }
 }

@@ -38,7 +38,8 @@
             android:layout_weight="1"
             android:background="@color/btn_main"
             android:gravity="center"
-            android:text="立即投标"/>
+            android:textSize="@dimen/size_xl"
+            android:text="授权出借"/>
 
     </LinearLayout>
 

@@ -83,6 +83,7 @@ public class HomeDataEntity {
             private String tender_times;
             private String isselled;
             private String last_account;
+            private String most_account;
 
             public String getId() {
                 return id;
@@ -138,6 +139,14 @@ public class HomeDataEntity {
 
             public void setLast_account(String last_account) {
                 this.last_account = last_account;
+            }
+
+            public String getMost_account() {
+                return most_account;
+            }
+
+            public void setMost_account(String most_account) {
+                this.most_account = most_account;
             }
         }
 

@@ -51,6 +51,8 @@ public class SharedPreferencesUtils {
 
     public static final String KEY_IS_FINGER_PRINT = "is_finger_print";
 
+    public static final String KEY_IS_RISK_TEST = "is_risk_test";
+
     public static final String KEY_DAY = "day";
 
     private static SharedPreferencesUtils sharedPreferencesUtils;
