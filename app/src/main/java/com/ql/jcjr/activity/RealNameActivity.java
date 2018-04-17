@@ -2,8 +2,12 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +27,7 @@ import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.view.CommonToast;
@@ -62,6 +67,32 @@ public class RealNameActivity extends BaseActivity {
         mBtnBind.setVisibility(View.GONE);
         mLlCertified.setVisibility(View.GONE);
         checkRealName();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtPid.setShowSoftInputOnFocus(false);
+        }else {
+            mEtPid.setInputType(InputType.TYPE_NULL);
+        }
+
+        mEtPid.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                try {
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mEtRealName.getWindowToken(), 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                new KeyboardUtil(mContext, RealNameActivity.this, mEtPid,2).showKeyboard();
+                return false;
+            }
+        });
+        mEtRealName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new KeyboardUtil(mContext, RealNameActivity.this, mEtPid,2).hideKeyboard();
+                return false;
+            }
+        });
     }
 
     private void checkRealName() {

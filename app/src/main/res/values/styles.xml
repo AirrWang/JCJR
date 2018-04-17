@@ -730,6 +730,7 @@
         <item name="android:layout_height">@dimen/dimen_95px</item>
         <item name="leftIconSize">18dp</item>
         <item name="rightTitleVisibility">gone</item>
+
     </style>
 
 </resources>

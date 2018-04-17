@@ -90,7 +90,7 @@
             <Button
                 android:id="@+id/btn_register"
                 style="@style/common_btn_style"
-                android:layout_marginTop="@dimen/dimen_140px"
+                android:layout_marginTop="@dimen/dimen_84px"
                 android:text="完成注册"/>
 
             <LinearLayout
@@ -132,11 +132,23 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/btn_main"
                     android:textSize="@dimen/size_xs"
-                    android:text=" 《积财金融协议》 "/>
+                    android:text=" 《积财注册协议》 "/>
 
             </LinearLayout>
 
         </LinearLayout>
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:id="@+id/ll_jianpan"
+            layout="@layout/layout_jianpan"/>
+    </RelativeLayout>
 
     <!--</ScrollView>-->
 

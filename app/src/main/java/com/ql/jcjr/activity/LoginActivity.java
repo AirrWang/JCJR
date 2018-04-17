@@ -1,15 +1,12 @@
 package com.ql.jcjr.activity;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -74,47 +71,47 @@ public class LoginActivity extends BaseActivity{
         init();
     }
 
-    private void scrollToPos(int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.setDuration(250);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-        animator.start();
-    }
+//    private void scrollToPos(int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.setDuration(250);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+//            }
+//        });
+//        animator.start();
+//    }
 
     private void init() {
 
-        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            private int[] sc;
-            private int scrollHegit;
-
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                rl_container.getWindowVisibleDisplayFrame(r);
-                if (sc == null) {
-                    sc = new int[2];
-                    ll_container.getLocationOnScreen(sc);
-                }
-                //r.top 是状态栏高度
-                int screenHeight = rl_container.getRootView().getHeight();
-                int softHeight = screenHeight - r.bottom;
-
-                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
-                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
-                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
-                        scrollToPos(0, scrollHegit);
-                } else {//否则判断为输入法隐藏了
-                    if (rl_container.getScrollY() != 0)
-                        scrollToPos(scrollHegit, 0);
-                }
-            }
-        });
+//        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//
+//            private int[] sc;
+//            private int scrollHegit;
+//
+//            @Override
+//            public void onGlobalLayout() {
+//                Rect r = new Rect();
+//                rl_container.getWindowVisibleDisplayFrame(r);
+//                if (sc == null) {
+//                    sc = new int[2];
+//                    ll_container.getLocationOnScreen(sc);
+//                }
+//                //r.top 是状态栏高度
+//                int screenHeight = rl_container.getRootView().getHeight();
+//                int softHeight = screenHeight - r.bottom;
+//
+//                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+//                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
+//                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+//                        scrollToPos(0, scrollHegit);
+//                } else {//否则判断为输入法隐藏了
+//                    if (rl_container.getScrollY() != 0)
+//                        scrollToPos(scrollHegit, 0);
+//                }
+//            }
+//        });
         phoneNumber = getIntent().getStringExtra("phone_num");
         etPhoneNum.setText(phoneNumber);
 
@@ -158,10 +155,7 @@ public class LoginActivity extends BaseActivity{
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+
 
     private void savePswString() {
         String encrypt = "";
@@ -176,7 +170,7 @@ public class LoginActivity extends BaseActivity{
         FileUtil.writeObjectToDataFile(mContext, encrypt, PSW_FILE_NAME);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_login, R.id.tv_forget_password})
+    @OnClick({R.id.btn_left, R.id.btn_login, R.id.tv_forget_password,R.id.btn_login_other})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
@@ -199,6 +193,12 @@ public class LoginActivity extends BaseActivity{
                 forgetIntent.putExtra("flag", Global.FLAG_FORGET);
                 forgetIntent.putExtra("phone_num", phoneNumber);
                 startActivity(forgetIntent);
+                break;
+            case R.id.btn_login_other:
+                Intent intent=new Intent(mContext,LoginActivityCheck.class);
+                startActivity(intent);
+                finish();
+
                 break;
         }
     }
@@ -251,6 +251,9 @@ public class LoginActivity extends BaseActivity{
                 //登录后上传设备信息
                 getAppInfo();
                 finish();
+                if (LoginActivityCheck.instance!=null){
+                    LoginActivityCheck.instance.finish();
+                }
             }
 
             @Override
@@ -289,5 +292,6 @@ public class LoginActivity extends BaseActivity{
 
         }, this);
     }
+
 
 }

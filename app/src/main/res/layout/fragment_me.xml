@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c_page_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
+        android:id="@+id/sv_me"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/slv_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <include
+                android:id="@+id/ic_mine"
                 layout="@layout/layout_fragment_me_head"/>
 
             <LinearLayout
                 android:id="@+id/ll_me_operate"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_100px"
+                android:layout_height="@dimen/dimen_108px"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_me_operate">
                 <TextView
@@ -57,7 +59,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_25px"
+                android:layout_height="@dimen/dimen_20px"
                 android:background="@color/c_page_bg"/>
 
             <LinearLayout
@@ -66,40 +68,45 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="@dimen/dimen_32px">
 
+                <LinearLayout
+                    android:background="@color/c_fffff"
+                    android:id="@+id/ithb_me_yqyl"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_98px">
+                    <ImageView
+                        android:layout_marginTop="@dimen/dimen_12px"
+                        android:layout_marginLeft="@dimen/dimen_22px"
+                        android:layout_width="@dimen/dimen_52px"
+                        android:src="@drawable/icon_yqyl_wd"
+                        android:layout_height="@dimen/dimen_58px" />
+                    <TextView
+                        android:layout_marginLeft="@dimen/dimen_20px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/size_m"
+                        android:text="邀请有礼"/>
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/iv_action_go"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimen_30px"
+                        android:src="@drawable/arrow_right" />
+                </LinearLayout>
+                <View
+                    android:id="@+id/view_bottom_line"
+                    style="@style/common_divider_with_margin"
+                    android:layout_weight="0"/>
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
                     android:id="@+id/ithb_me_wdtz"
                     app:leftIconLess="@drawable/icon_wdtz_wd"
                     app:titleTextLess="我的投资" />
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_wdtz"-->
-                    <!--style="@style/me_operate_bar_rl"-->
-                    <!--android:background="#fff">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_wdtz_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_wdtz_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_wdtz_pre"-->
-                        <!--android:text="我的投资"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_wdtz"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--android:background="#fff"-->
-                    <!--app:leftIcon="@drawable/icon_wdtz_wd"-->
-                    <!--app:titleText="我的投资"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
 
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
@@ -107,32 +114,6 @@
                     app:leftIconLess="@drawable/icon_zdtb_wd"
                     app:titleTextLess="自动投标" />
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_zdtb"-->
-                    <!--style="@style/me_operate_bar_rl">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_zdtb_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_zdtb_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_zdtb_pre"-->
-                        <!--android:text="自动投标"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_zdtb"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--app:leftIcon="@drawable/icon_zdtb_wd"-->
-                    <!--app:titleText="自动投标"-->
-                    <!--app:bottomLineVisibility="gone"-->
-                    <!--android:background="#FBFBFB"/>-->
 
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
@@ -141,33 +122,7 @@
                     app:leftIconLess="@drawable/icon_wdhb_wd"
                     app:titleTextLess="我的红包" />
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_wdhb"-->
-                    <!--style="@style/me_operate_bar_rl"-->
-                    <!--android:background="#fff">-->
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_wdhb_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_wdhb_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_wdhb_pre"-->
-                        <!--android:text="我的红包"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_wdhb"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--android:background="#fff"-->
-                    <!--app:leftIcon="@drawable/icon_wdhb_wd"-->
-                    <!--app:titleText="我的红包"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
 
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
@@ -175,97 +130,6 @@
                     app:leftIconLess="@drawable/icon_jyjl_wd"
                     app:titleTextLess="交易记录" />
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_zjjl"-->
-                    <!--style="@style/me_operate_bar_rl">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_zjjl_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_jyjl_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_zjjl_pre"-->
-                        <!--android:text="交易记录"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_zjjl"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--app:leftIcon="@drawable/icon_jyjl_wd"-->
-                    <!--app:titleText="交易记录"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
-
-                <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                    style="@style/ithb_no_right_title"
-                    android:id="@+id/ithb_me_yqyl"
-                    app:leftIconLess="@drawable/icon_yqyl_wd"
-                    app:titleTextLess="邀请有礼" />
-
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_yqyl"-->
-                    <!--style="@style/me_operate_bar_rl"-->
-                    <!--android:background="#fff">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_yqyl_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_yqyl_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_yqyl_pre"-->
-                        <!--android:text="邀请有礼"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_yqyl"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--android:background="#fff"-->
-                    <!--app:leftIcon="@drawable/icon_yqyl_wd"-->
-                    <!--app:titleText="邀请有礼"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
-
-                <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                    style="@style/ithb_no_right_title"
-                    android:id="@+id/ithb_me_kfzx"
-                    app:leftIconLess="@drawable/icon_kfzx_wd"
-                    app:titleTextLess="客服中心" />
-
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_me_kfzx"-->
-                    <!--style="@style/me_operate_bar_rl">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_me_kfzx_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_kfzx_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_me_kfzx_pre"-->
-                        <!--android:text="客服中心"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_me_kfzx"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--app:leftIcon="@drawable/icon_kfzx_wd"-->
-                    <!--app:titleText="客服中心"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
 
                 <com.ql.jcjr.view.ImageTextHorizontalBarLess
                     style="@style/ithb_no_right_title"
@@ -274,53 +138,6 @@
                     app:bottomLineVisibilityLess="gone"
                     app:titleTextLess="设置" />
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ithb_mesetting"-->
-                    <!--style="@style/me_operate_bar_rl"-->
-                    <!--android:background="#fff">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/ithb_mesetting_pre"-->
-                        <!--style="@style/me_operate_bar_icon"-->
-                        <!--android:src="@drawable/icon_sz_wd"/>-->
-
-                    <!--<TextView-->
-                        <!--style="@style/me_operate_bar_title"-->
-                        <!--android:layout_toRightOf="@id/ithb_mesetting_pre"-->
-                        <!--android:text="设置"/>-->
-
-                    <!--<ImageView-->
-                        <!--style="@style/me_operate_bar_arrow"/>-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                    <!--android:id="@+id/ithb_mesetting"-->
-                    <!--style="@style/ithb_setting"-->
-                    <!--android:background="#fff"-->
-                    <!--app:leftIcon="@drawable/icon_sz_wd"-->
-                    <!--app:titleText="设置"-->
-                    <!--app:bottomLineVisibility="gone"/>-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                <!--android:id="@+id/ithb_me_zhzc"-->
-                <!--style="@style/ithb_setting"-->
-                <!--app:leftIcon="@drawable/my_icon_zhzc"-->
-                <!--app:titleText="账户资产" />-->
-
-
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                <!--android:id="@+id/ithb_me_smrz"-->
-                <!--style="@style/ithb_setting"-->
-                <!--app:leftIcon="@drawable/my_icon_smrz"-->
-                <!--app:titleText="实名认证" />-->
-
-                <!--<com.ql.jcjr.view.ImageTextHorizontalBar-->
-                <!--android:id="@+id/ithb_me_yhk"-->
-                <!--style="@style/ithb_setting"-->
-                <!--app:leftIcon="@drawable/my_icon_yhk"-->
-                <!--app:titleText="银行卡" />-->
 
             </LinearLayout>
 
@@ -328,4 +145,115 @@
 
     </ScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:clickable="true"
+        android:visibility="gone"
+        android:id="@+id/rl_nologin"
+        android:background="#99000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:background="@color/c_fffff"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="@dimen/dimen_30px"
+                android:textSize="@dimen/dimen_34px"
+                android:textColor="@color/font_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新用户大礼包"/>
+            <LinearLayout
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_8px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注册就送"/>
+                <TextView
+                    android:textSize="@dimen/dimen_36px"
+                    android:textColor="@color/btn_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="888"/>
+
+                <TextView
+                    android:textSize="@dimen/dimen_28px"
+                    android:textColor="@color/font_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元大红包"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dimen_58px"
+                android:layout_marginTop="@dimen/dimen_40px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:background="@drawable/btn_rectangle_circl_circl"
+                    android:id="@+id/btn_to_login"
+                    android:text="登录"
+                    android:gravity="center"
+                    android:textColor="@color/btn_main"
+                    android:textSize="@dimen/dimen_34px"
+                    android:layout_width="120dp"
+                    android:layout_height="@dimen/dimen_78px" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"/>
+                <LinearLayout
+                    android:background="@drawable/btn_rectangle_circl_btn"
+                    android:gravity="center"
+                    android:id="@+id/btn_to_logincheck"
+                    android:layout_width="120dp"
+                    android:layout_height="@dimen/dimen_78px" >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/popup_wd"/>
+                    <TextView
+                        android:layout_marginLeft="@dimen/dimen_8px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_fffff"
+                        android:text="注册"
+                        android:textSize="@dimen/dimen_34px"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:clickable="true"
+        android:visibility="gone"
+        android:id="@+id/rl_nologin_2"
+        android:background="#99000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_login_me"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/redpackage"/>
+    </RelativeLayout>
+</RelativeLayout>

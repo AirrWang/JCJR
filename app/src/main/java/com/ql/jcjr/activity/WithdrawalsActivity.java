@@ -3,16 +3,20 @@ package com.ql.jcjr.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -35,6 +39,7 @@ import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.timer.TimerHandler;
 import com.ql.jcjr.utils.GlideUtil;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
@@ -73,6 +78,9 @@ public class WithdrawalsActivity extends BaseActivity {
     @ViewInject(R.id.iv_question)
     private ImageView iv_question;
 
+    @ViewInject(R.id.sl_withdrawals)
+    private ScrollView sl_withdrawals;
+
     //免费次数
     @ViewInject(R.id.tv_last_free_time)
     private TextView mTvLastFree;
@@ -100,6 +108,7 @@ public class WithdrawalsActivity extends BaseActivity {
     private int min;
     private int max;
     private String status;
+    private PwdEditText mEtPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +120,7 @@ public class WithdrawalsActivity extends BaseActivity {
         mBtnWithdrawals.setEnabled(false);
         mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
         iv_question.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -163,7 +173,25 @@ public class WithdrawalsActivity extends BaseActivity {
                 }, mContext);
     }
 
+
     private void init() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtAmt.setShowSoftInputOnFocus(false);
+        }else {
+            mEtAmt.setInputType(InputType.TYPE_NULL);
+        }
+
+//        final LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//         final View view = inflater.inflate(R.layout.activity_withdrawals, null);
+        mEtAmt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mEtAmt.setFocusable(true);
+                new KeyboardUtil(mContext, WithdrawalsActivity.this, mEtAmt,1).showKeyboard();
+                return false;
+            }
+        });
+
         mTimerHandler = new TimerHandler(60);
         //设置提款金额
         mAvailableBalance = getIntent().getStringExtra("account_balance");
@@ -247,6 +275,14 @@ public class WithdrawalsActivity extends BaseActivity {
                 }
             }
         });
+
+        if (mEtPwd!=null){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mEtPwd.setShowSoftInputOnFocus(false);
+            }else {
+                mEtPwd.setInputType(InputType.TYPE_NULL);
+            }
+        }
     }
 
     private void checkBank() {
@@ -416,8 +452,15 @@ public class WithdrawalsActivity extends BaseActivity {
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.input_sms_dialog, null);
-        PwdEditText mEtPwd = (PwdEditText) view.findViewById(R.id.et_pwd);
+        final View view = inflater.inflate(R.layout.input_sms_dialog, null);
+        mEtPwd = (PwdEditText) view.findViewById(R.id.et_pwd);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtPwd.setShowSoftInputOnFocus(false);
+        }else {
+            mEtPwd.setInputType(InputType.TYPE_NULL);
+        }
+        new KeyboardUtil(mContext, view, mEtPwd,66299).showKeyboard();
 
         TextView tvAmt = (TextView) view.findViewById(R.id.tv_amt);
         final TextView tvReGet = (TextView) view.findViewById(R.id.tv_re_get);
@@ -426,10 +469,16 @@ public class WithdrawalsActivity extends BaseActivity {
         tvAmt.setText("¥ " + formatAmt);
         ImageView tv_close= (ImageView) view.findViewById(R.id.tv_close);
 
-        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
+        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_BOTTOM);
+
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+
+//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//        params.width = this.getWindowManager().getDefaultDisplay().getWidth();
+//        params.height = this.getWindowManager().getDefaultDisplay().getHeight() ;
+//        dialog.getWindow().setAttributes(params);
 
         tvReGet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,6 +507,13 @@ public class WithdrawalsActivity extends BaseActivity {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                mEtAmt.setFocusable(false);
+//                try {
+//                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(mEtAmt.getWindowToken(), 0);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 mTimerHandler.stopTask();
             }
         });
@@ -476,12 +532,14 @@ public class WithdrawalsActivity extends BaseActivity {
             @Override
             public void timing(int second) {
                 textView.setEnabled(false);
-                textView.setText("重新获取（" + second + "s）");
+                textView.setText( second + "s");
+                textView.setTextColor(getResources().getColor(R.color.text_hint_color));
             }
 
             @Override
             public void finishTimer() {
                 textView.setText("重新获取");
+                textView.setTextColor(getResources().getColor(R.color.btn_main));
                 textView.setEnabled(true);
             }
         };

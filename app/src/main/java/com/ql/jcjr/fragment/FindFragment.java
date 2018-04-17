@@ -12,6 +12,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
+import com.ql.jcjr.activity.ContactUsActivity;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.entity.FindEntity;
@@ -25,6 +26,7 @@ import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.UrlUtil;
+import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.PullToRefreshView;
 
@@ -61,6 +63,9 @@ public class FindFragment extends BaseFragment implements PullToRefreshView.OnHe
     @ViewInject(R.id.tv_3)
     private TextView tv_3;
 
+    @ViewInject(R.id.ab_header)
+    private ActionBar mHeader;
+
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
@@ -90,6 +95,7 @@ public class FindFragment extends BaseFragment implements PullToRefreshView.OnHe
         mPullRefresh.setOnHeaderRefreshListener(this);
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
+        mHeader.setRightText("帮助中心");
     }
 
     @Override
@@ -200,7 +206,7 @@ public class FindFragment extends BaseFragment implements PullToRefreshView.OnHe
     }
 
 
-    @OnClick({R.id.iv_find_1,R.id.iv_find_2,R.id.iv_find_3,R.id.tv_get_more,R.id.ll_ptjs, R.id.ll_yqyl,R.id.ll_dhzx,R.id.ll_mrqd})
+    @OnClick({R.id.iv_find_1,R.id.iv_find_2,R.id.iv_find_3,R.id.tv_get_more,R.id.ll_ptjs, R.id.ll_yqyl,R.id.ll_dhzx,R.id.ll_mrqd,R.id.btn_right})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -241,6 +247,10 @@ public class FindFragment extends BaseFragment implements PullToRefreshView.OnHe
 
                 UrlUtil.showHtmlPage(mContext,tv_3.getText().toString(), url3,true);
 
+                break;
+            case R.id.btn_right:
+                intent.setClass(mContext, ContactUsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -173,9 +173,45 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bid_operate_bar_h"
         android:textColor="@color/white"
-        android:textSize="@dimen/size_l"
+        android:textSize="@dimen/size_xl"
         android:background="@color/btn_main"
         android:gravity="center"
-        android:text="立即投资" />
+        android:text="授权出借" />
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_jianpan"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<LinearLayout-->
+            <!--android:gravity="center"-->
+            <!--android:background="@color/c_page_bg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dimen_78px">-->
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/dimen_28px"-->
+                <!--android:layout_height="@dimen/dimen_30px"-->
+                <!--android:src="@drawable/icon_yhck_sy"/>-->
+            <!--<TextView-->
+                <!--android:layout_marginLeft="@dimen/dimen_15px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="积财金融安全键盘"/>-->
+        <!--</LinearLayout>-->
+        <!--<android.inputmethodservice.KeyboardView-->
+            <!--android:id="@+id/keyboard_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/gray"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:keyBackground="@color/c_fffff"-->
+            <!--android:keyTextColor="@color/colorPrimaryDark"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
+    <include
+        android:visibility="gone"
+        android:id="@+id/ll_jianpan"
+        layout="@layout/layout_jianpan"/>
+    
 
 </LinearLayout>

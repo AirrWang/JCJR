@@ -128,8 +128,14 @@ public class WebViewActivity extends BaseActivity {
                         break;
 
                     case INTERFACE_REQUEST_LOGIN:
-                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivityForResult(intent, RESULT_CODE_LOGIN);
+                        if (UserData.getInstance().getPhoneNumber().equals("")) {
+                            Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                            startActivityForResult(intent, RESULT_CODE_LOGIN);
+                        }else {
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                            startActivityForResult(intent, RESULT_CODE_LOGIN);
+                        }
                         break;
 
                     case INTERFACE_UPDATE_TITLE:

@@ -2,14 +2,19 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.freeme.swipemenu.SwipeMenu;
@@ -36,6 +41,7 @@ import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
@@ -54,12 +60,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class BindBankCardActivity extends BaseActivity {
+public class BindBankCardActivity extends BaseActivity implements View.OnTouchListener {
 
     @ViewInject(R.id.ab_header)
     private ActionBar mActionBar;
     @ViewInject(R.id.ll_first)
-    private LinearLayout mLlFirst;
+    private ScrollView mLlFirst;
     @ViewInject(R.id.tv_real_name)
     private TextView mTvRealName;
     @ViewInject(R.id.et_card_num)
@@ -121,6 +127,18 @@ public class BindBankCardActivity extends BaseActivity {
         iv_question.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtCardNum.setShowSoftInputOnFocus(false);
+            mEtTel.setShowSoftInputOnFocus(false);
+        }else {
+            mEtCardNum.setInputType(InputType.TYPE_NULL);
+            mEtTel.setInputType(InputType.TYPE_NULL);
+        }
+    }
+
     private void init() {
         mLlFirst.setVisibility(View.GONE);
         mLvBankCard.setVisibility(View.GONE);
@@ -148,6 +166,20 @@ public class BindBankCardActivity extends BaseActivity {
 
         Map<String, String> datas = new HashMap<String, String>();
         MobclickAgent.onEventValue(this, "bind_card", datas, 3);
+
+
+        mEtCardNum.setOnTouchListener(this);
+        mEtTel.setOnTouchListener(this);
+        mEtBranch.setOnTouchListener(this);
+    }
+
+    private void hideKeybord(EditText editText) {
+        try {
+            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initListView() {
@@ -577,5 +609,26 @@ public class BindBankCardActivity extends BaseActivity {
                 mTvBankName.setText(mBankName);
             }
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()){
+            case R.id.et_card_num:
+                hideKeybord(mEtBranch);
+                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtCardNum,0).showKeyboard();
+//                mLlFirst.fullScroll(ScrollView.FOCUS_DOWN);
+                break;
+            case R.id.et_tel:
+                hideKeybord(mEtBranch);
+                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtTel,0).showKeyboard();
+//                mLlFirst.fullScroll(ScrollView.FOCUS_DOWN);
+                break;
+            case R.id.et_bank_branch:
+                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtCardNum,0).hideKeyboard();
+                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtTel,0).hideKeyboard();
+                break;
+        }
+        return false;
     }
 }

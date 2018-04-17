@@ -32,7 +32,7 @@
             android:gravity="center"
             style="@style/text_32_fefefe"
             android:background="@color/btn_main"
-            android:text="立即投标"/>
+            android:text="授权出借"/>
 
     </LinearLayout>
 

@@ -111,9 +111,9 @@ public class MainActivity extends BaseActivity
         //锁屏展示
         isShowGestureDialog();
         //权限判断
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            insertDummyContactWrapper();
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            insertDummyContactWrapper();
+//        }
         //处理推送过来的信息
         dealPush(getIntent());
     }
@@ -164,8 +164,14 @@ public class MainActivity extends BaseActivity
                 UserData.getInstance().setIsOpenGesture(false);
                 UserData.getInstance().setGestureCipher("");
                 UserData.getInstance().setFingerPrint(false);
-                Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                startActivity(intent);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
                 if (dialogFinger != null) {
                     dialogFinger.dismiss();
                 }
@@ -350,8 +356,14 @@ public class MainActivity extends BaseActivity
                 UserData.getInstance().setIsOpenGesture(false);
                 UserData.getInstance().setGestureCipher("");
                 UserData.getInstance().setFingerPrint(false);
-                Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                startActivity(intent);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
             }
         });
         mLlCall.setOnClickListener(new View.OnClickListener() {
@@ -415,8 +427,14 @@ public class MainActivity extends BaseActivity
                             UserData.getInstance().setIsOpenGesture(false);
                             UserData.getInstance().setFingerPrint(false);
                             UserData.getInstance().setGestureCipher("");
-                            Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                            startActivity(intent);
+                            if (UserData.getInstance().getPhoneNumber().equals("")) {
+                                Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                                startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                                startActivity(intent);
+                            }
                         }
                     }
 
@@ -443,8 +461,14 @@ public class MainActivity extends BaseActivity
                 UserData.getInstance().setIsOpenGesture(false);
                 UserData.getInstance().setGestureCipher("");
                 UserData.getInstance().setFingerPrint(false);
-                Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                startActivity(intent);
+                if (UserData.getInstance().getPhoneNumber().equals("")) {
+                    Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                    startActivity(intent);
+                }
             }
         });
         mTvCallFinger.setOnClickListener(new View.OnClickListener() {

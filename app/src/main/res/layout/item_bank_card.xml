@@ -17,7 +17,7 @@
             android:layout_height="@dimen/dimen_98px"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_bank_logo"/>
+            />
 
     </RelativeLayout>
 
@@ -34,7 +34,7 @@
             android:layout_marginTop="@dimen/dimen_8px"
             android:textColor="@color/font_black"
             android:textSize="@dimen/size_m"
-            android:text="工商银行"/>
+            />
 
         <TextView
             android:id="@+id/tv_bank_info"

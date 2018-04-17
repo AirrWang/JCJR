@@ -1,20 +1,21 @@
 package com.ql.jcjr.activity;
 
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +40,7 @@ import com.ql.jcjr.timer.TimerHandler;
 import com.ql.jcjr.utils.AppConfigCommon;
 import com.ql.jcjr.utils.FileUtil;
 import com.ql.jcjr.utils.JsonUtils;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.NetworkUtil;
 import com.ql.jcjr.utils.StringUtils;
@@ -117,6 +119,9 @@ public class RegisterActivity extends BaseActivity {
                 case HANDLER_REG_SUCCESS:
                     startActivity(new Intent().setClass(RegisterActivity.this,RegisterFinishActivity.class));
                     RegisterActivity.this.finish();
+                    if (LoginActivityCheck.instance!=null){
+                        LoginActivityCheck.instance.finish();
+                    }
 //                    if(mFlag.equals(Global.FLAG_REGISTER)){
 //                        RegisterActivity.this.finish();
 //                    }
@@ -168,46 +173,75 @@ public class RegisterActivity extends BaseActivity {
 
         getGetVerifyCode(mPhoneNum, mRequestCodeUrl);
     }
-    private void scrollToPos(int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.setDuration(250);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-        animator.start();
-    }
+//    private void scrollToPos(int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.setDuration(250);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                rl_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+//            }
+//        });
+//        animator.start();
+//    }
     private void init() {
-        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtSmsCode.getCancelEditText().setShowSoftInputOnFocus(false);
 
-            private int[] sc;
-            private int scrollHegit;
+        }else {
+            mEtSmsCode.getCancelEditText().setInputType(InputType.TYPE_NULL);
 
+        }
+        mEtSmsCode.getCancelEditText().setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                rl_container.getWindowVisibleDisplayFrame(r);
-                if (sc == null) {
-                    sc = new int[2];
-                    ll_container.getLocationOnScreen(sc);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                try {
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mEtLoginPsw.getCancelEditText().getWindowToken(), 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                //r.top 是状态栏高度
-                int screenHeight = rl_container.getRootView().getHeight();
-                int softHeight = screenHeight - r.bottom;
+                new KeyboardUtil(mContext, RegisterActivity.this, mEtSmsCode.getCancelEditText(),0).showKeyboard();
 
-
-                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
-                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
-                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
-                        scrollToPos(0, scrollHegit);
-                } else {//否则判断为输入法隐藏了
-                    if (rl_container.getScrollY() != 0)
-                        scrollToPos(scrollHegit, 0);
-                }
+                return false;
             }
         });
+        mEtLoginPsw.getCancelEditText().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                new KeyboardUtil(mContext, RegisterActivity.this, mEtSmsCode.getCancelEditText(),0).hideKeyboard();
+                return false;
+            }
+        });
+
+//        rl_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//
+//            private int[] sc;
+//            private int scrollHegit;
+//
+//            @Override
+//            public void onGlobalLayout() {
+//                Rect r = new Rect();
+//                rl_container.getWindowVisibleDisplayFrame(r);
+//                if (sc == null) {
+//                    sc = new int[2];
+//                    ll_container.getLocationOnScreen(sc);
+//                }
+//                //r.top 是状态栏高度
+//                int screenHeight = rl_container.getRootView().getHeight();
+//                int softHeight = screenHeight - r.bottom;
+//
+//
+//                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+//                    scrollHegit = sc[1] +ll_container.getHeight() -(screenHeight-softHeight);//可以加个5dp的距离这样，按钮不会挨着输入法
+//                    if (rl_container.getScrollY() != scrollHegit&&scrollHegit>0)
+//                        scrollToPos(0, scrollHegit);
+//                } else {//否则判断为输入法隐藏了
+//                    if (rl_container.getScrollY() != 0)
+//                        scrollToPos(scrollHegit, 0);
+//                }
+//            }
+//        });
 
         time = String.valueOf(System.currentTimeMillis());
         mPhoneNum = getIntent().getStringExtra("phone_num");
@@ -472,7 +506,7 @@ public class RegisterActivity extends BaseActivity {
         return "";
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_register, R.id.ll_register_checkbox, R.id.tv_register_agreement})
+    @OnClick({R.id.btn_left, R.id.btn_register, R.id.ll_register_checkbox, R.id.tv_register_agreement,R.id.ll_jianpan_top})
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_left:
@@ -508,7 +542,10 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.tv_register_agreement:
                 //打开用户协议
-                UrlUtil.showHtmlPage(mContext,"注册协议", RequestURL.REGISTE_URL);
+                UrlUtil.showHtmlPage(mContext,"注册协议", RequestURL.REGISTE_URL,true);
+            case R.id.ll_jianpan_top:
+
+                break;
         }
     }
 }

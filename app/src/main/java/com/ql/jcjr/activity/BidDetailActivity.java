@@ -2,15 +2,19 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BidDetailEntity;
 import com.ql.jcjr.entity.MineFragmentEntity;
+import com.ql.jcjr.entity.RiskWarningEntity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
@@ -32,6 +37,7 @@ import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.DisplayUnitUtils;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
@@ -122,6 +128,41 @@ public class BidDetailActivity extends BaseActivity {
         getIntentData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!UserData.getInstance().getRiskWarning()){
+            getRiskWarning();
+        }
+    }
+    private void getRiskWarning() {
+        SenderResultModel resultModel = ParamsManager.getRisk();
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("风险测评 " + responeJson);
+                        RiskWarningEntity entity = GsonParser.getParsedObj(responeJson, RiskWarningEntity.class);
+                        RiskWarningEntity.ResultBean resultBean = entity.getResult();
+                        if(StringUtils.isBlank(resultBean.getType())||resultBean.getType()==null){
+                            //未测评
+                            UserData.getInstance().setRiskWarning(false);
+                        }else {
+                            //已测评
+                            UserData.getInstance().setRiskWarning(true);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("风险测评 " + entity.errorInfo);
+                    }
+
+                }, mContext);
+
+    }
     private void getIntentData() {
         mBidId = getIntent().getStringExtra("bid_id");
         bidName = getIntent().getStringExtra("bid_title");
@@ -245,7 +286,12 @@ public class BidDetailActivity extends BaseActivity {
         final TextView tvExpectedReturn = (TextView) view.findViewById(R.id.tv_expected_return);
 
         tvApr.setText("年化 " + resultBean.getApr() + "%");
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            etAmt.setShowSoftInputOnFocus(false);
+        }else {
+            etAmt.setInputType(InputType.TYPE_NULL);
+        }
+        new KeyboardUtil(mContext, view, etAmt,66299).showKeyboard();
         //投资期限
         switch (resultBean.getIsday()) {
             case "0":
@@ -256,7 +302,7 @@ public class BidDetailActivity extends BaseActivity {
                 break;
         }
 
-        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
+        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_BOTTOM);
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -357,14 +403,16 @@ public class BidDetailActivity extends BaseActivity {
     /**
      * 输入密码框
      */
+
     private void showBidPwdDialog() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.bid_pwd_dialog, null);
+        final View view = inflater.inflate(R.layout.bid_pwd_dialog, null);
         ViewUtils.inject(this, view);
 
         ImageView ivClose = (ImageView) view.findViewById(R.id.iv_close);
         Button btnBid = (Button) view.findViewById(R.id.btn_bid_pwd_confirm);
         final InputAmountEditText etBIdAmt = (InputAmountEditText) view.findViewById(R.id.et_bid_pwd);
+
 
         final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_BOTTOM);
         dialog.setContentView(view);
@@ -397,7 +445,7 @@ public class BidDetailActivity extends BaseActivity {
 
             @Override
             public void run() {
-                imm.showSoftInput(etBIdAmt,InputMethodManager.SHOW_IMPLICIT);
+                imm.showSoftInput(etBIdAmt, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 200);
     }
@@ -408,7 +456,7 @@ public class BidDetailActivity extends BaseActivity {
     private void showBidDialog(final String balance) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.bid_dialog, null);
+        final View view = inflater.inflate(R.layout.bid_dialog, null);
 
         ViewUtils.inject(this, view);
 
@@ -423,10 +471,25 @@ public class BidDetailActivity extends BaseActivity {
                 (InputAmountEditText) view.findViewById(R.id.et_bid_amt);
         final TextView tvExpectedReturn = (TextView) view.findViewById(R.id.tv_expected_return);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            etBIdAmt.setShowSoftInputOnFocus(false);
+        }else {
+            etBIdAmt.setInputType(InputType.TYPE_NULL);
+        }
+        
+        etBIdAmt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                new KeyboardUtil(mContext, view, etBIdAmt,0).showKeyboard();
+                return false;
+            }
+        });
+
         final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_BOTTOM);
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+        new KeyboardUtil(mContext, view, etBIdAmt,0).showKeyboard();
 
         tvBidApr.setText(resultBean.getApr()+"%");
         tvBalance.setText(balance + "元");
@@ -497,13 +560,13 @@ public class BidDetailActivity extends BaseActivity {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                imm.showSoftInput(etBIdAmt,InputMethodManager.SHOW_IMPLICIT);
-            }
-        }, 200);
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                imm.showSoftInput(etBIdAmt,InputMethodManager.SHOW_IMPLICIT);
+//            }
+//        }, 200);
     }
 
     private void gotoBidConfirm(String money, String earn){
@@ -601,16 +664,30 @@ public class BidDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_bid:
                 //立即投标
-                if(UserData.getInstance().isLogin()) {
-                    if(resultBean.getPwd().equals("1")){
-                        showBidPwdDialog();
+                if(UserData.getInstance().isLogin()) {  //先判断登陆  再实名  最后测评
+                    if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
+                        if (UserData.getInstance().getRiskWarning()) {
+                            if (resultBean.getPwd().equals("1")) {
+                                showBidPwdDialog();
+                            } else {
+                                getAccountInfo();
+                            }
+                        }else {
+                            showToTestDialog();
+                        }
+                    } else {
+                        CommonToast.showShiMingDialog(mContext);
                     }
-                    else{
-                        getAccountInfo();
-                    }
+
                 }else {
-                    Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
                 }
                 break;
 
@@ -639,5 +716,34 @@ public class BidDetailActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    private void showToTestDialog() {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.bid_totest_dialog, null);
+        ViewUtils.inject(this, view);
+
+        Button btnBid = (Button) view.findViewById(R.id.btn_bid_to_test);
+        LinearLayout ll_close= (LinearLayout) view.findViewById(R.id.ll_close);
+
+
+        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        ll_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UrlUtil.showHtmlPage(mContext,"风险测评", RequestURL.RISKTEST_URL,true);
+                dialog.dismiss();
+            }
+        });
     }
 }

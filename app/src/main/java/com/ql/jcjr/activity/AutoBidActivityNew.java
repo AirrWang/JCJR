@@ -1,10 +1,13 @@
 package com.ql.jcjr.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -27,6 +30,7 @@ import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
+import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.ToastUtil;
@@ -40,7 +44,7 @@ import java.math.BigDecimal;
 
 
 public class AutoBidActivityNew extends BaseActivity implements
-        CompoundButton.OnCheckedChangeListener, TextWatcher{
+        CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnTouchListener {
 
     @ViewInject(R.id.ab_header)
     private ActionBar mActionBar;
@@ -106,6 +110,19 @@ public class AutoBidActivityNew extends BaseActivity implements
         mEtDayStart.addTextChangedListener(this);
         mEtDayEnd.addTextChangedListener(this);
         getAutoBid();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mEtBidAmt.setShowSoftInputOnFocus(false);
+            mEtDayStart.setShowSoftInputOnFocus(false);
+            mEtDayEnd.setShowSoftInputOnFocus(false);
+        }else {
+            mEtBidAmt.setInputType(InputType.TYPE_NULL);
+            mEtDayStart.setInputType(InputType.TYPE_NULL);
+            mEtDayEnd.setInputType(InputType.TYPE_NULL);
+        }
+        mEtBidAmt.setOnTouchListener(this);
+        mEtDayStart.setOnTouchListener(this);
+        mEtDayEnd.setOnTouchListener(this);
     }
 
     private void getAutoBid() {
@@ -218,9 +235,11 @@ public class AutoBidActivityNew extends BaseActivity implements
 
             @Override
             public void onSuccess(String responeJson) {
+                new KeyboardUtil(mContext, AutoBidActivityNew.this, mEtBidAmt,0).hideKeyboard();
                 LogUtil.i("设置自动投标 " + responeJson);
                 ToastUtil.showToast(mContext, "自动投标设置成功！");
                 getAutoBid();
+
             }
 
             @Override
@@ -242,6 +261,7 @@ public class AutoBidActivityNew extends BaseActivity implements
 
             @Override
             public void onSuccess(String responeJson) {
+                new KeyboardUtil(mContext, AutoBidActivityNew.this, mEtBidAmt,0).hideKeyboard();
                 LogUtil.i("取消自动投标 " + responeJson);
 
                 mTenderId = null;
@@ -416,5 +436,22 @@ public class AutoBidActivityNew extends BaseActivity implements
         if(text.indexOf(".")!=-1){
             s.delete(s.length()-1, s.length());
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()){
+            case R.id.et_bid_amt:
+                new KeyboardUtil(mContext, AutoBidActivityNew.this, mEtBidAmt,0).showKeyboard();
+                break;
+            case R.id.et_day_start:
+                new KeyboardUtil(mContext, AutoBidActivityNew.this, mEtDayStart,0).showKeyboard();
+                break;
+            case R.id.et_day_end:
+                new KeyboardUtil(mContext, AutoBidActivityNew.this, mEtDayEnd,0).showKeyboard();
+                break;
+        }
+
+        return false;
     }
 }

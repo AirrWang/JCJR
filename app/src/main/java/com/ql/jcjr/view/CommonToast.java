@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ql.jcjr.R;
+import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.RealNameActivity;
 import com.ql.jcjr.application.JcbApplication;
@@ -100,8 +101,14 @@ public class CommonToast extends Toast {
                             UserData.getInstance().setUSERID("");
                             UserData.getInstance().setFingerPrint(false);
                             UserData.getInstance().setIsOpenGesture(false);
-                            Intent intent = new Intent(context,  LoginActivityCheck.class);
-                            context.startActivity(intent);
+                            if (UserData.getInstance().getPhoneNumber().equals("")) {
+                                Intent intent = new Intent(context, LoginActivityCheck.class);
+                                context.startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                                context.startActivity(intent);
+                            }
                         }
                     });
 

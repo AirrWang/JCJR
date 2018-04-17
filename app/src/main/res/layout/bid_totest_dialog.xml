@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="271dp"
+    android:layout_height="299dp"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp"
+        android:orientation="vertical"
+        android:gravity="bottom|center_horizontal"
+        android:background="@drawable/bg_popup_zdtb"
+        android:layout_width="271dp"
+        android:layout_height="213dp">
+        <TextView
+            android:layout_marginBottom="@dimen/dimen_70px"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dimen_48px"
+            android:layout_marginRight="@dimen/dimen_48px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/font_black_grey"
+            android:text="根据监管需要，您需要先完成风险测评，完成后将获得100积财币"/>
+        <Button
+            android:layout_marginBottom="@dimen/dimen_62px"
+            android:id="@+id/btn_bid_to_test"
+            android:layout_width="@dimen/dimen_300px"
+            android:layout_height="@dimen/dimen_64px"
+            android:background="@drawable/login_button_selector"
+            android:textSize="@dimen/size_l"
+            android:gravity="center"
+            android:textColor="@color/c_fffff"
+            android:text="开始测评" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_11"
+        android:layout_marginTop="@dimen/dimen_54px"
+        android:layout_centerHorizontal="true"
+        android:layout_width="148dp"
+        android:layout_height="117dp"
+        android:src="@drawable/mod_tzlb"/>
+    <LinearLayout
+        android:layout_toRightOf="@+id/iv_11"
+        android:layout_marginLeft="@dimen/dimen_58px"
+        android:id="@+id/ll_close"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/dimen_54px"
+            android:layout_height="@dimen/dimen_54px"
+            android:src="@drawable/delete_mftx"/>
+        <View
+            android:layout_width="@dimen/dimen_2px"
+            android:layout_height="@dimen/dimen_120px"
+            android:background="@color/c_fffff"/>
+    </LinearLayout>
+</RelativeLayout>
