@@ -212,6 +212,7 @@
         layout="@layout/layout_jianpan"/>
 
     <com.freeme.swipemenu.SwipeMenuListView
+        android:layout_below="@+id/ab_header"
         android:id="@+id/lv_bank_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

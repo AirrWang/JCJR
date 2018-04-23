@@ -186,8 +186,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
         sv_me.fullScroll(ScrollView.FOCUS_UP);
         if (UserData.getInstance().isLogin()) {
 //            mLlMeLogin.setVisibility(View.GONE);
-//            rl_nologin.setVisibility(View.GONE);
-           rl_nologin_2.setVisibility(View.GONE);
+            rl_nologin.setVisibility(View.GONE);
+//           rl_nologin_2.setVisibility(View.GONE);
 
             mTvPhoneNum.setVisibility(View.VISIBLE);
 
@@ -202,8 +202,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
         } else {
 
-//            rl_nologin.setVisibility(View.VISIBLE);
-            rl_nologin_2.setVisibility(View.VISIBLE);
+            rl_nologin.setVisibility(View.VISIBLE);
+//            rl_nologin_2.setVisibility(View.VISIBLE);
 
             mTvTotalNum.setText("- -");
             mTvBalance.setText("——");

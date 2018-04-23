@@ -50,7 +50,6 @@
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/keyboard_key"
         android:keyTextColor="@color/colorPrimaryDark"
-
         />
 
 </LinearLayout>

@@ -167,14 +167,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 //            getNoviceExclusive();
             getZiXun();
             getData();
-            if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
-                getRiskWarning();
-            }
+
         }
     }
-
-
-
 
     private void getRiskWarning() {
         SenderResultModel resultModel = ParamsManager.getRisk();
@@ -253,6 +248,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
             @Override
             public void onSuccess(String responeJson) {
+                if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
+                    getRiskWarning();
+                }
+
                 mIvTitle.setImageResource(R.drawable.icon_xszx_sy);
                 LogUtil.i("首页数据获取成功 " + responeJson);
                 mPullRefresh.onHeaderRefreshFinish();
@@ -514,9 +513,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         initMarqueeView();
         getZiXun();
         getData();
-        if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
-            getRiskWarning();
-        }
+
         if (mIndicatorView == null)
             return;
         mIndicatorView.startAutoPlay();
@@ -626,9 +623,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 //        getNoviceExclusive();
         getZiXun();
         getData();
-        if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
-            getRiskWarning();
-        }
+
     }
 
     @Override

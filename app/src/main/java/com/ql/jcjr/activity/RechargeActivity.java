@@ -193,10 +193,10 @@ public class RechargeActivity extends BaseActivity {
                                     return;
                                 }
                                 String getTip = "单笔限额："+max+"元，";
-                                SpannableString ss = StringUtils.getSpannableString(getTip, colorId, 5, max.length());
+                                SpannableString ss = StringUtils.getSpannableString(getTip, colorId, 5, getTip.length());
 
                                 String tip = "每日限额："+oneDay+"元";
-                                SpannableString sss = StringUtils.getSpannableString(tip, colorId, 5, oneDay.length());
+                                SpannableString sss = StringUtils.getSpannableString(tip, colorId, 5, tip.length());
 
                                 mTvQuota.setText(ss+""+sss);
                                 break;

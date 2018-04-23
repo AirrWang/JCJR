@@ -250,10 +250,10 @@ public class LoginActivity extends BaseActivity{
                 String device_token=JcbApplication.getInstance().getPushAgent().getRegistrationId();
                 //登录后上传设备信息
                 getAppInfo();
-                finish();
                 if (LoginActivityCheck.instance!=null){
                     LoginActivityCheck.instance.finish();
                 }
+                finish();
             }
 
             @Override
@@ -287,7 +287,7 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onFailure(ResponseEntity entity) {
                 LogUtil.i("获取apk信息失败 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                CommonToast.showHintDialog(mContext, entity.errorInfo);
             }
 
         }, this);

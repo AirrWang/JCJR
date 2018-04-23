@@ -183,6 +183,7 @@ public class LoginActivityCheck extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        instance=null;
     }
 
     @OnClick({R.id.iv_close, R.id.btn_login, R.id.btn_register, R.id.tv_forget_password, R.id.iv_show_psw})

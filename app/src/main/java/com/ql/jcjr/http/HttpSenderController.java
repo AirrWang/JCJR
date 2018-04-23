@@ -124,7 +124,6 @@ public class HttpSenderController {
             public void onSuccess(ResponseInfo<Object> responseInfo) {
 
 //                String decryptData = RSAEncrypt.decryptData(responseInfo.result.toString());
-
                 ResponseEntity entity = new ResponseEntity();
                 entity.isError = false;
                 entity.url = resultModel.requestEntity.url;
@@ -157,7 +156,7 @@ public class HttpSenderController {
      * @param url
      */
     public void cancelHttpRequest(String url) {
-        this.hideLoading();
+            this.hideLoading();
         if (tasks.contains(url)) {
             tasks.remove(tasks.get(url));
         }
@@ -226,9 +225,9 @@ public class HttpSenderController {
 
         cancelHttpRequest(entity.url);
 
-//        if (loadingDialog != null && loadingDialog.isShowing()) {
-//            this.hideLoading();
-//        }
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            this.hideLoading();
+        }
         if (!entity.isError) {
 
             try {
