@@ -57,6 +57,7 @@ public class LoginActivity extends BaseActivity{
 
     static StringBuffer validateErrorMsg;
     private final String PSW_FILE_NAME = "wjthnfkghj";
+//    private CommonLoadingDialog loadingDialog;
     String phoneNumber;
     String password;
     private Context mContext;
@@ -68,6 +69,7 @@ public class LoginActivity extends BaseActivity{
         setContentView(R.layout.activity_login);
         ViewUtils.inject(this);
         mContext = this;
+//        loadingDialog = new CommonLoadingDialog(mContext);
         init();
     }
 
@@ -219,6 +221,7 @@ public class LoginActivity extends BaseActivity{
     }
 
     private void login(final String phone, String psw) {
+//        loadingDialog.show();
         SenderResultModel resultModel = ParamsManager.senderLogin(phone, psw);
 
         HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
@@ -250,16 +253,22 @@ public class LoginActivity extends BaseActivity{
                 String device_token=JcbApplication.getInstance().getPushAgent().getRegistrationId();
                 //登录后上传设备信息
                 getAppInfo();
-                if (LoginActivityCheck.instance!=null){
-                    LoginActivityCheck.instance.finish();
-                }
-                finish();
+//                if (LoginActivityCheck.instance!=null){
+//                    LoginActivityCheck.instance.finish();
+//                }
+//                if (loadingDialog != null && loadingDialog.isShowing()) {
+//                    loadingDialog.dismiss();
+//                }
+
             }
 
             @Override
             public void onFailure(ResponseEntity entity) {
                 LogUtil.i("登录失败 " + entity.errorInfo);
                 CommonToast.showHintDialog(mContext, entity.errorInfo);
+//                if (loadingDialog != null && loadingDialog.isShowing()) {
+//                    loadingDialog.dismiss();
+//                }
             }
 
         }, this);
@@ -282,6 +291,7 @@ public class LoginActivity extends BaseActivity{
                     CommonUtils.shareContent = entity.getResult().getShare_content();
                     //判断新版本
                 }
+                finish();
             }
 
             @Override
