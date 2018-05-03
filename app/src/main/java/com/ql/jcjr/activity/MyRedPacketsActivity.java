@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,9 @@ public class MyRedPacketsActivity extends BaseActivity implements ViewTreeObserv
     @ViewInject(R.id.ll_hb_title)
     private FrameLayout mLLHbTitle;
 
+    @ViewInject(R.id.btn_to_bid)
+    private Button btn_to_bid;
+
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
@@ -68,10 +72,12 @@ public class MyRedPacketsActivity extends BaseActivity implements ViewTreeObserv
 
     private void init() {
         hbUseType = getIntent().getIntExtra("use_type",0);
+        btn_to_bid.setVisibility(View.VISIBLE);
         if(hbUseType == MyRedPacketFragment.TYPE_USE_HB){
             borrowid = getIntent().getStringExtra("borrowid");
             money = getIntent().getStringExtra("money");
             myRedPacketClickListener = new MyRedPacketClickListener();
+            btn_to_bid.setVisibility(View.GONE);
         }
         initViewPager();
         ViewTreeObserver viewTreeObserver = mLLHbTitle.getViewTreeObserver();

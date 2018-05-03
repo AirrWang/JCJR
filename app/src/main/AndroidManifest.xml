@@ -336,6 +336,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.AppConditionActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NoviceExclusiveConfirmActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

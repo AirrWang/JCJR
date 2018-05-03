@@ -1,15 +1,19 @@
 package com.ql.jcjr.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,7 +64,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class BindBankCardActivity extends BaseActivity implements View.OnTouchListener {
+public class BindBankCardActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     @ViewInject(R.id.ab_header)
     private ActionBar mActionBar;
@@ -90,6 +94,12 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private SwipeMenuListView mLvBankCard;
     @ViewInject(R.id.iv_question)
     private ImageView iv_question;
+    @ViewInject(R.id.ll_container)
+    private LinearLayout ll_container;
+    @ViewInject(R.id.btn_bind)
+    private Button btn_bind;
+    @ViewInject(R.id.ll_jianpan)
+    private View ll_jianpan;
 
     private Context mContext;
     private String mRealName;
@@ -140,6 +150,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     }
 
     private void init() {
+        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(this);
         mLlFirst.setVisibility(View.GONE);
         mLvBankCard.setVisibility(View.GONE);
 
@@ -610,25 +621,73 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
             }
         }
     }
-
+    private Boolean isScorll=false;
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (view.getId()){
             case R.id.et_card_num:
+                isScorll=false;
                 hideKeybord(mEtBranch);
                 new KeyboardUtil(mContext, BindBankCardActivity.this, mEtCardNum,0).showKeyboard();
 //                mLlFirst.fullScroll(ScrollView.FOCUS_DOWN);
                 break;
             case R.id.et_tel:
                 hideKeybord(mEtBranch);
+                isScorll=true;
                 new KeyboardUtil(mContext, BindBankCardActivity.this, mEtTel,0).showKeyboard();
 //                mLlFirst.fullScroll(ScrollView.FOCUS_DOWN);
                 break;
             case R.id.et_bank_branch:
+                isScorll=true;
                 new KeyboardUtil(mContext, BindBankCardActivity.this, mEtCardNum,0).hideKeyboard();
-                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtTel,0).hideKeyboard();
+//                new KeyboardUtil(mContext, BindBankCardActivity.this, mEtTel,0).hideKeyboard();
                 break;
         }
         return false;
+    }
+
+
+    private int[] sc;
+    private int scrollHegit;
+    @Override
+    public void onGlobalLayout() {
+
+        if (!isScorll){
+            return;
+        }
+                Rect r = new Rect();
+                ll_container.getWindowVisibleDisplayFrame(r);
+                if (sc == null) {
+                    sc = new int[2];
+                    btn_bind.getLocationOnScreen(sc);
+                }
+                //r.top 是状态栏高度
+                int screenHeight = ll_container.getRootView().getHeight();
+                int softHeight = screenHeight - r.bottom;
+
+                if (ll_jianpan.getVisibility()==View.VISIBLE){
+                    softHeight=ll_jianpan.getHeight()+softHeight;
+                }
+
+                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+                    scrollHegit = sc[1] +btn_bind.getHeight() -(screenHeight-softHeight)+10;//可以加个5dp的距离这样，按钮不会挨着输入法
+                    if (ll_container.getScrollY() != scrollHegit&&scrollHegit>0)
+                        scrollToPos(0, scrollHegit);
+                } else {//否则判断为输入法隐藏了
+                    if (ll_container.getScrollY() != 0)
+                        scrollToPos(scrollHegit, 0);
+                }
+    }
+
+        private void scrollToPos(int start, int end) {
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.setDuration(250);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                ll_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
     }
 }

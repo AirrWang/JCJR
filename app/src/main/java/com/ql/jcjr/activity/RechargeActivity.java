@@ -86,14 +86,16 @@ public class RechargeActivity extends BaseActivity {
         mContext = this;
         mBtnRecharge.setEnabled(false);
 
-        checkBank();
+
+    }
+
+    private void init() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mEtAmt.setShowSoftInputOnFocus(false);
         }else {
             mEtAmt.setInputType(InputType.TYPE_NULL);
         }
-
         mEtAmt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -101,6 +103,11 @@ public class RechargeActivity extends BaseActivity {
                 return false;
             }
         });
+
+        checkBank();
+
+
+
         mBtnRecharge.setBackgroundResource(R.drawable.btn_pressed_enable);
         mEtAmt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,6 +160,12 @@ public class RechargeActivity extends BaseActivity {
             }
         });
         iv_question.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
     }
 
     private void checkBank() {

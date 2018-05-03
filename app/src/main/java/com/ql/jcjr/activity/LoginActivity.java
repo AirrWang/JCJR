@@ -253,9 +253,7 @@ public class LoginActivity extends BaseActivity{
                 String device_token=JcbApplication.getInstance().getPushAgent().getRegistrationId();
                 //登录后上传设备信息
                 getAppInfo();
-//                if (LoginActivityCheck.instance!=null){
-//                    LoginActivityCheck.instance.finish();
-//                }
+
 //                if (loadingDialog != null && loadingDialog.isShowing()) {
 //                    loadingDialog.dismiss();
 //                }
@@ -290,15 +288,24 @@ public class LoginActivity extends BaseActivity{
                     CommonUtils.shareTitle = entity.getResult().getShare_title();
                     CommonUtils.shareContent = entity.getResult().getShare_content();
                     //判断新版本
+                    if (LoginActivityCheck.instance!=null){
+                        LoginActivityCheck.instance.finish();
+                    }
+                    finish();
                 }
-                finish();
+
             }
 
             @Override
             public void onFailure(ResponseEntity entity) {
                 LogUtil.i("获取apk信息失败 " + entity.errorInfo);
+                if (LoginActivityCheck.instance!=null){
+                    LoginActivityCheck.instance.finish();
+                }
+                finish();
 //                CommonToast.showHintDialog(mContext, entity.errorInfo);
             }
+
 
         }, this);
     }

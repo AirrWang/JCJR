@@ -92,15 +92,14 @@ public class NoviceExclusiveActivity extends BaseActivity {
 
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 
-        getIntentData();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!UserData.getInstance().getRiskWarning()){
-            getRiskWarning();
-        }
+        getIntentData();
+
     }
     private void getRiskWarning() {
         SenderResultModel resultModel = ParamsManager.getRisk();
@@ -148,6 +147,9 @@ public class NoviceExclusiveActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(String responeJson) {
+                        if (!UserData.getInstance().getRiskWarning()){
+                            getRiskWarning();
+                        }
                         LogUtil.i("新手专享详情 " + responeJson);
                         BidDetailEntity entity = GsonParser.getParsedObj(responeJson, BidDetailEntity.class);
                         resultBean = entity.getResult();
@@ -275,7 +277,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
         }else {
             etBIdAmt.setInputType(InputType.TYPE_NULL);
         }
-
+        new KeyboardUtil(mContext, view, etBIdAmt,0).showKeyboard();
         etBIdAmt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -325,8 +327,20 @@ public class NoviceExclusiveActivity extends BaseActivity {
             public void onClick(View v) {
                 dialog.dismiss();
                 if (checkInfo(etBIdAmt, balance)) {
-                    bid(mBidId, etBIdAmt.getText().toString(), resultBean.getPwd(),
-                            resultBean.getType());
+                    Intent intent = new Intent(NoviceExclusiveActivity.this, NoviceExclusiveConfirmActivity.class);
+                    intent.putExtra("money", etBIdAmt.getText().toString());
+                    intent.putExtra("earn", tvExpectedReturn.getText().toString());
+                    intent.putExtra("bid_id",mBidId);
+                    intent.putExtra("name", bidName);
+                    intent.putExtra("time",resultBean.getTime_limit_day());
+                    intent.putExtra("apr",resultBean.getApr());
+                    intent.putExtra("repay_type",resultBean.getRepaytype());
+                    intent.putExtra("pwd", "");
+
+                    intent.putExtra("myMoney", balance);
+                    startActivity(intent);
+//                    bid(mBidId, etBIdAmt.getText().toString(), resultBean.getPwd(),
+//                            resultBean.getType());
                 }
             }
         });
@@ -416,19 +430,19 @@ public class NoviceExclusiveActivity extends BaseActivity {
             return false;
         }
 
-        if (myBalance < myEnter) {
-            CommonToast.setIPositiveButtonEventListener(new CommonToast.IPositiveButtonEvent() {
-                @Override
-                public void oClickEvent() {
-                    Intent intent = new Intent(mContext, RechargeActivity.class);
-                    startActivity(intent);
-                    finish();
-                    CommonToast.unRegisteIPositiveButtonEventListener();
-                }
-            });
-            CommonToast.showBidDetailDialog(mContext, "可用余额不足！");
-            return false;
-        }
+//        if (myBalance < myEnter) {
+//            CommonToast.setIPositiveButtonEventListener(new CommonToast.IPositiveButtonEvent() {
+//                @Override
+//                public void oClickEvent() {
+//                    Intent intent = new Intent(mContext, RechargeActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                    CommonToast.unRegisteIPositiveButtonEventListener();
+//                }
+//            });
+//            CommonToast.showBidDetailDialog(mContext, "可用余额不足！");
+//            return false;
+//        }
 
         if (myEnter>mostBid){
             CommonToast.makeCustomText(mContext, "最大投资金额为"+mostBid+"元！");
@@ -530,11 +544,11 @@ public class NoviceExclusiveActivity extends BaseActivity {
 //                    intentReward.putExtra("tender_reward", resultBean.getAward());
 //                    startActivity(intentReward);
 //                }
-                UrlUtil.showHtmlPage(mContext,"安全保障", RequestURL.BID_AQBZ_URL);
+                UrlUtil.showHtmlPage(mContext,"安全保障", RequestURL.BID_AQBZ_URL,true);
                 break;
             case R.id.ithb_project_detail:
                 if(resultBean != null) {
-                    UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId());
+                    UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId(),true);
                 }
                 break;
         }

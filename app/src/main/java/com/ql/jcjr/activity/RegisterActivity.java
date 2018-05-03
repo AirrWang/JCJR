@@ -169,8 +169,6 @@ public class RegisterActivity extends BaseActivity {
         Map<String, String> datas = new HashMap<String, String>();
         MobclickAgent.onEventValue(this, "register_setpassword", datas, 1);
         init();
-
-
         getGetVerifyCode(mPhoneNum, mRequestCodeUrl);
     }
 //    private void scrollToPos(int start, int end) {
@@ -184,6 +182,14 @@ public class RegisterActivity extends BaseActivity {
 //        });
 //        animator.start();
 //    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private void init() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mEtSmsCode.getCancelEditText().setShowSoftInputOnFocus(false);
