@@ -344,13 +344,13 @@
             <View
                 android:background="@drawable/bg_little"
                 android:layout_marginLeft="@dimen/dimen_30px"
-                android:layout_width="@dimen/dimen_4px"
+                android:layout_width="2.5dp"
                 android:layout_height="@dimen/dimen_34px"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_30px"
+                android:layout_marginLeft="@dimen/dimen_20px"
                 android:textSize="@dimen/dimen_30px"
                 android:textColor="@color/c_101010"
                 android:text="资讯"

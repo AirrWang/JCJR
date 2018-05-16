@@ -3,6 +3,7 @@ package com.ql.jcjr.http;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.WindowManager;
@@ -11,6 +12,7 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.HttpHandler;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.util.LogUtils;
+import com.ql.jcjr.activity.NetNullActivity;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.utils.LogUtil;
@@ -129,6 +131,7 @@ public class HttpSenderController {
                 entity.url = resultModel.requestEntity.url;
 //                entity.responeJson = decryptData;
                 entity.responeJson = responseInfo.result.toString();
+                LogUtil.i("http_result:" + entity.responeJson);
                 sendMessageToUI(entity);
             }
 
@@ -144,6 +147,12 @@ public class HttpSenderController {
 //                LogUtil.i("请求网址 = " + resultModel.requestEntity.url);
 
                 sendMessageToUI(entity);
+                String a=e+"";
+                if (a.contains("No address associated with hostname")){
+                    Intent intent=new Intent(mContext,NetNullActivity.class);
+
+                    mContext.startActivities(new Intent[]{intent});
+                }
             }
         });
         mCurrentHandler = httpUtils.executeRequest(resultModel.requestEntity.httpMethod, resultModel.requestEntity);

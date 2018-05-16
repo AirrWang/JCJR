@@ -65,6 +65,11 @@ public class CheckBankEntity {
         private String shortNo;
         private int totalMoney;
         private int oneday;
+        private String iscomplete;
+        private String province;
+        private String city;
+        private String province_id;
+        private String city_id;
 
         public String getStatus() {
             return status;
@@ -128,6 +133,46 @@ public class CheckBankEntity {
 
         public void setOneday(int oneday) {
             this.oneday = oneday;
+        }
+
+        public String getIscomplete() {
+            return iscomplete;
+        }
+
+        public void setIscomplete(String iscomplete) {
+            this.iscomplete = iscomplete;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getProvince_id() {
+            return province_id;
+        }
+
+        public void setProvince_id(String province_id) {
+            this.province_id = province_id;
+        }
+
+        public String getCity_id() {
+            return city_id;
+        }
+
+        public void setCity_id(String city_id) {
+            this.city_id = city_id;
         }
     }
 }

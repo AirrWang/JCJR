@@ -7,7 +7,9 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import com.ql.jcjr.fragment.FindFragment;
 import com.ql.jcjr.fragment.HomePageFragment;
 import com.ql.jcjr.fragment.ManageMoneyFragment;
 import com.ql.jcjr.fragment.MeFragment;
+import com.ql.jcjr.receiver.NetworkChangedReceiver;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.ShareHelper;
 import com.ql.jcjr.utils.StringUtils;
@@ -116,6 +119,7 @@ public class MainActivity extends BaseActivity
 //        }
         //处理推送过来的信息
         dealPush(getIntent());
+        registerNetworkChangedListener();
     }
 
     private void showFingerDialog() {
@@ -313,6 +317,7 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
 //        UMShareAPI.get(this).release();
         JcbApplication.getInstance().exit();
+        unRegisterNetworkChangedListener();
     }
 
     private void isShowGestureDialog() {
@@ -652,6 +657,28 @@ public class MainActivity extends BaseActivity
 
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private NetworkChangedReceiver networkChangedReceiver = null;
+    /**
+     * 注册网络变化的监听
+     */
+    private void registerNetworkChangedListener() {
+        if (networkChangedReceiver!=null)return;
+        networkChangedReceiver = new NetworkChangedReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangedReceiver, intentFilter);
+    }
+
+    /**
+     * 解除网络变化的监听
+     */
+    private void unRegisterNetworkChangedListener() {
+        if (networkChangedReceiver != null) {
+            unregisterReceiver(networkChangedReceiver);
+            networkChangedReceiver = null;
         }
     }
 

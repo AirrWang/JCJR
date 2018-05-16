@@ -45,6 +45,7 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.ActionSheet;
+import com.ql.jcjr.view.CommonDialog;
 import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.InputAmountEditText;
 import com.ql.jcjr.view.PwdEditText;
@@ -93,6 +94,9 @@ public class WithdrawalsActivity extends BaseActivity {
 
     @ViewInject(R.id.btn_withdrawals)
     private Button mBtnWithdrawals;
+
+    @ViewInject(R.id.tv_finish_bank)
+    private TextView tv_finish_bank;
 
     private Context mContext;
     private String mAvailableBalance;
@@ -285,6 +289,7 @@ public class WithdrawalsActivity extends BaseActivity {
         }
     }
 
+    private String isComlate;
     private void checkBank() {
         SenderResultModel resultModel = ParamsManager.senderCheckBank();
 
@@ -313,9 +318,13 @@ public class WithdrawalsActivity extends BaseActivity {
                                     lastFour = cardNum;
                                 }
                                 mTvAcctNum.setText(resultBean.getBankname() + " (" + lastFour + ")");
-//                                mTvQuota.setText("单笔限额" + resultBean.getTotalMoney() + "元");
+                                isComlate=resultBean.getIscomplete();
+                                if (isComlate.equals("1")){
+                                    tv_finish_bank.setVisibility(View.GONE);
+                                }else {
+                                    tv_finish_bank.setVisibility(View.VISIBLE);
+                                }
 
-//                                totalMoney = resultBean.getTotalMoney();
                                 break;
 
                             case Global.STATUS_UN_PASS:
@@ -349,13 +358,36 @@ public class WithdrawalsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question})
+    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question,R.id.tv_finish_bank})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
                 break;
             case R.id.btn_withdrawals:
+                if (isComlate.equals("0")){
+                    //TODO
+                    CommonDialog.Builder builder = new CommonDialog.Builder(mContext);
+                    builder.setTitle("完善开户行信息")
+                            .setMessage("为了保障提现正常到账，请准确填写开户行信息")
+                            .setPositiveButton("去完善", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Intent callIntent = new Intent(mContext,  BindBankCardActivity.class);
+                                    mContext.startActivity(callIntent);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                    return;
+                }
                 if (checkInfo()) {
 //                    showPwdDialog();
                     if (status.equals("1")) {
@@ -383,6 +415,10 @@ public class WithdrawalsActivity extends BaseActivity {
                 break;
             case R.id.iv_question:
                 UrlUtil.showHtmlPage(mContext,"常见问题", AppConfig.COMMON_PROBLEM_URL+"?id=2",true);
+                break;
+            case R.id.tv_finish_bank:
+                Intent intent1 = new Intent(mContext, BindBankCardActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

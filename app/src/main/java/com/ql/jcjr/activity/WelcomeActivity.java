@@ -15,8 +15,10 @@ import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
@@ -27,6 +29,9 @@ public class WelcomeActivity extends Activity {
     private static final int HANDLER_WELCOME_PAGE = 1; // 欢迎界面
 
     private Context mContext;
+
+    @ViewInject(R.id.iv_welcome)
+    private ImageView iv_welcome;
 
     /**
      * Handler
@@ -60,16 +65,16 @@ public class WelcomeActivity extends Activity {
         ViewUtils.inject(this);
         mContext = this;
         handler.sendEmptyMessageDelayed(HANDLER_WELCOME_PAGE, 2500);
-
+//        GlideUtil.displayPic(mContext,"http://c.hiphotos.baidu.com/baike/pic/item/91ef76c6a7efce1b27893518a451f3deb58f6546.jpg",R.drawable.welcome,iv_welcome);
     }
 
     private void checkNet(){
-        if(isConnect()){
+//        if(isConnect()){
             checkJump();
-        }
-        else{
-            showNetDialog();
-        }
+//        }
+//        else{
+//            showNetDialog();
+//        }
     }
 
     private void showNetDialog(){

@@ -60,6 +60,16 @@
                         android:textColor="@color/font_black"
                         android:textSize="@dimen/size_m"
                         android:text="工商银行"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_finish_bank"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginRight="@dimen/dimen_30px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/btn_main"
+                    android:textSize="@dimen/size_m"
+                    android:text="完善信息"/>
 
             </LinearLayout>
 

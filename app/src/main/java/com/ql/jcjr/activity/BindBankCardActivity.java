@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -92,6 +95,8 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private TextView tvPlace;
     @ViewInject(R.id.lv_bank_card)
     private SwipeMenuListView mLvBankCard;
+    @ViewInject(R.id.ll_bank_card)
+    private LinearLayout ll_bank_card;
     @ViewInject(R.id.iv_question)
     private ImageView iv_question;
     @ViewInject(R.id.ll_container)
@@ -100,6 +105,16 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private Button btn_bind;
     @ViewInject(R.id.ll_jianpan)
     private View ll_jianpan;
+    @ViewInject(R.id.tv_bank_city)
+    private TextView tv_bank_city;
+    @ViewInject(R.id.tv_bank_branch_complant)
+    private TextView tv_bank_branch_complant;
+    @ViewInject(R.id.ll_show)
+    private LinearLayout ll_show;
+    @ViewInject(R.id.iv_down_go)
+    private ImageView iv_down_go;
+    @ViewInject(R.id.ll_hide)
+    private LinearLayout ll_hide;
 
     private Context mContext;
     private String mRealName;
@@ -108,8 +123,9 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
 
     private String provinceName;
     private String cityName;
-    private String provinceId;
+    private String provinceId="";
     private String cityId = "";
+    private Boolean isShow=false;
 
     private WheelView provinceWheelView;
     private WheelView cityWheelView;
@@ -126,6 +142,9 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private BankCardListAdapter mBankCardListAdapter;
 
     private static final int ID_MENU_DELETE = 100;
+    private Boolean cityNet;
+    private String province="";
+    private String branch="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +171,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private void init() {
         ll_container.getViewTreeObserver().addOnGlobalLayoutListener(this);
         mLlFirst.setVisibility(View.GONE);
-        mLvBankCard.setVisibility(View.GONE);
+        ll_bank_card.setVisibility(View.GONE);
 
         mEtCardNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -254,14 +273,21 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                                 mBankCardList.add(data);
                                 mBankCardListAdapter.notifyDataSetChanged();
 
+                                tv_bank_city.setText(resultBean.getProvince()+"  "+resultBean.getCity());
+                                province=resultBean.getProvince()+"  "+resultBean.getCity();
+                                tv_bank_branch_complant.setText(resultBean.getBranch());
+                                branch=resultBean.getBranch();
+                                provinceId=resultBean.getProvince_id();
+                                cityId=resultBean.getCity_id();
+
                                 mLlFirst.setVisibility(View.GONE);
-                                mLvBankCard.setVisibility(View.VISIBLE);
+                                ll_bank_card.setVisibility(View.VISIBLE);
                                 break;
 
                             case Global.STATUS_UN_PASS:
                                 mActionBar.setTitle("绑定银行卡");
                                 mLlFirst.setVisibility(View.VISIBLE);
-                                mLvBankCard.setVisibility(View.GONE);
+                                ll_bank_card.setVisibility(View.GONE);
                                 //获取银行信息
                                 getBankList(false);
                                 break;
@@ -417,16 +443,14 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
             CommonToast.showHintDialog(mContext,"请输入银行卡卡号！");
             return false;
         }
-        if(StringUtils.isBlank(mEtBranch.getText().toString())) {
-            CommonToast.showHintDialog(mContext,"请输入支行名称！");
-            return false;
-        }
 
+        branch_name=mEtBranch.getText().toString();
         return true;
     }
 
     /**
      * 获取省
+     *
      */
     private void getProvince() {
         SenderResultModel resultModel = ParamsManager.senderGetprovince();
@@ -519,9 +543,15 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                 if(cityList != null && cityList.size() != 0&&cityIndex<=cityArrayList.size()) {
                     cityName = cityArrayList.get(cityIndex);
                     cityId = cityList.get(cityIndex).getId();
-                    tvPlace.setText(provinceName + "，" + cityName);
+                    province=provinceName+"  "+cityName;
                 }else {
-                    tvPlace.setText(provinceName);
+                    province=provinceName;
+                }
+                if (cityNet){
+                    upData();
+
+                }else {
+                    tvPlace.setText(province);
                 }
                 dialog.dismiss();
             }
@@ -529,6 +559,28 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
 
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    private void upData() {
+        SenderResultModel resultModel = ParamsManager.updateBranch(provinceId,cityId,branch);
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("更新银行卡信息 " + responeJson);
+                        tv_bank_city.setText(province);
+                        tv_bank_branch_complant.setText(branch);
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("更新银行卡信息 " + entity.errorInfo);
+                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+                    }
+
+                }, mContext);
     }
 
     OnWheelScrollListener provinceScrollListener = new OnWheelScrollListener() {
@@ -554,7 +606,11 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                     @Override
                     public void onSuccess(String responeJson) {
                         LogUtil.i("绑定银行卡 " + responeJson);
-                        checkBank();
+//                        checkBank();
+                        Intent intent = new Intent(BindBankCardActivity.this, MainActivity.class);
+                        intent.putExtra("main_index",3);
+                        BindBankCardActivity.this.startActivity(intent);
+                        finish();
                 }
 
                     @Override
@@ -566,7 +622,8 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank,R.id.iv_question})
+    private String branch_name="";
+    @OnClick({R.id.btn_left, R.id.ithb_bank, R.id.btn_bind, R.id.ll_place, R.id.ll_bank,R.id.iv_question,R.id.ll_show,R.id.ll_1,R.id.ll_2})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -596,15 +653,46 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                     bundle.putString("card_num", mEtCardNum.getText().toString());
                     bundle.putString("mobile", mEtTel.getText().toString().trim());
                     bundle.putString("bank_id", mBankId);
-                    bundle.putString("branch_name", mEtBranch.getText().toString());
+                    bundle.putString("branch_name",branch_name );
                     bundle.putString("province_id", provinceId);
                     bundle.putString("city_id", cityId);
                     bindBankCard(bundle);
                 }
                 break;
             case R.id.ll_place:
+                cityNet=false;
                 getProvince();
                 break;
+            case R.id.ll_2:
+                cityNet=true;
+                getProvince();
+                break;
+            case R.id.ll_show:
+
+
+                if (isShow){
+                    Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim_up);//创建动画
+                    rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+//                rotate.setFillAfter(!rotate.getFillAfter());
+                    rotate.setFillAfter(true);
+                    ll_hide.setVisibility(View.VISIBLE);
+                    iv_down_go.startAnimation(rotate);
+                    ll_hide.setVisibility(View.GONE);
+                }else {
+                    Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);//创建动画
+                    rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+//                rotate.setFillAfter(!rotate.getFillAfter());
+                    rotate.setFillAfter(true);
+                    ll_hide.setVisibility(View.VISIBLE);
+                    iv_down_go.startAnimation(rotate);
+                }
+
+                isShow=!isShow;
+                break;
+            case R.id.ll_1:
+                showToDialog();
+                break;
+
         }
     }
 
@@ -690,4 +778,35 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
         });
         animator.start();
     }
+
+    private void showToDialog() {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.bid_branch_dialog, null);
+        ViewUtils.inject(this, view);
+
+        TextView dismiss= (TextView) view.findViewById(R.id.btn_dis);
+        TextView sure= (TextView) view.findViewById(R.id.btn_sure);
+        final EditText et_branch= (EditText) view.findViewById(R.id.et_branch);
+
+        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                branch=et_branch.getText().toString().trim();
+                upData();
+                dialog.dismiss();
+            }
+        });
+    }
+
 }

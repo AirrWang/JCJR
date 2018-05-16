@@ -1213,4 +1213,23 @@ public class ParamsManager {
 
         return resultModel;
     }
+
+    /**
+     * 修改绑卡城市 支行
+     */
+    public static SenderResultModel updateBranch(String province_id,String city_id,String branch) {
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("city_id", city_id);
+            object.put("province_id",province_id);
+            object.put("branch", branch);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.UPDATA_BRANCH_URL);
+
+        return resultModel;
+    }
 }

@@ -109,6 +109,63 @@
                 <View style="@style/common_divider_with_margin"/>
 
                 <LinearLayout
+                    style="@style/row_with_margin">
+
+                    <TextView
+                        style="@style/text_s_m_c_b"
+                        android:layout_width="76dp"
+                        android:layout_height="wrap_content"
+                        android:text="预留手机号"/>
+
+                    <TextView
+                        android:id="@+id/tv_tel"
+                        style="@style/text_s_m_c_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+                    <EditText
+                        android:id="@+id/et_tel"
+                        style="@style/text_s_m_c_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:hint="银行预留手机号码"
+                        android:singleLine="true"
+                        android:textColorHint="@color/text_hint_color"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_show"
+                android:paddingLeft="@dimen/dimen_30px"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_80px">
+                <TextView
+                    android:textColor="@color/font_grey"
+                    android:textSize="@dimen/dimen_28px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开户信息（选填）"/>
+                <ImageView
+                    android:id="@+id/iv_down_go"
+                    android:src="@drawable/down_go"
+                    android:layout_width="@dimen/dimen_20px"
+                    android:layout_height="@dimen/dimen_20px" />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_hide"
+                android:background="@color/c_fffff"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:id="@+id/ll_place"
                     style="@style/row_with_margin">
 
@@ -158,39 +215,6 @@
                         android:textColorHint="@color/text_hint_color"/>
 
                 </LinearLayout>
-
-                <View style="@style/common_divider_with_margin"/>
-
-                <LinearLayout
-                    style="@style/row_with_margin">
-
-                    <TextView
-                        style="@style/text_s_m_c_b"
-                        android:layout_width="76dp"
-                        android:layout_height="wrap_content"
-                        android:text="预留手机号"/>
-
-                    <TextView
-                        android:id="@+id/tv_tel"
-                        style="@style/text_s_m_c_b"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
-
-                    <EditText
-                        android:id="@+id/et_tel"
-                        style="@style/text_s_m_c_b"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:inputType="number"
-                        android:hint="银行预留手机号码"
-                        android:singleLine="true"
-                        android:textColorHint="@color/text_hint_color"/>
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <Button
@@ -211,14 +235,78 @@
         android:visibility="gone"
         android:id="@+id/ll_jianpan"
         layout="@layout/layout_jianpan"/>
-
-    <com.freeme.swipemenu.SwipeMenuListView
+    <LinearLayout
+        android:visibility="gone"
         android:layout_below="@+id/ab_header"
-        android:id="@+id/lv_bank_card"
+        android:id="@+id/ll_bank_card"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/row_distance"
-        android:divider="@null"
-        android:dividerHeight="@dimen/dimen_20px" />
+        android:layout_height="match_parent">
+        <com.freeme.swipemenu.SwipeMenuListView
+            android:id="@+id/lv_bank_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/row_distance"
+            android:divider="@null"
+            android:dividerHeight="@dimen/dimen_20px" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_20px"
+            android:background="@color/c_fffff"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_2"
+                style="@style/row_with_margin">
+                <TextView
+                    style="@style/text_s_m_c_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_46px"
+                    android:text="开户城市" />
+
+                <TextView
+                    android:id="@+id/tv_bank_city"
+                    style="@style/text_s_m_c_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/row_text_margin"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right"/>
+
+            </LinearLayout>
+            <View style="@style/common_divider_with_margin"/>
+            <LinearLayout
+                android:id="@+id/ll_1"
+                style="@style/row_with_margin">
+
+                <TextView
+                    style="@style/text_s_m_c_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_46px"
+                    android:text="开户支行"/>
+
+                <TextView
+                    android:id="@+id/tv_bank_branch_complant"
+                    style="@style/text_s_m_c_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入正确的支行名称"
+                    android:singleLine="true"
+                    android:textColorHint="@color/text_hint_color"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

@@ -39,7 +39,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:name">
-
+        <receiver android:name=".receiver.NetworkChangedReceiver">
+        </receiver>
         <!-- 启动页 -->
         <activity
             android:name="com.ql.jcjr.activity.WelcomeActivity"
@@ -48,6 +49,15 @@
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="jcbb" />
             </intent-filter>
         </activity>
 
@@ -337,6 +347,9 @@
         <activity android:name=".activity.AppConditionActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.NoviceExclusiveConfirmActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NetNullActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>
 

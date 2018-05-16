@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_marginTop="@dimen/dimen_188px"
+        android:src="@drawable/no_net"
+        android:layout_width="139dp"
+        android:layout_height="102dp"
+        />
+    <TextView
+        android:layout_marginTop="@dimen/dimen_60px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_l"
+        android:textColor="@color/font_grey"
+        android:text="当前无网络，请检查网络连接"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btn_fresh"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_98px"
+            android:layout_marginLeft="@dimen/dimen_46px"
+            android:layout_marginRight="@dimen/dimen_46px"
+            android:textSize="@dimen/size_xxl"
+            android:gravity="center"
+            android:textColor="@color/btn_main"
+            android:background="@drawable/btn_rectangle_circl_circl_100"
+
+            android:text="点击刷新"/>
+        <Button
+            android:layout_marginTop="@dimen/dimen_44px"
+            android:id="@+id/btn_to_set"
+            style="@style/common_btn_style"
+            android:text="尝试解决"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

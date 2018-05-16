@@ -363,6 +363,7 @@ public class CommonDialog extends Dialog {
 
 
         public CommonDialog create() {
+
             dialog = new CommonDialog(mContext, R.style.CommonDialog);
             LayoutInflater inflater =
                     (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

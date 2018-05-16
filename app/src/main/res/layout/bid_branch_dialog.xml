@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+    <RelativeLayout
+        android:background="#F5F5F5"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/dimen_28px"
+            android:layout_marginTop="@dimen/dimen_34px"
+            android:layout_marginBottom="@dimen/dimen_20px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开户支行"/>
+        <EditText
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_1"
+            android:id="@+id/et_branch"
+            android:singleLine="true"
+            android:background="@color/c_fffff"
+            android:layout_width="@dimen/dimen_480px"
+            android:layout_height="@dimen/dimen_98px" />
+        <LinearLayout
+            android:layout_below="@+id/et_branch"
+            android:layout_marginBottom="@dimen/dimen_40px"
+            android:layout_marginTop="@dimen/dimen_34px"
+            android:orientation="horizontal"
+            android:layout_width="@dimen/dimen_558px"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_72px"
+                android:id="@+id/btn_dis"
+                android:background="#F5F5F5"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/dimen_28px"
+                android:text="取消"/>
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_300px"
+                android:layout_marginRight="@dimen/dimen_72px"
+                android:id="@+id/btn_sure"
+                android:background="#F5F5F5"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/dimen_28px"
+                android:text="保存"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

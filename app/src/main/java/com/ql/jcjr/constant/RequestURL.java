@@ -219,4 +219,7 @@ public class RequestURL {
 
     //分享成功后
     public static final String SHARE_SUCCESS = SERVICE_URL + "articleOp";
+
+    //更新用户支行和省市信息
+    public static final String UPDATA_BRANCH_URL = SERVICE_URL + "updateBranch";
 }
