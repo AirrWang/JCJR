@@ -173,6 +173,17 @@
                         android:textColor="@color/font_grey"
                         android:text="本月剩余3次免费提现"
                         />
+                    <TextView
+                        android:id="@+id/tv_free_intro"
+                        android:layout_width="0dp"
+                        android:visibility="gone"
+                        android:layout_weight="1"
+                        android:gravity="end|center_vertical"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/size_xs"
+                        android:textColor="@color/btn_main"
+                        android:text="收费明细"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -184,15 +195,15 @@
                 android:layout_marginTop="@dimen/dimen_80px"
                 android:text="确认"/>
 
-            <TextView
-                android:id="@+id/tv_cash_service_tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/row_distance"
-                android:gravity="center"
-                android:text="所需手续费0元"
-                android:textColor="@color/font_grey"
-                android:textSize="@dimen/size_xs"/>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_cash_service_tip"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/row_distance"-->
+                <!--android:gravity="center"-->
+                <!--android:text="所需手续费0元"-->
+                <!--android:textColor="@color/font_grey"-->
+                <!--android:textSize="@dimen/size_xs"/>-->
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->

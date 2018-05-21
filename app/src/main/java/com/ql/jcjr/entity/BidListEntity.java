@@ -101,6 +101,8 @@ public class BidListEntity {
         private String scale;
         private String surplus;
         private String bremark;
+        private String most_account;
+        private String bremark1;
 
 
         public String getBremark() {
@@ -295,6 +297,22 @@ public class BidListEntity {
 
         public void setSurplus(String surplus) {
             this.surplus = surplus;
+        }
+
+        public String getMost_account() {
+            return most_account;
+        }
+
+        public void setMost_account(String most_account) {
+            this.most_account = most_account;
+        }
+
+        public String getBremark1() {
+            return bremark1;
+        }
+
+        public void setBremark1(String bremark1) {
+            this.bremark1 = bremark1;
         }
     }
 }

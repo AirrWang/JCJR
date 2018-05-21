@@ -1,14 +1,20 @@
 package com.ql.jcjr.base;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +39,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BaseActivity extends FragmentActivity{
@@ -42,6 +50,14 @@ public class BaseActivity extends FragmentActivity{
     private PopupWindow popupWindow;
     private ImageView iv;
     private ShareHelper mShare;
+    /** 内部存储器内容观察者 */
+    private MediaContentObserver mInternalObserver;
+
+    /** 外部存储器内容观察者 */
+    private MediaContentObserver mExternalObserver;
+
+    /** 运行在 UI 线程的 Handler, 用于运行监听器回调 */
+    private final Handler mUiHandler = new Handler(Looper.getMainLooper());
 
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
@@ -79,6 +95,29 @@ public class BaseActivity extends FragmentActivity{
         initPop();
     }
 
+    /**
+     * 媒体内容观察者(观察媒体数据库的改变)
+     */
+    private class MediaContentObserver extends ContentObserver {
+
+        public MediaContentObserver(Uri contentUri, Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+
+                }else {
+                    insertDummyContactWrapper();
+                }
+            }
+        }
+    }
+
+
     private void initPop() {
         manager = ScreenShotListenManager.newInstance(this);
         popupWindow = new PopupWindow(context);
@@ -115,11 +154,11 @@ public class BaseActivity extends FragmentActivity{
                 new ScreenShotListenManager.OnScreenShotListener() {
 
                     public void onShot(String imagePath) {
-                        Bitmap bitmap  = BitmapFactory.decodeFile(imagePath);
-                        File file=new File(imagePath);
-                        GlideUtil.displayPic(context,file,R.color.white,iv);
-                        mShare.setShareImageView(bitmap);
-                        showPop(bitmap);
+                            Bitmap bitmap  = BitmapFactory.decodeFile(imagePath);
+                            File file=new File(imagePath);
+                            GlideUtil.displayPic(context,file,R.color.white,iv);
+                            mShare.setShareImageView(bitmap);
+                            showPop(bitmap);
                     }
                 }
         );
@@ -158,6 +197,21 @@ public class BaseActivity extends FragmentActivity{
         MobclickAgent.onResume(this);
         JcbApplication.getInstance().setCurrentActivity(this);
         manager.startListen();
+        // 创建内容观察者
+        mInternalObserver = new MediaContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, mUiHandler);
+        mExternalObserver = new MediaContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mUiHandler);
+
+        // 注册内容观察者
+        context.getContentResolver().registerContentObserver(
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                false,
+                mInternalObserver
+        );
+        context.getContentResolver().registerContentObserver(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                false,
+                mExternalObserver
+        );
     }
 
     protected void onPause() {
@@ -167,6 +221,29 @@ public class BaseActivity extends FragmentActivity{
         if (popupWindow.isShowing()&&popupWindow!=null){
             Log.d("dimiss","onPause");
             popupWindow.dismiss();
+        }
+        stop();
+
+
+    }
+
+    private void stop() {
+        // 注销内容观察者
+        if (mInternalObserver != null) {
+            try {
+                context.getContentResolver().unregisterContentObserver(mInternalObserver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mInternalObserver = null;
+        }
+        if (mExternalObserver != null) {
+            try {
+                context.getContentResolver().unregisterContentObserver(mExternalObserver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mExternalObserver = null;
         }
     }
 
@@ -179,7 +256,88 @@ public class BaseActivity extends FragmentActivity{
             Log.d("dimiss","onDestroy");
             popupWindow.dismiss();
         }
+        stop();
     }
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean insertDummyContactWrapper() {
+        //提示用户需要手动开启的权限集合
+        List<String> permissionsNeeded = new ArrayList<String>();
+
+        //功能所需权限的集合
+        final List<String> permissionsList = new ArrayList<String>();
+
+        //若用户拒绝了该权限申请，则将该申请的提示添加到“用户需要手动开启的权限集合”中
+//        if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+//            permissionsNeeded.add("保存应用数据");
+        if (!addPermission(permissionsList, Manifest.permission.READ_EXTERNAL_STORAGE))
+            permissionsNeeded.add("读取应用数据");
+//        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
+//            permissionsNeeded.add("获取当前地理位置");
+//        if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
+//            permissionsNeeded.add("获取通讯录信息");
+//        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
+//            permissionsNeeded.add("获取应用提示");
+//        if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
+//            permissionsNeeded.add("获取手机指纹信息");
+//        if(!addPermission(permissionsList, Manifest.permission.CAMERA))
+//            permissionsNeeded.add("获取手机相机信息");
+//        if(!addPermission(permissionsList,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS))
+//            permissionsNeeded.add("读取手机存储信息");
 
 
+        //存在未配置的权限
+        if (permissionsList.size() > 0) {
+
+            //若用户赋之前拒绝过一部分权限，则需要提示用户开启其余权限并返回，否则该功能将无法执行
+            if (permissionsNeeded.size() > 0) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                // Need Rationale
+//                String message = "我们需要您授权下列权限：\n";
+//                for (int i = 0; i < permissionsNeeded.size(); i++)
+//                    message = message + "\n" + permissionsNeeded.get(i);
+//
+//                //弹出对话框，提示用户需要手动开启的权限
+//                try {
+//                    final CommonDialog.Builder dialog = new CommonDialog.Builder(this);
+//                    dialog.setTitle(message);
+//                    dialog.setMessageSize(R.dimen.f03_34);
+//                    dialog.setButtonTextSize(R.dimen.f03_34);
+//                    dialog.setPositiveButton("确定",
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//
+//                                }
+//                            });
+//                    dialog.create().show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+            }
+
+            requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+    //判断用户是否授予了所需权限
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        //若配置了该权限，返回true
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            //若未配置该权限，将其添加到所需权限的集合，返回true
+            permissionsList.add(permission);
+            // 若用户勾选了“永不询问”复选框，并拒绝了权限，则返回false
+            if (!shouldShowRequestPermissionRationale(permission))
+                return false;
+        }
+
+        return true;
+    }
 }

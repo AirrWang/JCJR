@@ -56,6 +56,8 @@ public class CashServiceEntity {
         private int type;
         private int min;
         private int max;
+        private float available_amount;
+        private float fee_apr;
 
         public int getLast_num() {
             return last_num;
@@ -103,6 +105,22 @@ public class CashServiceEntity {
 
         public void setMax(int max) {
             this.max = max;
+        }
+
+        public float getAvailable_amount() {
+            return available_amount;
+        }
+
+        public void setAvailable_amount(float available_amount) {
+            this.available_amount = available_amount;
+        }
+
+        public float getFee_apr() {
+            return fee_apr;
+        }
+
+        public void setFee_apr(float fee_apr) {
+            this.fee_apr = fee_apr;
         }
     }
 }

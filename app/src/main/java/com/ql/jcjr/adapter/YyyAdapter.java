@@ -76,7 +76,13 @@ public class YyyAdapter extends BaseAdapter {
         else{
             viewHolder.mTvTag.setVisibility(View.GONE);
         }
-
+        if(StringUtils.isBlank(resultBean.getBremark1())){
+            viewHolder.mTvTag2.setVisibility(View.GONE);
+        }
+        else{
+            viewHolder.mTvTag2.setVisibility(View.VISIBLE);
+            viewHolder.mTvTag2.setText(resultBean.getBremark1());
+        }
         //年化收益
         viewHolder.mApr.setText(resultBean.getApr());
         viewHolder.mApr.setTypeface(JcbApplication.getPingFangRegularTypeFace());
@@ -128,6 +134,8 @@ public class YyyAdapter extends BaseAdapter {
 
             viewHolder.mTvTag.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mTvTag.setBackgroundResource(R.drawable.bg_tag_grey);
+            viewHolder.mTvTag2.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mTvTag2.setBackgroundResource(R.drawable.bg_tag_grey);
 
             viewHolder.mLinearLayoutGain.setBackgroundResource(R.drawable.bg_yyy_apr_grey);
 
@@ -165,6 +173,8 @@ public class YyyAdapter extends BaseAdapter {
 
             viewHolder.mTvTag.setTextColor(resources.getColor(R.color.font_red));
             viewHolder.mTvTag.setBackgroundResource(R.drawable.bg_tag_red);
+            viewHolder.mTvTag2.setTextColor(resources.getColor(R.color.font_red));
+            viewHolder.mTvTag2.setBackgroundResource(R.drawable.bg_tag_red);
 
             viewHolder.mLinearLayoutGain.setBackgroundResource(R.drawable.bg_yyy_apr);
 
@@ -200,6 +210,8 @@ public class YyyAdapter extends BaseAdapter {
         //tag
         @ViewInject(R.id.tv_tag)
         public TextView mTvTag;
+        @ViewInject(R.id.tv_tag_2)
+        public TextView mTvTag2;
 
         //标名
         @ViewInject(R.id.iv_yyy_icon)

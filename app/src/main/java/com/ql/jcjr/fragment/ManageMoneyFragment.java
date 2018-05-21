@@ -6,15 +6,25 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.activity.BidDetailActivity;
+import com.ql.jcjr.activity.LoginActivity;
+import com.ql.jcjr.activity.LoginActivityCheck;
+import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.adapter.YyyAdapter;
+import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.entity.BidListEntity;
+import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -44,6 +54,27 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     private XListView mLvYyy;
     @ViewInject(R.id.pull_refresh_view)
     private PullToRefreshView mPullToRefreshView;
+    @ViewInject(R.id.tv_moren)
+    private TextView tv_moren;
+    @ViewInject(R.id.tv_apr)
+    private TextView tv_apr;
+    @ViewInject(R.id.iv_apr_up)
+    private ImageView iv_apr_up;
+    @ViewInject(R.id.iv_apr_down)
+    private ImageView iv_apr_down;
+    @ViewInject(R.id.tv_time)
+    private TextView tv_time;
+    @ViewInject(R.id.iv_time_down)
+    private ImageView iv_time_down;
+    @ViewInject(R.id.iv_time_up)
+    private ImageView iv_time_up;
+    @ViewInject(R.id.tv_jindu)
+    private TextView tv_jindu;
+    @ViewInject(R.id.iv_jindu_down)
+    private ImageView iv_jindu_down;
+    @ViewInject(R.id.iv_jindu_up)
+    private ImageView iv_jindu_up;
+
 
     private final static int IDEX_YYY = 0;//月月盈
     private final static int INDEX_TTL = 1;//天天利
@@ -55,9 +86,24 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
     private List<BidListEntity.ResultBean> mBidList = new ArrayList<>();
+    private List<BidListEntity.ResultBean> mBidAll = new ArrayList<>();
 
+    private String order="";
+    private boolean a=true;
+    private boolean b=true;
+    private boolean c=true;
+    private Boolean isTouch=false;//判断是否是排序跳转
     // 分页加载索引
     private int mPageIndex = 1;
+    private View headerView;
+    private LinearLayout ll_biao_right;
+    private TextView tv_annualized_rate_gain;
+    private TextView tv_apr1;
+    private TextView tv_annualized_rate;
+    private TextView tv_xsb_day;
+    private TextView tv_xsb_most;
+    private LinearLayout ll_head_xsb;
+    private Button btn_bid;
 
     @Override
     protected int getContentView() {
@@ -71,6 +117,40 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
         mLayoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPullToRefreshView.setOnHeaderRefreshListener(this);
         mPullToRefreshView.setOnFooterLoadListener(this);
+        headerView = LayoutInflater.from(mContext).inflate(R.layout.head_first,null);
+        mLvYyy.addHeaderView(headerView);
+        initId();
+    }
+
+    private void initId() {
+        ll_biao_right = (LinearLayout) headerView.findViewById(R.id.ll_biao_right);
+        tv_annualized_rate_gain = (TextView) headerView.findViewById(R.id.tv_annualized_rate_gain);
+        tv_apr1 = (TextView) headerView.findViewById(R.id.tv_apr);
+        tv_annualized_rate = (TextView) headerView.findViewById(R.id.tv_annualized_rate);
+        tv_xsb_day = (TextView) headerView.findViewById(R.id.tv_xsb_day);
+        tv_xsb_most = (TextView) headerView.findViewById(R.id.tv_xsb_most);
+        ll_head_xsb = (LinearLayout) headerView.findViewById(R.id.ll_head_xsb);
+        btn_bid = (Button) headerView.findViewById(R.id.btn_bid);
+        btn_bid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!UserData.getInstance().isLogin()){
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
+                }else {
+                    Intent intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                    intent.putExtra("bid_id", mBidAll.get(0).getId());
+                    intent.putExtra("bid_title",  mBidAll.get(0).getName());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -116,20 +196,21 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private void getYyyList(final String pageIndex) {
-        SenderResultModel resultModel = ParamsManager.senderBidList(pageIndex, "10", "");
+        SenderResultModel resultModel = ParamsManager.senderBidList(pageIndex, "10", "",order);
 
         HttpRequestManager.httpRequestService(resultModel,
                 new HttpSenderController.ViewSenderCallback() {
 
                     @Override
                     public void onSuccess(String responeJson) {
+                        initUI();
                         LogUtil.i("理财列表 " + responeJson);
                         BidListEntity entity = GsonParser.getParsedObj(responeJson, BidListEntity.class);
                         if(pageIndex.equals("1")) {
                             mBidList.clear();
+                            mBidAll.clear();
                         }
-//                        LogUtil.e("entity " +entity);
-//                        LogUtil.e("entity.getResult() " + entity.getResult());
+
 
                         boolean needShowAll = false;
                         int listSize = entity.getResult().size();
@@ -150,7 +231,14 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                         }
 
                         mBidList.addAll(entity.getResult());
+                        mBidAll.addAll(entity.getResult());
+                        checkXsb(pageIndex);
                         mAdapter.notifyDataSetChanged();
+                        if (isTouch){
+                            mLvYyy.smoothScrollToPosition(0);
+                            mAdapter.notifyDataSetChanged();
+                        }
+
                         finishRefresh();
                     }
 
@@ -162,6 +250,154 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                     }
 
                 }, mContext);
+    }
+
+    private void checkXsb(String pageIndex) {
+
+        if (mBidAll.get(0).getType().equals("xsb")){
+            ll_head_xsb.setVisibility(View.VISIBLE);
+        }else {
+            ll_head_xsb.setVisibility(View.GONE);
+        }
+
+        if (pageIndex.equals("1")&&mBidList.get(0).getType().equals("xsb")){
+
+            BidListEntity.ResultBean bean=mBidList.get(0);
+            //年化收益
+            tv_apr1.setText(bean.getApr());
+            tv_apr1.setTypeface(JcbApplication.getPingFangRegularTypeFace());
+
+            tv_annualized_rate.setTypeface(JcbApplication.getPingFangRegularTypeFace());
+            tv_annualized_rate.setText(bean.getAprOrigin());
+
+            //判断有无活动加成
+            String cashAddition = bean.getCashAddition();
+            if(cashAddition.equals("0") || cashAddition.equals("0.0")){
+                ll_biao_right.setVisibility(View.INVISIBLE);
+            }else{
+                ll_biao_right.setVisibility(View.VISIBLE);
+                tv_annualized_rate_gain.setTypeface(JcbApplication.getPingFangRegularTypeFace());
+                tv_annualized_rate_gain.setText(bean.getCashAddition());
+            }
+            //投资期限
+            switch (bean.getIsday()) {
+                case "0":
+                    tv_xsb_day.setText(bean.getTime_limit() + "个月");
+                    break;
+                case "1":
+                    tv_xsb_day.setText(bean.getTime_limit_day() + "天");
+                    break;
+            }
+
+            tv_xsb_most.setText(bean.getMost_account()+"元");
+
+            mBidList.remove(0);
+        }
+
+    }
+
+    private void initUI() {
+        if (order.equals("apr_down")){
+            b=true;
+            c=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+        }else if (order.equals("apr_up")){
+            b=true;
+            c=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_apr_up.setImageResource(R.drawable.arrow_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+        }else if (order.equals("time_down")){
+            a=true;
+            c=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+        }else if (order.equals("time_up")){
+            a=true;
+            c=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_time_up.setImageResource(R.drawable.arrow_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+        }else if (order.equals("jindu_down")){
+            a=true;
+            b=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+
+        }else if (order.equals("jindu_up")){
+            a=true;
+            b=true;
+            tv_moren.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_jindu_up.setImageResource(R.drawable.arrow_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+        }else {  //默认
+            tv_moren.setTextColor(getResources().getColor(R.color.btn_main));
+            tv_apr.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+            b=true;
+            c=true;
+            a=true;
+        }
+
+
+
     }
 
     private void finishRefresh() {
@@ -216,6 +452,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private void gotoBidDetail(int position){
+        position--;
         if (position==mBidList.size())return;
         Intent intent = new Intent(mContext, BidDetailActivity.class);
         intent.putExtra("bid_title", mBidList.get(position).getName());
@@ -225,6 +462,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
+        isTouch=false;
         mPageIndex = 1;
 
         //设置允许加载更多
@@ -237,7 +475,55 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onFooterLoad(PullToRefreshView view) {
+        isTouch=false;
         mPageIndex++;
         getYyyList(String.valueOf(mPageIndex));
+    }
+
+    @OnClick({R.id.tv_moren,R.id.rl_apr,R.id.ll_time,R.id.ll_jindu})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_moren:
+                isTouch=true;
+                order="";
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+            case R.id.rl_apr:
+                isTouch=true;
+                if (a){
+                    order="apr_down";
+                }else {
+                    order="apr_up";
+                }
+                a=!a;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+
+            case R.id.ll_time:
+                isTouch=true;
+                if (b){
+                    order="time_down";
+                }else {
+                    order="time_up";
+                }
+                b=!b;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+            case R.id.ll_jindu:
+                isTouch=true;
+                if (c){
+                    order="jindu_down";
+                }else {
+                    order="jindu_up";
+                }
+                c=!c;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+
+        }
     }
 }

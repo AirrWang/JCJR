@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -51,6 +50,7 @@ import com.ql.jcjr.view.InputAmountEditText;
 import com.ql.jcjr.view.PwdEditText;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 public class WithdrawalsActivity extends BaseActivity {
@@ -85,9 +85,9 @@ public class WithdrawalsActivity extends BaseActivity {
     //免费次数
     @ViewInject(R.id.tv_last_free_time)
     private TextView mTvLastFree;
-    //手续费
-    @ViewInject(R.id.tv_cash_service_tip)
-    private TextView mTvCashServiceTip;
+//    //手续费
+//    @ViewInject(R.id.tv_cash_service_tip)
+//    private TextView mTvCashServiceTip;
     //说明
 //    @ViewInject(R.id.tv_tip)
 //    private TextView mTvTip;
@@ -98,6 +98,9 @@ public class WithdrawalsActivity extends BaseActivity {
     @ViewInject(R.id.tv_finish_bank)
     private TextView tv_finish_bank;
 
+    @ViewInject(R.id.tv_free_intro)
+    private TextView tv_free_intro;
+
     private Context mContext;
     private String mAvailableBalance;
     private TimerHandler mTimerHandler;
@@ -106,6 +109,11 @@ public class WithdrawalsActivity extends BaseActivity {
 
     private int cashServiceType = 1;
     private int cashServiceCost = 0;
+    private float feeApr=0f;
+    private float availableAmount=0f;
+    private float feeTrob=0.00f;
+    private float totalFee=0.00f;
+
 
 //    private int totalMoney = 100000;
     private String freeTip;
@@ -113,6 +121,7 @@ public class WithdrawalsActivity extends BaseActivity {
     private int max;
     private String status;
     private PwdEditText mEtPwd;
+    private List<String> tips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,15 +166,11 @@ public class WithdrawalsActivity extends BaseActivity {
                         min = entity.getResult().getMin();
                         max = entity.getResult().getMax();
 
-//                        List<String> tips = entity.getResult().getRemind();
-//                        StringBuffer sb = new StringBuffer();
-//                        for (int i=0;i<tips.size();i++){
-//                            sb.append(tips.get(i));
-//                            if(i<tips.size()-1){
-//                                sb.append("\n");
-//                            }
-//                        }
-//                        mTvTip.setText(sb.toString());
+                        feeApr=entity.getResult().getFee_apr();
+                        availableAmount=entity.getResult().getAvailable_amount();
+
+                        tips = entity.getResult().getRemind();
+
                     }
 
                     @Override
@@ -224,34 +229,36 @@ public class WithdrawalsActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                tv_free_intro.setVisibility(View.GONE);
                 if (s.length() > 0) {
                     mEtAmt.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.size_xxxl));
 //                    LogUtil.i("Editable " + Float.parseFloat(s.toString()));
                         float getCash = Float.parseFloat(s.toString());
-                    int colorId = getResources().getColor(R.color.btn_main);
-                    String tip = null;
-                    String getTip = null;
-                    if(cashServiceType == 1){
 
-                        getTip = "到账："+(getCash-cashServiceCost)+"元，";
-                        if (getCash-cashServiceCost<0){
-                            getTip = "到账：0元，";
-                        }
-                        tip = getTip +"所需手续费"+cashServiceCost+"元";
-                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
-
-                        mTvCashServiceTip.setText(ss);
-                    }
-                    else if(cashServiceType == 2){
-                        getTip = "到账："+(getCash-getCash*cashServiceCost/100)+"元，";
-                        if (getCash-getCash*cashServiceCost/100<0){
-                            getTip = "到账：0元，";
-                        }
-                        tip = getTip +"所需手续费"+getCash*cashServiceCost/100+"元";
-                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
-
-                        mTvCashServiceTip.setText(ss);
-                    }
+//                    int colorId = getResources().getColor(R.color.btn_main);
+//                    String tip = null;
+//                    String getTip = null;
+//                    if(cashServiceType == 1){
+//
+//                        getTip = "到账："+(getCash-cashServiceCost)+"元，";
+//                        if (getCash-cashServiceCost<0){
+//                            getTip = "到账：0元，";
+//                        }
+//                        tip = getTip +"所需手续费"+cashServiceCost+"元";
+//                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
+//
+//                        mTvCashServiceTip.setText(ss);
+//                    }
+//                    else if(cashServiceType == 2){
+//                        getTip = "到账："+(getCash-getCash*cashServiceCost/100)+"元，";
+//                        if (getCash-getCash*cashServiceCost/100<0){
+//                            getTip = "到账：0元，";
+//                        }
+//                        tip = getTip +"所需手续费"+getCash*cashServiceCost/100+"元";
+//                        SpannableString ss = StringUtils.getSpannableString(tip, colorId, getTip.length(), tip.length());
+//
+//                        mTvCashServiceTip.setText(ss);
+//                    }
                         if(getCash<min){
                             mTvLastFree.setText("单笔最低"+min+"元！");
                             mTvLastFree.setTextColor(getResources().getColor(R.color.font_red));
@@ -263,8 +270,19 @@ public class WithdrawalsActivity extends BaseActivity {
                             mBtnWithdrawals.setEnabled(false);
                             mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
                         } else{
-                            mTvLastFree.setText(freeTip);
-                            mTvLastFree.setTextColor(getResources().getColor(R.color.font_grey));
+                            if (getCash>availableAmount){
+
+                                feeTrob=(getCash-availableAmount)*feeApr;
+                                BigDecimal bg = new BigDecimal(feeTrob);
+                                feeTrob = bg.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+
+                                totalFee=feeTrob+cashServiceCost;
+                            }else {
+                                totalFee=cashServiceCost;
+                            }
+                            tv_free_intro.setVisibility(View.VISIBLE);
+                            mTvLastFree.setText("手续费"+totalFee+"元");
+                            mTvLastFree.setTextColor(getResources().getColor(R.color.font_red));
                             mBtnWithdrawals.setEnabled(true);
                             mBtnWithdrawals.setBackgroundResource(R.drawable.login_button_selector);
                         }
@@ -275,7 +293,7 @@ public class WithdrawalsActivity extends BaseActivity {
                     mBtnWithdrawals.setEnabled(false);
                     mBtnWithdrawals.setBackgroundResource(R.drawable.btn_pressed_enable);
                     mTvLastFree.setTextColor(getResources().getColor(R.color.font_grey));
-                    mTvCashServiceTip.setText("所需手续费0元");
+//                    mTvCashServiceTip.setText("所需手续费0元");
                 }
             }
         });
@@ -358,7 +376,7 @@ public class WithdrawalsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question,R.id.tv_finish_bank})
+    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question,R.id.tv_finish_bank,R.id.tv_free_intro})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -419,6 +437,10 @@ public class WithdrawalsActivity extends BaseActivity {
             case R.id.tv_finish_bank:
                 Intent intent1 = new Intent(mContext, BindBankCardActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.tv_free_intro:
+                showToDialog();
+
                 break;
         }
     }
@@ -670,6 +692,43 @@ public class WithdrawalsActivity extends BaseActivity {
             public void onInputFinish(String password) {
                 dialog.dismiss();
                 cash(mEtAmt.getText().toString().trim(), password);
+            }
+        });
+    }
+
+    private void showToDialog() {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.withdrawal_fee_intro, null);
+        ViewUtils.inject(this, view);
+
+        TextView tv_fee= (TextView) view.findViewById(R.id.tv_fee);
+        TextView tv_trofee= (TextView) view.findViewById(R.id.tv_trofee);
+        TextView tv_total= (TextView) view.findViewById(R.id.tv_total);
+        TextView tv_rule=(TextView)view.findViewById(R.id.tv_rule);
+        tv_fee.setText(cashServiceCost+"元");
+        tv_trofee.setText(feeTrob+"元");
+        tv_total.setText(totalFee+"元");
+
+        StringBuffer sb = new StringBuffer();
+        for (int i=0;i<tips.size();i++){
+            sb.append(tips.get(i));
+            if(i<tips.size()-1){
+                sb.append("\n");
+            }
+        }
+        tv_rule.setText(sb.toString());
+
+        final ImageView iv_dismiss= (ImageView) view.findViewById(R.id.iv_dismiss);
+
+        final ActionSheet dialog = new ActionSheet(mContext, ActionSheet.GRAVITY_CENTER);
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        iv_dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
     }
