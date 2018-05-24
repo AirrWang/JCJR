@@ -58,6 +58,7 @@ public class CashServiceEntity {
         private int max;
         private float available_amount;
         private float fee_apr;
+        private List<String> cash_remind;
 
         public int getLast_num() {
             return last_num;
@@ -121,6 +122,14 @@ public class CashServiceEntity {
 
         public void setFee_apr(float fee_apr) {
             this.fee_apr = fee_apr;
+        }
+
+        public List<String> getCash_remind() {
+            return cash_remind;
+        }
+
+        public void setCash_remind(List<String> cash_remind) {
+            this.cash_remind = cash_remind;
         }
     }
 }

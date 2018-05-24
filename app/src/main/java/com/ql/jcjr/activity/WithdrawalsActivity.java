@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -41,6 +42,7 @@ import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.KeyboardUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.ToastUtil;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.ActionSheet;
@@ -85,12 +87,15 @@ public class WithdrawalsActivity extends BaseActivity {
     //免费次数
     @ViewInject(R.id.tv_last_free_time)
     private TextView mTvLastFree;
+
+    @ViewInject(R.id.ll_jianpan)
+    private View ll_jianpan;
 //    //手续费
 //    @ViewInject(R.id.tv_cash_service_tip)
 //    private TextView mTvCashServiceTip;
     //说明
-//    @ViewInject(R.id.tv_tip)
-//    private TextView mTvTip;
+    @ViewInject(R.id.tv_tip)
+    private TextView mTvTip;
 
     @ViewInject(R.id.btn_withdrawals)
     private Button mBtnWithdrawals;
@@ -100,6 +105,12 @@ public class WithdrawalsActivity extends BaseActivity {
 
     @ViewInject(R.id.tv_free_intro)
     private TextView tv_free_intro;
+
+    @ViewInject(R.id.tv_get_all)
+    private TextView tv_get_all;
+
+    @ViewInject(R.id.tv_1)
+    private TextView tv_1;
 
     private Context mContext;
     private String mAvailableBalance;
@@ -171,6 +182,20 @@ public class WithdrawalsActivity extends BaseActivity {
 
                         tips = entity.getResult().getRemind();
 
+                        List<String> cash_tips=entity.getResult().getCash_remind();
+                        if (cash_tips==null||cash_tips.size()==0){
+                            tv_1.setVisibility(View.GONE);
+                        }else {
+                            StringBuffer sb = new StringBuffer();
+                            for (int i=0;i<cash_tips.size();i++){
+                                sb.append(cash_tips.get(i));
+                                if(i<cash_tips.size()-1){
+                                    sb.append("\n");
+                                }
+                            }
+                            mTvTip.setText(sb.toString());
+                        }
+
                     }
 
                     @Override
@@ -232,8 +257,22 @@ public class WithdrawalsActivity extends BaseActivity {
                 tv_free_intro.setVisibility(View.GONE);
                 if (s.length() > 0) {
                     mEtAmt.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.size_xxxl));
+
+                    if (s.toString().equals("0")|| s.toString().equals("0.")){
+                        mEtAmt.setText("");
+                        return;
+                    }
+                    if(mAvailableBalance.equals("0")|| mAvailableBalance.equals("0.0") || mAvailableBalance.equals("0.00")){
+                        mEtAmt.setText("");
+                        CommonToast.makeText("提现金额不足");
+                        return;
+                    }
+                    if (Float.valueOf(s.toString())>Float.valueOf(mAvailableBalance)){
+                        mEtAmt.setText(mAvailableBalance);
+                        mEtAmt.setSelection(mAvailableBalance.length());
+                    }
 //                    LogUtil.i("Editable " + Float.parseFloat(s.toString()));
-                        float getCash = Float.parseFloat(s.toString());
+                        float getCash = Float.parseFloat(mEtAmt.getText().toString().trim());
 
 //                    int colorId = getResources().getColor(R.color.btn_main);
 //                    String tip = null;
@@ -383,6 +422,10 @@ public class WithdrawalsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_withdrawals:
+                if (isComlate==null){
+                    ToastUtil.showToast(mContext,"请先绑定银行卡");
+                    return;
+                }
                 if (isComlate.equals("0")){
                     //TODO
                     CommonDialog.Builder builder = new CommonDialog.Builder(mContext);
@@ -732,4 +775,66 @@ public class WithdrawalsActivity extends BaseActivity {
             }
         });
     }
+
+    /**
+     * 点击空白区域隐藏键盘.
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            LogUtil.d("v:"+v);
+            if (isShouldHideKeyboard(v, ev)) {
+                new KeyboardUtil(mContext, WithdrawalsActivity.this, mEtAmt,1).hideKeyboard();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时则不能隐藏
+     *
+     * @param v
+     * @param event
+     * @return
+     */
+    private boolean isShouldHideKeyboard(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText) ) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0],
+                    top = l[1],
+                    bottom = top + v.getHeight(),
+                    right = left + v.getWidth();
+            int[] y = {0, 0};
+            ll_jianpan.getLocationInWindow(y);
+            int left1 = y[0],
+                    top1 = y[1],
+                    bottom1 = top1 + ll_jianpan.getHeight(),
+                    right1 = left1 + ll_jianpan.getWidth();
+            tv_get_all.getLocationInWindow(y);
+            int left2 = y[0],
+                    top2 = y[1],
+                    bottom2 = top2 + tv_get_all.getHeight(),
+                    right2 = left2 + tv_get_all.getWidth();
+
+            if (event.getX() > left1 && event.getX() < right1
+                    && event.getY() > top1 && event.getY() < bottom1){
+                return false;
+            }
+            if ((event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom)||(event.getX() > left1 && event.getX() < right1
+                    && event.getY() > top1 && event.getY() < bottom1)||(event.getX() > left2 && event.getX() < right2
+                    && event.getY() > top2 && event.getY() < bottom2)) {
+                // 点击EditText的事件，忽略它。
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
+        return false;
+    }
+
+
 }

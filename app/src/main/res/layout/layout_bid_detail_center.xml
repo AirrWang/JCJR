@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_20px" />
     <LinearLayout
+        android:paddingBottom="@dimen/dimen_30px"
         android:paddingLeft="@dimen/dimen_30px"
         android:background="@color/c_fffff"
         android:orientation="vertical"
@@ -35,6 +36,7 @@
                 android:text=""/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_bq"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/dimen_30px"
             android:orientation="horizontal"
@@ -107,7 +109,8 @@
                 android:text=""/>
         </LinearLayout>
         <LinearLayout
-            android:layout_marginBottom="@dimen/dimen_30px"
+            android:id="@+id/ll_time"
+
             android:layout_marginTop="@dimen/dimen_30px"
             android:orientation="horizontal"
             android:layout_width="match_parent"

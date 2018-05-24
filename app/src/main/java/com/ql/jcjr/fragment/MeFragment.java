@@ -172,12 +172,12 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
         tv_level.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if (StringUtils.isNotBlank(mRealName)) {
+//                    if (StringUtils.isNotBlank(mRealName)) {
                         UrlUtil.showHtmlPage(mContext,"会员中心", RequestURL.VIP_DETAIL_URL,true);
-                    } else {
-//                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
-                        CommonToast.showShiMingDialog(mContext);
-                    }
+//                    } else {
+////                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
+//                        CommonToast.showShiMingDialog(mContext);
+//                    }
             }
         });
     }

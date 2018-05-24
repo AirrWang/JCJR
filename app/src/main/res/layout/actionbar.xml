@@ -5,7 +5,8 @@
     android:background="@color/title_bg_color"
     android:orientation="vertical">
 
-    <Space
+    <View
+        android:id="@+id/sp_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar_view_height"/>
 

@@ -65,6 +65,8 @@ public class ActionBar extends LinearLayout {
     private ImageView ivShare; //for H5 添加图片
     @ViewInject(R.id.vw_divider)
     private View dividerView;
+    @ViewInject(R.id.sp_top)
+    private View sp_top;
 //    @ViewInject(R.id.fl_right_cart)
 //    private FrameLayout flCart;
 //    @ViewInject(R.id.btn_right_cart)
@@ -133,6 +135,8 @@ public class ActionBar extends LinearLayout {
         // 根据xml配置的属性设置UI
         initAttributeFromXml(attrs);
         addView(barView);
+
+//
     }
 
     private void initAttributeFromXml(AttributeSet attrs) {

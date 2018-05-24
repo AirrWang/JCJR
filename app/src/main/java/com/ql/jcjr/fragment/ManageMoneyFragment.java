@@ -17,14 +17,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.activity.BidDetailActivity;
-import com.ql.jcjr.activity.LoginActivity;
-import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.adapter.YyyAdapter;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.entity.BidListEntity;
-import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -39,6 +36,8 @@ import com.ql.jcjr.view.XListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ql.jcjr.utils.StatusBarCompat.getStatusBarHeight;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -74,6 +73,9 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     private ImageView iv_jindu_down;
     @ViewInject(R.id.iv_jindu_up)
     private ImageView iv_jindu_up;
+
+    @ViewInject(R.id.v_status)
+    private View v_status;
 
 
     private final static int IDEX_YYY = 0;//月月盈
@@ -113,6 +115,10 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     @Override
     protected void initView(View view) {
         ViewUtils.inject(this, view);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) v_status.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
+        v_status.setLayoutParams(layoutParams);
+
         mContext = getActivity();
         mLayoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPullToRefreshView.setOnHeaderRefreshListener(this);
@@ -134,21 +140,12 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
         btn_bid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!UserData.getInstance().isLogin()){
-                    if (UserData.getInstance().getPhoneNumber().equals("")) {
-                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
-                    }else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                        startActivity(intent);
-                    }
-                }else {
+
                     Intent intent = new Intent(mContext, NoviceExclusiveActivity.class);
                     intent.putExtra("bid_id", mBidAll.get(0).getId());
                     intent.putExtra("bid_title",  mBidAll.get(0).getName());
                     startActivity(intent);
-                }
+
             }
         });
     }

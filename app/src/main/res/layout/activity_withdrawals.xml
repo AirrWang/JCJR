@@ -205,27 +205,27 @@
                 <!--android:textColor="@color/font_grey"-->
                 <!--android:textSize="@dimen/size_xs"/>-->
 
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/dimen_48px"-->
-                <!--android:layout_marginLeft="@dimen/row_text_margin"-->
-                <!--android:drawableLeft="@drawable/icon_warming"-->
-                <!--android:drawablePadding="@dimen/dimen_16px"-->
-                <!--android:textSize="@dimen/size_xs"-->
-                <!--android:textColor="@color/font_grey"-->
-                <!--android:text="提现说明："/>-->
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_48px"
+                android:layout_marginLeft="@dimen/row_text_margin"
+                android:drawableLeft="@drawable/icon_warming"
+                android:drawablePadding="@dimen/dimen_16px"
+                android:textSize="@dimen/size_xs"
+                android:textColor="@color/font_grey"
+                android:text="提现说明："/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_tip"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/dimen_16px"-->
-                <!--android:layout_marginLeft="@dimen/row_text_margin"-->
-                <!--android:layout_marginRight="@dimen/row_text_margin"-->
-                <!--android:textSize="@dimen/size_xs"-->
-                <!--android:textColor="@color/font_grey"-->
-                <!--android:text="16:00之前提现当天到帐，16:00之后提现第二天到帐；特殊情况除外，用户充值资金在15天内提现将扣除1%的提现手续费。"/>-->
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16px"
+                android:layout_marginLeft="@dimen/row_text_margin"
+                android:layout_marginRight="@dimen/row_text_margin"
+                android:textSize="@dimen/size_xs"
+                android:textColor="@color/font_grey" />
 
         </LinearLayout>
 
