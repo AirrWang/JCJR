@@ -42,7 +42,7 @@ public class SenderManager {
     public static SenderResultModel buildResultModel(RequestParams params, String url, boolean isShowLoading) {
         HttpRequestEntity entity = new HttpRequestEntity();
         entity.url = url;
-        entity.params = params;
+        entity.params=params;
 
         SenderResultModel resultModel = createHttpRequestModel();
         resultModel.isShowLoadding = isShowLoading;

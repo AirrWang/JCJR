@@ -16,7 +16,6 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.activity.BidDetailActivity;
-import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
@@ -530,17 +529,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         Intent intent = null;
         switch (view.getId()) {
             case R.id.btn_bid:
-                if (!UserData.getInstance().isLogin()){
-                    if (UserData.getInstance().getPhoneNumber().equals("")) {
-                         intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
-                    }else {
-                         intent = new Intent(mContext, LoginActivity.class);
-                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                        startActivity(intent);
-                    }
-                    break;
-                }
+
                 if (banner==3){
                     intent = new Intent(mContext, BidDetailActivity.class);
                     intent.putExtra("bid_title", mBidName);

@@ -1,10 +1,12 @@
 package com.ql.jcjr.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -52,6 +54,8 @@ import com.umeng.analytics.MobclickAgent;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //投标详情
 public class BidDetailActivity extends BaseActivity {
@@ -64,8 +68,8 @@ public class BidDetailActivity extends BaseActivity {
 
     @ViewInject(R.id.tv_title)
     private TextView mTvTitle;
-    @ViewInject(R.id.tv_title_second)
-    private ImageTextHorizontalBarLess mTvTitleSecond;
+//    @ViewInject(R.id.tv_title_second)
+//    private ImageTextHorizontalBarLess mTvTitleSecond;
     //原年化
     @ViewInject(R.id.tv_apr)
     private TextView mTvApr;
@@ -88,14 +92,27 @@ public class BidDetailActivity extends BaseActivity {
     @ViewInject(R.id.tv_percent)
     private TextView mTvPercent;
 
-    @ViewInject(R.id.tv_repayment_type)
-    private ImageTextHorizontalBarLess mTvRepayType;
+    @ViewInject(R.id.tv_bid_detail_title)
+    private TextView mTitle;
+    @ViewInject(R.id.tv_bid_detail_getmoney)
+    private TextView mTvGet;
+    @ViewInject(R.id.tv_bid_time)
+    private TextView tv_bid_time;
+
+//    @ViewInject(R.id.tv_repayment_type)
+//    private ImageTextHorizontalBarLess mTvRepayType;
     @ViewInject(R.id.ithb_bid_record)
     private ImageTextHorizontalBarLess mTvBidRecord;
     @ViewInject(R.id.tv_bid)
     private TextView mTvBid;
     @ViewInject(R.id.iv_calculator)
     private ImageView mIvCalculator;
+    @ViewInject(R.id.tv_is_lz)
+    private TextView mTvIsLz;
+    @ViewInject(R.id.tv_tag_1)
+    private TextView tv_tag_1;
+    @ViewInject(R.id.tv_tag_2)
+    private TextView tv_tag_2;
 
 
     private Context mContext;
@@ -109,6 +126,7 @@ public class BidDetailActivity extends BaseActivity {
     private BidDetailEntity.ResultBean resultBean;
 
     private InputMethodManager imm;
+    private boolean isOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,13 +142,12 @@ public class BidDetailActivity extends BaseActivity {
 
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 //        mTvAprGain.setTypeface(JcbApplication.getPingFangBoldTypeFace());
-
-        getIntentData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getIntentData();
         if (!UserData.getInstance().getRiskWarning()){
             getRiskWarning();
         }
@@ -167,7 +184,7 @@ public class BidDetailActivity extends BaseActivity {
         mBidId = getIntent().getStringExtra("bid_id");
         bidName = getIntent().getStringExtra("bid_title");
         mTvTitle.setText(bidName);
-        mTvTitleSecond.setRightTitleText(bidName);
+        mTitle.setText(bidName);
         getBidDetailData(mBidId);
 
         Map<String, String> datas = new HashMap<String, String>();
@@ -206,12 +223,51 @@ public class BidDetailActivity extends BaseActivity {
                                 mTvTerm.setText(resultBean.getTime_limit_day() + "天");
                                 break;
                         }
+                        //计息方式
+                        switch (resultBean.getIs_lz()) {
+                            case "0":
+                                mTvIsLz.setText("满标复审当日计息");
+                                break;
+                            case "1":
+                                mTvIsLz.setText("投资成功当日计息");
+                                break;
+                        }
+                        if (StringUtils.isBlank(resultBean.getBremark())){
+                            tv_tag_1.setVisibility(View.GONE);
+                        }else {
+                            tv_tag_1.setVisibility(View.VISIBLE);
+                            tv_tag_1.setText(resultBean.getBremark());
+                            if (!StringUtils.isBlank(resultBean.getUrl())){
+                                tv_tag_1.setText(resultBean.getBremark()+">");
+                                tv_tag_1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        UrlUtil.showHtmlPage(mContext,"",resultBean.getUrl(),true);
+                                    }
+                                });
+                            }
+                        }
+                        if (StringUtils.isBlank(resultBean.getBremark1())){
+                            tv_tag_2.setVisibility(View.GONE);
+                        }else {
+                            tv_tag_2.setVisibility(View.VISIBLE);
+                            tv_tag_2.setText(resultBean.getBremark1());
+                            if (!StringUtils.isBlank(resultBean.getUrl1())){
+                                tv_tag_2.setText(resultBean.getBremark1()+">");
+                                tv_tag_2.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        UrlUtil.showHtmlPage(mContext,"",resultBean.getUrl1(),true);
+                                    }
+                                });
+                            }
+                        }
 
                         mTvMinAmt.setText(resultBean.getLowest_account() + "元");
                         mTvLoan.setText(resultBean.getAccount() + "元");
                         String surplus = resultBean.getSurplus();
                         mTvSurplus.setText(surplus);
-                        mTvRepayType.setRightTitleText(resultBean.getRepaytype());
+                        mTvGet.setText(resultBean.getRepaytype());
                         mTvBidRecord.setRightTitleText(resultBean.getTenderNum() + "人");
 
                         double account = Double.valueOf(resultBean.getAccount());
@@ -233,6 +289,7 @@ public class BidDetailActivity extends BaseActivity {
                         }
 
                         if(StringUtils.isBlank(surplus) || "0.00".equals(surplus) || "0".equals(surplus)) {
+                            isOver = true;
                             mTvBid.setEnabled(false);
                             mTvBid.setText("已售罄，可选择其他项目购买");
                             mIvCalculator.setVisibility(View.GONE);
@@ -241,6 +298,7 @@ public class BidDetailActivity extends BaseActivity {
                             mTvPercent.setText("100%");
                             mIvProgressLight.setVisibility(View.GONE);
                         }else{
+                            isOver=false;
                             mTvBid.setEnabled(true);
                             if(Double.valueOf(resultBean.getSurplus()) <= Double.valueOf(resultBean.getLowest_account())){
                                 isBuyAll = true;
@@ -255,6 +313,8 @@ public class BidDetailActivity extends BaseActivity {
 
                             mTvPercent.setText(percent+"%");
                         }
+
+                        chageTime(resultBean.getLasttime());
                     }
 
                     @Override
@@ -745,5 +805,96 @@ public class BidDetailActivity extends BaseActivity {
                 dialog.dismiss();
             }
         });
+    }
+    private  int day=0;
+    private int hour=0;
+    private int mint=0;
+    private  int sed =0;
+    private void chageTime(int _ms){
+        day=_ms/86400;
+        hour=(_ms-day*86400)/3600;
+        mint=(_ms-day*86400-hour*3600)/60;
+        sed=_ms-day*86400-hour*3600-mint*60;
+        if (!isOver) {
+            startTime();
+        }
+            timeplus(sed);
+    }
+
+    private Timer timer;
+    private TimerTask timerTask;
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            startTime();
+            timeplus(msg.arg1);
+        };
+    };
+
+    private void timeplus(int arg1) {
+        if (arg1>59){
+            sed=0;
+            mint++;
+        }
+        if (mint>59){
+            mint=0;
+            hour++;
+        }
+        if (hour>23){
+            hour=0;
+            day++;
+        }
+        String hourStr=String.valueOf(hour);
+        if(hour<10){
+            hourStr="0"+hourStr;
+        }
+        String mintStr=String.valueOf(mint);
+        if(mint<10){
+            mintStr="0"+mintStr;
+        }
+        String sedStr=String.valueOf(sed);
+        if(sed<10){
+            sedStr="0"+sedStr;
+        }
+        //TODO 更新UI
+        tv_bid_time.setText(day+"天"+hourStr+"时"+mintStr+"分"+sedStr+"秒");
+    }
+
+    /**
+     * 开始自动加时
+     */
+    private void startTime() {
+        if(timer==null){
+            timer = new Timer();
+        }
+
+        timerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                sed++;//自动加1
+                Message message = Message.obtain();
+                message.arg1=sed;
+                mHandler.sendMessage(message);//发送消息
+            }
+        };
+        timer.schedule(timerTask, 1000);//1000ms执行一次
+    }
+    /**
+     * 停止自动加时
+     */
+    private void stopTime() {
+        if(timer!=null) {
+            timer.cancel();
+        }
+        timer=null;
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTime();
     }
 }

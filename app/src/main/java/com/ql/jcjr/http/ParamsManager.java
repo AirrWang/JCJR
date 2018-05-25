@@ -246,12 +246,16 @@ public class ParamsManager {
     /**
      * 理财列表
      */
-    public static SenderResultModel senderBidList(String page, String epage, String type) {
+    public static SenderResultModel senderBidList(String page, String epage, String type,String order) {
         RequestParams params = new RequestParams();
+        String token= UserData.getInstance().getUSERID();
+        params.addBodyParameter("token", token);
 //        params.addBodyParameter("biaoSing", biaoSing);
         params.addBodyParameter("page", page);
         params.addBodyParameter("epage", epage);
         params.addBodyParameter("type", type);
+        params.addBodyParameter("order",order);
+        params.addBodyParameter("sign","newPub");
 
         SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_URL, false);
 

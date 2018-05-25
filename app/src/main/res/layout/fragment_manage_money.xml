@@ -11,16 +11,137 @@
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:background="@color/colorPrimary"
-        android:visibility="gone"/>
+        />
 
-    <com.ql.jcjr.view.ActionBar
-        android:id="@+id/ab_header"
-        xmlns:bar="http://schemas.android.com/apk/res-auto"
+    <!--<com.ql.jcjr.view.ActionBar-->
+        <!--android:id="@+id/ab_header"-->
+        <!--xmlns:bar="http://schemas.android.com/apk/res-auto"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--bar:bottom_divider_visibility="gone"-->
+        <!--bar:left_first_visibility="invisible"-->
+        <!--bar:title="产品列表"/>-->
+    <LinearLayout
+        android:background="@color/c_fffff"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        bar:bottom_divider_visibility="gone"
-        bar:left_first_visibility="invisible"
-        bar:title="产品列表"/>
+        android:layout_height="@dimen/dimen_98px">
+        <TextView
+            android:id="@+id/tv_moren"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="默认"
+            android:gravity="center"
+            android:textSize="@dimen/size_xl"
+            android:textColor="@color/btn_main"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/rl_apr"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_apr"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="利率"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_apr_up"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_apr_down"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/ll_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="期限"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_order_paytime"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_time_up"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_time_down"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/ll_jindu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_jindu"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="进度"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_jindu_up"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_jindu_down"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <com.ql.jcjr.view.PullToRefreshView
         android:id="@+id/pull_refresh_view"

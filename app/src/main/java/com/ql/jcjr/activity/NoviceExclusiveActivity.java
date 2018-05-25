@@ -25,6 +25,7 @@ import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BidDetailEntity;
+import com.ql.jcjr.entity.HomeDataEntity;
 import com.ql.jcjr.entity.MineFragmentEntity;
 import com.ql.jcjr.entity.RiskWarningEntity;
 import com.ql.jcjr.entity.UserData;
@@ -69,10 +70,18 @@ public class NoviceExclusiveActivity extends BaseActivity {
     private RelativeLayout mLlDetailRest;
     @ViewInject(R.id.ll_biao_detail_right)
     private LinearLayout mLinearLayoutDetailGain;
-    @ViewInject(R.id.tv_title_second)
-    private ImageTextHorizontalBarLess mTvTitleSecond;
-    @ViewInject(R.id.tv_repayment_type)
-    private ImageTextHorizontalBarLess mTvRepayType;
+
+
+    @ViewInject(R.id.tv_is_lz)
+    private TextView mTvIsLz;
+    @ViewInject(R.id.tv_bid_detail_getmoney)
+    private TextView mTvGet;
+    @ViewInject(R.id.tv_bid_detail_title)
+    private TextView mTitle;
+    @ViewInject(R.id.ll_bq)
+    private LinearLayout ll_bq;
+    @ViewInject(R.id.ll_time)
+    private LinearLayout ll_time;
 
     private Context mContext;
     private String mBidId;
@@ -86,20 +95,23 @@ public class NoviceExclusiveActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novice_exclusive);
         ViewUtils.inject(this);
+        ll_bq.setVisibility(View.GONE);
+        ll_time.setVisibility(View.GONE);
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mContext = this;
 
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 
+        getIntentData();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getIntentData();
-
+        getData();
+        getBidDetailData(mBidId);
     }
     private void getRiskWarning() {
         SenderResultModel resultModel = ParamsManager.getRisk();
@@ -135,8 +147,8 @@ public class NoviceExclusiveActivity extends BaseActivity {
         mBidId = getIntent().getStringExtra("bid_id");
         bidName = getIntent().getStringExtra("bid_title");
         mTvTitle.setText(bidName);
-        mTvTitleSecond.setRightTitleText(bidName);
-        getBidDetailData(mBidId);
+        mTitle.setText(bidName);
+
     }
 
     private void getBidDetailData(String bidId) {
@@ -166,9 +178,20 @@ public class NoviceExclusiveActivity extends BaseActivity {
                                 break;
                         }
 
+                        //计息方式
+                        switch (resultBean.getIs_lz()) {
+                            case "0":
+                                mTvIsLz.setText("满标复审当日计息");
+                                break;
+                            case "1":
+                                mTvIsLz.setText("投资成功当日计息");
+                                break;
+                        }
+
+
                         mTvMinAmt.setText(resultBean.getLowest_account() + "元");
                         mTvLoan.setText(resultBean.getMost_account() + "元");
-                        mTvRepayType.setRightTitleText(resultBean.getRepaytype());
+                        mTvGet.setText(resultBean.getRepaytype());
                         mTvBidRecord.setRightTitleText(resultBean.getTenderNum() + "人");
                     }
 
@@ -521,6 +544,17 @@ public class NoviceExclusiveActivity extends BaseActivity {
                 showCalculatorDialog();
                 break;
             case R.id.tv_bid:
+                if (!UserData.getInstance().isLogin()){
+                    if (UserData.getInstance().getPhoneNumber().equals("")) {
+                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                        startActivity(intent);
+                    }
+                    break;
+                }
                 if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
                     if (UserData.getInstance().getRiskWarning()) {
                             getAccountInfo();
@@ -581,5 +615,29 @@ public class NoviceExclusiveActivity extends BaseActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    private void getData() {
+        SenderResultModel resultModel = ParamsManager.getHomeData();
+
+        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
+
+            @Override
+            public void onSuccess(String responeJson) {
+                LogUtil.i("首页数据获取成功 " + responeJson);
+                HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
+                 if (entity.getResult().getResult1().getCode().equals("3")){
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(ResponseEntity entity) {
+                LogUtil.i("广告栏失败 " + entity.errorInfo);
+            }
+
+        }, mContext);
+
     }
 }

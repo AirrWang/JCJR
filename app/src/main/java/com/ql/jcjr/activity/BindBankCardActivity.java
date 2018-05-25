@@ -416,7 +416,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                             }
                             LogUtil.i("fullName:"+fullName);
                             if (fullName==null){
-                                CommonToast.showHintDialog(mContext, "暂不支持该银行");
+                                CommonToast.showHintDialog(mContext, "卡号无法识别，请手动选择银行");
                             }
                         }
 
@@ -745,10 +745,10 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
         }
                 Rect r = new Rect();
                 ll_container.getWindowVisibleDisplayFrame(r);
-                if (sc == null) {
-                    sc = new int[2];
-                    btn_bind.getLocationOnScreen(sc);
-                }
+
+                sc = new int[2];
+                btn_bind.getLocationOnScreen(sc);
+
                 //r.top 是状态栏高度
                 int screenHeight = ll_container.getRootView().getHeight();
                 int softHeight = screenHeight - r.bottom;

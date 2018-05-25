@@ -44,25 +44,22 @@
         android:layout_marginBottom="@dimen/dimen_132px">
 
         <include layout="@layout/layout_bid_detail_first"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/row_distance"
-            android:orientation="vertical">
-
-            <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                style="@style/ithb_no_left_right_icon"
-                android:id="@+id/tv_title_second"
-                app:titleTextLess="项目名称" />
-
-            <com.ql.jcjr.view.ImageTextHorizontalBarLess
-                style="@style/ithb_no_left_right_icon"
-                android:id="@+id/tv_repayment_type"
-                app:bottomLineVisibilityLess="gone"
-                app:titleTextLess="还款方式" />
-
-
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/row_distance"-->
+            <!--android:orientation="vertical">-->
+            <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
+                <!--style="@style/ithb_no_left_right_icon"-->
+                <!--android:id="@+id/tv_title_second"-->
+                <!--app:titleTextLess="项目名称" />-->
+            <!--<com.ql.jcjr.view.ImageTextHorizontalBarLess-->
+                <!--style="@style/ithb_no_left_right_icon"-->
+                <!--android:id="@+id/tv_repayment_type"-->
+                <!--app:bottomLineVisibilityLess="gone"-->
+                <!--app:titleTextLess="还款方式" />-->
+        <!--</LinearLayout>-->
+        <include layout="@layout/layout_bid_detail_center"/>
         <include layout="@layout/layout_bid_detail_second"/>
 
     </LinearLayout>

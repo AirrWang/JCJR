@@ -104,6 +104,11 @@ public class BidDetailEntity {
         private String surplus;
         private String repaytype;
         private int tenderNum;
+        private String bremark;
+        private String url;
+        private String bremark1;
+        private String url1;
+        private int  lasttime;
 
         public String getAprOrigin() {
             return aprOrigin;
@@ -321,6 +326,46 @@ public class BidDetailEntity {
 
         public void setTenders(List<TendersBean> tenders) {
             this.tenders = tenders;
+        }
+
+        public String getBremark() {
+            return bremark;
+        }
+
+        public void setBremark(String bremark) {
+            this.bremark = bremark;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getBremark1() {
+            return bremark1;
+        }
+
+        public void setBremark1(String bremark1) {
+            this.bremark1 = bremark1;
+        }
+
+        public String getUrl1() {
+            return url1;
+        }
+
+        public void setUrl1(String url1) {
+            this.url1 = url1;
+        }
+
+        public int getLasttime() {
+            return lasttime;
+        }
+
+        public void setLasttime(int lasttime) {
+            this.lasttime = lasttime;
         }
 
         public static class TendersBean implements Serializable{
