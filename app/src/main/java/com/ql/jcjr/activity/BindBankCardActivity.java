@@ -1,16 +1,14 @@
 package com.ql.jcjr.activity;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -67,7 +65,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class BindBankCardActivity extends BaseActivity implements View.OnTouchListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class BindBankCardActivity extends BaseActivity implements View.OnTouchListener{
 
     @ViewInject(R.id.ab_header)
     private ActionBar mActionBar;
@@ -115,10 +113,13 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private ImageView iv_down_go;
     @ViewInject(R.id.ll_hide)
     private LinearLayout ll_hide;
+    @ViewInject(R.id.tv_bank_bq)
+    private TextView tv_bank_bq;
 
     private Context mContext;
     private String mRealName;
     private String mBankName;
+    private String mBankOrder;
     private String mBankId;
 
     private String provinceName;
@@ -169,7 +170,7 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     }
 
     private void init() {
-        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(this);
+//        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(this);
         mLlFirst.setVisibility(View.GONE);
         ll_bank_card.setVisibility(View.GONE);
 
@@ -368,9 +369,12 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mBankName = bankList.get(position).getName();
                 mBankId = bankList.get(position).getId();
+                mBankOrder=bankList.get(position).getOrder();
 //                mIthbBank.setTitleText(bankList.get(position).getName());
 //                GlideUtil.displayPic(mContext, bankList.get(position).getImgUrl(), -1, mCivBankLogo);
                 mTvBankName.setText(mBankName);
+
+
                 dialog.dismiss();
             }
         });
@@ -408,6 +412,21 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                                     fullName = bankList.get(i).getName();
                                         mBankName = bankList.get(i).getName();
                                         mBankId = bankList.get(i).getId();
+                                        mBankOrder=bankList.get(i).getOrder();
+                                    if (mBankOrder.equals("1")){  //推荐
+                                        tv_bank_bq.setText("推荐");
+                                        tv_bank_bq.setBackgroundResource(R.drawable.btn_rectangle_circl_btn);
+                                    }else if (mBankOrder.equals("2")){
+                                        tv_bank_bq.setText("额度低");
+                                        tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_b74f4f);
+                                    }else if (mBankOrder.equals("4")){
+                                        tv_bank_bq.setText("维护中");
+                                        tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_grey);
+                                    }else {
+                                        tv_bank_bq.setText("");
+                                        tv_bank_bq.setBackgroundColor(Color.TRANSPARENT);
+                                    }
+
 //                                        GlideUtil.displayPic(mContext, bankList.get(i).getImgUrl(), -1, mCivBankLogo);
                                         mTvBankName.setText(mBankName);
                                         break;
@@ -703,8 +722,24 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
             if(resultCode == RESULT_OK){
                 String id = data.getStringExtra("bank_id");
                 String name = data.getStringExtra("bank_name");
+                mBankOrder=data.getStringExtra("bank_order");
                 mBankName = name;
                 mBankId = id;
+                if (mBankOrder.equals("1")){  //推荐
+                    tv_bank_bq.setText("推荐");
+                    tv_bank_bq.setBackgroundResource(R.drawable.btn_rectangle_circl_btn);
+                }else if (mBankOrder.equals("2")){
+                    tv_bank_bq.setText("额度低");
+                    tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_b74f4f);
+                }else if (mBankOrder.equals("4")){
+                    tv_bank_bq.setText("维护中");
+                    tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_grey);
+                }else {
+                    tv_bank_bq.setText("");
+                    tv_bank_bq.setBackgroundColor(Color.TRANSPARENT);
+                }
+
+
                 mTvBankName.setText(mBankName);
             }
         }
@@ -735,49 +770,49 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     }
 
 
-    private int[] sc;
-    private int scrollHegit;
-    @Override
-    public void onGlobalLayout() {
-
-        if (!isScorll){
-            return;
-        }
-                Rect r = new Rect();
-                ll_container.getWindowVisibleDisplayFrame(r);
-
-                sc = new int[2];
-                btn_bind.getLocationOnScreen(sc);
-
-                //r.top 是状态栏高度
-                int screenHeight = ll_container.getRootView().getHeight();
-                int softHeight = screenHeight - r.bottom;
-
-                if (ll_jianpan.getVisibility()==View.VISIBLE){
-                    softHeight=ll_jianpan.getHeight()+softHeight;
-                }
-
-                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
-                    scrollHegit = sc[1] +btn_bind.getHeight() -(screenHeight-softHeight)+10;//可以加个5dp的距离这样，按钮不会挨着输入法
-                    if (ll_container.getScrollY() != scrollHegit&&scrollHegit>0)
-                        scrollToPos(0, scrollHegit);
-                } else {//否则判断为输入法隐藏了
-                    if (ll_container.getScrollY() != 0)
-                        scrollToPos(scrollHegit, 0);
-                }
-    }
-
-        private void scrollToPos(int start, int end) {
-        ValueAnimator animator = ValueAnimator.ofInt(start, end);
-        animator.setDuration(250);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                ll_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-        animator.start();
-    }
+//    private int[] sc;
+//    private int scrollHegit;
+//    @Override
+//    public void onGlobalLayout() {
+//
+//        if (!isScorll){
+//            return;
+//        }
+//                Rect r = new Rect();
+//                ll_container.getWindowVisibleDisplayFrame(r);
+//
+//                sc = new int[2];
+//                btn_bind.getLocationOnScreen(sc);
+//
+//                //r.top 是状态栏高度
+//                int screenHeight = ll_container.getRootView().getHeight();
+//                int softHeight = screenHeight - r.bottom;
+//
+//                if (ll_jianpan.getVisibility()==View.VISIBLE){
+//                    softHeight=ll_jianpan.getHeight()+softHeight;
+//                }
+//
+//                if (softHeight > 140) {//当输入法高度大于100判定为输入法打开了  设置大点，有虚拟键的会超过100
+//                    scrollHegit = sc[1] +btn_bind.getHeight() -(screenHeight-softHeight)+10;//可以加个5dp的距离这样，按钮不会挨着输入法
+//                    if (ll_container.getScrollY() != scrollHegit&&scrollHegit>0)
+//                        scrollToPos(0, scrollHegit);
+//                } else {//否则判断为输入法隐藏了
+//                    if (ll_container.getScrollY() != 0)
+//                        scrollToPos(scrollHegit, 0);
+//                }
+//    }
+//
+//        private void scrollToPos(int start, int end) {
+//        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+//        animator.setDuration(250);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                ll_container.scrollTo(0, (Integer) valueAnimator.getAnimatedValue());
+//            }
+//        });
+//        animator.start();
+//    }
 
     private void showToDialog() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

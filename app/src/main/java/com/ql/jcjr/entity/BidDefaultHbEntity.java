@@ -43,6 +43,7 @@ public class BidDefaultHbEntity {
         private String money;
         private String cashApr;
         private String type;
+        private String total;
 
         public String getCashApr() {
             return cashApr;
@@ -74,6 +75,14 @@ public class BidDefaultHbEntity {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        public String getTotal() {
+            return total;
+        }
+
+        public void setTotal(String total) {
+            this.total = total;
         }
     }
 }

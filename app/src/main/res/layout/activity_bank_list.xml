@@ -14,14 +14,44 @@
         android:layout_height="wrap_content"
         bar:bottom_divider_visibility="gone"
         bar:title="银行列表"/>
-
+    <TextView
+        android:gravity="center"
+        android:textSize="@dimen/size_l"
+        android:textColor="@color/btn_main"
+        android:text="为了保障优质的支付体验，我们建议您使用推荐银行"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_64px"
+        android:background="#FFF6E6"/>
+    <LinearLayout
+        android:paddingRight="@dimen/dimen_22px"
+        android:paddingLeft="@dimen/dimen_48px"
+        android:gravity="center_vertical"
+        android:background="@color/c_fffff"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_88px">
+        <TextView
+            android:textSize="@dimen/size_l"
+            android:textColor="@color/font_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="银行"
+            />
+        <TextView
+            android:gravity="end"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="单笔/单日/单月限额（元）"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        android:background="@color/divider_color"/>
     <ListView
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/row_distance"
         android:divider="@null"
-        android:dividerHeight="@dimen/row_distance"
         android:listSelector="@color/transparent"/>
 
 </LinearLayout>

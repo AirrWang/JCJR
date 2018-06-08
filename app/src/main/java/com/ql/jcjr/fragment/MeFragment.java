@@ -30,7 +30,9 @@ import com.ql.jcjr.activity.WithdrawalsActivity;
 import com.ql.jcjr.adapter.ShortCutAdapter;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
+import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.constant.RequestURL;
+import com.ql.jcjr.entity.CheckBankEntity;
 import com.ql.jcjr.entity.MineFragmentEntity;
 import com.ql.jcjr.entity.MsgHomeInfoEntity;
 import com.ql.jcjr.entity.UserData;
@@ -44,6 +46,7 @@ import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.SharedPreferencesUtils;
 import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.utils.ToastUtil;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
@@ -106,6 +109,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private String mUserIconUrl;
     private String mTel;
     private String mIsSetPay;
+    private int i=0;
 
     @Override
     protected void onFragmentFirstVisible() {
@@ -180,6 +184,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 //                    }
             }
         });
+
     }
 
     private void isLoginOrNot() {
@@ -310,6 +315,17 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
                         UserData.getInstance().setIsSetPay(resultBean.getIssetPay());
                         UserData.getInstance().setUserName(resultBean.getUsername());
+
+                        if (i==0) {
+                            i++;
+                            if (StringUtils.isBlank(UserData.getInstance().getRealName())) {
+                                //去实名
+                                ToastUtil.showRealNameDialog(mContext);
+                            }else {
+                                //去绑卡
+                                checkBank();
+                            }
+                        }
                     }
 
                     @Override
@@ -639,5 +655,36 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             }
         }
 
+    }
+
+    private String status;
+    private void checkBank() {
+        SenderResultModel resultModel = ParamsManager.senderCheckBank();
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("是否绑定银行卡 " + responeJson);
+                        CheckBankEntity entity = GsonParser.getParsedObj(responeJson, CheckBankEntity.class);
+                        CheckBankEntity.ResultBean resultBean = entity.getResult();
+                        status = resultBean.getStatus();
+                        switch (status) {
+                            case Global.STATUS_PASS:
+                                break;
+
+                            case Global.STATUS_UN_PASS://未绑卡
+                                ToastUtil.showBindBankDialog(mContext);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("是否绑定银行卡 " + entity.errorInfo);
+                    }
+
+                }, mContext);
     }
 }

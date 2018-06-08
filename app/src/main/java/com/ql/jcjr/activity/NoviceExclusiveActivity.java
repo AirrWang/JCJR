@@ -350,7 +350,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
             public void onClick(View v) {
                 dialog.dismiss();
                 if (checkInfo(etBIdAmt, balance)) {
-                    Intent intent = new Intent(NoviceExclusiveActivity.this, NoviceExclusiveConfirmActivity.class);
+                    Intent intent = new Intent(NoviceExclusiveActivity.this, BidConfirmActivity.class);
                     intent.putExtra("money", etBIdAmt.getText().toString());
                     intent.putExtra("earn", tvExpectedReturn.getText().toString());
                     intent.putExtra("bid_id",mBidId);
@@ -359,6 +359,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
                     intent.putExtra("apr",resultBean.getApr());
                     intent.putExtra("repay_type",resultBean.getRepaytype());
                     intent.putExtra("pwd", "");
+                    intent.putExtra("is_day",resultBean.getIsday());
 
                     intent.putExtra("myMoney", balance);
                     startActivity(intent);

@@ -70,6 +70,8 @@ public class BankListEntity {
         private String imgUrl;
         private String oneorder;
         private String oneday;
+        private String order;
+        private String onemonth;
 
         public String getName() {
             return name;
@@ -109,6 +111,22 @@ public class BankListEntity {
 
         public void setOneday(String oneday) {
             this.oneday = oneday;
+        }
+
+        public String getOrder() {
+            return order;
+        }
+
+        public void setOrder(String order) {
+            this.order = order;
+        }
+
+        public String getOnemonth() {
+            return onemonth;
+        }
+
+        public void setOnemonth(String onemonth) {
+            this.onemonth = onemonth;
         }
     }
 }

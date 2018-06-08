@@ -96,10 +96,25 @@
                         style="@style/text_s_m_c_b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/row_text_margin"
-                        android:layout_weight="1"/>
-
+                         />
+                    <TextView
+                        android:layout_marginLeft="@dimen/dimen_30px"
+                        android:id="@+id/tv_bank_bq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/c_fffff"
+                        android:textSize="@dimen/size_xs"
+                        android:paddingLeft="@dimen/dimen_18px"
+                        android:paddingRight="@dimen/dimen_18px"
+                        android:paddingTop="@dimen/dimen_2px"
+                        android:paddingBottom="@dimen/dimen_2px"
+                        />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
                     <ImageView
+                        android:layout_marginLeft="@dimen/row_text_margin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/arrow_right"/>

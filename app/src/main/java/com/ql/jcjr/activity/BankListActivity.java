@@ -56,6 +56,7 @@ public class BankListActivity extends BaseActivity{
                 Intent intent = new Intent();
                 intent.putExtra("bank_id",bean.getId());
                 intent.putExtra("bank_name",bean.getName());
+                intent.putExtra("bank_order",bean.getOrder());
                 setResult(RESULT_OK, intent);
                 finish();
             }

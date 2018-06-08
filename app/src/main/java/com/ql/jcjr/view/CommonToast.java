@@ -86,9 +86,13 @@ public class CommonToast extends Toast {
             e.printStackTrace();
         }
     }
+    static CommonDialog.Builder dialog=null;
     public static void showTokenWrongDialog(final Context context, String s) {
         try {
-            CommonDialog.Builder dialog = new CommonDialog.Builder(context);
+            if (dialog!=null){
+                return;
+            }
+            dialog = new CommonDialog.Builder(context);
             dialog.setTitle(s);
             dialog.setMessageSize(R.dimen.f03_34);
             dialog.setCancelable(false);

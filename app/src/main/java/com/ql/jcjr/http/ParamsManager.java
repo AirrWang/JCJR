@@ -1236,4 +1236,14 @@ public class ParamsManager {
 
         return resultModel;
     }
+
+    /**
+     * 开屏页获取数据
+     */
+    public static SenderResultModel getWelcome() {
+        JSONObject object = new JSONObject();
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params,RequestURL.WELCOME,false);
+        return resultModel;
+    }
 }

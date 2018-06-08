@@ -44,7 +44,8 @@
         <!-- 启动页 -->
         <activity
             android:name="com.ql.jcjr.activity.WelcomeActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

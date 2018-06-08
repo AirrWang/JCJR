@@ -210,16 +210,19 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
 
 
                         boolean needShowAll = false;
-                        int listSize = entity.getResult().size();
-                        if(pageIndex.equals("1")) {
-                            if(listSize < 10 && listSize >0){
-                                needShowAll = true;
-                            }
-                        }
-                        else{
-                            if(listSize < 10){
-                                needShowAll = true;
-                            }
+//                        int listSize = entity.getResult().size();
+//                        if(pageIndex.equals("1")) {
+//                            if(listSize < 10 && listSize >0){
+//                                needShowAll = true;
+//                            }
+//                        }
+//                        else{
+//                            if(listSize < 10){
+//                                needShowAll = true;
+//                            }
+//                        }
+                        if (entity.getResult()==null||entity.getResult().size()==0){
+                            needShowAll = true;
                         }
                         if(needShowAll){
                             mLvYyy.addFooterView();

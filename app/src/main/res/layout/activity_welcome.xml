@@ -1,16 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <ImageView
+        android:id="@+id/iv_ad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_jump"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dimen_32px"
+        android:layout_marginRight="@dimen/dimen_40px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.ql.jcjr.view.CircleProgressView
+            android:id="@+id/circle_progress_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_98px"
+            android:progress="100"
+            app:progressTextVisible="false"
+            app:innerBackgroundColor="#4cffffff"
+            app:progressNormalColor="#3fe0c799"
+            app:progressReachColor="@color/font_actionbar_color"
+            app:progressNormalSize="@dimen/dimen_4px"
+            app:progressReachSize="@dimen/dimen_4px"
+            app:progressStyle="Normal"
+            app:radius="@dimen/dimen_48px"
+            />
+        <TextView
+            android:id="@+id/tv_welcome_time"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_hint_color"
+            android:textSize="@dimen/size_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳过3s"/>
+    </RelativeLayout>
+    <ImageView
         android:id="@+id/iv_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/welcome"
         android:scaleType="fitXY"/>
-
     <!--<TextView-->
         <!--android:id="@+id/tv_welcome_tip"-->
         <!--android:layout_width="match_parent"-->

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rl_1"
+        android:background="@drawable/smrz"
+        android:layout_width="238dp"
+        android:layout_height="290dp">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_300px"
+            android:text="安全绑卡"
+            android:textColor="@color/btn_main"
+            android:textSize="@dimen/size_l"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_below="@+id/tv_1"
+            android:textColor="@color/btn_main"
+            android:textSize="@dimen/size_l"
+            android:layout_marginTop="@dimen/dimen_10px"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="资金更自由，投资更快捷"/>
+        <Button
+            android:id="@+id/btn_to_real_name"
+            android:text="立即去绑卡"
+            android:textColor="@color/c_fffff"
+            android:textSize="@dimen/size_l"
+            android:background="@drawable/btn_normal"
+            android:layout_marginTop="@dimen/dimen_62px"
+            android:layout_below="@+id/tv_2"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/dimen_300px"
+            android:layout_height="@dimen/dimen_64px" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_marginTop="@dimen/dimen_54px"
+        android:layout_below="@+id/rl_1"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete_mftx"/>
+</RelativeLayout>

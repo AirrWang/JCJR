@@ -1,6 +1,7 @@
 package com.ql.jcjr.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,9 @@ public class BankListBigAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<BankListEntity.ResultBean> mList;
+    private String sOneOrder;
+    private String sOneDay;
+    private String sOneMonth;
 
     public BankListBigAdapter(Context context, List<BankListEntity.ResultBean> list) {
         mList = list;
@@ -55,7 +59,7 @@ public class BankListBigAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.item_bank_card, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.item_bank_card_1, null);
             viewHolder = new ViewHolder();
             ViewUtils.inject(viewHolder, view);
             view.setTag(viewHolder);
@@ -63,10 +67,50 @@ public class BankListBigAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
+
+
         BankListEntity.ResultBean data = mList.get(i);
+
+
+        if (data.getOneorder().equals("无")){
+            sOneOrder=data.getOneorder();
+        }else {
+            float oneOrder=Float.valueOf(data.getOneorder())/10000;
+            sOneOrder=subZeroAndDot(oneOrder+"");
+
+        }
+        if (data.getOneday().equals("无")){
+            sOneDay=data.getOneday();
+        }else {
+            float oneDay=Float.valueOf(data.getOneday())/10000;
+            sOneDay=subZeroAndDot(oneDay+"");
+        }
+        if (data.getOnemonth().equals("无")){
+            sOneMonth=data.getOnemonth();
+        }else {
+            float oneMonth=Float.valueOf(data.getOnemonth())/10000;
+            sOneMonth=subZeroAndDot(oneMonth+"");
+        }
+
+        viewHolder.tv_bank_info.setText(sOneOrder+"万/"+sOneDay+"万/"+sOneMonth+"万");
+
         viewHolder.mTvBankName.setText(data.getName());
-        viewHolder.tv_bank_info.setText("单笔限额"+data.getOneorder()+"    每日限额"+data.getOneday());
         GlideUtil.displayPic(mContext, data.getImgUrl(), -1, viewHolder.mCivIcon);
+
+        if (data.getOrder().equals("1")){  //推荐
+            viewHolder.tv_bank_bq.setText("推荐");
+            viewHolder.tv_bank_bq.setBackgroundResource(R.drawable.btn_rectangle_circl_btn);
+        }else if (data.getOrder().equals("2")){
+            viewHolder.tv_bank_bq.setText("额度低");
+            viewHolder.tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_b74f4f);
+        }else if (data.getOrder().equals("4")){
+            viewHolder.tv_bank_bq.setText("维护中");
+            viewHolder.tv_bank_bq.setBackgroundResource(R.drawable.bg_filled_corner_grey);
+        }else {
+            viewHolder.tv_bank_bq.setText("");
+            viewHolder.tv_bank_bq.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         return view;
     }
 
@@ -82,5 +126,16 @@ public class BankListBigAdapter extends BaseAdapter {
 
         @ViewInject(R.id.tv_bank_info)
         TextView tv_bank_info;
+
+        @ViewInject(R.id.tv_bank_bq)
+        TextView tv_bank_bq;
+    }
+
+    public static String subZeroAndDot(String s){
+        if(s.indexOf(".") > 0){
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s;
     }
 }

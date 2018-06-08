@@ -119,6 +119,7 @@ public class MainActivity extends BaseActivity
 //        }
         //处理推送过来的信息
         dealPush(getIntent());
+
         registerNetworkChangedListener();
     }
 
@@ -261,6 +262,7 @@ public class MainActivity extends BaseActivity
             }
         }
     }
+
 
     private void initLayout() {
         mContext = this;

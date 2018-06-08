@@ -38,22 +38,26 @@ public class BidConfirmActivity extends BaseActivity {
     private ImageTextHorizontalBarLess mTvBidConfirmName;
     //年化
     @ViewInject(R.id.tv_annualized_rate)
-    private ImageTextHorizontalBarLess mTvApr;
+    private TextView mTvApr;
     //期限
     @ViewInject(R.id.tv_term)
-    private ImageTextHorizontalBarLess mTvTerm;
+    private TextView mTvTerm;
     //还款方式
     @ViewInject(R.id.tv_repayment_type)
     private ImageTextHorizontalBarLess mTvRepayType;
     //投资金额
     @ViewInject(R.id.tv_bid_confirm_money)
-    private ImageTextHorizontalBarLess mTvBidConfirmMoney;
+    private TextView mTvBidConfirmMoney;
     //预期收益
     @ViewInject(R.id.tv_bid_confirm_earn)
-    private ImageTextHorizontalBarLess mTvBidConfirmEarn;
+    private TextView mTvBidConfirmEarn;
     //红包
     @ViewInject(R.id.tv_bid_confirm_hb)
-    private ImageTextHorizontalBarLess mTvBidConfirmHB;
+    private TextView mTvBidConfirmHB;
+    @ViewInject(R.id.tv_bid_hb_num)
+    private TextView tv_bid_hb_num;
+    @ViewInject(R.id.tv_mymoney)
+    private TextView tv_mymoney;
 
     //用户协议
     @ViewInject(R.id.ll_bid_confirm_checkbox)
@@ -86,6 +90,7 @@ public class BidConfirmActivity extends BaseActivity {
     private String cashid;
     private String hbType;
     private String hbMoney;
+    private String hbNum="0";
 
     private boolean canUseHB;
 
@@ -113,20 +118,22 @@ public class BidConfirmActivity extends BaseActivity {
         String apr = getIntent().getStringExtra("apr");
         String repayType = getIntent().getStringExtra("repay_type");
 
+        tv_mymoney.setText(myMoney);
+
         mTvBidConfirmName.setRightTitleText(name);
-        mTvApr.setRightTitleText(apr+"%");
+        mTvApr.setText(apr+"%");
         switch (isDay) {
             case "0":
-                mTvTerm.setRightTitleText(time+"月");
+                mTvTerm.setText(time+"月");
                 break;
             case "1":
-                mTvTerm.setRightTitleText(time+" 天");
+                mTvTerm.setText(time+"天");
                 break;
         }
         mTvRepayType.setRightTitleText(repayType);
-        mTvBidConfirmMoney.setRightTitleText("￥ "+totalMoney);
+        mTvBidConfirmMoney.setText(totalMoney+"元");
         setRealPayMoney(totalMoney);
-        mTvBidConfirmEarn.setRightTitleText("￥ "+earn);
+        mTvBidConfirmEarn.setText(earn);
 
         getBidHongBaoData(mBidId, totalMoney);
     }
@@ -148,6 +155,7 @@ public class BidConfirmActivity extends BaseActivity {
                             setNoUse(false);
                         }
                         else{
+                            hbNum=resultBean.getTotal();
                             canUseHB = true;
                             setHbInfo(resultBean.getCashid(), resultBean.getType(), resultBean.getMoney(), resultBean.getCashApr());
                         }
@@ -165,13 +173,17 @@ public class BidConfirmActivity extends BaseActivity {
     private void setNoUse(boolean isChooseNoUse){
         this.cashid = null;
         this.hbType = null;
-        mTvBidConfirmHB.setRightDescriptionVisibility(View.GONE);
-        mTvBidConfirmHB.setRightTitleColor(getResources().getColor(R.color.font_grey_three));
+
+//        mTvBidConfirmHB.setRightDescriptionVisibility(View.GONE);
+        mTvBidConfirmHB.setTextColor(getResources().getColor(R.color.font_grey_three));
         if(isChooseNoUse){
-            mTvBidConfirmHB.setRightTitleText("不使用红包");
+            tv_bid_hb_num.setVisibility(View.VISIBLE);
+            tv_bid_hb_num.setText(hbNum+"张可用");
+            mTvBidConfirmHB.setText("不使用红包");
         }
         else{
-            mTvBidConfirmHB.setRightTitleText("无可用红包");
+            tv_bid_hb_num.setVisibility(View.GONE);
+            mTvBidConfirmHB.setText("无可用红包");
         }
         //实付金额
         setRealPayMoney(totalMoney);
@@ -181,25 +193,27 @@ public class BidConfirmActivity extends BaseActivity {
         this.cashid = cashid;
         this.hbType = hbType;
         this.hbMoney = hbMoney;
-        mTvBidConfirmHB.setRightDescriptionVisibility(View.VISIBLE);
-        mTvBidConfirmHB.setRightDescriptionColor(getResources().getColor(R.color.btn_main));
+        tv_bid_hb_num.setVisibility(View.VISIBLE);
+        tv_bid_hb_num.setText("已选一张");
+//        mTvBidConfirmHB.setRightDescriptionVisibility(View.VISIBLE);
+//        mTvBidConfirmHB.setRightDescriptionColor(getResources().getColor(R.color.btn_main));
         switch (hbType){
             case Global.HB_TYPE_DK:
-                mTvBidConfirmHB.setRightTitleText(hbMoney+"元抵扣券");
-                mTvBidConfirmHB.setRightDescriptionText("");
+                mTvBidConfirmHB.setText(hbMoney+"元抵扣券");
+//                mTvBidConfirmHB.setRightDescriptionText("");
                 //实付金额
                 setRealPayMoney(StringUtils.subAllZero(Float.parseFloat(totalMoney)-Float.parseFloat(hbMoney)+""));
                 break;
 
             case Global.HB_TYPE_JX:
-                mTvBidConfirmHB.setRightTitleText(cashApr+"%加息券");
-                mTvBidConfirmHB.setRightDescriptionText("加息收益"+hbMoney+"元");
+                mTvBidConfirmHB.setText(cashApr+"%加息券");
+//                mTvBidConfirmHB.setRightDescriptionText("加息收益"+hbMoney+"元");
                 setRealPayMoney(totalMoney);
                 break;
 
             case Global.HB_TYPE_FX:
-                mTvBidConfirmHB.setRightTitleText(hbMoney+"元返现券");
-                mTvBidConfirmHB.setRightDescriptionText("返现收益"+hbMoney+"元");
+                mTvBidConfirmHB.setText(hbMoney+"元返现券");
+//                mTvBidConfirmHB.setRightDescriptionText("返现收益"+hbMoney+"元");
                 setRealPayMoney(totalMoney);
                 break;
         }
@@ -209,7 +223,7 @@ public class BidConfirmActivity extends BaseActivity {
         mTvBidConfirmPay.setText(StringUtils.subAllZero(money));
     }
 
-    @OnClick({R.id.btn_left, R.id.ll_bid_confirm_checkbox, R.id.tv_bid_confirm_agreement, R.id.tv_bid, R.id.tv_bid_confirm_hb,R.id.tv_bid_danger_agreement})
+    @OnClick({R.id.btn_left, R.id.ll_bid_confirm_checkbox, R.id.tv_bid_confirm_agreement, R.id.tv_bid, R.id.ll_hb,R.id.tv_bid_danger_agreement})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -275,7 +289,7 @@ public class BidConfirmActivity extends BaseActivity {
                 }
                 break;
 
-            case R.id.tv_bid_confirm_hb:
+            case R.id.ll_hb:
                 if(canUseHB){
                     //选择红包
                     Intent intent = new Intent(BidConfirmActivity.this, MyRedPacketsActivity.class);

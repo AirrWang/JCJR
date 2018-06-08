@@ -17,11 +17,21 @@ package com.ql.jcjr.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.ql.jcjr.R;
+import com.ql.jcjr.activity.BindBankCardActivity;
+import com.ql.jcjr.activity.RealNameActivity;
+import com.ql.jcjr.view.ActionSheet;
 
 /**
  * Created by Liuchao on 2016/9/23.
@@ -78,5 +88,63 @@ public class ToastUtil {
         bundle.putString("TEXT", text);
         msg.setData(bundle);
         baseHandler.sendMessage(msg);
+    }
+
+    public static void showRealNameDialog(final Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.dialog_to_realname, null);
+
+        Button btnBid = (Button) view.findViewById(R.id.btn_to_real_name);
+        ImageView ll_close= (ImageView) view.findViewById(R.id.iv_close);
+
+
+        final ActionSheet dialog = new ActionSheet(context, ActionSheet.GRAVITY_CENTER);
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        ll_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(context,  RealNameActivity.class);
+                context.startActivity(callIntent);
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public static void showBindBankDialog(final Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.dialog_to_bingbank, null);
+
+        Button btnBid = (Button) view.findViewById(R.id.btn_to_real_name);
+        ImageView ll_close= (ImageView) view.findViewById(R.id.iv_close);
+
+
+        final ActionSheet dialog = new ActionSheet(context, ActionSheet.GRAVITY_CENTER);
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        ll_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(context,BindBankCardActivity.class);
+                context.startActivity(callIntent);
+                dialog.dismiss();
+            }
+        });
     }
 }

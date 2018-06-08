@@ -10,8 +10,8 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
@@ -221,4 +221,7 @@ public class RequestURL {
 
     //更新用户支行和省市信息
     public static final String UPDATA_BRANCH_URL = SERVICE_URL + "updateBranch";
+
+    //开屏页接口
+    public static final String WELCOME = SERVICE_URL + "spread";
 }

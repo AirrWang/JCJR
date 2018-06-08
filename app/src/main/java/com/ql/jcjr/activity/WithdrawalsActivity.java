@@ -177,7 +177,7 @@ public class WithdrawalsActivity extends BaseActivity {
                         min = entity.getResult().getMin();
                         max = entity.getResult().getMax();
 
-                        feeApr=entity.getResult().getFee_apr();
+                        feeApr=entity.getResult().getFee_apr()*100;
                         availableAmount=entity.getResult().getAvailable_amount();
 
                         tips = entity.getResult().getRemind();
@@ -312,10 +312,10 @@ public class WithdrawalsActivity extends BaseActivity {
                             if (getCash>availableAmount){
 
                                 feeTrob=(getCash-availableAmount)*feeApr;
-                                BigDecimal bg = new BigDecimal(feeTrob);
-                                feeTrob = bg.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-
+                                feeTrob=(float)(Math.floor(feeTrob/100*100))/100;
                                 totalFee=feeTrob+cashServiceCost;
+//                                BigDecimal bg = new BigDecimal(feeTrob);
+//                                totalFee = bg.setScale(2, BigDecimal.ROUND_DOWN).floatValue();
                             }else {
                                 totalFee=cashServiceCost;
                             }
@@ -812,9 +812,10 @@ public class WithdrawalsActivity extends BaseActivity {
                     top1 = y[1],
                     bottom1 = top1 + ll_jianpan.getHeight(),
                     right1 = left1 + ll_jianpan.getWidth();
+            int[]  m= {0, 0};
             tv_get_all.getLocationInWindow(y);
-            int left2 = y[0],
-                    top2 = y[1],
+            int left2 = m[0],
+                    top2 = m[1],
                     bottom2 = top2 + tv_get_all.getHeight(),
                     right2 = left2 + tv_get_all.getWidth();
 
