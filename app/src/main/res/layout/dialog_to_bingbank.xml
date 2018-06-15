@@ -12,26 +12,26 @@
         android:layout_width="238dp"
         android:layout_height="290dp">
 
-        <TextView
-            android:id="@+id/tv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dimen_300px"
-            android:text="安全绑卡"
-            android:textColor="@color/btn_main"
-            android:textSize="@dimen/size_l"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="@dimen/dimen_300px"-->
+            <!--android:text="安全绑卡"-->
+            <!--android:textColor="@color/btn_main"-->
+            <!--android:textSize="@dimen/size_l"-->
+            <!--android:textStyle="bold" />-->
         <TextView
             android:id="@+id/tv_2"
             android:layout_below="@+id/tv_1"
             android:textColor="@color/btn_main"
             android:textSize="@dimen/size_l"
-            android:layout_marginTop="@dimen/dimen_10px"
+            android:layout_marginTop="169dp"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="资金更自由，投资更快捷"/>
+            android:text="您还未绑定银行卡"/>
         <Button
             android:id="@+id/btn_to_real_name"
             android:text="立即去绑卡"

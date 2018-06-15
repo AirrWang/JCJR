@@ -22,7 +22,7 @@
         android:layout_below="@+id/ab_header"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="@drawable/zj_background"
+        android:background="@drawable/black"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_241px">
         <LinearLayout
@@ -35,19 +35,17 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="投资金额："
-                    android:textColor="@color/font_actionbar_color"
-                    android:textSize="@dimen/size_l"/>
+                <ImageView
+                    android:layout_width="@dimen/dimen_126px"
+                    android:layout_height="@dimen/dimen_28px"
+                    android:src="@drawable/tzje"/>
                 <TextView
                     android:layout_marginTop="@dimen/dimen_8px"
                     android:id="@+id/tv_bid_confirm_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/font_actionbar_color"
-                    android:textSize="@dimen/size_xxl" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -67,17 +65,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginTop="@dimen/dimen_1px"
+                        android:layout_width="@dimen/dimen_108px"
+                        android:layout_height="@dimen/dimen_25px"
+                        android:src="@drawable/tzqx"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="投资期限："
-                        android:textColor="@color/font_actionbar_color"
-                        android:textSize="@dimen/size_m"/>
-                    <TextView
-
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:id="@+id/tv_term"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,18 +83,18 @@
                         android:textSize="@dimen/size_m"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_marginTop="@dimen/dimen_16px"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginTop="@dimen/dimen_1px"
+                        android:layout_width="@dimen/dimen_108px"
+                        android:layout_height="@dimen/dimen_25px"
+                        android:src="@drawable/yqlv"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="预期利率："
-                        android:textColor="@color/font_actionbar_color"
-                        android:textSize="@dimen/size_m"/>
-                    <TextView
-
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:id="@+id/tv_annualized_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -104,18 +102,18 @@
                         android:textSize="@dimen/size_m"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_marginTop="@dimen/dimen_16px"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginTop="@dimen/dimen_1px"
+                        android:layout_width="@dimen/dimen_108px"
+                        android:layout_height="@dimen/dimen_25px"
+                        android:src="@drawable/yqsy"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="预期收益："
-                        android:textColor="@color/font_actionbar_color"
-                        android:textSize="@dimen/size_m"/>
-                    <TextView
-
+                        android:layout_marginLeft="@dimen/dimen_10px"
                         android:id="@+id/tv_bid_confirm_earn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

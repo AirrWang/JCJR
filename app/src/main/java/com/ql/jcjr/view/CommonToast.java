@@ -1,11 +1,14 @@
 package com.ql.jcjr.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,24 @@ import com.ql.jcjr.utils.LogUtil;
  * Created by liuchao on 2015/8/13.
  */
 public class CommonToast extends Toast {
+
+    private static final int DIALOG_NULL = 1;
+    /**
+     * Handler
+     */
+    @SuppressLint("HandlerLeak")
+    static
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case DIALOG_NULL:
+                    dialog=null;
+                    break;
+            }
+        }
+    };
+
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you
      * can call {@link #show}.
@@ -102,6 +123,7 @@ public class CommonToast extends Toast {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            handler.sendEmptyMessage(DIALOG_NULL);
                             UserData.getInstance().setUSERID("");
                             UserData.getInstance().setFingerPrint(false);
                             UserData.getInstance().setIsOpenGesture(false);

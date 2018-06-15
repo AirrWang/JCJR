@@ -17,7 +17,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.qiyukf.unicorn.api.StatusBarNotificationConfig;
 import com.qiyukf.unicorn.api.Unicorn;
 import com.qiyukf.unicorn.api.YSFOptions;
-import com.ql.jcjr.activity.MainActivity;
+import com.ql.jcjr.activity.WelcomeActivity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.receiver.NetworkChangedReceiver;
 import com.ql.jcjr.utils.DeviceInfoUtil;
@@ -244,7 +244,7 @@ public class JcbApplication extends Application {
                 String msg = uMessage.custom;
                 if(null != msg){
                     try{
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("push_tag",true);
                         intent.putExtra("push_msg",msg);

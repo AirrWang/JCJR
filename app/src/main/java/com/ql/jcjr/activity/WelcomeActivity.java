@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,6 +75,7 @@ public class WelcomeActivity extends Activity {
             }
         }
     };
+    private boolean isPush;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +90,21 @@ public class WelcomeActivity extends Activity {
 //                window.setStatusBarColor(Color.TRANSPARENT);
 //            }
 //        }
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
+//      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
         setContentView(R.layout.activity_welcome);
         ViewUtils.inject(this);
         mContext = this;
-        handler.sendEmptyMessageDelayed(HANDLER_WELCOME_PAGE, 3000);
+        handler.sendEmptyMessageDelayed(HANDLER_WELCOME_PAGE, 2500);
         getInternet();
+        dealPush(getIntent());
+    }
 
+    private String msg="";
+    private void dealPush(Intent intent) {
+        if(null != intent){
+            isPush = intent.getBooleanExtra("push_tag",false);
+            msg = intent.getStringExtra("push_msg");
+        }
     }
 
     private void checkNet(){
@@ -109,7 +117,7 @@ public class WelcomeActivity extends Activity {
         if (adShow) {
             iv_welcome.setVisibility(View.GONE);
             handler.sendEmptyMessageDelayed(HANDLER_TIME, 1000);
-            cv_progress.setProgressInTime(0, 100, 2200);
+            cv_progress.setProgressInTime(0, 100, 2100);
         }else {
             checkJump();
         }
@@ -154,6 +162,12 @@ public class WelcomeActivity extends Activity {
      */
     private void jumpToLogin() {
         Intent mainIntent = new Intent(WelcomeActivity.this, MainActivity.class);
+        if (isPush){
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mainIntent.putExtra("push_tag",true);
+            mainIntent.putExtra("push_msg",msg);
+            mainIntent.putExtra("main_index",0);
+        }
         startActivity(mainIntent);
         finish();
     }
@@ -189,25 +203,17 @@ public class WelcomeActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeMessages(HANDLER_TIME);
+        LogUtil.i("---WelcomeActivity  onDestroy----");
+//        handler.removeMessages(HANDLER_TIME);
     }
 
     @OnClick({R.id.rl_jump, R.id.iv_welcome,R.id.iv_ad})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_jump:
+                handler.removeMessages(HANDLER_TIME);
                 checkJump();
                 break;
             case R.id.iv_welcome:
@@ -215,7 +221,7 @@ public class WelcomeActivity extends Activity {
                 break;
             case R.id.iv_ad:
                 if (isJump){
-
+                    handler.removeMessages(HANDLER_TIME);
                     jumpToLogin();
                     UrlUtil.showHtmlPage(mContext,"详情", url,true);
                     finish();

@@ -194,7 +194,7 @@ public class BidConfirmActivity extends BaseActivity {
         this.hbType = hbType;
         this.hbMoney = hbMoney;
         tv_bid_hb_num.setVisibility(View.VISIBLE);
-        tv_bid_hb_num.setText("已选一张");
+        tv_bid_hb_num.setText("已选1张");
 //        mTvBidConfirmHB.setRightDescriptionVisibility(View.VISIBLE);
 //        mTvBidConfirmHB.setRightDescriptionColor(getResources().getColor(R.color.btn_main));
         switch (hbType){

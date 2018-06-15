@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_120px"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-
     android:paddingLeft="@dimen/dimen_24px"
     android:paddingRight="@dimen/dimen_24px"
     android:orientation="vertical">
     <LinearLayout
+        android:paddingTop="@dimen/dimen_15px"
+        android:paddingBottom="@dimen/dimen_15px"
         android:paddingRight="@dimen/dimen_20px"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="@dimen/dimen_90px"
             android:layout_height="@dimen/dimen_90px"

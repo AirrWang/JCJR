@@ -1,12 +1,13 @@
 package com.ql.jcjr.push;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import com.ql.jcjr.R;
-import com.ql.jcjr.activity.MainActivity;
+import com.ql.jcjr.activity.WelcomeActivity;
 import com.ql.jcjr.utils.LogUtil;
 import com.umeng.message.UmengNotifyClickActivity;
 
@@ -17,7 +18,38 @@ public class MiPushActivity extends UmengNotifyClickActivity {
 
     private static String TAG = MiPushActivity.class.getName();
 
-    private Handler handler;
+    @SuppressLint("HandlerLeak")
+    private Handler handler= new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String body = (String)msg.obj;
+            Intent goIntent = new Intent(MiPushActivity.this, WelcomeActivity.class);
+            goIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if(null != body){
+                try{
+                    JSONObject obj = new JSONObject(body);
+                    JSONObject bodyObk = obj.optJSONObject("body");
+
+                    Object customObj = bodyObk.get("custom");
+                    String custom=null;
+                    if (custom instanceof String){
+                        custom=(String) customObj;
+                    }else{
+                        custom=customObj.toString();
+                    }
+
+                    goIntent.putExtra("push_tag",true);
+                    goIntent.putExtra("push_msg",custom);
+                    goIntent.putExtra("main_index",0);
+                }catch(Exception e){
+                    LogUtil.i("---MiPushActivity  e"+e);
+                }
+            }
+            startActivity(goIntent);
+            finish();
+        }
+    };;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -26,37 +58,6 @@ public class MiPushActivity extends UmengNotifyClickActivity {
 //        setContentView(R.layout.activity_mipush);
         setContentView(R.layout.activity_welcome);
 
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                String body = (String)msg.obj;
-                Intent goIntent = new Intent(MiPushActivity.this, MainActivity.class);
-                goIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                if(null != body){
-                    try{
-                        JSONObject obj = new JSONObject(body);
-                        JSONObject bodyObk = obj.optJSONObject("body");
-
-                        Object customObj = bodyObk.get("custom");
-                        String custom=null;
-                        if (custom instanceof String){
-                            custom=(String) customObj;
-                        }else{
-                            custom=customObj.toString();
-                        }
-
-                        goIntent.putExtra("push_tag",true);
-                        goIntent.putExtra("push_msg",custom);
-                        goIntent.putExtra("main_index",0);
-                    }catch(Exception e){
-
-                    }
-                }
-                startActivity(goIntent);
-                finish();
-            }
-        };
     }
 
     @Override

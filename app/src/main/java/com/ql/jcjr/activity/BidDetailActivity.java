@@ -408,12 +408,13 @@ public class BidDetailActivity extends BaseActivity {
                         if(isBuyAll){
                             double myBalance = Double.valueOf(resultBean.getUse_money());
                             double surplus = Double.valueOf(BidDetailActivity.this.resultBean.getSurplus());
-                            if(myBalance>=surplus){
+//                            if(myBalance>=surplus){
                                 gotoBidConfirm(BidDetailActivity.this.resultBean.getSurplus(), caculate(BidDetailActivity.this.resultBean.getSurplus()));
-                            }
-                            else{
-                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
-                            }
+//                            }
+//                            else{
+////                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                            }
                         }
                         else{
                             showBidDialog(resultBean.getUse_money());
@@ -667,7 +668,7 @@ public class BidDetailActivity extends BaseActivity {
         double mostBid=Double.valueOf(resultBean.getMost_account());
 
         if(surplus >= lowestBid){
-            if (myEnter < lowestBid) {
+            if (myEnter < lowestBid||isBuyAll) {
                 CommonToast.makeCustomText(mContext, "最小投资金额为"+lowestBid+"元！");
                 return false;
             }
