@@ -657,10 +657,9 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
     }
 
-    private String status;
     private void checkBank() {
         SenderResultModel resultModel = ParamsManager.senderCheckBank();
-
+        resultModel.isShowLoadding=false;
         HttpRequestManager.httpRequestService(resultModel,
                 new HttpSenderController.ViewSenderCallback() {
 
@@ -669,8 +668,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                         LogUtil.i("是否绑定银行卡 " + responeJson);
                         CheckBankEntity entity = GsonParser.getParsedObj(responeJson, CheckBankEntity.class);
                         CheckBankEntity.ResultBean resultBean = entity.getResult();
-                        status = resultBean.getStatus();
-                        switch (status) {
+                        switch (resultBean.getStatus()) {
                             case Global.STATUS_PASS:
                                 break;
 

@@ -230,7 +230,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case CAPTURE_IMAGE:
                 try {
-                    if (imageFile != null) {
+                    if (imageFile != null&&resultCode==RESULT_OK) {
                         cropImage(imageUri);
                     } else {
                         ToastUtil.showToast(mContext, "未加载到图片");
@@ -242,7 +242,7 @@ public class SettingActivity extends BaseActivity {
 
             case CROP_IMAGE:
                 try {
-                    if (imageFile != null) {
+                    if (imageFile != null&&resultCode==RESULT_OK) {
                             Bitmap bmp = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
                             if (bmp != null) {
                                 bmp = zoomBitmap(bmp, 320, 320);
@@ -260,7 +260,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case SELECT_IMAGE:
                 try {
-                    if (imageFile != null) {
+                    if (imageFile != null&&resultCode==RESULT_OK) {
                             if (imageUri != null) {
                                 cropImage(data.getData());
                             }
@@ -591,6 +591,7 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
+    //裁剪
     public void cropImage(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");

@@ -248,8 +248,8 @@ public class WelcomeActivity extends Activity {
                         WelcomeDataEntity.ResultBean resultBean = entity.getResult();
                         if (resultBean.getShow().equals("1")){
                             adShow=true;
+                            GlideUtil.displayPic(mContext,resultBean.getPic(),R.drawable.welcome,iv_ad);
                         }
-                        GlideUtil.displayPic(mContext,resultBean.getPic(),R.drawable.welcome,iv_ad);
                         if (!StringUtils.isBlank(resultBean.getLink())){
                             isJump=true;
                             url=resultBean.getLink();

@@ -20,8 +20,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 22
-        versionName "1.9.4"
+        versionCode 23
+        versionName "1.9.4.1"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 
@@ -100,7 +100,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tencent"]
         }
         huawei {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei", app_name: "积财金融-理财投资"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei", app_name: "积财金融理财投资"]
         }
         mumayi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "mumayi"]
