@@ -1,4 +1,4 @@
-package com.ql.jcjr.utils;
+package com.ql.jcjr.utils.holder;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.ql.jcjr.R;
+import com.ql.jcjr.utils.GlideUtil;
 
 /**
  * Created by wf on 2018/6/25.

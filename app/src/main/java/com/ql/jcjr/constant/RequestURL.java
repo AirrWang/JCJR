@@ -10,8 +10,8 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
@@ -85,8 +85,8 @@ public class RequestURL {
     public static final String BID_LIST_URL = SERVICE_URL + "borrowList";
     //首页公告
     public static final String ROLL_NEWS_URL = SERVICE_URL + "rollNews";
-    //首页公告
-    public static final String HOME_DATA_URL = SERVICE_URL + "home";
+    //首页
+    public static final String HOME_DATA_URL = SERVICE_URL + "home1";
     //首页年化
     public static final String NOVICE_EXCLUSIVE_URL = SERVICE_URL + "borrowForNewer";
     //我的页面

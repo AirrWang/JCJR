@@ -76,77 +76,98 @@ public class HomeDataEntity {
         }
 
         public class ResultBeanTwo {
-            private String id;
-            private String name;
-            private String apr;
-            private String time_limit_day;
-            private String tender_times;
-            private String isselled;
-            private String last_account;
-            private String most_account;
+            private List<BidBean> xinshou;
+            private List<BidBean> huodong;
+            private List<BidBean> tuijian;
 
-            public String getId() {
-                return id;
+            public List<BidBean> getXinshou() {
+                return xinshou;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setXinshou(List<BidBean> xinshou) {
+                this.xinshou = xinshou;
             }
 
-            public String getApr() {
-                return apr;
+            public List<BidBean> getHuodong() {
+                return huodong;
             }
 
-            public void setApr(String apr) {
-                this.apr = apr;
+            public void setHuodong(List<BidBean> huodong) {
+                this.huodong = huodong;
             }
 
-            public String getTime_limit_day() {
-                return time_limit_day;
+            public List<BidBean> getTuijian() {
+                return tuijian;
             }
 
-            public void setTime_limit_day(String time_limit_day) {
-                this.time_limit_day = time_limit_day;
+            public void setTuijian(List<BidBean> tuijian) {
+                this.tuijian = tuijian;
             }
 
-            public String getTender_times() {
-                return tender_times;
-            }
+            public class BidBean {
+                private String id;
+                private String apr;
+                private String cashAddition;
+                private String tender_times;
+                private String time_limit_day;
+                private String most_account;
+                private String name;
 
-            public void setTender_times(String tender_times) {
-                this.tender_times = tender_times;
-            }
+                public String getId() {
+                    return id;
+                }
 
-            public String getIsselled() {
-                return isselled;
-            }
+                public void setId(String id) {
+                    this.id = id;
+                }
 
-            public void setIsselled(String isselled) {
-                this.isselled = isselled;
-            }
+                public String getApr() {
+                    return apr;
+                }
 
-            public String getName() {
-                return name;
-            }
+                public void setApr(String apr) {
+                    this.apr = apr;
+                }
 
-            public void setName(String name) {
-                this.name = name;
-            }
+                public String getCashAddition() {
+                    return cashAddition;
+                }
 
-            public String getLast_account() {
-                return last_account;
-            }
+                public void setCashAddition(String cashAddition) {
+                    this.cashAddition = cashAddition;
+                }
 
-            public void setLast_account(String last_account) {
-                this.last_account = last_account;
-            }
+                public String getTender_times() {
+                    return tender_times;
+                }
 
-            public String getMost_account() {
-                return most_account;
-            }
+                public void setTender_times(String tender_times) {
+                    this.tender_times = tender_times;
+                }
 
-            public void setMost_account(String most_account) {
-                this.most_account = most_account;
+                public String getTime_limit_day() {
+                    return time_limit_day;
+                }
+
+                public void setTime_limit_day(String time_limit_day) {
+                    this.time_limit_day = time_limit_day;
+                }
+
+                public String getMost_account() {
+                    return most_account;
+                }
+
+                public void setMost_account(String most_account) {
+                    this.most_account = most_account;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
             }
         }
 

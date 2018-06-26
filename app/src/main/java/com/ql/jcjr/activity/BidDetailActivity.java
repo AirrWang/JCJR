@@ -714,7 +714,7 @@ public class BidDetailActivity extends BaseActivity {
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail})
+    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail,R.id.iv_help})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -775,6 +775,10 @@ public class BidDetailActivity extends BaseActivity {
 
                     UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId(),true);
                 }
+                break;
+            case R.id.iv_help:
+                Intent intent=new Intent(mContext, ContactUsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

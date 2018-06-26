@@ -37,6 +37,15 @@
             android:singleLine="true"
             android:text="助农保"
             style="@style/style_action_bar_title"/>
+        <ImageView
+            android:id="@+id/iv_help"
+            android:paddingRight="@dimen/dimen_40px"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_help_sy"/>
 
     </RelativeLayout>
 
