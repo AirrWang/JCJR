@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -38,6 +41,7 @@ import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
+import com.ql.jcjr.utils.NetImageHolderView;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
 import com.ql.jcjr.view.CommonToast;
@@ -60,10 +64,12 @@ import java.util.Map;
 /**
  * Created by Liuchao on 2016/9/23.
  */
-public class HomePageFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener {
+public class HomePageFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener, OnItemClickListener {
 
+//    @ViewInject(R.id.in_advert)
+//    private IndicatorView mIndicatorView;
     @ViewInject(R.id.in_advert)
-    private IndicatorView mIndicatorView;
+    private ConvenientBanner mConvenientBanner;
     @ViewInject(R.id.marqueeView)
     private MarqueeView mMarqueeView;
     @ViewInject(R.id.tv_annualized_rate)
@@ -147,9 +153,9 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
         initListView();
-        mIndicatorView.setFocusable(true);
-        mIndicatorView.setFocusableInTouchMode(true);
-        mIndicatorView.requestFocus();
+        mConvenientBanner.setFocusable(true);
+        mConvenientBanner.setFocusableInTouchMode(true);
+        mConvenientBanner.requestFocus();
     }
 
     private void initListView() {
@@ -341,7 +347,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 bannerUrlList.clear();
                 bannerUrlList.addAll(entity.getResult());
                 initDialog(entity.getResultTanPing());
-                initAdvert(bannerUrlList);
+                initLunbo(bannerUrlList);
+//                initAdvert(bannerUrlList);
                 mPullRefresh.onHeaderRefreshFinish();
             }
 
@@ -353,6 +360,33 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             }
 
         }, mContext);
+    }
+
+    private void initLunbo(final List<BannerEntity.ResultBean> list) {
+        List<String> urlList = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++) {
+            urlList.add(list.get(i).getPic());
+        }
+
+        //自定义你的Holder，实现更多复杂的界面，不一定是图片翻页，其他任何控件翻页亦可。
+        mConvenientBanner.setPages(
+                new CBViewHolderCreator<NetImageHolderView>() {
+                    @Override
+                    public NetImageHolderView createHolder() {
+                        return new NetImageHolderView();
+                    }
+                }, urlList)
+                //设置点击监听事件
+                .setOnItemClickListener(this)
+                .startTurning(2000)
+                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.selected_banner, R.drawable.unselected_banner});
+                //设置指示器的方向
+//                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+        //设置翻页的效果，不需要翻页效果可用不设
+        //.setPageTransformer(Transformer.DefaultTransformer);    集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
+//convenientBanner.setManualPageable(false);//设置不能手动影响
+
     }
 
     private void initDialog(List<BannerEntity.ResultBean> resultTanPing) {
@@ -491,19 +525,19 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 }
             });
         }
-        mIndicatorView.setPagerViewList(views);
-        mIndicatorView.startAutoPlay();
+//        mIndicatorView.setPagerViewList(views);
+//        mIndicatorView.startAutoPlay();
 
     }
 
     /**
      * 停止滑动
      */
-    public void stopPlay() {
-        if (mIndicatorView == null)
-            return;
-        mIndicatorView.stopAutoPlay();
-    }
+//    public void stopPlay() {
+//        if (mIndicatorView == null)
+//            return;
+//        mIndicatorView.stopAutoPlay();
+//    }
 
     @Override
     public void onResume() {
@@ -513,15 +547,17 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         getZiXun();
         getData();
 
-        if (mIndicatorView == null)
-            return;
-        mIndicatorView.startAutoPlay();
+        mConvenientBanner.startTurning(2000);
+//        if (mIndicatorView == null)
+//            return;
+//        mIndicatorView.startAutoPlay();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        stopPlay();
+//        stopPlay();
+        mConvenientBanner.stopTurning();
     }
 
     @OnClick({R.id.btn_bid, R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more,R.id.ll_dhzx,R.id.ll_mrqd,R.id.ll_1,R.id.tv_zixun_more})
@@ -621,5 +657,14 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnHeaderRefreshListener(this);
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
+    }
+
+    @Override
+    public void onItemClick(int i) {
+        if (bannerUrlList.get(i).getShare().equals("0")){
+            UrlUtil.showHtmlPage(mContext,"详情", bannerUrlList.get(i).getUrl(),true);
+        }else {
+            UrlUtil.showHtmlPage(mContext,"详情", bannerUrlList.get(i).getUrl());
+        }
     }
 }

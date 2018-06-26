@@ -20,8 +20,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 23
-        versionName "1.9.4.1"
+        versionCode 24
+        versionName "1.9.5"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 
@@ -243,5 +243,6 @@ dependencies {
     //    compile 'com.jaeger.statusbarutil:library:1.4.0'
     compile 'com.qiyukf.unicorn:unicorn:3.13.0'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
     compile project(':PushSDK')
 }

@@ -18,17 +18,24 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:background="@color/c_page_bg">
-
-        <com.ql.jcjr.view.IndicatorView
-            xmlns:j1attrs="http://schemas.android.com/apk/res-auto"
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:canLoop="true"
             android:id="@+id/in_advert"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/advert_h"
-            android:fadingEdge="none"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            j1attrs:can_play="true"
-            j1attrs:dotmargin_bottom="@dimen/dimen_10px" />
+            android:layout_height="@dimen/advert_h"/>
+
+
+        <!--<com.ql.jcjr.view.IndicatorView-->
+            <!--xmlns:j1attrs="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/in_advert"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/advert_h"-->
+            <!--android:fadingEdge="none"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--j1attrs:can_play="true"-->
+            <!--j1attrs:dotmargin_bottom="@dimen/dimen_10px" />-->
 
         <LinearLayout
             android:id="@+id/ll_funs"
