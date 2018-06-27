@@ -23,6 +23,7 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.base.BaseActivity;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.UserData;
+import com.ql.jcjr.interfac.ShareWebListener;
 import com.ql.jcjr.model.H5Request;
 import com.ql.jcjr.utils.CommonUtils;
 import com.ql.jcjr.utils.JsonUtils;
@@ -32,6 +33,8 @@ import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.view.ActionBar;
 import com.ql.jcjr.view.MyWebView;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.json.JSONObject;
 
@@ -195,9 +198,17 @@ public class WebViewActivity extends BaseActivity {
             }
         };
 
-        mShare = new ShareHelper(this);
+        mShare = new ShareHelper(this, new ShareWebListener() {
+            @Override
+            public void getResult(String str) {
+                //TODO
+                LogUtil.i("listen: success");
+//                webView.loadUrl("javascript:onRequestUidResult('" + str +"')");
+            }
+        });
         mShare.setShareWebInfo(CommonUtils.shareUrl,CommonUtils.shareIcon, CommonUtils.shareTitle, CommonUtils.shareContent);
     }
+
 
     class MyShareClickListener implements View.OnClickListener{
 
@@ -489,7 +500,6 @@ public class WebViewActivity extends BaseActivity {
             if(null != uid && uid.length()>0){
                 webView.loadUrl("javascript:onRequestUidResult('" + uid +"')");
             }
-
         }
     }
 

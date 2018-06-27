@@ -95,7 +95,7 @@ public class BaseActivity extends FragmentActivity{
         //友盟推送
         PushAgent.getInstance(this).onAppStart();
 
-        mShare = new ShareHelper(this);
+        mShare = new ShareHelper(this,null);
         initPop();
     }
 

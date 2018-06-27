@@ -49,24 +49,26 @@
                 android:layout_height="wrap_content"
                 android:text="产品标签"/>
             <TextView
+                android:padding="@dimen/dimen_4px"
                 android:id="@+id/tv_tag_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_54px"
-                android:background="@drawable/bg_tag_red"
+                android:background="@drawable/bg_rectangle_circl_circl_5"
                 android:gravity="center"
                 android:text="积财精选"
-                android:textColor="@color/font_red"
+                android:textColor="@color/c_e7723e"
                 android:textSize="@dimen/size_s"/>
             <TextView
+                android:padding="@dimen/dimen_4px"
                 android:id="@+id/tv_tag_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_15px"
-                android:background="@drawable/bg_tag_red"
+                android:background="@drawable/bg_rectangle_circl_circl_5_f5a623"
                 android:gravity="center"
                 android:text="积财精选"
-                android:textColor="@color/font_red"
+                android:textColor="@color/c_f5a623"
                 android:textSize="@dimen/size_s"/>
         </LinearLayout>
         <LinearLayout

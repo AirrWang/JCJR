@@ -238,6 +238,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
                 HomeDataEntity.ResultBean.ResultBeanTwo result2=entity.getResult().getResult2();
                 rl_blank.setVisibility(View.GONE);
+                cb_bidshow.setVisibility(View.VISIBLE);
                 if ( result2.getXinshou().size()==0 && result2.getHuodong().size()==0 && result2.getTuijian().size()==0 ){
                     rl_blank.setVisibility(View.VISIBLE);
                 }
@@ -247,7 +248,6 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 mPeople.setText(entity.getResult().getResult3().getCount());
 //                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
 //                tv_diffrent_bid.setText("累计申购");
-                cb_bidshow.setVisibility(View.VISIBLE);
                 mLl.setVisibility(View.VISIBLE);
                 if (entity.getResult().getResult1().getCode().equals("1")) {
                     banner = 1;

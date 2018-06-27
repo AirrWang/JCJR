@@ -232,7 +232,7 @@
                 app:canLoop="false"
                 android:id="@+id/cb_bidshow"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_450px"/>
+                android:layout_height="215dp"/>
             <LinearLayout
                 android:id="@+id/home_ll_huodong"
                 android:orientation="vertical"
@@ -240,6 +240,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:layout_marginTop="@dimen/dimen_20px"
                     android:background="@color/c_fffff"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
@@ -272,6 +273,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/dimen_20px"
                 android:id="@+id/home_ll_jctj"
                 android:orientation="vertical"
                 android:layout_below="@+id/home_ll_huodong"
