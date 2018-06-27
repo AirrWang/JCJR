@@ -112,6 +112,11 @@ public class HomeDataEntity {
                 private String time_limit_day;
                 private String most_account;
                 private String name;
+                private int account; //项目总额
+                private int account_yes; //已投金额
+                private String bremark;
+                private String bremark1;
+                private String last_account;//剩余可投
 
                 public String getId() {
                     return id;
@@ -167,6 +172,46 @@ public class HomeDataEntity {
 
                 public void setName(String name) {
                     this.name = name;
+                }
+
+                public int getAccount() {
+                    return account;
+                }
+
+                public void setAccount(int account) {
+                    this.account = account;
+                }
+
+                public int getAccount_yes() {
+                    return account_yes;
+                }
+
+                public void setAccount_yes(int account_yes) {
+                    this.account_yes = account_yes;
+                }
+
+                public String getBremark() {
+                    return bremark;
+                }
+
+                public void setBremark(String bremark) {
+                    this.bremark = bremark;
+                }
+
+                public String getBremark1() {
+                    return bremark1;
+                }
+
+                public void setBremark1(String bremark1) {
+                    this.bremark1 = bremark1;
+                }
+
+                public String getLast_account() {
+                    return last_account;
+                }
+
+                public void setLast_account(String last_account) {
+                    this.last_account = last_account;
                 }
             }
         }

@@ -103,6 +103,8 @@
     <color name="c_fffff">#ffffff</color>
     <color name="c_05ffffff">#0cffffff</color>
     <color name="c_15ffffff">#21ffffff</color>
+    <color name="c_e7723e">#E7723E</color>
+    <color name="c_f5a623">#F5A623</color>
 
     <color name="half_transparent">#af000000</color>
 </resources>

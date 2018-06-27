@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:useLevel="false">
+    //实心颜色
+    <!--<solid android:color="@color/c_fffff" />-->
+    //边框颜色
+    <stroke
+        android:width="1dp"
+        android:color="#F5A623" />
+
+    <corners android:radius="2.5dp" />
+
+</shape>
