@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.db.converter.BooleanColumnConverter;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
@@ -200,10 +201,10 @@ public class WebViewActivity extends BaseActivity {
 
         mShare = new ShareHelper(this, new ShareWebListener() {
             @Override
-            public void getResult(String str) {
+            public void getResult(Boolean b) {
                 //TODO
                 LogUtil.i("listen: success");
-//                webView.loadUrl("javascript:onRequestUidResult('" + str +"')");
+                webView.loadUrl("javascript:appShare('" + b +"')");
             }
         });
         mShare.setShareWebInfo(CommonUtils.shareUrl,CommonUtils.shareIcon, CommonUtils.shareTitle, CommonUtils.shareContent);

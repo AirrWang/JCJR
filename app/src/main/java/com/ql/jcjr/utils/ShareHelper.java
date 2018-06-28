@@ -119,7 +119,7 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
         LogUtil.i("shareHelper share: onResult");
         sureShare();
         if (listener!=null) {
-            listener.getResult("success");
+            listener.getResult(true);
         }
     }
 
@@ -145,10 +145,16 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
         LogUtil.i("shareHelper share: onError"+throwable.getMessage());
+        if (listener!=null) {
+            listener.getResult(false);
+        }
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
         LogUtil.i("shareHelper share: onCancel");
+        if (listener!=null) {
+            listener.getResult(false);
+        }
     }
 }

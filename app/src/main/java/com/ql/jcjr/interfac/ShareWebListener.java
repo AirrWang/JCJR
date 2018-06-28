@@ -5,5 +5,5 @@ package com.ql.jcjr.interfac;
  */
 
 public interface ShareWebListener {
-    void getResult(String str);
+    void getResult(Boolean b);
 }

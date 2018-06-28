@@ -10,8 +10,8 @@
         app:canLoop="true"
         android:id="@+id/cb_bidshow_two"
         android:layout_width="match_parent"
-        android:layout_height="215dp"
-        android:layout_marginBottom="@dimen/dimen_20px"/>
+        android:layout_height="@dimen/dimen_450px"
+        android:paddingBottom="@dimen/dimen_20px"/>
     <LinearLayout
         android:background="@color/c_fffff"
         android:orientation="horizontal"
