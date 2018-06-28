@@ -229,7 +229,7 @@
             </RelativeLayout>
             <com.bigkoo.convenientbanner.ConvenientBanner
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:canLoop="false"
+                app:canLoop="true"
                 android:id="@+id/cb_bidshow"
                 android:layout_width="match_parent"
                 android:layout_height="215dp"/>

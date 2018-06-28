@@ -244,7 +244,7 @@ public class ParamsManager {
     }
 
     /**
-     * 理财列表
+     * 理财列表old
      */
     public static SenderResultModel senderBidList(String page, String epage, String type,String order) {
         RequestParams params = new RequestParams();
@@ -261,6 +261,37 @@ public class ParamsManager {
 
         return resultModel;
     }
+    /**
+     * 理财列表normal
+     */
+    public static SenderResultModel senderBidListNormal(String page, String epage, String type,String order) {
+        RequestParams params = new RequestParams();
+        String token= UserData.getInstance().getUSERID();
+        params.addBodyParameter("token", token);
+//        params.addBodyParameter("biaoSing", biaoSing);
+        params.addBodyParameter("page", page);
+        params.addBodyParameter("epage", epage);
+        params.addBodyParameter("type", type);
+        params.addBodyParameter("order",order);
+        params.addBodyParameter("sign","newPub");
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_NORMAL_URL, false);
+
+        return resultModel;
+    }
+    /**
+     * 理财列表xsb
+     */
+    public static SenderResultModel senderBidListXSB() {
+        RequestParams params = new RequestParams();
+        String token= UserData.getInstance().getUSERID();
+        params.addBodyParameter("token", token);
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_XSB_URL, false);
+
+        return resultModel;
+    }
+
 
     /**
      * 我的页面

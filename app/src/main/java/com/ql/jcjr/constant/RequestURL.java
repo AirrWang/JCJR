@@ -83,6 +83,10 @@ public class RequestURL {
     public static final String BANNER_URL = SERVICE_URL + "rollPic";
     //理财列表
     public static final String BID_LIST_URL = SERVICE_URL + "borrowList";
+    //理财列表新手标
+    public static final String BID_LIST_XSB_URL = SERVICE_URL + "borrowList_xsb";
+    //理财列表普通标
+    public static final String BID_LIST_NORMAL_URL = SERVICE_URL + "borrowList_normal";
     //首页公告
     public static final String ROLL_NEWS_URL = SERVICE_URL + "rollNews";
     //首页

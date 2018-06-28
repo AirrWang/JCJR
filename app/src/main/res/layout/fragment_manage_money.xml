@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,6 +24,7 @@
 
 
     <com.ql.jcjr.view.PullToRefreshView
+        android:layout_below="@+id/v_status"
         android:id="@+id/pull_refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -38,48 +39,171 @@
              />
 
     </com.ql.jcjr.view.PullToRefreshView>
-
-
-    <RadioGroup
-        android:id="@+id/rg__manage_money"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_68px"
-        android:layout_marginBottom="@dimen/dimen_30px"
-        android:layout_marginLeft="@dimen/dimen_40px"
-        android:layout_marginRight="@dimen/dimen_40px"
-        android:layout_marginTop="@dimen/dimen_30px"
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_1"
+        android:layout_below="@+id/v_status"
+        android:background="@color/c_fffff"
         android:orientation="horizontal"
-        android:visibility="gone">
-
-        <RadioButton
-            android:id="@+id/tab_yyy"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_left_manage_money_selector"
-            android:checked="true"
-            android:text="月月盈"/>
-
-        <RadioButton
-            android:id="@+id/tab_ttl"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_mindle_manage_money_selector"
-            android:text="天天利"/>
-
-        <RadioButton
-            android:id="@+id/tab_xszx"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_right_manage_money_selector"
-            android:text="新手专享"/>
-
-    </RadioGroup>
-
-    <com.ql.jcjr.view.NoScrollViewPager
-        android:id="@+id/cvw_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/another_login"
-        android:layout_below="@+id/ll_layout"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation"
-        android:visibility="gone"/>
+        android:layout_height="@dimen/dimen_98px">
+        <TextView
+            android:id="@+id/tv_moren1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="默认"
+            android:gravity="center"
+            android:textSize="@dimen/size_xl"
+            android:textColor="@color/btn_main"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/rl_apr1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_apr1"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="利率"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_apr_up1"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_apr_down1"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
 
-</LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/ll_time1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_time1"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="期限"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_order_paytime"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_time_up1"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_time_down1"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/ll_jindu1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_jindu1"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="进度"
+                android:textSize="@dimen/size_xl"
+                android:textColor="@color/font_black"/>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_20px"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_jindu_up1"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_gray_wdtz" />
+                <ImageView
+                    android:id="@+id/iv_jindu_down1"
+                    android:layout_marginTop="@dimen/dimen_8px"
+                    android:layout_width="@dimen/dimen_16px"
+                    android:layout_height="@dimen/dimen_12px"
+                    android:src="@drawable/arrow_down_wdtz" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rg__manage_money"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_68px"-->
+        <!--android:layout_marginBottom="@dimen/dimen_30px"-->
+        <!--android:layout_marginLeft="@dimen/dimen_40px"-->
+        <!--android:layout_marginRight="@dimen/dimen_40px"-->
+        <!--android:layout_marginTop="@dimen/dimen_30px"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="gone">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_yyy"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_left_manage_money_selector"-->
+            <!--android:checked="true"-->
+            <!--android:text="月月盈"/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_ttl"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_mindle_manage_money_selector"-->
+            <!--android:text="天天利"/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_xszx"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_right_manage_money_selector"-->
+            <!--android:text="新手专享"/>-->
+
+    <!--</RadioGroup>-->
+
+    <!--<com.ql.jcjr.view.NoScrollViewPager-->
+        <!--android:id="@+id/cvw_pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/another_login"-->
+        <!--android:layout_below="@+id/ll_layout"-->
+        <!--android:flipInterval="30"-->
+        <!--android:persistentDrawingCache="animation"-->
+        <!--android:visibility="gone"/>-->
+
+</RelativeLayout>
