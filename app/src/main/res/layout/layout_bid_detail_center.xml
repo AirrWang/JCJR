@@ -28,7 +28,7 @@
                 android:text="产品名称"/>
             <TextView
                 android:id="@+id/tv_bid_detail_title"
-                android:layout_marginLeft="@dimen/dimen_54px"
+                android:layout_marginLeft="48dp"
                 android:textSize="@dimen/size_l"
                 android:textColor="@color/font_black"
                 android:layout_width="wrap_content"
@@ -49,18 +49,24 @@
                 android:layout_height="wrap_content"
                 android:text="产品标签"/>
             <TextView
-                android:padding="@dimen/dimen_4px"
+                android:paddingLeft="@dimen/dimen_6px"
+                android:paddingRight="@dimen/dimen_6px"
+                android:paddingBottom="@dimen/dimen_4px"
+                android:paddingTop="@dimen/dimen_4px"
                 android:id="@+id/tv_tag_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_54px"
+                android:layout_marginLeft="48dp"
                 android:background="@drawable/bg_rectangle_circl_circl_5"
                 android:gravity="center"
                 android:text="积财精选"
                 android:textColor="@color/c_e7723e"
                 android:textSize="@dimen/size_s"/>
             <TextView
-                android:padding="@dimen/dimen_4px"
+                android:paddingLeft="@dimen/dimen_6px"
+                android:paddingRight="@dimen/dimen_6px"
+                android:paddingBottom="@dimen/dimen_4px"
+                android:paddingTop="@dimen/dimen_4px"
                 android:id="@+id/tv_tag_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,13 +90,14 @@
                 android:text="计息方式"/>
             <TextView
                 android:id="@+id/tv_is_lz"
-                android:layout_marginLeft="@dimen/dimen_54px"
+                android:layout_marginLeft="48dp"
                 android:textSize="@dimen/size_l"
                 android:textColor="@color/font_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:gravity="center_vertical"
             android:layout_marginTop="@dimen/dimen_30px"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -101,6 +108,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="回款方式"/>
+            <ImageView
+                android:id="@+id/iv_que"
+                android:layout_marginLeft="@dimen/dimen_10px"
+                android:src="@drawable/mksc_cpxq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_bid_detail_getmoney"
                 android:layout_marginLeft="@dimen/dimen_54px"
@@ -125,7 +138,7 @@
                 android:text="已募集时长"/>
             <TextView
                 android:id="@+id/tv_bid_time"
-                android:layout_marginLeft="@dimen/dimen_24px"
+                android:layout_marginLeft="@dimen/dimen_70px"
                 android:textSize="@dimen/size_l"
                 android:textColor="@color/font_black"
                 android:layout_width="wrap_content"

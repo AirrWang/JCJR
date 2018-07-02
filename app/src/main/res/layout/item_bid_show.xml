@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_xszx_sy"
             android:layout_marginTop="@dimen/dimen_40px"
-            android:layout_marginLeft="@dimen/dimen_10px"/>
+            android:layout_marginLeft="@dimen/dimen_18px"/>
 
     </FrameLayout>
 
