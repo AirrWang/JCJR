@@ -271,6 +271,10 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                             mLvYyy.addFooterView();
                             //设置不在加载更多
                             mPullToRefreshView.setLoadMoreEnable(false);
+                        }else {
+                            mLvYyy.removeFooterView();
+                            //设置可以加载更多
+                            mPullToRefreshView.setLoadMoreEnable(true);
                         }
                         mBidList.addAll(entity.getResult());
                         mAdapter.notifyDataSetChanged();
@@ -305,10 +309,10 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                         mBidxsb.addAll(entity.getResult());
 
                         if (mBidxsb == null || mBidxsb.size() == 0) {
-                            headerView.setVisibility(View.GONE);
+                            cb_bidshow_two.setVisibility(View.GONE);
                             return;
                         }else {
-                            headerView.setVisibility(View.VISIBLE);
+                            cb_bidshow_two.setVisibility(View.VISIBLE);
                         }
 
                         cb_bidshow_two.setPages(

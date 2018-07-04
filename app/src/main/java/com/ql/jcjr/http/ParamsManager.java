@@ -882,6 +882,7 @@ public class ParamsManager {
             object.put("money", amt);
             object.put("dxbPWD", dxbPWD);
             object.put("lcb", lcb);
+            object.put("device", "android");
             if(null != cashid){
                 object.put("cashid", cashid);
             }
@@ -905,6 +906,7 @@ public class ParamsManager {
             object.put("money", amt);
             object.put("dxbPWD", dxbPWD);
             object.put("lcb", lcb);
+            object.put("device", "android");
         } catch (JSONException e) {
             e.printStackTrace();
         }

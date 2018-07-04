@@ -65,6 +65,7 @@ public class LoginActivityCheck extends BaseActivity {
     private String phoneNumber;
     private Context mContext;
     private String appid;
+    private String headImage="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,8 +258,11 @@ public class LoginActivityCheck extends BaseActivity {
                 try {
                     JSONObject object = new JSONObject(responeJson);
                     int result = object.optInt("result", 0);
+
                     if(result==1){
                         //已注册 去登录
+                        headImage = object.optString("headImgUrl","");
+                        UserData.getInstance().setUserIconUrl(headImage);
                         Intent intent = new Intent(LoginActivityCheck.this, LoginActivity.class);
                         intent.putExtra("phone_num", phone);
                         startActivity(intent);

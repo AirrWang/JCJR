@@ -807,7 +807,7 @@ public class BidDetailActivity extends BaseActivity {
                 Intent intent=new Intent(mContext, ContactUsActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_que: //TODO
+            case R.id.iv_que:
                 int popupWidth = popView.getMeasuredWidth();    //  获取测量后的宽度
                 int popupHeight = popView.getMeasuredHeight();  //获取测量后的高度
                 int[] location = new int[2];

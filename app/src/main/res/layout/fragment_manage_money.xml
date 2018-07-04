@@ -35,6 +35,7 @@
             android:layout_height="match_parent"
             android:divider="@color/c_page_bg"
             android:dividerHeight="@dimen/dimen_20px"
+            android:scrollbars="none"
             android:listSelector="@color/transparent"
              />
 

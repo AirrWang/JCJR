@@ -139,6 +139,7 @@
                     android:textSize="@dimen/size_s" />
             </LinearLayout>
             <TextView
+                android:id="@+id/tv_1"
                 android:textSize="@dimen/size_m"
                 android:textColor="@color/font_grey"
                 android:layout_below="@+id/ll_biao_right"
@@ -162,6 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_2"
                     android:textColor="@color/font_grey"
                     android:textSize="@dimen/size_m"
                     android:layout_width="wrap_content"
@@ -183,6 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_3"
                     android:textColor="@color/font_grey"
                     android:textSize="@dimen/size_m"
                     android:layout_width="wrap_content"
@@ -210,7 +213,6 @@
         android:orientation="horizontal">
 
         <ProgressBar
-            android:layout_marginTop="@dimen/dimen_10px"
             android:layout_below="@+id/tv_percent"
             android:id="@+id/pb_percentage"
             android:layout_width="match_parent"
@@ -218,6 +220,7 @@
             style="@style/progressbar_horizontal_style"/>
 
         <TextView
+            android:layout_marginBottom="@dimen/dimen_10px"
             android:layout_marginRight="@dimen/dimen_30px"
             android:layout_alignParentRight="true"
             android:id="@+id/tv_percent"

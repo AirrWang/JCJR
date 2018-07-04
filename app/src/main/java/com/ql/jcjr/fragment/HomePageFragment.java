@@ -149,9 +149,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
         initListView();
-        mConvenientBanner.setFocusable(true);
-        mConvenientBanner.setFocusableInTouchMode(true);
-        mConvenientBanner.requestFocus();
+
     }
 
     private void initListView() {
@@ -239,10 +237,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 HomeDataEntity.ResultBean.ResultBeanTwo result2=entity.getResult().getResult2();
                 rl_blank.setVisibility(View.GONE);
                 cb_bidshow.setVisibility(View.VISIBLE);
-                if ( result2.getXinshou().size()==0 && result2.getHuodong().size()==0 && result2.getTuijian().size()==0 ){
-                    rl_blank.setVisibility(View.VISIBLE);
-                }
                 initBidShow(entity.getResult().getResult2().getXinshou());
+
                 initBottomList(entity.getResult().getResult2());
                 mTotal.setText(entity.getResult().getResult3().getAccount());
                 mPeople.setText(entity.getResult().getResult3().getCount());
@@ -267,10 +263,11 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     mLl.setVisibility(View.GONE);
                 } else if (entity.getResult().getResult1().getCode().equals("0")) {
                     mIvBanner.setImageResource(R.drawable.zcjs_sy);
-
                 }
 
-
+                if ( cb_bidshow.getVisibility()==View.GONE && result2.getHuodong().size()==0 && result2.getTuijian().size()==0 ){
+                    rl_blank.setVisibility(View.VISIBLE);
+                }
 //                mNoviceExclusiveId=entity.getResult().getResult2().getId();
 //                mBidName = entity.getResult().getResult2().getName();
 //                if (entity.getResult().getResult2().getIsselled().equals("0")){
@@ -576,7 +573,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         banner();
         initMarqueeView();
         getData();
-
+//        mPullRefresh.setFocusableInTouchMode(true);
+        mConvenientBanner.setFocusable(true);
+        mConvenientBanner.setFocusableInTouchMode(true);
+        mConvenientBanner.requestFocus();
         mConvenientBanner.startTurning(2000);
 //        if (mIndicatorView == null)
 //            return;

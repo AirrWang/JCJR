@@ -1,6 +1,7 @@
 package com.ql.jcjr.receiver;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,10 +10,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.PopupWindow;
 
 import com.ql.jcjr.activity.NetNullActivity;
 import com.ql.jcjr.application.JcbApplication;
+import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.view.CommonDialog;
 
 
@@ -64,6 +67,12 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
         if (isNetworkConnected(context)){
 
         }else {
+//            if (context instanceof Activity) {
+//                Activity a= (Activity) context;
+//                String name=a.getComponentName().getClassName();
+//                LogUtil.i("netchange context:" + context+"name:"+name+"activit:"+a);
+//            }
+
             Intent intent=new Intent(context,NetNullActivity.class);
 
             context.startActivities(new Intent[]{intent});

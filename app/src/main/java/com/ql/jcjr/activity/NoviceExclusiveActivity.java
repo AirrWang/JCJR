@@ -2,18 +2,23 @@ package com.ql.jcjr.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -82,6 +87,8 @@ public class NoviceExclusiveActivity extends BaseActivity {
     private LinearLayout ll_bq;
     @ViewInject(R.id.ll_time)
     private LinearLayout ll_time;
+    @ViewInject(R.id.iv_que)
+    private ImageView iv_que;
 
     private Context mContext;
     private String mBidId;
@@ -89,6 +96,8 @@ public class NoviceExclusiveActivity extends BaseActivity {
     private String bidName;
 
     private InputMethodManager imm;
+    private View popView;
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +113,20 @@ public class NoviceExclusiveActivity extends BaseActivity {
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 
         getIntentData();
+
+        initPOP();
+    }
+
+    private void initPOP() {
+        popupWindow = new PopupWindow(this);
+        popView = LayoutInflater.from(this).inflate(R.layout.pop_bid_detail_quesition,null);
+        popupWindow.setContentView(popView);
+        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
 
     }
 
@@ -535,7 +558,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail,R.id.iv_help})
+    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail,R.id.iv_help,R.id.iv_que})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -589,6 +612,15 @@ public class NoviceExclusiveActivity extends BaseActivity {
             case R.id.iv_help:
                 Intent intent=new Intent(mContext, ContactUsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_que:
+                int popupWidth = popView.getMeasuredWidth();    //  获取测量后的宽度
+                int popupHeight = popView.getMeasuredHeight();  //获取测量后的高度
+                int[] location = new int[2];
+                iv_que.getLocationOnScreen(location);
+
+                popupWindow.showAtLocation(iv_que, Gravity.NO_GRAVITY, location[0]+10, location[1] - popupHeight-20);
+
                 break;
         }
     }
