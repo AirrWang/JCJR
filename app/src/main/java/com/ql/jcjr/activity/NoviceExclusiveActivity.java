@@ -558,6 +558,7 @@ public class NoviceExclusiveActivity extends BaseActivity {
                 }, mContext);
     }
 
+    private static double DOUBLE_CLICK_TIME = 0L;
     @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail,R.id.iv_help,R.id.iv_que})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -565,28 +566,34 @@ public class NoviceExclusiveActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_calculator:
-                showCalculatorDialog();
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    showCalculatorDialog();
+                }
                 break;
             case R.id.tv_bid:
-                if (!UserData.getInstance().isLogin()){
-                    if (UserData.getInstance().getPhoneNumber().equals("")) {
-                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
-                    }else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                        startActivity(intent);
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    if (!UserData.getInstance().isLogin()) {
+                        if (UserData.getInstance().getPhoneNumber().equals("")) {
+                            Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                            startActivity(intent);
+                        }
+                        break;
                     }
-                    break;
-                }
-                if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
-                    if (UserData.getInstance().getRiskWarning()) {
+                    if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
+                        if (UserData.getInstance().getRiskWarning()) {
                             getAccountInfo();
-                    }else {
-                        showToTestDialog();
+                        } else {
+                            showToTestDialog();
+                        }
+                    } else {
+                        CommonToast.showShiMingDialog(mContext);
                     }
-                } else {
-                    CommonToast.showShiMingDialog(mContext);
                 }
                 break;
             case R.id.ithb_bid_record:

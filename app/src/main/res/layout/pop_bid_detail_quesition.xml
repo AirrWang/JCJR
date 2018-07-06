@@ -2,9 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/popup_hkfs"
     android:orientation="vertical">
-
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/popup_hkfs"
+        android:layout_width="@dimen/dimen_390px"
+        android:layout_height="@dimen/dimen_124px" />
 
 
 </LinearLayout>

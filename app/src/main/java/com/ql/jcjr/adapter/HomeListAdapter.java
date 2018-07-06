@@ -127,9 +127,10 @@ public class HomeListAdapter extends BaseAdapter {
         if(StringUtils.isBlank(resultBean.getLast_account()) || "0.00".equals(resultBean.getLast_account()) || "0".equals(resultBean.getLast_account())) {
 //            viewHolder.mBtnBid.setText("筹款完成");
 //            viewHolder.mBtnBid.setBackgroundResource(R.drawable.btn_bg_enable);
-            view.setBackgroundColor(resources.getColor(R.color.item_yyy_bg_gery));
-            viewHolder.mTvPercent.setText("100%");
-            viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.mTvPercent.setVisibility(View.INVISIBLE);
+//            view.setBackgroundColor(resources.getColor(R.color.item_yyy_bg_gery));
+//            viewHolder.mTvPercent.setText("100%");
+//            viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
             viewHolder.mTvTag.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mTvTag.setBackgroundResource(R.drawable.bg_rectangle_circl_circl_5_grey);
@@ -150,21 +151,26 @@ public class HomeListAdapter extends BaseAdapter {
 
 
             viewHolder.mTvAvailableRest.setTextColor(resources.getColor(R.color.c_cbcbcb));
-            viewHolder.mTvAvailableRest.setText(resultRest);
+            viewHolder.mTvAvailableRest.setText("已结束");
             viewHolder.mTvTerm.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mTvTitle.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
-            viewHolder.mProgressBar.setProgress(0);
-            viewHolder.mProgressBar.setSecondaryProgress(resultBean.getAccount());
+            viewHolder.tv_1.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.tv_2.setTextColor(resources.getColor(R.color.c_cbcbcb));
+            viewHolder.tv_3.setVisibility(View.GONE);
+
+            viewHolder.mProgressBar.setVisibility(View.GONE);
+//            viewHolder.mProgressBar.setProgress(0);
+//            viewHolder.mProgressBar.setSecondaryProgress(resultBean.getAccount());
 
         }else{
-            view.setBackgroundColor(resources.getColor(R.color.white));
+//            view.setBackgroundColor(resources.getColor(R.color.white));
             //处理有人投了标，但是进度还是0的情况
             int percent = resultBean.getAccount_yes()*100/resultBean.getAccount();
             if(percent == 0 && resultBean.getAccount_yes()>0){
                 percent = 1;
             }
-
+            viewHolder.mTvPercent.setVisibility(View.VISIBLE);
             viewHolder.mTvPercent.setText(percent+"%");
             viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.btn_main));
 
@@ -185,12 +191,17 @@ public class HomeListAdapter extends BaseAdapter {
             viewHolder.mAnnualizedRateGain.setTextColor(resources.getColor(R.color.font_red));
             viewHolder.mAnnualizedRateGainAfter.setTextColor(resources.getColor(R.color.font_red));
 
-
+            viewHolder.mTvAvailableRest.setTextColor(resources.getColor(R.color.font_black));
 //            SpannableString ssRest = StringUtils.getSpannableString(resultRest, resources.getColor(R.color.font_black), 2, resultRest.length() - 1);
             viewHolder.mTvAvailableRest.setText(resultRest);
             viewHolder.mTvTerm.setTextColor(resources.getColor(R.color.font_black));
             viewHolder.mTvTitle.setTextColor(resources.getColor(R.color.font_black));
 
+            viewHolder.tv_1.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.tv_2.setTextColor(resources.getColor(R.color.font_grey));
+            viewHolder.tv_3.setVisibility(View.VISIBLE);
+
+            viewHolder.mProgressBar.setVisibility(View.VISIBLE);
             viewHolder.mProgressBar.setProgress(resultBean.getAccount_yes());
             viewHolder.mProgressBar.setSecondaryProgress(0);
 
@@ -247,5 +258,13 @@ public class HomeListAdapter extends BaseAdapter {
         public TextView mTvPercent;
         @ViewInject(R.id.pb_percentage)
         public ProgressBar mProgressBar;
+
+        //写死字
+        @ViewInject(R.id.tv_1)
+        public TextView tv_1;
+        @ViewInject(R.id.tv_2)
+        public TextView tv_2;
+        @ViewInject(R.id.tv_3)
+        public TextView tv_3;
     }
 }

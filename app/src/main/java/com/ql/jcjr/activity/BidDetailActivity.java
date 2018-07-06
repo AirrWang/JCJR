@@ -139,6 +139,7 @@ public class BidDetailActivity extends BaseActivity {
     private boolean isOver;
     private PopupWindow popupWindow;
     private View popView;
+    private static double DOUBLE_CLICK_TIME = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -748,34 +749,16 @@ public class BidDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_calculator:
-                showCalculatorDialog();
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    showCalculatorDialog();
+                }
                 break;
             case R.id.tv_bid:
                 //立即投标
-                if(UserData.getInstance().isLogin()) {  //先判断登陆  再实名  最后测评
-                    if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
-                        if (UserData.getInstance().getRiskWarning()) {
-                            if (resultBean.getPwd().equals("1")) {
-                                showBidPwdDialog();
-                            } else {
-                                getAccountInfo();
-                            }
-                        }else {
-                            showToTestDialog();
-                        }
-                    } else {
-                        CommonToast.showShiMingDialog(mContext);
-                    }
-
-                }else {
-                    if (UserData.getInstance().getPhoneNumber().equals("")) {
-                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
-                    }else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                        startActivity(intent);
-                    }
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    redyToBid();
                 }
                 break;
 
@@ -816,6 +799,34 @@ public class BidDetailActivity extends BaseActivity {
                 popupWindow.showAtLocation(iv_que, Gravity.NO_GRAVITY, location[0]+10, location[1] - popupHeight-20);
 
                 break;
+        }
+    }
+
+    private void redyToBid() {
+        if(UserData.getInstance().isLogin()) {  //先判断登陆  再实名  最后测评
+            if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
+                if (UserData.getInstance().getRiskWarning()) {
+                    if (resultBean.getPwd().equals("1")) {
+                        showBidPwdDialog();
+                    } else {
+                        getAccountInfo();
+                    }
+                }else {
+                    showToTestDialog();
+                }
+            } else {
+                CommonToast.showShiMingDialog(mContext);
+            }
+
+        }else {
+            if (UserData.getInstance().getPhoneNumber().equals("")) {
+                Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                startActivity(intent);
+            }
         }
     }
 

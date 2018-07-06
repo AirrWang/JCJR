@@ -134,6 +134,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private String url3 = "";
     private HomeListAdapter mAdapterHuodong;
     private HomeListAdapter mAdapterTuijian;
+    private String mNoviceExclusiveId;
+    private String mBidName;
 
     @Override
     protected int getContentView() {
@@ -319,6 +321,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             cb_bidshow.setVisibility(View.GONE);
             return;
         }
+        mNoviceExclusiveId=xinshou.get(0).getId();
+        mBidName=xinshou.get(0).getName();
         cb_bidshow.setPages(
                 new CBViewHolderCreator<BidShowView>() {
                     @Override
@@ -409,7 +413,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 })
                 .startTurning(2000)
                 //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                .setPageIndicator(new int[]{R.drawable.selected_banner, R.drawable.unselected_banner});
+                .setPageIndicator(new int[]{R.drawable.unselected_banner, R.drawable.selected_banner});
         //设置指示器的方向
 //                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         //设置翻页的效果，不需要翻页效果可用不设
@@ -639,10 +643,12 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                     intent = new Intent(mContext, RealNameActivity.class);
                     startActivity(intent);
                 } else if (banner == 2) {
-//                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
-//                    intent.putExtra("bid_id",mNoviceExclusiveId);
-//                    intent.putExtra("bid_title", mBidName);
-//                    startActivity(intent);
+                    if (!StringUtils.isBlank(mNoviceExclusiveId)) {
+                        intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                        intent.putExtra("bid_id", mNoviceExclusiveId);
+                        intent.putExtra("bid_title", mBidName);
+                        startActivity(intent);
+                    }
                 } else if (banner == 4) {
                     UrlUtil.showHtmlPage(mContext, "风险测评", RequestURL.RISKTEST_URL, true);
                 } else {

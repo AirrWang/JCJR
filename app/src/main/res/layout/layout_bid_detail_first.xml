@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -27,8 +29,10 @@
             android:layout_centerVertical="true"
             android:gravity="center" />
 
-        <TextView
+        <Button
+            android:background="@null"
             android:id="@+id/tv_title"
+            style="@style/style_action_bar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -36,15 +40,15 @@
             android:maxEms="10"
             android:singleLine="true"
             android:text="助农保"
-            style="@style/style_action_bar_title"/>
+            />
         <ImageView
             android:id="@+id/iv_help"
             android:paddingRight="@dimen/dimen_40px"
             android:scaleType="fitXY"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="41dp"
+            android:layout_height="@dimen/dimen_38px"
             android:src="@drawable/icon_help_sy"/>
 
     </RelativeLayout>
