@@ -166,11 +166,17 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
         if (isVisible) {
-            banner();
-            initMarqueeView();
+
 //            getNoviceExclusive();
             getData();
 
+            initMarqueeView();
+
+            banner();
+//            mConvenientBanner.setFocusable(true);
+//            mConvenientBanner.setFocusableInTouchMode(true);
+            mConvenientBanner.requestFocus();
+//            mConvenientBanner.startTurning(2000);
         }
     }
 
