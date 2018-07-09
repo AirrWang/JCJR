@@ -254,6 +254,16 @@ public class PullToRefreshView extends LinearLayout {
         return false;
     }
 
+    private OnStateListener onStateListener;
+    public interface OnStateListener{
+        // 状态回调, 把当前状态传出去
+        void onStateUpdate(boolean state);
+    }
+    public void setOnSwitchStateUpdateListener(
+            OnStateListener onStateListener) {
+        this.onStateListener = onStateListener;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int y = (int) event.getY();
@@ -266,6 +276,9 @@ public class PullToRefreshView extends LinearLayout {
                 int deltaY = y - mLastMotionY;
                 if (mPullState == PULL_DOWN_STATE) {
                     // Pull down
+                    if (onStateListener!=null) {
+                        onStateListener.onStateUpdate(true);
+                    }
                     headerPrepareToRefresh(deltaY);
                 } else if (mPullState == PULL_UP_STATE) {
                     // Pull up

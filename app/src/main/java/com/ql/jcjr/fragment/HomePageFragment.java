@@ -150,6 +150,14 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnHeaderRefreshListener(this);
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
+        mPullRefresh.setOnSwitchStateUpdateListener(new PullToRefreshView.OnStateListener() {
+            @Override
+            public void onStateUpdate(boolean state) {
+                if (state){
+                    mConvenientBanner.requestFocus();
+                }
+            }
+        });
         initListView();
 
     }
@@ -175,7 +183,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             banner();
 //            mConvenientBanner.setFocusable(true);
 //            mConvenientBanner.setFocusableInTouchMode(true);
-            mConvenientBanner.requestFocus();
+//            mConvenientBanner.requestFocus();
 //            mConvenientBanner.startTurning(2000);
         }
     }
@@ -250,8 +258,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 initBottomList(entity.getResult().getResult2());
                 mTotal.setText(entity.getResult().getResult3().getAccount());
                 mPeople.setText(entity.getResult().getResult3().getCount());
-//                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
-//                tv_diffrent_bid.setText("累计申购");
+
                 mLl.setVisibility(View.VISIBLE);
                 if (entity.getResult().getResult1().getCode().equals("1")) {
                     banner = 1;
@@ -276,15 +283,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 if ( cb_bidshow.getVisibility()==View.GONE && result2.getHuodong().size()==0 && result2.getTuijian().size()==0 ){
                     rl_blank.setVisibility(View.VISIBLE);
                 }
-//                mNoviceExclusiveId=entity.getResult().getResult2().getId();
-//                mBidName = entity.getResult().getResult2().getName();
-//                if (entity.getResult().getResult2().getIsselled().equals("0")){
-//                    mBidJump.setEnabled(true);
-//                    mBidJump.setText("立即加入");
-//                }else {
-//                    mBidJump.setEnabled(false);
-//                    mBidJump.setText("已售罄");
-//                }
+
                 if (entity.getResult().getResult4().size() >= 4) {
                     initFour(entity.getResult().getResult4());
                 }
@@ -679,4 +678,5 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
     }
+
 }
