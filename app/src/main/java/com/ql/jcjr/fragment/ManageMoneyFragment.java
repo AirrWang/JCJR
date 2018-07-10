@@ -160,7 +160,8 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                     itemRecord.top = firstView.getTop();
                     recordSp.append(firstVisibleItem, itemRecord);
                     int h = getScrollY();//滚动距离
-                    if (h>cb_bidshow_two.getHeight()||firstVisibleItem!=0){
+                    if (h>cb_bidshow_two.getHeight()||(h>0&&cb_bidshow_two.getVisibility()==View.GONE)){
+//                        LogUtil.d("理财距离监听：h="+h+",height="+cb_bidshow_two.getHeight());
                         ll_1.setVisibility(View.VISIBLE);
                     }else {
                         ll_1.setVisibility(View.GONE);
