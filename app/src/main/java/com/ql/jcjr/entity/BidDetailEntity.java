@@ -88,9 +88,9 @@ public class BidDetailEntity {
         private String isday;
         private String time_limit_day;
         private String time_limit;
-        private String lowest_account;
-        private String most_account;
-        private String account;
+        private int lowest_account;
+        private int most_account;
+        private int account;
         private String account_yes;
         private String is_mb;
         private String style;
@@ -200,29 +200,7 @@ public class BidDetailEntity {
             this.time_limit = time_limit;
         }
 
-        public String getLowest_account() {
-            return lowest_account;
-        }
 
-        public void setLowest_account(String lowest_account) {
-            this.lowest_account = lowest_account;
-        }
-
-        public String getMost_account() {
-            return most_account;
-        }
-
-        public void setMost_account(String most_account) {
-            this.most_account = most_account;
-        }
-
-        public String getAccount() {
-            return account;
-        }
-
-        public void setAccount(String account) {
-            this.account = account;
-        }
 
         public String getAccount_yes() {
             return account_yes;
@@ -366,6 +344,30 @@ public class BidDetailEntity {
 
         public void setLasttime(int lasttime) {
             this.lasttime = lasttime;
+        }
+
+        public int getAccount() {
+            return account;
+        }
+
+        public void setAccount(int account) {
+            this.account = account;
+        }
+
+        public int getMost_account() {
+            return most_account;
+        }
+
+        public void setMost_account(int most_account) {
+            this.most_account = most_account;
+        }
+
+        public int getLowest_account() {
+            return lowest_account;
+        }
+
+        public void setLowest_account(int lowest_account) {
+            this.lowest_account = lowest_account;
         }
 
         public static class TendersBean implements Serializable{

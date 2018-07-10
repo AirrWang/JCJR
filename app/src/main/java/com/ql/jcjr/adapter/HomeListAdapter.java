@@ -124,7 +124,7 @@ public class HomeListAdapter extends BaseAdapter {
         viewHolder.mProgressBar.setMax(resultBean.getAccount());
 
 
-        if(StringUtils.isBlank(resultBean.getLast_account()) || "0.00".equals(resultBean.getLast_account()) || "0".equals(resultBean.getLast_account())) {
+        if(StringUtils.isBlank(resultBean.getLast_account()+"") || "0.00".equals(resultBean.getLast_account()+"") || "0".equals(resultBean.getLast_account()+"")) {
 //            viewHolder.mBtnBid.setText("筹款完成");
 //            viewHolder.mBtnBid.setBackgroundResource(R.drawable.btn_bg_enable);
             viewHolder.mTvPercent.setVisibility(View.INVISIBLE);

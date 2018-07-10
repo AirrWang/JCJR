@@ -110,13 +110,13 @@ public class HomeDataEntity {
                 private String cashAddition;
                 private String tender_times;
                 private String time_limit_day;
-                private String most_account;
+                private int most_account;
                 private String name;
                 private int account; //项目总额
                 private int account_yes; //已投金额
                 private String bremark;
                 private String bremark1;
-                private String last_account;//剩余可投
+                private int last_account;//剩余可投
 
                 public String getId() {
                     return id;
@@ -200,21 +200,20 @@ public class HomeDataEntity {
                     this.bremark1 = bremark1;
                 }
 
-                public String getLast_account() {
-                    return last_account;
-                }
-
-                public void setLast_account(String last_account) {
-                    this.last_account = last_account;
-                }
-
-
-                public String getMost_account() {
+                public int getMost_account() {
                     return most_account;
                 }
 
-                public void setMost_account(String most_account) {
+                public void setMost_account(int most_account) {
                     this.most_account = most_account;
+                }
+
+                public int getLast_account() {
+                    return last_account;
+                }
+
+                public void setLast_account(int last_account) {
+                    this.last_account = last_account;
                 }
             }
         }

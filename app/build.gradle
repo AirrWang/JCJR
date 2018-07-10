@@ -109,7 +109,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo", app_name: "积财金融理财"]
         }
         meizu {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu", app_name: "积财金融-安全理财"]
         }
         leshi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "leshi"]
@@ -136,7 +136,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ppzs"]
         }
         vivo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo", app_name: "积财金融理财"]
         }
         zs91 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zs91"]

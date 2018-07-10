@@ -49,12 +49,12 @@ public class BidShowView implements Holder<HomeDataEntity.ResultBean.ResultBeanT
         tv_annualized_rate.setTypeface(JcbApplication.getPingFangBoldTypeFace());
         tv_term.setText(data.getTime_limit_day()+"天");
         tv_diffrent_bid.setText("限购额度");
-        Double money= Double.valueOf(data.getMost_account());
+        int money= data.getMost_account();
         if (money<=10000) {
-            tv_limit_people.setText(StringUtils.formatMoney(money) + "元");
+            tv_limit_people.setText(money + "元");
         }else {
-            money=money/10000.00f;
-            tv_limit_people.setText(StringUtils.formatMoney(money) + "万元");
+            money=money/10000;
+            tv_limit_people.setText(money + "万元");
         }
         tv_limit_people.setTypeface(JcbApplication.getPingFangBoldTypeFace());
         tv_term.setTypeface(JcbApplication.getPingFangBoldTypeFace());
