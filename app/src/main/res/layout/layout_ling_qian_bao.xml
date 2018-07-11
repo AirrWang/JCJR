@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_home_xs"
+    android:background="@color/c_fffff"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="@dimen/dimen_98px"
+        android:layout_marginTop="@dimen/dimen_64px"
         android:orientation="vertical">
         <LinearLayout
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
                 android:layout_marginRight="@dimen/dimen_6px"
                 android:text="18.00"
                 android:textColor="@color/font_black"
-                android:textSize="@dimen/size_big" />
+                android:textSize="28sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,8 +34,16 @@
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/size_xs" />
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="@dimen/dimen_3px"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="期望年化利率"
+            android:textColor="@color/font_grey"
+            android:textSize="@dimen/size_xs" />
         <LinearLayout
-            android:layout_marginTop="@dimen/dimen_50px"
+            android:layout_marginTop="@dimen/dimen_34px"
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -51,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="项目期限"
                     android:textColor="@color/font_grey"
-                    android:textSize="@dimen/size_xs" />
+                    android:textSize="@dimen/size_l" />
                 <TextView
                     android:layout_marginLeft="@dimen/dimen_34px"
                     android:id="@+id/tv_term"
@@ -60,7 +68,7 @@
                     android:layout_marginRight="@dimen/dimen_6px"
                     android:text="15天"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/dimen_24px" />
+                    android:textSize="@dimen/size_l" />
 
             </LinearLayout>
             <ImageView
@@ -80,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="累计申购"
                     android:textColor="@color/font_grey"
-                    android:textSize="@dimen/size_xs" />
+                    android:textSize="@dimen/size_l" />
                 <TextView
                     android:layout_marginLeft="@dimen/dimen_34px"
                     android:id="@+id/tv_limit_people"
@@ -89,7 +97,7 @@
                     android:layout_marginRight="@dimen/dimen_6px"
                     android:text="2000人"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/dimen_24px" />
+                    android:textSize="@dimen/size_l" />
 
             </LinearLayout>
         </LinearLayout>
@@ -97,14 +105,14 @@
         <Button
             android:layout_gravity="center"
             android:id="@+id/btn_bid"
-            android:layout_width="@dimen/home_recom_biao_w"
-            android:layout_height="@dimen/home_recom_biao_btn_h"
+            android:layout_width="@dimen/dimen_320px"
+            android:layout_height="@dimen/dimen_62px"
             android:layout_marginTop="@dimen/dimen_48px"
-            android:layout_marginBottom="@dimen/dimen_46px"
+            android:layout_marginBottom="@dimen/dimen_44px"
             android:background="@drawable/bg_btn_ljjr_sy"
-            android:text="立即加入"
+            android:text="立即抢购"
             android:textColor="@color/c_fefefe"
-            android:textSize="@dimen/size_l" />
+            android:textSize="@dimen/size_xl" />
 
     </LinearLayout>
 

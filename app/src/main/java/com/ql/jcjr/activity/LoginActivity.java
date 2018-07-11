@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,10 +32,12 @@ import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.AppConfigCommon;
 import com.ql.jcjr.utils.CommonUtils;
 import com.ql.jcjr.utils.FileUtil;
+import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.crypt.DesUtil;
 import com.ql.jcjr.view.CancelEditTextGrey;
+import com.ql.jcjr.view.CircleImageView;
 import com.ql.jcjr.view.CommonToast;
 import com.umeng.message.UTrack;
 
@@ -53,6 +56,8 @@ public class LoginActivity extends BaseActivity{
     private RelativeLayout rl_container;
     @ViewInject(R.id.ll_container)
     private LinearLayout ll_container;
+    @ViewInject(R.id.login_iv_head)
+    private CircleImageView login_iv_head;
 
 
     static StringBuffer validateErrorMsg;
@@ -115,6 +120,8 @@ public class LoginActivity extends BaseActivity{
 //            }
 //        });
         phoneNumber = getIntent().getStringExtra("phone_num");
+        String headImgUrl=UserData.getInstance().getUserIconUrl();
+        GlideUtil.displayPic(this,headImgUrl,R.drawable.gesture_user_icon,login_iv_head);
         etPhoneNum.setText(phoneNumber);
 
         etPassword.getCancelEditText().setTransformationMethod(

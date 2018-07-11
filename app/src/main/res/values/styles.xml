@@ -114,7 +114,7 @@
 
     <style name="style_action_bar_title">
         <item name="android:textColor">@color/font_actionbar_color</item>
-        <item name="android:textSize">@dimen/dimen_38px</item>
+        <item name="android:textSize">@dimen/size_xl</item>
     </style>
 
     <style name="MyCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">

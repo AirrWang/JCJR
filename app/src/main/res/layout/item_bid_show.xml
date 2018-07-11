@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+              android:orientation="vertical"
+    android:background="@color/c_page_bg">
+    <FrameLayout
+        android:id="@+id/ling_qian_bao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_1">
+
+        <include
+            layout="@layout/layout_ling_qian_bao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_30px"
+            android:layout_marginRight="@dimen/dimen_30px"
+            android:layout_marginTop="@dimen/dimen_20px"/>
+
+        <ImageView
+            android:id="@+id/iv_bid_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_xszx_sy"
+            android:layout_marginTop="@dimen/dimen_40px"
+            android:layout_marginLeft="@dimen/dimen_18px"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>

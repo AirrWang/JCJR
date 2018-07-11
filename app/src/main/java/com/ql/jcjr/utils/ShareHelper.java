@@ -9,6 +9,7 @@ import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
 import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
+import com.ql.jcjr.interfac.ShareWebListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -18,12 +19,16 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
+import static com.ql.jcjr.R.id.webView;
+import static com.ql.jcjr.R.id.webview;
+
 
 /**
  * Created by Liuchao on 2016/9/25.
  */
 public class ShareHelper implements ShareBoardlistener, UMShareListener{
 
+    private ShareWebListener listener;
     private Activity mActivity;
     private int shareType;
     private final int SHARE_TYPE_WEB = 1;
@@ -33,7 +38,8 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     private UMImage image;
     private final ShareBoardConfig config;
 
-    public ShareHelper(Activity activity){
+    public ShareHelper(Activity activity,ShareWebListener listener){
+        this.listener=listener;
         mActivity = activity;
         mShareAction = new ShareAction(activity).setDisplayList(
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
@@ -112,6 +118,9 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     public void onResult(SHARE_MEDIA share_media) {
         LogUtil.i("shareHelper share: onResult");
         sureShare();
+        if (listener!=null) {
+            listener.getResult(true);
+        }
     }
 
     private void sureShare() {
@@ -136,10 +145,16 @@ public class ShareHelper implements ShareBoardlistener, UMShareListener{
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
         LogUtil.i("shareHelper share: onError"+throwable.getMessage());
+        if (listener!=null) {
+            listener.getResult(false);
+        }
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
         LogUtil.i("shareHelper share: onCancel");
+        if (listener!=null) {
+            listener.getResult(false);
+        }
     }
 }

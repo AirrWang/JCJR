@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,13 +21,35 @@
         <!--bar:bottom_divider_visibility="gone"-->
         <!--bar:left_first_visibility="invisible"-->
         <!--bar:title="产品列表"/>-->
+
+
+    <com.ql.jcjr.view.PullToRefreshView
+        android:layout_below="@+id/v_status"
+        android:id="@+id/pull_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.ql.jcjr.view.XListView
+            android:id="@+id/lv_yyy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/c_page_bg"
+            android:dividerHeight="@dimen/dimen_20px"
+            android:scrollbars="none"
+            android:listSelector="@color/transparent"
+             />
+
+    </com.ql.jcjr.view.PullToRefreshView>
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_1"
+        android:layout_below="@+id/v_status"
         android:background="@color/c_fffff"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_98px">
         <TextView
-            android:id="@+id/tv_moren"
+            android:id="@+id/tv_moren1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="默认"
@@ -38,12 +60,12 @@
         <LinearLayout
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/rl_apr"
+            android:id="@+id/rl_apr1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tv_apr"
+                android:id="@+id/tv_apr1"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,12 +79,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/iv_apr_up"
+                    android:id="@+id/iv_apr_up1"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
                     android:src="@drawable/arrow_gray_wdtz" />
                 <ImageView
-                    android:id="@+id/iv_apr_down"
+                    android:id="@+id/iv_apr_down1"
                     android:layout_marginTop="@dimen/dimen_8px"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
@@ -73,12 +95,12 @@
         <LinearLayout
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/ll_time"
+            android:id="@+id/ll_time1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_time1"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,12 +115,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/iv_time_up"
+                    android:id="@+id/iv_time_up1"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
                     android:src="@drawable/arrow_gray_wdtz" />
                 <ImageView
-                    android:id="@+id/iv_time_down"
+                    android:id="@+id/iv_time_down1"
                     android:layout_marginTop="@dimen/dimen_8px"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
@@ -109,12 +131,12 @@
         <LinearLayout
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/ll_jindu"
+            android:id="@+id/ll_jindu1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tv_jindu"
+                android:id="@+id/tv_jindu1"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,12 +150,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/iv_jindu_up"
+                    android:id="@+id/iv_jindu_up1"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
                     android:src="@drawable/arrow_gray_wdtz" />
                 <ImageView
-                    android:id="@+id/iv_jindu_down"
+                    android:id="@+id/iv_jindu_down1"
                     android:layout_marginTop="@dimen/dimen_8px"
                     android:layout_width="@dimen/dimen_16px"
                     android:layout_height="@dimen/dimen_12px"
@@ -143,63 +165,46 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.ql.jcjr.view.PullToRefreshView
-        android:id="@+id/pull_refresh_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rg__manage_money"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_68px"-->
+        <!--android:layout_marginBottom="@dimen/dimen_30px"-->
+        <!--android:layout_marginLeft="@dimen/dimen_40px"-->
+        <!--android:layout_marginRight="@dimen/dimen_40px"-->
+        <!--android:layout_marginTop="@dimen/dimen_30px"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="gone">-->
 
-        <com.ql.jcjr.view.XListView
-            android:id="@+id/lv_yyy"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/c_page_bg"
-            android:dividerHeight="@dimen/dimen_20px"
-            android:listSelector="@color/transparent"
-             />
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_yyy"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_left_manage_money_selector"-->
+            <!--android:checked="true"-->
+            <!--android:text="月月盈"/>-->
 
-    </com.ql.jcjr.view.PullToRefreshView>
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_ttl"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_mindle_manage_money_selector"-->
+            <!--android:text="天天利"/>-->
 
+        <!--<RadioButton-->
+            <!--android:id="@+id/tab_xszx"-->
+            <!--style="@style/style_tab_manage_money"-->
+            <!--android:background="@drawable/tab_right_manage_money_selector"-->
+            <!--android:text="新手专享"/>-->
 
-    <RadioGroup
-        android:id="@+id/rg__manage_money"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_68px"
-        android:layout_marginBottom="@dimen/dimen_30px"
-        android:layout_marginLeft="@dimen/dimen_40px"
-        android:layout_marginRight="@dimen/dimen_40px"
-        android:layout_marginTop="@dimen/dimen_30px"
-        android:orientation="horizontal"
-        android:visibility="gone">
+    <!--</RadioGroup>-->
 
-        <RadioButton
-            android:id="@+id/tab_yyy"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_left_manage_money_selector"
-            android:checked="true"
-            android:text="月月盈"/>
+    <!--<com.ql.jcjr.view.NoScrollViewPager-->
+        <!--android:id="@+id/cvw_pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/another_login"-->
+        <!--android:layout_below="@+id/ll_layout"-->
+        <!--android:flipInterval="30"-->
+        <!--android:persistentDrawingCache="animation"-->
+        <!--android:visibility="gone"/>-->
 
-        <RadioButton
-            android:id="@+id/tab_ttl"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_mindle_manage_money_selector"
-            android:text="天天利"/>
-
-        <RadioButton
-            android:id="@+id/tab_xszx"
-            style="@style/style_tab_manage_money"
-            android:background="@drawable/tab_right_manage_money_selector"
-            android:text="新手专享"/>
-
-    </RadioGroup>
-
-    <com.ql.jcjr.view.NoScrollViewPager
-        android:id="@+id/cvw_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/another_login"
-        android:layout_below="@+id/ll_layout"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation"
-        android:visibility="gone"/>
-
-</LinearLayout>
+</RelativeLayout>

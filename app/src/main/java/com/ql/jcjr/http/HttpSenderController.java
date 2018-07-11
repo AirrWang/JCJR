@@ -1,6 +1,7 @@
 package com.ql.jcjr.http;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +13,9 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.HttpHandler;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.util.LogUtils;
+import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.activity.NetNullActivity;
+import com.ql.jcjr.activity.WelcomeActivity;
 import com.ql.jcjr.constant.Global;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.utils.LogUtil;
@@ -149,6 +152,14 @@ public class HttpSenderController {
                 sendMessageToUI(entity);
                 String a=e+"";
                 if (a.contains("No address associated with hostname")){
+                    if (mContext instanceof Activity) {
+                        Activity activity= (Activity) mContext;
+                        String name=activity.getComponentName().getClassName();
+//                        LogUtil.i("netget context:" + mContext+"name:"+name+"activit:"+activity);
+                        if (name.contains("WelcomeActivity")){
+                            return;
+                        }
+                    }
                     Intent intent=new Intent(mContext,NetNullActivity.class);
 
                     mContext.startActivities(new Intent[]{intent});

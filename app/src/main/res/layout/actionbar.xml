@@ -45,7 +45,8 @@
 
         </LinearLayout>
 
-        <TextView
+        <Button
+            android:background="@null"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,16 +90,16 @@
 
             </FrameLayout-->
 
-            <Button
+            <TextView
                 android:id="@+id/btn_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:gravity="center"
                 android:paddingBottom="@dimen/dimen_6px"
+                android:paddingTop="@dimen/dimen_6px"
+                android:paddingRight="@dimen/dimen_30px"
                 android:textColor="@color/font_actionbar_color"
                 android:textSize="@dimen/dimen_30px"
-                android:paddingTop="@dimen/dimen_6px"
                 android:visibility="gone" />
 
             <ImageView

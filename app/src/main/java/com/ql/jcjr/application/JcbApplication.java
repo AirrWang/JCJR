@@ -17,6 +17,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.qiyukf.unicorn.api.StatusBarNotificationConfig;
 import com.qiyukf.unicorn.api.Unicorn;
 import com.qiyukf.unicorn.api.YSFOptions;
+import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.activity.WelcomeActivity;
 import com.ql.jcjr.entity.UserData;
 import com.ql.jcjr.receiver.NetworkChangedReceiver;
@@ -24,6 +25,7 @@ import com.ql.jcjr.utils.DeviceInfoUtil;
 import com.ql.jcjr.utils.GlideImageLoader;
 import com.ql.jcjr.utils.LogUtil;
 import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
@@ -259,6 +261,7 @@ public class JcbApplication extends Application {
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
 
         //tencent bugly
+        Beta.canShowUpgradeActs.add(MainActivity.class);
         Bugly.init(getApplicationContext(), "89680028f4", false);
 
         //管理Activity栈

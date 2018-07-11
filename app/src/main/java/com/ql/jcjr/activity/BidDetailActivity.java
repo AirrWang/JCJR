@@ -3,6 +3,8 @@ package com.ql.jcjr.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,13 +12,16 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,6 +61,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.ql.jcjr.utils.DisplayUnitUtils.getDisplayHeight;
+import static com.ql.jcjr.utils.DisplayUnitUtils.getDisplayWidth;
 
 //投标详情
 public class BidDetailActivity extends BaseActivity {
@@ -113,6 +121,8 @@ public class BidDetailActivity extends BaseActivity {
     private TextView tv_tag_1;
     @ViewInject(R.id.tv_tag_2)
     private TextView tv_tag_2;
+    @ViewInject(R.id.iv_que)
+    private ImageView iv_que;
 
 
     private Context mContext;
@@ -127,6 +137,9 @@ public class BidDetailActivity extends BaseActivity {
 
     private InputMethodManager imm;
     private boolean isOver;
+    private PopupWindow popupWindow;
+    private View popView;
+    private static double DOUBLE_CLICK_TIME = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +155,21 @@ public class BidDetailActivity extends BaseActivity {
 
         mTvApr.setTypeface(JcbApplication.getPingFangBoldTypeFace());
 //        mTvAprGain.setTypeface(JcbApplication.getPingFangBoldTypeFace());
+
+        initPOP();
+    }
+
+    private void initPOP() {
+        popupWindow = new PopupWindow(this);
+        popView = LayoutInflater.from(this).inflate(R.layout.pop_bid_detail_quesition,null);
+        popupWindow.setContentView(popView);
+        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+
     }
 
     @Override
@@ -714,41 +742,23 @@ public class BidDetailActivity extends BaseActivity {
                 }, mContext);
     }
 
-    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail})
+    @OnClick({R.id.btn_left, R.id.iv_calculator, R.id.tv_bid, R.id.ithb_bid_record, R.id.ithb_bid_reward, R.id.ithb_project_detail,R.id.iv_help,R.id.iv_que})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
                 break;
             case R.id.iv_calculator:
-                showCalculatorDialog();
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    showCalculatorDialog();
+                }
                 break;
             case R.id.tv_bid:
                 //立即投标
-                if(UserData.getInstance().isLogin()) {  //先判断登陆  再实名  最后测评
-                    if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
-                        if (UserData.getInstance().getRiskWarning()) {
-                            if (resultBean.getPwd().equals("1")) {
-                                showBidPwdDialog();
-                            } else {
-                                getAccountInfo();
-                            }
-                        }else {
-                            showToTestDialog();
-                        }
-                    } else {
-                        CommonToast.showShiMingDialog(mContext);
-                    }
-
-                }else {
-                    if (UserData.getInstance().getPhoneNumber().equals("")) {
-                        Intent intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
-                    }else {
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                        startActivity(intent);
-                    }
+                if ((System.currentTimeMillis() - DOUBLE_CLICK_TIME) > 500) {//这里测试1500ms比较合适
+                    DOUBLE_CLICK_TIME = System.currentTimeMillis();
+                    redyToBid();
                 }
                 break;
 
@@ -776,6 +786,47 @@ public class BidDetailActivity extends BaseActivity {
                     UrlUtil.showHtmlPage(mContext,"项目详情", RequestURL.PROJECT_DETAIL_URL + resultBean.getId(),true);
                 }
                 break;
+            case R.id.iv_help:
+                Intent intent=new Intent(mContext, ContactUsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_que:
+                int popupWidth = popView.getMeasuredWidth();    //  获取测量后的宽度
+                int popupHeight = popView.getMeasuredHeight();  //获取测量后的高度
+                int[] location = new int[2];
+                iv_que.getLocationOnScreen(location);
+
+                popupWindow.showAtLocation(iv_que, Gravity.NO_GRAVITY, location[0]+10, location[1] - popupHeight-20);
+
+                break;
+        }
+    }
+
+    private void redyToBid() {
+        if(UserData.getInstance().isLogin()) {  //先判断登陆  再实名  最后测评
+            if (StringUtils.isNotBlank(UserData.getInstance().getRealName())) {
+                if (UserData.getInstance().getRiskWarning()) {
+                    if (resultBean.getPwd().equals("1")) {
+                        showBidPwdDialog();
+                    } else {
+                        getAccountInfo();
+                    }
+                }else {
+                    showToTestDialog();
+                }
+            } else {
+                CommonToast.showShiMingDialog(mContext);
+            }
+
+        }else {
+            if (UserData.getInstance().getPhoneNumber().equals("")) {
+                Intent intent = new Intent(mContext, LoginActivityCheck.class);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
+                startActivity(intent);
+            }
         }
     }
 

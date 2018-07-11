@@ -3,15 +3,19 @@ package com.ql.jcjr.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -19,9 +23,10 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.activity.BidDetailActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.adapter.YyyAdapter;
-import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.entity.BidListEntity;
+import com.ql.jcjr.entity.HomeDataEntity;
+import com.ql.jcjr.entity.XSBEntity;
 import com.ql.jcjr.http.HttpRequestManager;
 import com.ql.jcjr.http.HttpSenderController;
 import com.ql.jcjr.http.ParamsManager;
@@ -29,8 +34,8 @@ import com.ql.jcjr.http.ResponseEntity;
 import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
+import com.ql.jcjr.utils.holder.BidShowView;
 import com.ql.jcjr.view.CommonToast;
-import com.ql.jcjr.view.NoScrollViewPager;
 import com.ql.jcjr.view.PullToRefreshView;
 import com.ql.jcjr.view.XListView;
 
@@ -43,36 +48,38 @@ import static com.ql.jcjr.utils.StatusBarCompat.getStatusBarHeight;
  * Created by Liuchao on 2016/9/23.
  */
 public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnItemClickListener,
-        PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener{
+        PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener, View.OnClickListener {
 
-    @ViewInject(R.id.cvw_pager)
-    private NoScrollViewPager mViewPager;
-    @ViewInject(R.id.rg__manage_money)
-    private RadioGroup mRadioGroup;
+//    @ViewInject(R.id.cvw_pager)
+//    private NoScrollViewPager mViewPager;
+//    @ViewInject(R.id.rg__manage_money)
+//    private RadioGroup mRadioGroup;
     @ViewInject(R.id.lv_yyy)
     private XListView mLvYyy;
     @ViewInject(R.id.pull_refresh_view)
     private PullToRefreshView mPullToRefreshView;
-    @ViewInject(R.id.tv_moren)
-    private TextView tv_moren;
-    @ViewInject(R.id.tv_apr)
-    private TextView tv_apr;
-    @ViewInject(R.id.iv_apr_up)
-    private ImageView iv_apr_up;
-    @ViewInject(R.id.iv_apr_down)
-    private ImageView iv_apr_down;
-    @ViewInject(R.id.tv_time)
-    private TextView tv_time;
-    @ViewInject(R.id.iv_time_down)
-    private ImageView iv_time_down;
-    @ViewInject(R.id.iv_time_up)
-    private ImageView iv_time_up;
-    @ViewInject(R.id.tv_jindu)
-    private TextView tv_jindu;
-    @ViewInject(R.id.iv_jindu_down)
-    private ImageView iv_jindu_down;
-    @ViewInject(R.id.iv_jindu_up)
-    private ImageView iv_jindu_up;
+    @ViewInject(R.id.tv_moren1)
+    private TextView tv_moren1;
+    @ViewInject(R.id.tv_apr1)
+    private TextView tv_apr1;
+    @ViewInject(R.id.iv_apr_up1)
+    private ImageView iv_apr_up1;
+    @ViewInject(R.id.iv_apr_down1)
+    private ImageView iv_apr_down1;
+    @ViewInject(R.id.tv_time1)
+    private TextView tv_time1;
+    @ViewInject(R.id.iv_time_down1)
+    private ImageView iv_time_down1;
+    @ViewInject(R.id.iv_time_up1)
+    private ImageView iv_time_up1;
+    @ViewInject(R.id.tv_jindu1)
+    private TextView tv_jindu1;
+    @ViewInject(R.id.iv_jindu_down1)
+    private ImageView iv_jindu_down1;
+    @ViewInject(R.id.iv_jindu_up1)
+    private ImageView iv_jindu_up1;
+    @ViewInject(R.id.ll_1)
+    private LinearLayout ll_1;
 
     @ViewInject(R.id.v_status)
     private View v_status;
@@ -88,7 +95,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
     private List<BidListEntity.ResultBean> mBidList = new ArrayList<>();
-    private List<BidListEntity.ResultBean> mBidAll = new ArrayList<>();
+    private List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> mBidxsb = new ArrayList<>();
 
     private String order="";
     private boolean a=true;
@@ -98,14 +105,18 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     // 分页加载索引
     private int mPageIndex = 1;
     private View headerView;
-    private LinearLayout ll_biao_right;
-    private TextView tv_annualized_rate_gain;
-    private TextView tv_apr1;
-    private TextView tv_annualized_rate;
-    private TextView tv_xsb_day;
-    private TextView tv_xsb_most;
-    private LinearLayout ll_head_xsb;
-    private Button btn_bid;
+    private TextView tv_moren;
+    private TextView tv_apr;
+    private ImageView iv_apr_up;
+    private ImageView iv_apr_down;
+    private TextView tv_time;
+    private ImageView iv_time_down;
+    private ImageView iv_time_up;
+    private TextView tv_jindu;
+    private ImageView iv_jindu_down;
+    private ImageView iv_jindu_up;
+    private ConvenientBanner cb_bidshow_two;
+
 
     @Override
     protected int getContentView() {
@@ -115,7 +126,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     @Override
     protected void initView(View view) {
         ViewUtils.inject(this, view);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) v_status.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v_status.getLayoutParams();
         layoutParams.height = getStatusBarHeight(getActivity());
         v_status.setLayoutParams(layoutParams);
 
@@ -126,28 +137,73 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
         headerView = LayoutInflater.from(mContext).inflate(R.layout.head_first,null);
         mLvYyy.addHeaderView(headerView);
         initId();
+        initScorllListener();
     }
 
-    private void initId() {
-        ll_biao_right = (LinearLayout) headerView.findViewById(R.id.ll_biao_right);
-        tv_annualized_rate_gain = (TextView) headerView.findViewById(R.id.tv_annualized_rate_gain);
-        tv_apr1 = (TextView) headerView.findViewById(R.id.tv_apr);
-        tv_annualized_rate = (TextView) headerView.findViewById(R.id.tv_annualized_rate);
-        tv_xsb_day = (TextView) headerView.findViewById(R.id.tv_xsb_day);
-        tv_xsb_most = (TextView) headerView.findViewById(R.id.tv_xsb_most);
-        ll_head_xsb = (LinearLayout) headerView.findViewById(R.id.ll_head_xsb);
-        btn_bid = (Button) headerView.findViewById(R.id.btn_bid);
-        btn_bid.setOnClickListener(new View.OnClickListener() {
+    private SparseArray recordSp = new SparseArray(0);
+    private void initScorllListener() {
+        mLvYyy.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onClick(View v) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                    Intent intent = new Intent(mContext, NoviceExclusiveActivity.class);
-                    intent.putExtra("bid_id", mBidAll.get(0).getId());
-                    intent.putExtra("bid_title",  mBidAll.get(0).getName());
-                    startActivity(intent);
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                View firstView = view.getChildAt(0);
+                if (null != firstView) {
+                    ItemRecod itemRecord = (ItemRecod) recordSp.get(firstVisibleItem);
+                    if (null == itemRecord) {
+                        itemRecord = new ItemRecod();
+                    }
+                    itemRecord.height = firstView.getHeight();
+                    itemRecord.top = firstView.getTop();
+                    recordSp.append(firstVisibleItem, itemRecord);
+                    int h = getScrollY();//滚动距离
+                    if (h>cb_bidshow_two.getHeight()||(h>0&&cb_bidshow_two.getVisibility()==View.GONE)||firstVisibleItem!=0){
+//                        LogUtil.d("理财距离监听：h="+h+",height="+cb_bidshow_two.getHeight());
+                        ll_1.setVisibility(View.VISIBLE);
+                    }else {
+                        ll_1.setVisibility(View.GONE);
+                    }
+                }
 
             }
         });
+    }
+    public int getScrollY() {
+        View c = mLvYyy.getChildAt(0);
+        if (c == null) {
+            return 0;
+        }
+        int firstVisiblePosition = mLvYyy.getFirstVisiblePosition();
+        int top = c.getTop();
+        return -top + firstVisiblePosition * c.getHeight() ;
+    }
+    class ItemRecod {
+        int height = 0;
+        int top = 0;
+    }
+    private void initId() {
+        tv_moren = (TextView) headerView.findViewById(R.id.tv_moren);
+        tv_apr = (TextView) headerView.findViewById(R.id.tv_apr);
+        iv_apr_up = (ImageView) headerView.findViewById(R.id.iv_apr_up);
+        iv_apr_down = (ImageView) headerView.findViewById(R.id.iv_apr_down);
+        tv_time = (TextView) headerView.findViewById(R.id.tv_time);
+        iv_time_down = (ImageView) headerView.findViewById(R.id.iv_time_down);
+        iv_time_up = (ImageView) headerView.findViewById(R.id.iv_time_up);
+        tv_jindu = (TextView) headerView.findViewById(R.id.tv_jindu);
+        iv_jindu_down = (ImageView) headerView.findViewById(R.id.iv_jindu_down);
+        iv_jindu_up = (ImageView) headerView.findViewById(R.id.iv_jindu_up);
+        cb_bidshow_two = (ConvenientBanner) headerView.findViewById(R.id.cb_bidshow_two);
+        LinearLayout rl_apr= (LinearLayout) headerView.findViewById(R.id.rl_apr);
+        LinearLayout ll_time= (LinearLayout) headerView.findViewById(R.id.ll_time);
+        LinearLayout ll_jindu= (LinearLayout) headerView.findViewById(R.id.ll_jindu);
+
+        tv_moren.setOnClickListener(this);
+        rl_apr.setOnClickListener(this);
+        ll_time.setOnClickListener(this);
+        ll_jindu.setOnClickListener(this);
     }
 
     @Override
@@ -193,7 +249,9 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private void getYyyList(final String pageIndex) {
-        SenderResultModel resultModel = ParamsManager.senderBidList(pageIndex, "10", "",order);
+        getXSB();
+
+        SenderResultModel resultModel = ParamsManager.senderBidListNormal(pageIndex, "10", "",order);
 
         HttpRequestManager.httpRequestService(resultModel,
                 new HttpSenderController.ViewSenderCallback() {
@@ -201,26 +259,12 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                     @Override
                     public void onSuccess(String responeJson) {
                         initUI();
-                        LogUtil.i("理财列表 " + responeJson);
+                        LogUtil.i("理财列表normal " + responeJson);
                         BidListEntity entity = GsonParser.getParsedObj(responeJson, BidListEntity.class);
                         if(pageIndex.equals("1")) {
                             mBidList.clear();
-                            mBidAll.clear();
                         }
-
-
                         boolean needShowAll = false;
-//                        int listSize = entity.getResult().size();
-//                        if(pageIndex.equals("1")) {
-//                            if(listSize < 10 && listSize >0){
-//                                needShowAll = true;
-//                            }
-//                        }
-//                        else{
-//                            if(listSize < 10){
-//                                needShowAll = true;
-//                            }
-//                        }
                         if (entity.getResult()==null||entity.getResult().size()==0){
                             needShowAll = true;
                         }
@@ -228,23 +272,23 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                             mLvYyy.addFooterView();
                             //设置不在加载更多
                             mPullToRefreshView.setLoadMoreEnable(false);
+                        }else {
+                            mLvYyy.removeFooterView();
+                            //设置可以加载更多
+                            mPullToRefreshView.setLoadMoreEnable(true);
                         }
-
                         mBidList.addAll(entity.getResult());
-                        mBidAll.addAll(entity.getResult());
-                        checkXsb(pageIndex);
                         mAdapter.notifyDataSetChanged();
                         if (isTouch){
                             mLvYyy.smoothScrollToPosition(0);
                             mAdapter.notifyDataSetChanged();
                         }
-
                         finishRefresh();
                     }
 
                     @Override
                     public void onFailure(ResponseEntity entity) {
-                        LogUtil.i("理财列表 " + entity.errorInfo);
+                        LogUtil.i("理财列表normal " + entity.errorInfo);
                         CommonToast.showHintDialog(mContext, entity.errorInfo);
                         finishRefresh();
                     }
@@ -252,47 +296,53 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                 }, mContext);
     }
 
-    private void checkXsb(String pageIndex) {
+    private void getXSB() {
+        SenderResultModel resultModel = ParamsManager.senderBidListXSB();
 
-        if (mBidAll.get(0).getType().equals("xsb")){
-            ll_head_xsb.setVisibility(View.VISIBLE);
-        }else {
-            ll_head_xsb.setVisibility(View.GONE);
-        }
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
 
-        if (pageIndex.equals("1")&&mBidList.get(0).getType().equals("xsb")){
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("理财列表xsb " + responeJson);
+                        XSBEntity entity = GsonParser.getParsedObj(responeJson, XSBEntity.class);
+                        mBidxsb.clear();
+                        mBidxsb.addAll(entity.getResult());
 
-            BidListEntity.ResultBean bean=mBidList.get(0);
-            //年化收益
-            tv_apr1.setText(bean.getApr());
-            tv_apr1.setTypeface(JcbApplication.getPingFangRegularTypeFace());
+                        if (mBidxsb == null || mBidxsb.size() == 0) {
+                            cb_bidshow_two.setVisibility(View.GONE);
+                            return;
+                        }else {
+                            cb_bidshow_two.setVisibility(View.VISIBLE);
+                        }
 
-            tv_annualized_rate.setTypeface(JcbApplication.getPingFangRegularTypeFace());
-            tv_annualized_rate.setText(bean.getAprOrigin());
+                        cb_bidshow_two.setPages(
+                                new CBViewHolderCreator<BidShowView>() {
+                                    @Override
+                                    public BidShowView createHolder() {
+                                        return new BidShowView();
+                                    }
+                                }, mBidxsb)
+                                //设置点击监听事件
+                                .setOnItemClickListener(new OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(int i) {
+                                        Intent intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                                        intent.putExtra("bid_id", mBidxsb.get(i).getId());
+                                        intent.putExtra("bid_title", mBidxsb.get(i).getName());
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setPageIndicator(new int[]{R.drawable.block_disable, R.drawable.block_selected});
 
-            //判断有无活动加成
-            String cashAddition = bean.getCashAddition();
-            if(cashAddition.equals("0") || cashAddition.equals("0.0")){
-                ll_biao_right.setVisibility(View.INVISIBLE);
-            }else{
-                ll_biao_right.setVisibility(View.VISIBLE);
-                tv_annualized_rate_gain.setTypeface(JcbApplication.getPingFangRegularTypeFace());
-                tv_annualized_rate_gain.setText(bean.getCashAddition());
-            }
-            //投资期限
-            switch (bean.getIsday()) {
-                case "0":
-                    tv_xsb_day.setText(bean.getTime_limit() + "个月");
-                    break;
-                case "1":
-                    tv_xsb_day.setText(bean.getTime_limit_day() + "天");
-                    break;
-            }
+                    }
 
-            tv_xsb_most.setText(bean.getMost_account()+"元");
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("理财列表xsb " + entity.errorInfo);
+                    }
 
-            mBidList.remove(0);
-        }
+                }, mContext);
 
     }
 
@@ -311,6 +361,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
 
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
+
         }else if (order.equals("apr_up")){
             b=true;
             c=true;
@@ -325,6 +386,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
 
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_apr_up1.setImageResource(R.drawable.arrow_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
+
         }else if (order.equals("time_down")){
             a=true;
             c=true;
@@ -338,6 +410,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
             iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
         }else if (order.equals("time_up")){
             a=true;
             c=true;
@@ -351,6 +434,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             tv_jindu.setTextColor(getResources().getColor(R.color.font_black));
             iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_time_up1.setImageResource(R.drawable.arrow_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
 
         }else if (order.equals("jindu_down")){
             a=true;
@@ -366,6 +460,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             iv_jindu_up.setImageResource(R.drawable.arrow_gray_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_yellow_down_wdtz);
 
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_yellow_down_wdtz);
+
         }else if (order.equals("jindu_up")){
             a=true;
             b=true;
@@ -379,6 +484,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             tv_jindu.setTextColor(getResources().getColor(R.color.btn_main));
             iv_jindu_up.setImageResource(R.drawable.arrow_wdtz);
             iv_jindu_down.setImageResource(R.drawable.arrow_down_wdtz);
+
+            tv_moren1.setTextColor(getResources().getColor(R.color.font_black));
+            tv_apr1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.btn_main));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
 
         }else {  //默认
             tv_moren.setTextColor(getResources().getColor(R.color.btn_main));
@@ -394,10 +510,17 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
             b=true;
             c=true;
             a=true;
+            tv_moren1.setTextColor(getResources().getColor(R.color.btn_main));
+            tv_apr1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_apr_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_apr_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_time1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_time_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_time_down1.setImageResource(R.drawable.arrow_down_wdtz);
+            tv_jindu1.setTextColor(getResources().getColor(R.color.font_black));
+            iv_jindu_up1.setImageResource(R.drawable.arrow_gray_wdtz);
+            iv_jindu_down1.setImageResource(R.drawable.arrow_down_wdtz);
         }
-
-
-
     }
 
     private void finishRefresh() {
@@ -480,7 +603,7 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
         getYyyList(String.valueOf(mPageIndex));
     }
 
-    @OnClick({R.id.tv_moren,R.id.rl_apr,R.id.ll_time,R.id.ll_jindu})
+    @OnClick({R.id.tv_moren,R.id.rl_apr,R.id.ll_time,R.id.ll_jindu,R.id.tv_moren1,R.id.rl_apr1,R.id.ll_time1,R.id.ll_jindu1})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_moren:
@@ -523,7 +646,48 @@ public class ManageMoneyFragment extends BaseFragment implements AdapterView.OnI
                 mPageIndex = 1;
                 getYyyList(String.valueOf(mPageIndex));
                 break;
+            case R.id.tv_moren1:
+                isTouch=true;
+                order="";
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+            case R.id.rl_apr1:
+                isTouch=true;
+                if (a){
+                    order="apr_down";
+                }else {
+                    order="apr_up";
+                }
+                a=!a;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
 
+            case R.id.ll_time1:
+                isTouch=true;
+                if (b){
+                    order="time_down";
+                }else {
+                    order="time_up";
+                }
+                b=!b;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
+            case R.id.ll_jindu1:
+                isTouch=true;
+                if (c){
+                    order="jindu_down";
+                }else {
+                    order="jindu_up";
+                }
+                c=!c;
+                mPageIndex = 1;
+                getYyyList(String.valueOf(mPageIndex));
+                break;
         }
     }
+
+
 }

@@ -44,9 +44,9 @@ public class ActionBar extends LinearLayout {
     @ViewInject(R.id.rl_actionbar)
     private RelativeLayout normalLayout;
     @ViewInject(R.id.tv_title)
-    private TextView tvTitle;
+    private Button tvTitle;
     @ViewInject(R.id.btn_right)
-    private Button btnRight;
+    private TextView btnRight;
     @ViewInject(R.id.btn_left)
     private Button btnLeft;
     @ViewInject(R.id.tv_second_left)
@@ -482,7 +482,7 @@ public class ActionBar extends LinearLayout {
      * 获取右边按钮
      * @return
      */
-    public Button getBtnRight(){
+    public TextView getBtnRight(){
         return btnRight;
     }
 

@@ -207,6 +207,8 @@ public class WelcomeActivity extends Activity {
         super.onDestroy();
         LogUtil.i("---WelcomeActivity  onDestroy----");
 //        handler.removeMessages(HANDLER_TIME);
+        handler.removeMessages(HANDLER_WELCOME_PAGE);
+        handler.removeMessages(HANDLER_TIME);
     }
 
     @OnClick({R.id.rl_jump, R.id.iv_welcome,R.id.iv_ad})

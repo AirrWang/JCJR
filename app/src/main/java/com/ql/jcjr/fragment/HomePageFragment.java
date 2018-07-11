@@ -9,8 +9,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -20,13 +24,11 @@ import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MessageActActivity;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.activity.RealNameActivity;
-import com.ql.jcjr.adapter.HomeZixunListAdapter;
-import com.ql.jcjr.application.JcbApplication;
+import com.ql.jcjr.adapter.HomeListAdapter;
 import com.ql.jcjr.base.BaseFragment;
 import com.ql.jcjr.constant.RequestURL;
 import com.ql.jcjr.entity.BannerEntity;
 import com.ql.jcjr.entity.HomeDataEntity;
-import com.ql.jcjr.entity.MessageActEntity;
 import com.ql.jcjr.entity.RiskWarningEntity;
 import com.ql.jcjr.entity.RollNewsEntity;
 import com.ql.jcjr.entity.UserData;
@@ -40,8 +42,9 @@ import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.utils.StringUtils;
 import com.ql.jcjr.utils.UrlUtil;
+import com.ql.jcjr.utils.holder.BidShowView;
+import com.ql.jcjr.utils.holder.NetImageHolderView;
 import com.ql.jcjr.view.CommonToast;
-import com.ql.jcjr.view.IndicatorView;
 import com.ql.jcjr.view.NoScrollListView;
 import com.ql.jcjr.view.PullToRefreshView;
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -62,14 +65,12 @@ import java.util.Map;
  */
 public class HomePageFragment extends BaseFragment implements PullToRefreshView.OnHeaderRefreshListener, PullToRefreshView.OnFooterLoadListener {
 
+    //    @ViewInject(R.id.in_advert)
+//    private IndicatorView mIndicatorView;
     @ViewInject(R.id.in_advert)
-    private IndicatorView mIndicatorView;
+    private ConvenientBanner mConvenientBanner;
     @ViewInject(R.id.marqueeView)
     private MarqueeView mMarqueeView;
-    @ViewInject(R.id.tv_annualized_rate)
-    private TextView mTvAnnualizedRate;
-    @ViewInject(R.id.tv_term)
-    private TextView mTvTerm;
     @ViewInject(R.id.ll_marqueeView)
     private LinearLayout mLlmarquee;
     @ViewInject(R.id.pull_refresh_view)
@@ -82,10 +83,6 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private ImageView mIvBanner;
     @ViewInject(R.id.ll_1)
     private LinearLayout mLl;
-    @ViewInject(R.id.tv_limit_people)
-    private TextView mLimitPeople;
-    @ViewInject(R.id.iv_bid_title)
-    private ImageView mIvTitle;
     @ViewInject(R.id.btn_bid)
     private Button mBidJump;
     @ViewInject(R.id.iv_0)
@@ -104,10 +101,18 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private TextView tv_2;
     @ViewInject(R.id.tv_3)
     private TextView tv_3;
-    @ViewInject(R.id.tv_diffrent_bid)
-    private TextView tv_diffrent_bid;
-    @ViewInject(R.id.lv_selective_finance)
-    private NoScrollListView lv_selective_finance;
+    @ViewInject(R.id.home_lv_huodong)
+    private NoScrollListView home_lv_huodong;
+    @ViewInject(R.id.cb_bidshow)
+    private ConvenientBanner cb_bidshow;
+    @ViewInject(R.id.rl_blank)
+    private RelativeLayout rl_blank;
+    @ViewInject(R.id.home_ll_huodong)
+    private LinearLayout home_ll_huodong;
+    @ViewInject(R.id.home_ll_jctj)
+    private LinearLayout home_ll_jctj;
+    @ViewInject(R.id.home_lv_jctj)
+    private NoScrollListView home_lv_jctj;
 
 
     private static final int INDEX_BEGINNER_WELFARE = 0;
@@ -118,16 +123,19 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
     private List<BannerEntity.ResultBean> bannerUrlList = new ArrayList<>();
     private List<String> rollNewsTitleList = new ArrayList<>();
     private List<RollNewsEntity.ResultBean> resultBeanList;
-    private List<MessageActEntity.ResultBean> mMessageList = new ArrayList<>();
 
+    private List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> mHuodongList = new ArrayList<>();
+    private List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> mTuijianList = new ArrayList<>();
+
+    private int banner = 0;
+    private String url0 = "";
+    private String url1 = "";
+    private String url2 = "";
+    private String url3 = "";
+    private HomeListAdapter mAdapterHuodong;
+    private HomeListAdapter mAdapterTuijian;
     private String mNoviceExclusiveId;
-    private int banner=0;
     private String mBidName;
-    private String url0="";
-    private String url1="";
-    private String url2="";
-    private String url3="";
-    private HomeZixunListAdapter mAdapter;
 
     @Override
     protected int getContentView() {
@@ -139,34 +147,44 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         ViewUtils.inject(this, view);
         mContext = getActivity();
         mLayoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        mTvAnnualizedRate.setTypeface(JcbApplication.getPingFangBoldTypeFace());
-        mTvTerm.setTypeface(JcbApplication.getPingFangBoldTypeFace());
-        mLimitPeople.setTypeface(JcbApplication.getPingFangBoldTypeFace());
         mPullRefresh.setOnHeaderRefreshListener(this);
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
+        mPullRefresh.setOnSwitchStateUpdateListener(new PullToRefreshView.OnStateListener() {
+            @Override
+            public void onStateUpdate(boolean state) {
+                if (state){
+                    mConvenientBanner.requestFocus();
+                }
+            }
+        });
         initListView();
-        mIndicatorView.setFocusable(true);
-        mIndicatorView.setFocusableInTouchMode(true);
-        mIndicatorView.requestFocus();
+
     }
 
     private void initListView() {
-        mAdapter = new HomeZixunListAdapter(mContext, mMessageList);
-        lv_selective_finance.setAdapter(mAdapter);
+        mAdapterHuodong = new HomeListAdapter(mContext, mHuodongList);
+        home_lv_huodong.setAdapter(mAdapterHuodong);
+        mAdapterTuijian = new HomeListAdapter(mContext, mTuijianList);
+        home_lv_jctj.setAdapter(mAdapterTuijian);
+
     }
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
-        if(isVisible) {
-            banner();
-            initMarqueeView();
+        if (isVisible) {
+
 //            getNoviceExclusive();
-            getZiXun();
             getData();
 
+            initMarqueeView();
+
+            banner();
+//            mConvenientBanner.setFocusable(true);
+//            mConvenientBanner.setFocusableInTouchMode(true);
+//            mConvenientBanner.requestFocus();
+//            mConvenientBanner.startTurning(2000);
         }
     }
 
@@ -181,10 +199,10 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                         LogUtil.i("风险测评 " + responeJson);
                         RiskWarningEntity entity = GsonParser.getParsedObj(responeJson, RiskWarningEntity.class);
                         RiskWarningEntity.ResultBean resultBean = entity.getResult();
-                        if(StringUtils.isBlank(resultBean.getType())||resultBean.getType()==null){
+                        if (StringUtils.isBlank(resultBean.getType()) || resultBean.getType() == null) {
                             //未测评
                             UserData.getInstance().setRiskWarning(false);
-                        }else {
+                        } else {
                             //已测评
                             UserData.getInstance().setRiskWarning(true);
                         }
@@ -198,44 +216,23 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 }, mContext);
     }
 
-    private void getZiXun() {
-        SenderResultModel resultModel = ParamsManager.senderMessageAct("1","4",3);
-
-        HttpRequestManager.httpRequestService(resultModel, new HttpSenderController.ViewSenderCallback() {
-
-            @Override
-            public void onSuccess(String responeJson) {
-                LogUtil.i("首页资讯 " + responeJson);
-                MessageActEntity entity = GsonParser.getParsedObj(responeJson, MessageActEntity.class);
-
-                mMessageList.clear();
-                mMessageList.addAll(entity.getResult());
-                mAdapter.notifyDataSetChanged();
-                initToset(entity.getResult());
-            }
-
-            @Override
-            public void onFailure(ResponseEntity entity) {
-                LogUtil.i("首页资讯 " + entity.errorInfo);
-                CommonToast.showHintDialog(mContext, entity.errorInfo);
-                mPullRefresh.onHeaderRefreshFinish();
-            }
-
-        }, mContext);
-
-    }
-
-    private void initToset(final List<MessageActEntity.ResultBean> result) {
-        lv_selective_finance.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void initToset(final HomeDataEntity.ResultBean.ResultBeanTwo result) {
+        home_lv_huodong.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                 Boolean noShare;
-                if (result.get(i).getShare().equals("0")){
-                    noShare=true;
-                }else {
-                    noShare=true;
-                }
-                UrlUtil.showHtmlPage(mContext,result.get(i).getName(),RequestURL.INTERCEPT_ZIXUNDETAIL_URL+result.get(i).getId(),noShare);
+                Intent intent = new Intent(mContext, BidDetailActivity.class);
+                intent.putExtra("bid_id", result.getHuodong().get(i).getId());
+                intent.putExtra("bid_title", result.getHuodong().get(i).getName());
+                startActivity(intent);
+            }
+        });
+        home_lv_jctj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, BidDetailActivity.class);
+                intent.putExtra("bid_id", result.getTuijian().get(position).getId());
+                intent.putExtra("bid_title", result.getTuijian().get(position).getName());
+                startActivity(intent);
             }
         });
     }
@@ -247,57 +244,47 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
             @Override
             public void onSuccess(String responeJson) {
-                if (UserData.getInstance().isLogin()&&!UserData.getInstance().getRiskWarning()){
+                if (UserData.getInstance().isLogin() && !UserData.getInstance().getRiskWarning()) {
                     getRiskWarning();
                 }
-
-                mIvTitle.setImageResource(R.drawable.icon_xszx_sy);
                 LogUtil.i("首页数据获取成功 " + responeJson);
                 mPullRefresh.onHeaderRefreshFinish();
                 HomeDataEntity entity = GsonParser.getParsedObj(responeJson, HomeDataEntity.class);
+                HomeDataEntity.ResultBean.ResultBeanTwo result2=entity.getResult().getResult2();
+                rl_blank.setVisibility(View.GONE);
+                cb_bidshow.setVisibility(View.VISIBLE);
+                initBidShow(entity.getResult().getResult2().getXinshou());
+
+                initBottomList(entity.getResult().getResult2());
                 mTotal.setText(entity.getResult().getResult3().getAccount());
                 mPeople.setText(entity.getResult().getResult3().getCount());
-//                mLimitPeople.setText(entity.getResult().getResult2().getTender_times()+"人");
-//                tv_diffrent_bid.setText("累计申购");
-                tv_diffrent_bid.setText("限购额度");
-                mLimitPeople.setText(entity.getResult().getResult2().getMost_account()+"元");
+
                 mLl.setVisibility(View.VISIBLE);
-                if (entity.getResult().getResult1().getCode().equals("1")){
-                    banner=1;
+                if (entity.getResult().getResult1().getCode().equals("1")) {
+                    banner = 1;
                     mIvBanner.setImageResource(R.drawable.smrz_sy);
 
-                }else if (entity.getResult().getResult1().getCode().equals("2")){
-                    if (!UserData.getInstance().getRiskWarning()){
-                        banner=4;
+                } else if (entity.getResult().getResult1().getCode().equals("2")) {
+                    if (!UserData.getInstance().getRiskWarning()) {
+                        banner = 4;
                         mIvBanner.setImageResource(R.drawable.zcjs_cp);
-                    }else {
+                    } else {
                         banner = 2;
                         mIvBanner.setImageResource(R.drawable.xszx_sy);
                     }
-                }else if (entity.getResult().getResult1().getCode().equals("3")){
-                    banner=3;
+                } else if (entity.getResult().getResult1().getCode().equals("3")) {
+                    cb_bidshow.setVisibility(View.GONE);
+                    banner = 3;
                     mLl.setVisibility(View.GONE);
-                    mIvTitle.setImageResource(R.drawable.title_sy);
-                    tv_diffrent_bid.setText("剩余金额");
-                    mLimitPeople.setText(entity.getResult().getResult2().getLast_account()+"元");
-                }else if (entity.getResult().getResult1().getCode().equals("0")){
+                } else if (entity.getResult().getResult1().getCode().equals("0")) {
                     mIvBanner.setImageResource(R.drawable.zcjs_sy);
                 }
-                mTvAnnualizedRate.setText(entity.getResult().getResult2().getApr());
-                mTvTerm.setText(entity.getResult().getResult2().getTime_limit_day()+"天");
 
-
-
-                mNoviceExclusiveId=entity.getResult().getResult2().getId();
-                mBidName = entity.getResult().getResult2().getName();
-                if (entity.getResult().getResult2().getIsselled().equals("0")){
-                    mBidJump.setEnabled(true);
-                    mBidJump.setText("立即加入");
-                }else {
-                    mBidJump.setEnabled(false);
-                    mBidJump.setText("已售罄");
+                if ( cb_bidshow.getVisibility()==View.GONE && result2.getHuodong().size()==0 && result2.getTuijian().size()==0 ){
+                    rl_blank.setVisibility(View.VISIBLE);
                 }
-                if (entity.getResult().getResult4().size()>=4){
+
+                if (entity.getResult().getResult4().size() >= 4) {
                     initFour(entity.getResult().getResult4());
                 }
             }
@@ -313,15 +300,63 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
     }
 
+    private void initBottomList(HomeDataEntity.ResultBean.ResultBeanTwo result2) {
+        if (result2.getHuodong() != null && result2.getHuodong().size() != 0) {
+            mHuodongList.clear();
+            mHuodongList.addAll(result2.getHuodong());
+            mAdapterHuodong.notifyDataSetChanged();
+            home_ll_huodong.setVisibility(View.VISIBLE);
+        } else {
+            home_ll_huodong.setVisibility(View.GONE);
+        }
+        if (result2.getTuijian() != null && result2.getTuijian().size() != 0) {
+            mTuijianList.clear();
+            mTuijianList.addAll(result2.getTuijian());
+            mAdapterTuijian.notifyDataSetChanged();
+            home_ll_jctj.setVisibility(View.VISIBLE);
+        } else {
+            home_ll_jctj.setVisibility(View.GONE);
+        }
+
+        initToset(result2);
+    }
+
+    private void initBidShow(final List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> xinshou) {
+        if (xinshou == null || xinshou.size() == 0) {
+            cb_bidshow.setVisibility(View.GONE);
+            return;
+        }
+        mNoviceExclusiveId=xinshou.get(0).getId();
+        mBidName=xinshou.get(0).getName();
+        cb_bidshow.setPages(
+                new CBViewHolderCreator<BidShowView>() {
+                    @Override
+                    public BidShowView createHolder() {
+                        return new BidShowView();
+                    }
+                }, xinshou)
+                //设置点击监听事件
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int i) {
+                        Intent intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                        intent.putExtra("bid_id", xinshou.get(i).getId());
+                        intent.putExtra("bid_title", xinshou.get(i).getName());
+                        startActivity(intent);
+                    }
+                })
+                .setPageIndicator(new int[]{R.drawable.block_disable, R.drawable.block_selected});
+    }
+
     private void initFour(List<HomeDataEntity.ResultBean.ResultBeanFour> entity) {
         tv_0.setText(entity.get(0).getTitle());
         tv_1.setText(entity.get(1).getTitle());
         tv_2.setText(entity.get(2).getTitle());
         tv_3.setText(entity.get(3).getTitle());
-        GlideUtil.displayPic(mContext,entity.get(0).getPic(),R.drawable.ptjs_sy,iv_0);
-        GlideUtil.displayPic(mContext,entity.get(1).getPic(),R.drawable.yqyl_sy,iv_1);
-        GlideUtil.displayPic(mContext,entity.get(2).getPic(),R.drawable.dhzx_sy,iv_2);
-        GlideUtil.displayPic(mContext,entity.get(3).getPic(),R.drawable.mrqd_sy,iv_3);
+        GlideUtil.displayPic(mContext, entity.get(0).getPic(), R.drawable.ptjs_sy, iv_0);
+        GlideUtil.displayPic(mContext, entity.get(1).getPic(), R.drawable.yqyl_sy, iv_1);
+        GlideUtil.displayPic(mContext, entity.get(2).getPic(), R.drawable.dhzx_sy, iv_2);
+        GlideUtil.displayPic(mContext, entity.get(3).getPic(), R.drawable.mrqd_sy, iv_3);
         url0 = entity.get(0).getLink();
         url1 = entity.get(1).getLink();
         url2 = entity.get(2).getLink();
@@ -341,7 +376,8 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 bannerUrlList.clear();
                 bannerUrlList.addAll(entity.getResult());
                 initDialog(entity.getResultTanPing());
-                initAdvert(bannerUrlList);
+                initLunbo(bannerUrlList);
+//                initAdvert(bannerUrlList);
                 mPullRefresh.onHeaderRefreshFinish();
             }
 
@@ -355,15 +391,51 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         }, mContext);
     }
 
+    private void initLunbo(final List<BannerEntity.ResultBean> list) {
+        List<String> urlList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            urlList.add(list.get(i).getPic());
+        }
+
+        //自定义你的Holder，实现更多复杂的界面，不一定是图片翻页，其他任何控件翻页亦可。
+        mConvenientBanner.setPages(
+                new CBViewHolderCreator<NetImageHolderView>() {
+                    @Override
+                    public NetImageHolderView createHolder() {
+                        return new NetImageHolderView();
+                    }
+                }, urlList)
+                //设置点击监听事件
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int i) {
+                        if (bannerUrlList.get(i).getShare().equals("0")) {
+                            UrlUtil.showHtmlPage(mContext, "详情", bannerUrlList.get(i).getUrl(), true);
+                        } else {
+                            UrlUtil.showHtmlPage(mContext, "详情", bannerUrlList.get(i).getUrl());
+                        }
+                    }
+                })
+                .startTurning(2000)
+                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.unselected_banner, R.drawable.selected_banner});
+        //设置指示器的方向
+//                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+        //设置翻页的效果，不需要翻页效果可用不设
+        //.setPageTransformer(Transformer.DefaultTransformer);    集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
+//convenientBanner.setManualPageable(false);//设置不能手动影响
+
+    }
+
     private void initDialog(List<BannerEntity.ResultBean> resultTanPing) {
-        if (resultTanPing.size()==0)return;
+        if (resultTanPing.size() == 0) return;
         Calendar c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
-        if (UserData.getInstance().getDay()==day) return;
+        if (UserData.getInstance().getDay() == day) return;
 
         List advList = new ArrayList<>();
 
-        for (int i=0;i<resultTanPing.size();i++) {
+        for (int i = 0; i < resultTanPing.size(); i++) {
             AdInfo adInfo = new AdInfo();
             adInfo.setActivityImg(resultTanPing.get(i).getPic());
             adInfo.setUrl(resultTanPing.get(i).getUrl());
@@ -385,7 +457,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         adManager.setOnImageClickListener(new AdManager.OnImageClickListener() {
             @Override
             public void onImageClick(View view, AdInfo advInfo) {
-                UrlUtil.showHtmlPage(mContext,"详情", advInfo.getUrl());
+                UrlUtil.showHtmlPage(mContext, "详情", advInfo.getUrl());
                 adManager.dismissAdDialog();
             }
         });
@@ -397,7 +469,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mMarqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
             public void onItemClick(int position, TextView textView) {
-                UrlUtil.showHtmlPage(mContext,"公告详情", RequestURL.NOTICE_DETAILS_URL + resultBeanList.get(position).getId());
+                UrlUtil.showHtmlPage(mContext, "公告详情", RequestURL.NOTICE_DETAILS_URL + resultBeanList.get(position).getId());
             }
         });
     }
@@ -413,14 +485,14 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
                 LogUtil.i("首页公告成功 " + responeJson);
                 RollNewsEntity entity = GsonParser.getParsedObj(responeJson, RollNewsEntity.class);
                 resultBeanList = entity.getResult();
-                if (resultBeanList.size()==0||resultBeanList==null){
+                if (resultBeanList.size() == 0 || resultBeanList == null) {
                     mLlmarquee.setVisibility(View.GONE);
                     return;
-                }else {
+                } else {
                     mLlmarquee.setVisibility(View.VISIBLE);
                 }
                 rollNewsTitleList.clear();
-                for (int i = 0; i < resultBeanList.size(); i++){
+                for (int i = 0; i < resultBeanList.size(); i++) {
                     rollNewsTitleList.add(resultBeanList.get(i).getName());
                 }
 
@@ -465,7 +537,7 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
 
     private void initAdvert(final List<BannerEntity.ResultBean> list) {
         List<String> urlList = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             urlList.add(list.get(i).getPic());
         }
 
@@ -474,133 +546,118 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
             View advertView = mLayoutInflater.inflate(R.layout.item_advert, null);
             ImageView imageView = (ImageView) advertView.findViewById(R.id.image);
 //            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            if (mContext==null) return;
-                GlideUtil.displayPic(mContext, urlList.get(i), -1, imageView);
+            if (mContext == null) return;
+            GlideUtil.displayPic(mContext, urlList.get(i), -1, imageView);
 
             views.add(advertView);
             final int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (list.get(finalI).getShare().equals("0")){
-                        UrlUtil.showHtmlPage(mContext,"详情", list.get(finalI).getUrl(),true);
-                    }else {
-                        UrlUtil.showHtmlPage(mContext,"详情", list.get(finalI).getUrl());
+                    if (list.get(finalI).getShare().equals("0")) {
+                        UrlUtil.showHtmlPage(mContext, "详情", list.get(finalI).getUrl(), true);
+                    } else {
+                        UrlUtil.showHtmlPage(mContext, "详情", list.get(finalI).getUrl());
                     }
 
                 }
             });
         }
-        mIndicatorView.setPagerViewList(views);
-        mIndicatorView.startAutoPlay();
+//        mIndicatorView.setPagerViewList(views);
+//        mIndicatorView.startAutoPlay();
 
     }
 
     /**
      * 停止滑动
      */
-    public void stopPlay() {
-        if (mIndicatorView == null)
-            return;
-        mIndicatorView.stopAutoPlay();
-    }
-
+//    public void stopPlay() {
+//        if (mIndicatorView == null)
+//            return;
+//        mIndicatorView.stopAutoPlay();
+//    }
     @Override
     public void onResume() {
         super.onResume();
         banner();
         initMarqueeView();
-        getZiXun();
         getData();
-
-        if (mIndicatorView == null)
-            return;
-        mIndicatorView.startAutoPlay();
+//        mPullRefresh.setFocusableInTouchMode(true);
+        mConvenientBanner.setFocusable(true);
+        mConvenientBanner.setFocusableInTouchMode(true);
+        mConvenientBanner.requestFocus();
+        mConvenientBanner.startTurning(2000);
+//        if (mIndicatorView == null)
+//            return;
+//        mIndicatorView.startAutoPlay();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        stopPlay();
+//        stopPlay();
+        mConvenientBanner.stopTurning();
     }
 
-    @OnClick({R.id.btn_bid, R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more,R.id.ll_dhzx,R.id.ll_mrqd,R.id.ll_1,R.id.tv_zixun_more})
+    @OnClick({R.id.ll_ptjs, R.id.ll_yqyl, R.id.tv_gonggao_more, R.id.ll_dhzx, R.id.ll_mrqd, R.id.ll_1})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case R.id.btn_bid:
-
-                if (banner==3){
-                    intent = new Intent(mContext, BidDetailActivity.class);
-                    intent.putExtra("bid_title", mBidName);
-                    intent.putExtra("bid_id", mNoviceExclusiveId);
-                    startActivity(intent);
-                }else {
-                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
-                    intent.putExtra("bid_id",mNoviceExclusiveId);
-                    intent.putExtra("bid_title", mBidName);
-                    startActivity(intent);
-                }
-                break;
 
             case R.id.ll_ptjs:
 
-                UrlUtil.showHtmlPage(mContext,tv_0.getText().toString(), url0,true);
-
-                break;
-
-            case R.id.tv_zixun_more:
-
-                UrlUtil.showHtmlPage(mContext,"积财学堂", RequestURL.INTERCEPT_ZIXUNMORE_URL,true);  //积财学堂
+                UrlUtil.showHtmlPage(mContext, tv_0.getText().toString(), url0, true);
 
                 break;
 
             case R.id.ll_yqyl:
 
-                    UrlUtil.showHtmlPage(mContext,tv_1.getText().toString(), url1,true);
+                UrlUtil.showHtmlPage(mContext, tv_1.getText().toString(), url1, true);
 
                 break;
 
             case R.id.ll_dhzx:
 
-                    UrlUtil.showHtmlPage(mContext,tv_2.getText().toString(), url2,true);
+                UrlUtil.showHtmlPage(mContext, tv_2.getText().toString(), url2, true);
 
                 break;
 
             case R.id.ll_mrqd:
 
-                    UrlUtil.showHtmlPage(mContext,tv_3.getText().toString(), url3,true);
+                UrlUtil.showHtmlPage(mContext, tv_3.getText().toString(), url3, true);
 
                 break;
 
             case R.id.tv_gonggao_more:
                 intent = new Intent();
                 intent.setClass(mContext, MessageActActivity.class);
-                intent.putExtra("msg_type",1);
+                intent.putExtra("msg_type", 1);
                 startActivity(intent);
                 break;
             case R.id.ll_1:
-                if (!UserData.getInstance().isLogin()||banner==0){
+                if (!UserData.getInstance().isLogin() || banner == 0) {
 
-                        intent = new Intent(mContext, LoginActivityCheck.class);
-                        startActivity(intent);
+                    intent = new Intent(mContext, LoginActivityCheck.class);
+                    startActivity(intent);
 
                     Map<String, String> datas = new HashMap<String, String>();
                     MobclickAgent.onEventValue(mContext, "click_index_getredbag", datas, 1);
                     break;
                 }
-                if (banner==1){
+                if (banner == 1) {
                     intent = new Intent(mContext, RealNameActivity.class);
                     startActivity(intent);
-                }else if (banner==2){
-                    intent = new Intent(mContext, NoviceExclusiveActivity.class);
-                    intent.putExtra("bid_id",mNoviceExclusiveId);
-                    intent.putExtra("bid_title", mBidName);
-                    startActivity(intent);
-                }else if (banner==4){
-                    UrlUtil.showHtmlPage(mContext,"风险测评", RequestURL.RISKTEST_URL,true);
+                } else if (banner == 2) {
+                    if (!StringUtils.isBlank(mNoviceExclusiveId)) {
+                        intent = new Intent(mContext, NoviceExclusiveActivity.class);
+                        intent.putExtra("bid_id", mNoviceExclusiveId);
+                        intent.putExtra("bid_title", mBidName);
+                        startActivity(intent);
+                    }
+                } else if (banner == 4) {
+                    UrlUtil.showHtmlPage(mContext, "风险测评", RequestURL.RISKTEST_URL, true);
+                } else {
                 }
-                else {}
                 break;
         }
     }
@@ -610,7 +667,6 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         banner();
         initMarqueeView();
 //        getNoviceExclusive();
-        getZiXun();
         getData();
 
     }
@@ -622,4 +678,5 @@ public class HomePageFragment extends BaseFragment implements PullToRefreshView.
         mPullRefresh.setOnFooterLoadListener(this);
         mPullRefresh.removeFootView();
     }
+
 }

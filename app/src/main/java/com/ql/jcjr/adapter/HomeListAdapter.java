@@ -17,6 +17,9 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.entity.BidListEntity;
+import com.ql.jcjr.entity.HomeDataEntity;
+import com.ql.jcjr.entity.MessageActEntity;
+import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.StringUtils;
 
 import java.util.List;
@@ -29,12 +32,12 @@ import java.util.List;
  * Date: Created on 202017/6/19.
  */
 
-public class YyyAdapter extends BaseAdapter {
+public class HomeListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<BidListEntity.ResultBean> mList;
+    private List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> mList;
 
-    public YyyAdapter(Context context, List<BidListEntity.ResultBean> list) {
+    public HomeListAdapter(Context context, List<HomeDataEntity.ResultBean.ResultBeanTwo.BidBean> list) {
         mList = list;
         mContext = context;
     }
@@ -58,6 +61,7 @@ public class YyyAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         ViewHolder viewHolder;
+
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_yyy_new, null);
             viewHolder = new ViewHolder();
@@ -66,8 +70,7 @@ public class YyyAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-
-        final BidListEntity.ResultBean resultBean = mList.get(i);
+        final HomeDataEntity.ResultBean.ResultBeanTwo.BidBean resultBean = mList.get(i);
 
         if(resultBean.getBremark().length()>0){
             viewHolder.mTvTag.setVisibility(View.VISIBLE);
@@ -83,12 +86,15 @@ public class YyyAdapter extends BaseAdapter {
             viewHolder.mTvTag2.setVisibility(View.VISIBLE);
             viewHolder.mTvTag2.setText(resultBean.getBremark1());
         }
+        Float apr= Float.valueOf(resultBean.getApr());
+        Float cash= Float.valueOf(resultBean.getCashAddition());
+        Float cashAll=apr+cash;
         //年化收益
-        viewHolder.mApr.setText(resultBean.getApr());
+        viewHolder.mApr.setText(cashAll+"");
         viewHolder.mApr.setTypeface(JcbApplication.getPingFangRegularTypeFace());
 
         viewHolder.mAnnualizedRate.setTypeface(JcbApplication.getPingFangRegularTypeFace());
-        viewHolder.mAnnualizedRate.setText(resultBean.getAprOrigin());
+        viewHolder.mAnnualizedRate.setText(resultBean.getApr());
         //判断有无活动加成
         String cashAddition = resultBean.getCashAddition();
         if(cashAddition.equals("0") || cashAddition.equals("0.0")){
@@ -102,31 +108,27 @@ public class YyyAdapter extends BaseAdapter {
         viewHolder.mTvTitle.setText(resultBean.getName());
 
         //投资期限
-        switch (resultBean.getIsday()){
-            case "0":
-                viewHolder.mTvTerm.setText(resultBean.getTime_limit() + "个月");
-                break;
-            case "1":
-                viewHolder.mTvTerm.setText(resultBean.getTime_limit_day() + "天");
-                break;
-        }
+
+        viewHolder.mTvTerm.setText(resultBean.getTime_limit_day() + "天");
+
         Resources resources = mContext.getResources();
         //起投金额
 //        viewHolder.mLowestAmt.setText(mContext.getString(R.string.str_lowest_account_2, resultBean.getLowest_account()));
 
+
         //可投
-        String resultRest =resultBean.getSurplus() + "元";
+        String resultRest = resultBean.getLast_account() + "元";
 
 
         //百分比
         viewHolder.mProgressBar.setMax(resultBean.getAccount());
 
 
-        if(StringUtils.isBlank(resultBean.getSurplus()) || "0.00".equals(resultBean.getSurplus()) || "0".equals(resultBean.getSurplus())) {
+        if(StringUtils.isBlank(resultBean.getLast_account()+"") || "0.00".equals(resultBean.getLast_account()+"") || "0".equals(resultBean.getLast_account()+"")) {
 //            viewHolder.mBtnBid.setText("筹款完成");
 //            viewHolder.mBtnBid.setBackgroundResource(R.drawable.btn_bg_enable);
-//            view.setBackgroundColor(resources.getColor(R.color.item_yyy_bg_gery));
             viewHolder.mTvPercent.setVisibility(View.INVISIBLE);
+//            view.setBackgroundColor(resources.getColor(R.color.item_yyy_bg_gery));
 //            viewHolder.mTvPercent.setText("100%");
 //            viewHolder.mTvPercent.setTextColor(resources.getColor(R.color.c_cbcbcb));
 
@@ -146,6 +148,7 @@ public class YyyAdapter extends BaseAdapter {
             viewHolder.mAnnualizedRateGainBefore.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mAnnualizedRateGain.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mAnnualizedRateGainAfter.setTextColor(resources.getColor(R.color.c_cbcbcb));
+
 
             viewHolder.mTvAvailableRest.setTextColor(resources.getColor(R.color.c_cbcbcb));
             viewHolder.mTvAvailableRest.setText("已结束");
@@ -208,15 +211,11 @@ public class YyyAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-//        @ViewInject(R.id.btn_bid)
-//        public Button mBtnBid;
-
         //tag
         @ViewInject(R.id.tv_tag)
         public TextView mTvTag;
         @ViewInject(R.id.tv_tag_2)
         public TextView mTvTag2;
-
 
         //标名
         @ViewInject(R.id.tv_title)
@@ -247,7 +246,7 @@ public class YyyAdapter extends BaseAdapter {
         @ViewInject(R.id.ll_biao_right)
         public LinearLayout mLinearLayoutGain;
 
-//        @ViewInject(R.id.tv_lowest_amt)
+        //        @ViewInject(R.id.tv_lowest_amt)
 //        public TextView mLowestAmt;
 
         //剩余
