@@ -86,11 +86,9 @@ public class HomeListAdapter extends BaseAdapter {
             viewHolder.mTvTag2.setVisibility(View.VISIBLE);
             viewHolder.mTvTag2.setText(resultBean.getBremark1());
         }
-        Float apr= Float.valueOf(resultBean.getApr());
-        Float cash= Float.valueOf(resultBean.getCashAddition());
-        Float cashAll=apr+cash;
+
         //年化收益
-        viewHolder.mApr.setText(cashAll+"");
+        viewHolder.mApr.setText(resultBean.getApr_total());
         viewHolder.mApr.setTypeface(JcbApplication.getPingFangRegularTypeFace());
 
         viewHolder.mAnnualizedRate.setTypeface(JcbApplication.getPingFangRegularTypeFace());

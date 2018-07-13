@@ -117,6 +117,7 @@ public class HomeDataEntity {
                 private String bremark;
                 private String bremark1;
                 private int last_account;//剩余可投
+                private String apr_total;//项目总利率
 
                 public String getId() {
                     return id;
@@ -214,6 +215,14 @@ public class HomeDataEntity {
 
                 public void setLast_account(int last_account) {
                     this.last_account = last_account;
+                }
+
+                public String getApr_total() {
+                    return apr_total;
+                }
+
+                public void setApr_total(String apr_total) {
+                    this.apr_total = apr_total;
                 }
             }
         }
