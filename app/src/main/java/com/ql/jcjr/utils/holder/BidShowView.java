@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -13,10 +12,6 @@ import com.ql.jcjr.R;
 import com.ql.jcjr.activity.NoviceExclusiveActivity;
 import com.ql.jcjr.application.JcbApplication;
 import com.ql.jcjr.entity.HomeDataEntity;
-import com.ql.jcjr.utils.GlideUtil;
-import com.ql.jcjr.utils.StringUtils;
-
-import java.util.List;
 
 /**
  * Created by wf on 2018/6/25.

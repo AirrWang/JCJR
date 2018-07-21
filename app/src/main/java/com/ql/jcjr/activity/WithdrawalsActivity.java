@@ -51,7 +51,6 @@ import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.InputAmountEditText;
 import com.ql.jcjr.view.PwdEditText;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -500,13 +499,13 @@ public class WithdrawalsActivity extends BaseActivity {
         }
 
         double input = Double.parseDouble(mEtAmt.getText().toString());
-        double limtiAmt = 100;
-        BigDecimal data1 = new BigDecimal(input);
-        BigDecimal data2 = new BigDecimal(limtiAmt);
-        if(data1.compareTo(data2) == -1){
-            CommonToast.showHintDialog(mContext,"提现金额需大于100元！");
-            return false;
-        }
+//        double limtiAmt = min;
+//        BigDecimal data1 = new BigDecimal(input);
+//        BigDecimal data2 = new BigDecimal(limtiAmt);
+//        if(data1.compareTo(data2) == -1){
+//            CommonToast.showHintDialog(mContext,"提现金额需大于"+min+"元！");
+//            return false;
+//        }
 //        if(input > totalMoney){
 //            CommonToast.showHintDialog(mContext,"单笔提现金额上限"+totalMoney+"元！");
 //            return false;

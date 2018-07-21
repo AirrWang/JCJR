@@ -2,12 +2,10 @@ package com.ql.jcjr.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,10 +14,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
 import com.ql.jcjr.application.JcbApplication;
-import com.ql.jcjr.entity.BidListEntity;
 import com.ql.jcjr.entity.HomeDataEntity;
-import com.ql.jcjr.entity.MessageActEntity;
-import com.ql.jcjr.utils.GlideUtil;
 import com.ql.jcjr.utils.StringUtils;
 
 import java.util.List;
