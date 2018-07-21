@@ -10,8 +10,8 @@ public class RequestURL {
      * 线上：
      * 测试：
      */
-//    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
-    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
+    public static final String SERVICE_URL_BASE = "http://testing.jicaibaobao.com/";
+//    public static final String SERVICE_URL_BASE = "http://www.jicaibaobao.com/";
 
     public static final String SERVICE_URL = SERVICE_URL_BASE+"index.action?phoneapinew&q=going/";
 
@@ -96,7 +96,7 @@ public class RequestURL {
     //我的页面
     public static final String MINE_FRAGMENT_URL = SERVICE_URL + "main";
     //标的详情
-    public static final String BID_DETAIL_URL = SERVICE_URL + "borrowContent";
+    public static final String BID_DETAIL_URL = SERVICE_URL + "borrowContent1";
     //历史投资标的详情
     public static final String BID_HISTORY_DETAIL_URL = SERVICE_URL + "tenderdetail1";
     //标的红包详情
@@ -141,6 +141,8 @@ public class RequestURL {
 
     //是否绑定银行卡
     public static final String CHECK_BANK_URL = SERVICE_URL + "checkBank";
+    //复投提现金额
+    public static final String TENDER_CASH = SERVICE_URL + "usecash";
     //绑定银行卡
     public static final String BIND_BANK_URL = SERVICE_URL + "bankBind";
     //获取省

@@ -140,6 +140,8 @@ public class BidDetailActivity extends BaseActivity {
     private PopupWindow popupWindow;
     private View popView;
     private static double DOUBLE_CLICK_TIME = 0L;
+    private String myTender;
+    private String use_cash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,13 +236,9 @@ public class BidDetailActivity extends BaseActivity {
                         resultBean = entity.getResult();
                         mTvApr.setText(resultBean.getApr());
                         String cashAddition = resultBean.getCashAddition();
-                        if(cashAddition.equals("0") || cashAddition.equals("0.0")){
-//                            mLinearLayoutDetailGain.setVisibility(View.GONE);
-                        }
-                        else{
-//                            mLinearLayoutDetailGain.setVisibility(View.VISIBLE);
-//                            mTvAprGain.setText(resultBean.getCashAddition());
-                        }
+                        myMoney=resultBean.getUse_money();
+                        myTender = resultBean.getTender_account();
+                        use_cash = resultBean.getUse_cash();
 
                         //投资期限
                         switch (resultBean.getIsday()) {
@@ -420,43 +418,6 @@ public class BidDetailActivity extends BaseActivity {
         });
     }
 
-    private void getAccountInfo() {
-        SenderResultModel resultModel = ParamsManager.senderMineFragment();
-
-        HttpRequestManager.httpRequestService(resultModel,
-                new HttpSenderController.ViewSenderCallback() {
-
-                    @Override
-                    public void onSuccess(String responeJson) {
-                        LogUtil.i("账户信息 " + responeJson);
-                        MineFragmentEntity entity =
-                                GsonParser.getParsedObj(responeJson, MineFragmentEntity.class);
-                        MineFragmentEntity.ResultBean resultBean = entity.getResult();
-                        myMoney = resultBean.getUse_money();
-                        if(isBuyAll){
-                            double myBalance = Double.valueOf(resultBean.getUse_money());
-                            double surplus = Double.valueOf(BidDetailActivity.this.resultBean.getSurplus());
-//                            if(myBalance>=surplus){
-                                gotoBidConfirm(BidDetailActivity.this.resultBean.getSurplus(), caculate(BidDetailActivity.this.resultBean.getSurplus()));
-//                            }
-//                            else{
-////                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
-//                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
-//                            }
-                        }
-                        else{
-                            showBidDialog(resultBean.getUse_money());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(ResponseEntity entity) {
-                        LogUtil.i("账户信息失败 " + entity.errorInfo);
-                        CommonToast.showHintDialog(mContext, entity.errorInfo);
-                    }
-
-                }, mContext);
-    }
 
     private String caculate(String money) {
 
@@ -525,7 +486,20 @@ public class BidDetailActivity extends BaseActivity {
                 else{
                     bidPwd = text;
 //                    showBidDialog(balance);
-                    getAccountInfo();
+                    if(isBuyAll){
+//                        double myBalance = Double.valueOf(resultBean.getUse_money());
+//                        double surplus = Double.valueOf(BidDetailActivity.this.resultBean.getSurplus());
+//                            if(myBalance>=surplus){
+                        gotoBidConfirm(BidDetailActivity.this.resultBean.getSurplus(), caculate(BidDetailActivity.this.resultBean.getSurplus()));
+//                            }
+//                            else{
+////                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                            }
+                    }
+                    else{
+                        showBidDialog(resultBean.getUse_money());
+                    }
                 }
             }
         });
@@ -556,6 +530,9 @@ public class BidDetailActivity extends BaseActivity {
         //剩余可投jine
         TextView tvMaxBid = (TextView) view.findViewById(R.id.tv_max_bid);
         TextView tvAllSurplus = (TextView) view.findViewById(R.id.tv_all_surplus);
+        LinearLayout ll_tianchong= (LinearLayout) view.findViewById(R.id.ll_tianchong);
+        TextView tv_dialog_jine= (TextView) view.findViewById(R.id.tv_dialog_jine);
+
         final InputAmountEditText etBIdAmt =
                 (InputAmountEditText) view.findViewById(R.id.et_bid_amt);
         final TextView tvExpectedReturn = (TextView) view.findViewById(R.id.tv_expected_return);
@@ -583,11 +560,24 @@ public class BidDetailActivity extends BaseActivity {
         tvBidApr.setText(resultBean.getApr()+"%");
         tvBalance.setText(balance + "元");
         tvMaxBid.setText(resultBean.getSurplus() + "元");
+        tv_dialog_jine.setText("复投"+myTender+"元，可提"+use_cash+"元");
 
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+
+        ll_tianchong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double myBalance = Double.valueOf(myTender);
+                double surplus = Double.valueOf(resultBean.getSurplus());
+                double money = Math.floor(myBalance>surplus?surplus:myBalance);
+                String moneyStr = StringUtils.subAllZero(money+"");
+                etBIdAmt.setText(moneyStr);
+                etBIdAmt.setSelection(moneyStr.length());
             }
         });
 
@@ -809,7 +799,20 @@ public class BidDetailActivity extends BaseActivity {
                     if (resultBean.getPwd().equals("1")) {
                         showBidPwdDialog();
                     } else {
-                        getAccountInfo();
+                        if(isBuyAll){
+                            double myBalance = Double.valueOf(resultBean.getUse_money());
+                            double surplus = Double.valueOf(BidDetailActivity.this.resultBean.getSurplus());
+//                            if(myBalance>=surplus){
+                            gotoBidConfirm(BidDetailActivity.this.resultBean.getSurplus(), caculate(BidDetailActivity.this.resultBean.getSurplus()));
+//                            }
+//                            else{
+////                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                                CommonToast.showUnCancelableDialog(mContext, "最少投资金额为"+BidDetailActivity.this.resultBean.getLowest_account()+"元！");
+//                            }
+                        }
+                        else{
+                            showBidDialog(resultBean.getUse_money());
+                        }
                     }
                 }else {
                     showToTestDialog();

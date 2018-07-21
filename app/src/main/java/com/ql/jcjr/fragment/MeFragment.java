@@ -19,6 +19,7 @@ import com.ql.jcjr.activity.AutoBidActivityNew;
 import com.ql.jcjr.activity.BidHistoryActivity;
 import com.ql.jcjr.activity.CapitalRecordActivity;
 import com.ql.jcjr.activity.CapitalStatisticsActivity;
+import com.ql.jcjr.activity.ContactUsActivity;
 import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MainActivity;
@@ -387,7 +388,7 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
     @OnClick({R.id.civ_user_icon, R.id.iv_wdzc, R.id.tv_withdrawals, R.id.tv_recharge, R.id.btn_notice, R.id.ithb_me_wdhb, R.id.ithb_me_zjjl,
             R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_mesetting,R.id.ll_me_info,R.id.btn_to_login,R.id.btn_to_logincheck,
-            R.id.iv_login_me})
+            R.id.iv_login_me,R.id.iv_kf})
     public void onClick(View v) {
         Intent intent = new Intent();
 
@@ -639,6 +640,10 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                     intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
                     startActivity(intent);
                 }
+                break;
+            case R.id.iv_kf:
+                intent.setClass(mContext, ContactUsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

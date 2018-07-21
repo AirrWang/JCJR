@@ -145,6 +145,17 @@
 
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/iv_kf"
+        android:layout_marginRight="@dimen/dimen_62px"
+        android:layout_marginBottom="@dimen/dimen_66px"
+        android:layout_width="@dimen/dimen_112px"
+        android:layout_height="@dimen/dimen_120px"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kf"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
     <RelativeLayout
         android:clickable="true"
         android:visibility="gone"
@@ -256,4 +267,5 @@
             android:layout_height="wrap_content"
             android:src="@drawable/redpackage"/>
     </RelativeLayout>
+
 </RelativeLayout>

@@ -51,6 +51,9 @@ import com.ql.jcjr.view.CommonToast;
 import com.ql.jcjr.view.InputAmountEditText;
 import com.ql.jcjr.view.PwdEditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 
@@ -108,6 +111,9 @@ public class WithdrawalsActivity extends BaseActivity {
     @ViewInject(R.id.tv_get_all)
     private TextView tv_get_all;
 
+    @ViewInject(R.id.tv_tender_cash)
+    private TextView tv_tender_cash;
+
     @ViewInject(R.id.tv_1)
     private TextView tv_1;
 
@@ -132,6 +138,7 @@ public class WithdrawalsActivity extends BaseActivity {
     private String status;
     private PwdEditText mEtPwd;
     private List<String> tips;
+    private String tender_cash="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,6 +247,7 @@ public class WithdrawalsActivity extends BaseActivity {
 
 //        getCashInfo();
         checkBank();
+        getTenderCash();
 
         mEtAmt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -398,6 +406,34 @@ public class WithdrawalsActivity extends BaseActivity {
 
                 }, mContext);
     }
+    private void getTenderCash() {
+        SenderResultModel resultModel = ParamsManager.getTenderCash();
+
+        HttpRequestManager.httpRequestService(resultModel,
+                new HttpSenderController.ViewSenderCallback() {
+
+                    @Override
+                    public void onSuccess(String responeJson) {
+                        LogUtil.i("获取复投提现金额 " + responeJson);
+                        try {
+                            JSONObject object = new JSONObject(responeJson);
+                            tender_cash = object.optString("result", "0");
+                            tv_tender_cash.setText("复投提现额度： "+ tender_cash);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(ResponseEntity entity) {
+                        LogUtil.i("获取复投提现金额 " + entity.errorInfo);
+                        CommonToast.showHintDialog(mContext, entity.errorInfo);
+                    }
+
+                }, mContext);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -414,7 +450,7 @@ public class WithdrawalsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question,R.id.tv_finish_bank,R.id.tv_free_intro})
+    @OnClick({R.id.btn_left, R.id.btn_withdrawals, R.id.tv_bind_card, R.id.tv_get_all, R.id.iv_question,R.id.tv_finish_bank,R.id.tv_free_intro,R.id.tv_get_all_edu})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -426,7 +462,6 @@ public class WithdrawalsActivity extends BaseActivity {
                     return;
                 }
                 if (isComlate.equals("0")){
-                    //TODO
                     CommonDialog.Builder builder = new CommonDialog.Builder(mContext);
                     builder.setTitle("完善开户行信息")
                             .setMessage("为了保障提现正常到账，请准确填写开户行信息")
@@ -466,6 +501,16 @@ public class WithdrawalsActivity extends BaseActivity {
                 else{
                     mEtAmt.setText(mAvailableBalance);
                     mEtAmt.setSelection(mAvailableBalance.length());
+                }
+                break;
+            case R.id.tv_get_all_edu:
+                //提取全部 TODO
+                if(tender_cash.equals("0")|| tender_cash.equals("0.0") || tender_cash.equals("0.00")){
+                    CommonToast.makeText("提现金额不足");
+                }
+                else{
+                    mEtAmt.setText(tender_cash);
+                    mEtAmt.setSelection(tender_cash.length());
                 }
                 break;
 
