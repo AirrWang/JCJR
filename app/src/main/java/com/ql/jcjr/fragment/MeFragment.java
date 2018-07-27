@@ -19,6 +19,7 @@ import com.ql.jcjr.activity.AutoBidActivityNew;
 import com.ql.jcjr.activity.BidHistoryActivity;
 import com.ql.jcjr.activity.CapitalRecordActivity;
 import com.ql.jcjr.activity.CapitalStatisticsActivity;
+import com.ql.jcjr.activity.ContactUsActivity;
 import com.ql.jcjr.activity.LoginActivity;
 import com.ql.jcjr.activity.LoginActivityCheck;
 import com.ql.jcjr.activity.MainActivity;
@@ -94,10 +95,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private RelativeLayout rl_nologin;
     @ViewInject(R.id.sv_me)
     private ScrollView sv_me;
-    @ViewInject(R.id.rl_nologin_2)  //华为 oppo vivo 360 今日头条 百度
-    private RelativeLayout rl_nologin_2;
-
-
 
     private String myTotalMoney;
     private String myBalanceMoney;
@@ -190,25 +187,14 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
     private void isLoginOrNot() {
         sv_me.fullScroll(ScrollView.FOCUS_UP);
         if (UserData.getInstance().isLogin()) {
-//            mLlMeLogin.setVisibility(View.GONE);
             rl_nologin.setVisibility(View.GONE);
-//           rl_nologin_2.setVisibility(View.GONE);
-
             mTvPhoneNum.setVisibility(View.VISIBLE);
-
-//            mLlMeInfo.setVisibility(View.VISIBLE);
-//            mLlMeOperate.setVisibility(View.VISIBLE);
-//            mUserIcon.setVisibility(View.VISIBLE);
-//            mTvPhoneNum.setVisibility(View.VISIBLE);
-//            tv_level.setVisibility(View.VISIBLE);
-//            tv_vipj.setVisibility(View.VISIBLE);
 
             getMineFragmentData();
 
         } else {
 
             rl_nologin.setVisibility(View.VISIBLE);
-//            rl_nologin_2.setVisibility(View.VISIBLE);
 
             mTvTotalNum.setText("- -");
             mTvBalance.setText("——");
@@ -218,14 +204,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
             tv_vipj.setVisibility(View.VISIBLE);
             tv_level.setVisibility(View.GONE);
             GlideUtil.displayPic(mContext, "", R.drawable.default_user_icon, mUserIcon);
-//            mLlMeLogin.setVisibility(View.VISIBLE);
-//            mLlMeInfo.setVisibility(View.GONE);
-//            mLlMeOperate.setVisibility(View.GONE);
-//
-//            mUserIcon.setVisibility(View.GONE);
-//            mTvPhoneNum.setVisibility(View.GONE);
-//            tv_level.setVisibility(View.GONE);
-//            tv_vipj.setVisibility(View.GONE);
             ithb_me_wdhb.setRightTitleText("");
         }
     }
@@ -289,10 +267,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
                         hideMyMoney(UserData.getInstance().getHideMyMoney());
 
-//                        mTvTotalNum.setText(StringUtils.formatMoney(resultBean.getTotal()));
-//                        mTvBalance.setText(StringUtils.formatMoney(resultBean.getUse_money()));
-//                        mTvAccumulatedIncome.setText(StringUtils.formatMoney(resultBean.getCollection_interest1()));
-
                         mUserIconUrl = resultBean.getHeadImgUrl();
 
                         UserData.getInstance().setUserIconUrl(mUserIconUrl);
@@ -302,12 +276,9 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
                         mTel = resultBean.getUsername();
                         if (StringUtils.isBlank(resultBean.getRealname())) {
-//                            mTvUserName.setText("去完善身份认证");
                             mRealName = "";
-//                            mTvPhoneNum.setText(resultBean.getUsername());
                             mTvPhoneNum.setText("未实名");
                         } else {
-//                            mTvUserName.setText(resultBean.getRealname());
                             mRealName = resultBean.getRealname();
                             mTvPhoneNum.setText(resultBean.getRealname());
                         }
@@ -387,23 +358,11 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
 
     @OnClick({R.id.civ_user_icon, R.id.iv_wdzc, R.id.tv_withdrawals, R.id.tv_recharge, R.id.btn_notice, R.id.ithb_me_wdhb, R.id.ithb_me_zjjl,
             R.id.ithb_me_zdtb, R.id.ithb_me_wdtz, R.id.ithb_me_yqyl, R.id.ithb_mesetting,R.id.ll_me_info,R.id.btn_to_login,R.id.btn_to_logincheck,
-            R.id.iv_login_me})
+            R.id.iv_kf})
     public void onClick(View v) {
         Intent intent = new Intent();
 
         switch (v.getId()) {
-//            case R.id.civ_user_icon:
-//                if (!UserData.getInstance().isLogin()) {
-//                    intent.setClass(mContext, LoginActivityCheck.class);
-//                    startActivity(intent);
-//                    return;
-//                }
-//
-//                intent.setClass(mContext, SettingActivity.class);
-//                intent.putExtra("user_icon_url", mUserIconUrl);
-//                startActivity(intent);
-//                break;
-
             case R.id.iv_wdzc:
                 boolean isHide = UserData.getInstance().getHideMyMoney();
                 if(isHide){
@@ -434,7 +393,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                     intent.putExtra("account_balance", myBalanceMoney);
                     startActivity(intent);
                 } else {
-//                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
                     CommonToast.showShiMingDialog(mContext);
                 }
                 break;
@@ -457,7 +415,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                     intent.setClass(mContext, RechargeActivity.class);
                     startActivity(intent);
                 } else {
-//                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
                     CommonToast.showShiMingDialog(mContext);
                 }
                 break;
@@ -474,15 +431,8 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                     return;
                 }
                 intent.setClass(mContext, MsgHomeActivity.class);
-//                intent.setClass(mContext, MessageCenterActivity.class);
                 startActivity(intent);
                 break;
-
-//            case R.id.ithb_me_zhzc:
-//                //账户资产
-//                intent.setClass(mContext, AccountAssetsActivity.class);
-//                startActivity(intent);
-//                break;
 
             case R.id.ithb_me_wdhb:
                 if (!UserData.getInstance().isLogin()) {
@@ -518,25 +468,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 intent.setClass(mContext, CapitalRecordActivity.class);
                 startActivity(intent);
                 break;
-
-//            case R.id.ithb_me_smrz:
-//                //实名认证
-//                intent.setClass(mContext, RealNameActivity.class);
-//                startActivity(intent);
-//                break;
-
-//            case R.id.ithb_me_yhk:
-////                银行卡
-//                if (StringUtils.isNotBlank(mRealName)) {
-//                    intent.setClass(mContext, BindBankCardActivity.class);
-//                    intent.putExtra("real_name", mRealName);
-//                    intent.putExtra("tel", mTel);
-//                    startActivity(intent);
-//                } else {
-////                    CommonToast.showHintDialog(mContext, "您还未实名认证！");
-//                    CommonToast.showShiMingDialog(mContext);
-//                }
-//                break;
 
             case R.id.ithb_me_zdtb:
                 if (!UserData.getInstance().isLogin()) {
@@ -628,17 +559,9 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 intent = new Intent(mContext, LoginActivityCheck.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_login_me:
-                Map<String, String> datas = new HashMap<String, String>();
-                MobclickAgent.onEventValue(mContext, "mine_rebag_register", datas, 1);
-                if (UserData.getInstance().getPhoneNumber().equals("")) {
-                    intent = new Intent(mContext, LoginActivityCheck.class);
-                    startActivity(intent);
-                }else {
-                    intent = new Intent(mContext, LoginActivity.class);
-                    intent.putExtra("phone_num", UserData.getInstance().getPhoneNumber());
-                    startActivity(intent);
-                }
+            case R.id.iv_kf:
+                intent.setClass(mContext, ContactUsActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -650,7 +573,6 @@ public class MeFragment extends BaseFragment implements SharedPreferences.OnShar
                 || key.equals(SharedPreferencesUtils.KEY_REAL_NAME)) {
 
             if (isAdded()) {
-//                Toast.makeText(getActivity(), "onSharedPreferenceChanged", Toast.LENGTH_SHORT).show();
                 isLoginOrNot();
             }
         }

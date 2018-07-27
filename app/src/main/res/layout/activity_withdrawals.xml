@@ -111,6 +111,14 @@
                         android:layout_marginLeft="@dimen/dimen_46px"
                         style="@style/text_s_m_c_b"
                         android:text="0.00"/>
+                    <TextView
+                        android:id="@+id/tv_tender_cash"
+                        android:gravity="end"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/text_s_m_c_b"
+                        android:text="复投提现额度： 0.00"/>
 
                 </LinearLayout>
 
@@ -143,12 +151,22 @@
                         android:hint="输入提现金额"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_get_all"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="0"
                         android:gravity="center"
                         android:text="余额全提"
+                        android:textColor="@color/btn_main"
+                        android:textSize="@dimen/size_l"/>
+                    <TextView
+                        android:id="@+id/tv_get_all_edu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:gravity="center"
+                        android:text="额度全提"
                         android:textColor="@color/btn_main"
                         android:textSize="@dimen/size_l"/>
 

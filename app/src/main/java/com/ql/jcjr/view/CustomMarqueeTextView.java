@@ -11,7 +11,7 @@ import android.widget.TextView;
  * Author: Administrator
  * Date: Created on 202016/10/31.
  */
-public class CustomMarqueeTextView extends TextView {
+public class CustomMarqueeTextView extends android.support.v7.widget.AppCompatTextView {
 
 
     public CustomMarqueeTextView(Context context) {

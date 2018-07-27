@@ -91,7 +91,7 @@ public class LimitTheNumOfWordsEeditText extends LinearLayout {
     }
 
     private void setTextViewContent(int count) {
-        tvNum.setText(getResources().getString(R.string.max_ems, etContent.length(), count));
+        tvNum.setText(getResources().getString(R.string.max_ems, new Object[]{etContent.length(), count}));
     }
     /**
      * 设置文字的样式
@@ -123,7 +123,7 @@ public class LimitTheNumOfWordsEeditText extends LinearLayout {
 
         @Override
         public void afterTextChanged(Editable s) {
-            tvNum.setText(getResources().getString(R.string.max_ems, s.length(), limitCount));
+            tvNum.setText(getResources().getString(R.string.max_ems, new Object[]{s.length(), limitCount}));
         }
 
         @Override

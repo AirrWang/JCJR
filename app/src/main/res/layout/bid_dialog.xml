@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="关闭"
-        android:layout_marginTop="@dimen/dimen_12px"
         android:layout_marginRight="@dimen/row_text_margin"
         android:textSize="@dimen/size_l"
         android:textColor="@color/font_black"
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/row_text_margin"
         android:paddingRight="@dimen/row_text_margin"
-        android:layout_marginTop="@dimen/dimen_20px"
+        android:layout_marginTop="@dimen/dimen_10px"
         android:layout_marginBottom="@dimen/dimen_20px">
 
         <LinearLayout
@@ -79,8 +78,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/row_text_margin"
         android:paddingRight="@dimen/row_text_margin"
-        android:layout_marginTop="@dimen/dimen_32px"
-        android:layout_marginBottom="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_10px"
+        android:layout_marginBottom="@dimen/dimen_20px"
         android:orientation="horizontal">
 
         <TextView
@@ -98,10 +97,35 @@
             android:text="3000元" />
 
     </LinearLayout>
-
+<LinearLayout
+    android:id="@+id/ll_tianchong"
+    android:background="@drawable/btn_rectangle_circl_circl_100"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="@dimen/dimen_24px"
+    android:layout_marginRight="@dimen/dimen_24px"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_98px">
+    <TextView
+        android:id="@+id/tv_dialog_jine"
+        android:layout_marginLeft="@dimen/dimen_34px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="复投19000元，可提1000元"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/size_l"/>
+    <TextView
+        android:layout_marginRight="@dimen/dimen_54px"
+        android:gravity="end"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="填充金额"
+        android:textColor="@color/btn_main"
+        android:textSize="@dimen/size_l"/>
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bid_operate_bar_h"
+        android:layout_height="@dimen/dimen_98px"
         android:paddingLeft="@dimen/row_text_margin"
         android:paddingRight="@dimen/row_text_margin"
         android:background="#fff"
@@ -132,6 +156,7 @@
             android:textSize="@dimen/dimen_28px" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_all_surplus"
             style="@style/text_28_999999"
             android:layout_width="wrap_content"
@@ -147,8 +172,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/row_text_margin"
         android:paddingRight="@dimen/row_text_margin"
-        android:layout_marginTop="@dimen/dimen_32px"
-        android:layout_marginBottom="@dimen/dimen_32px"
+        android:layout_marginTop="@dimen/dimen_20px"
+        android:layout_marginBottom="@dimen/dimen_20px"
         android:orientation="horizontal">
 
         <TextView

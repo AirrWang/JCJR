@@ -298,11 +298,6 @@ public class ParamsManager {
      */
     public static SenderResultModel senderMineFragment() {
         JSONObject object = new JSONObject();
-        try {
-            object.put("userid", UserData.getInstance().getUSERID());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         RequestParams params = SenderManager.buildRequestParams(object);
 
@@ -317,6 +312,7 @@ public class ParamsManager {
     public static SenderResultModel senderBidDetail(String bidId) {
         JSONObject object = new JSONObject();
         try {
+            object.put("token",UserData.getInstance().getUSERID());
             object.put("id", bidId);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -808,13 +804,20 @@ public class ParamsManager {
     public static SenderResultModel senderCheckBank() {
 
         JSONObject object = new JSONObject();
-        try {
-            object.put("token", UserData.getInstance().getUSERID());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         RequestParams params = SenderManager.buildRequestParams(object);
         SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.CHECK_BANK_URL);
+
+        return resultModel;
+    }
+
+    /**
+     * 复投提现金额
+     */
+    public static SenderResultModel getTenderCash() {
+
+        JSONObject object = new JSONObject();
+        RequestParams params = SenderManager.buildRequestParams(object);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.TENDER_CASH);
 
         return resultModel;
     }

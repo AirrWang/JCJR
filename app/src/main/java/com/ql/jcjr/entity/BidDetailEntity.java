@@ -109,6 +109,9 @@ public class BidDetailEntity {
         private String bremark1;
         private String url1;
         private int  lasttime;
+        private String tender_account; //复投金额
+        private String use_cash; //复投可提金额
+        private String use_money; //账户剩余金额
 
         public String getAprOrigin() {
             return aprOrigin;
@@ -368,6 +371,30 @@ public class BidDetailEntity {
 
         public void setLowest_account(int lowest_account) {
             this.lowest_account = lowest_account;
+        }
+
+        public String getTender_account() {
+            return tender_account;
+        }
+
+        public void setTender_account(String tender_account) {
+            this.tender_account = tender_account;
+        }
+
+        public String getUse_cash() {
+            return use_cash;
+        }
+
+        public void setUse_cash(String use_cash) {
+            this.use_cash = use_cash;
+        }
+
+        public String getUse_money() {
+            return use_money;
+        }
+
+        public void setUse_money(String use_money) {
+            this.use_money = use_money;
         }
 
         public static class TendersBean implements Serializable{
