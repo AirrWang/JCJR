@@ -54,6 +54,7 @@ import com.ql.jcjr.view.PwdEditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -504,8 +505,9 @@ public class WithdrawalsActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_get_all_edu:
+                BigDecimal bigDecimal=new BigDecimal(tender_cash);
                 //提取全部 TODO
-                if(tender_cash.equals("0")|| tender_cash.equals("0.0") || tender_cash.equals("0.00")){
+                if(tender_cash.equals("0")|| tender_cash.equals("0.0") || tender_cash.equals("0.00")||bigDecimal.compareTo(BigDecimal.ZERO)==-1){
                     CommonToast.makeText("提现金额不足");
                 }
                 else{

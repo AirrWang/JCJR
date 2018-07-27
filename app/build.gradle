@@ -20,8 +20,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 25
-        versionName "1.9.6"
+        versionCode 26
+        versionName "1.9.6.1"
         manifestPlaceholders = [app_name: "积财金融"]
     }
 
@@ -156,49 +156,9 @@ android {
         dandanzhuan {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dandanzhuan"]
         }
-
-//        jinritoutiao1 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao1"]
-//        }
-//        jinritoutiao2 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao2"]
-//        }
-//        jinritoutiao3 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao3"]
-//        }
-//        jinritoutiao4 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao4"]
-//        }
-//        jinritoutiao5 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao5"]
-//        }
-//        jinritoutiao6 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao6"]
-//        }
-//        jinritoutiao7 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao7"]
-//        }
-//        jinritoutiao8 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao8"]
-//        }
-//        jinritoutiao11 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao11"]
-//        }
-//        jinritoutiao12 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao12"]
-//        }
-//        jinritoutiao13 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao13"]
-//        }
-//        jinritoutiao14 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinritoutiao14"]
-//        }
         zhongyi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "zhongyi"]
         }
-//        chezhuwuyou {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "chezhuwuyou"]
-//        }
     }
 
 //    productFlavors.all {

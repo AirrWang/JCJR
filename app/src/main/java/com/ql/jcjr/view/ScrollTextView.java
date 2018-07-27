@@ -19,7 +19,7 @@ import com.ql.jcjr.R;
  * Author: Administrator
  * Date: Created on 202016/10/31.
  */
-public class ScrollTextView extends TextView{
+public class ScrollTextView extends android.support.v7.widget.AppCompatTextView{
 
     public final static String TAG = ScrollTextView.class.getSimpleName();
 
