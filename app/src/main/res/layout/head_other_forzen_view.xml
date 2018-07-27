@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:gravity="center_horizontal"
+        android:background="@drawable/zj_background"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_240px">
+        <com.ql.jcjr.view.PFMediaText
+            android:layout_marginTop="@dimen/dimen_62px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_xxxl"
+            android:textColor="@color/font_actionbar_color"
+            android:text="500元"/>
+        <TextView
+            android:layout_marginTop="@dimen/dimen_26px"
+            android:text="其他冻结金额"
+            android:textSize="@dimen/size_m"
+            android:textColor="@color/font_actionbar_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <TextView
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_30px"
+        android:textSize="15sp"
+        android:layout_height="@dimen/dimen_88px"
+        android:text="解冻记录"
+        android:background="@color/c_page_bg"
+        android:textColor="@color/title_bg_color"/>
+</LinearLayout>

@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -21,6 +26,7 @@ import com.ql.jcjr.http.SenderResultModel;
 import com.ql.jcjr.net.GsonParser;
 import com.ql.jcjr.utils.LogUtil;
 import com.ql.jcjr.view.CommonToast;
+import com.ql.jcjr.view.PFMediaText;
 
 /**
  * Created by Airr on 2018/1/16.
@@ -47,6 +53,20 @@ public class CapitalStatisticsActivity extends BaseActivity{
     TextView myInterestGet;
     @ViewInject(R.id.tv_awards)
     TextView myAwards;
+    @ViewInject(R.id.pftv_total)
+    PFMediaText pfMediaText;
+    @ViewInject(R.id.pftv_earn)
+    PFMediaText mPftvEarn;
+    @ViewInject(R.id.ll_1)
+    LinearLayout mLL1;
+    @ViewInject(R.id.ll_2)
+    LinearLayout mLL2;
+    @ViewInject(R.id.iv_earn)
+    ImageView mIvEarn;
+    @ViewInject(R.id.iv_total)
+    ImageView mIvTotal;
+    private Animation rotateUp;
+    private Animation rotate;
 
 
     @Override
@@ -56,6 +76,16 @@ public class CapitalStatisticsActivity extends BaseActivity{
         ViewUtils.inject(this);
         mContext = this;
         getCapital();
+
+        //创建动画
+        rotateUp = AnimationUtils.loadAnimation(this, R.anim.rotate_anim_up);
+        rotateUp.setInterpolator(new LinearInterpolator());//设置为线性旋转
+        rotateUp.setFillAfter(true);
+
+        //创建动画
+        rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
+        rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+        rotate.setFillAfter(true);
     }
 
     private void getCapital() {
@@ -70,7 +100,9 @@ public class CapitalStatisticsActivity extends BaseActivity{
                 MyAccountEntity.ResultBean resultBean = entity.getResult();
 
                 myTotalCapital.setText(resultBean.getTotal()+"元");
+                pfMediaText.setText("￥"+resultBean.getTotal());
                 myProfit.setText(resultBean.getAllInterest()+"元");
+                mPftvEarn.setText("￥"+resultBean.getAllInterest());
                 myCapital.setText("￥ "+resultBean.getCapital());
                 myInterest.setText("￥ "+resultBean.getInterest());
                 myUseMoney.setText("￥ "+resultBean.getUse_money());
@@ -89,12 +121,45 @@ public class CapitalStatisticsActivity extends BaseActivity{
 
         }, mContext);
     }
-    @OnClick({R.id.btn_left, R.id.tv_official})
+
+    private Boolean isShowTop=false;
+    private Boolean isShowBottom=false;
+    @OnClick({R.id.btn_left, R.id.tv_official,R.id.ll_overdue,R.id.ll_other_forzen,R.id.ll_cash_total,R.id.ll_cash_earn})
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.btn_left:
                 finish();
+                break;
+            case R.id.ll_overdue:
+                intent = new Intent(mContext, BidHistoryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_other_forzen:
+                intent.setClass(this,OtherCashForzenActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_cash_total:
+                if (isShowTop){
+                    mIvTotal.startAnimation(rotateUp);
+                    mLL1.setVisibility(View.GONE);
+                }else {
+                    mLL1.setVisibility(View.VISIBLE);
+                    mIvTotal.startAnimation(rotate);
+                }
+
+                isShowTop=!isShowTop;
+                break;
+            case R.id.ll_cash_earn:
+                if (isShowBottom){
+                    mIvEarn.startAnimation(rotateUp);
+                    mLL2.setVisibility(View.GONE);
+                }else {
+                    mLL2.setVisibility(View.VISIBLE);
+                    mIvEarn.startAnimation(rotate);
+                }
+
+                isShowBottom=!isShowBottom;
                 break;
         }
     }

@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ql.jcjr"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ql.jcjr">
 
     <!-- 6.0动态申请 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permisssion.CAMERA"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permisssion.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS"/>-->
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/> -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <!-- 6.0动态申请 -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name="com.ql.jcjr.application.JcbApplication"
+        android:name=".application.JcbApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${app_name}"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:name">
-        <receiver android:name=".receiver.NetworkChangedReceiver">
-        </receiver>
+        <receiver android:name=".receiver.NetworkChangedReceiver"/>
         <!-- 启动页 -->
         <activity
-            android:name="com.ql.jcjr.activity.WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WelcomeTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -64,242 +60,202 @@
 
         <!-- 引导页 -->
         <activity
-            android:name="com.ql.jcjr.activity.GuideActivity"
+            android:name=".activity.GuideActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- MainActivity -->
         <activity
-            android:name="com.ql.jcjr.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- MainActivity -->
         <!-- 客户服务 -->
         <activity
-            android:name="com.ql.jcjr.activity.ContactUsActivity"
+            android:name=".activity.ContactUsActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 显示HTML(H5)的WebViewActivity -->
         <activity
-            android:name="com.ql.jcjr.activity.WebViewActivity"
-
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FeedbackActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.FeedbackActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.ql.jcjr.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.LoginActivityCheck"
+            android:name=".activity.LoginActivityCheck"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.InputPhoneNumActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.InputPhoneNumActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.InputVerifyCodeActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.InputVerifyCodeActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BidDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BidDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BidResultActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BidResultActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.AccountAssetsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.AccountAssetsActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.MyRedPacketsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.MyRedPacketsActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.RegisterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.CapitalRecordActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.CapitalRecordActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BindBankCardActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BindBankCardActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.AutoBidActivityNew"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.AutoBidActivityNew"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.RealNameActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.RealNameActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.WithdrawalsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.WithdrawalsActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.ChangePasswordActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.ChangePasswordActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.PaymentPasswordActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.PaymentPasswordActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.ForgetPswThirdActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.ForgetPswThirdActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.RechargeActivity"
+            android:name=".activity.RechargeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.NoviceExclusiveActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.NoviceExclusiveActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.WithdrawalsResultActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.WithdrawalsResultActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.GestureCipherActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.GestureCipherActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.TenderRecordActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.TenderRecordActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.TenderAwardActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.TenderAwardActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.VerifyLoginPwdActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.VerifyLoginPwdActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.ConfirmPayPwdActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.ConfirmPayPwdActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.VerifyPayPswActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.VerifyPayPswActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.RechargePayActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.RechargePayActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.SettingGestureActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.SettingGestureActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.VerifyGestureActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.VerifyGestureActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.MessageCenterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.MessageCenterActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.HongBaoHistoryActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.HongBaoHistoryActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BidConfirmActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BidConfirmActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.AboutUsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.AboutUsActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BidHistoryActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BidHistoryActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BidHistoryDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:name=".activity.BidHistoryDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.MsgHomeActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.MsgHomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.MessageActActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.MessageActActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ql.jcjr.activity.BankListActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.BankListActivity"
+            android:screenOrientation="portrait"/>
         <!-- ShareSdk Start -->
+
 
         <!-- 微信分享回调 -->
         <activity
-            android:name="com.ql.jcjr.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQ分享 -->
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
-
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1106445851" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 新浪微博 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!-- ShareSdk End -->
+
 
         <!-- tencent bugly start -->
         <activity
@@ -314,43 +270,55 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
         <!-- tencent bugly end -->
 
-        <!--<service-->
-            <!--android:name="com.ql.jcjr.service.DownloadApkService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true">-->
-        <!--</service>-->
 
-        <meta-data android:value="59ffcc96f43e486f5300001d" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
+        <!-- <service -->
+        <!-- android:name="com.ql.jcjr.service.DownloadApkService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- </service> -->
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59ffcc96f43e486f5300001d" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="a79231cbde4d7b2d6f6ba2a5f8664e2b">
-        </meta-data>
+            android:value="a79231cbde4d7b2d6f6ba2a5f8664e2b"/>
 
         <activity
-            android:name="com.ql.jcjr.push.MiPushActivity"
+            android:name=".push.MiPushActivity"
             android:exported="true" />
-
-        <activity android:name="com.ql.jcjr.activity.FindPayPswActivity">
-        </activity>
-        <activity android:name=".activity.RegisterFinishActivity"
+        <activity android:name=".activity.FindPayPswActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.AccountSecurityActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CapitalStatisticsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SetPayPwdActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.AppConditionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NoviceExclusiveConfirmActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NetNullActivity"
+        <activity
+            android:name=".activity.RegisterFinishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AccountSecurityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CapitalStatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SetPayPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AppConditionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoviceExclusiveConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NetNullActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.OtherCashForzenActivity"
             android:screenOrientation="portrait"/>
     </application>
 

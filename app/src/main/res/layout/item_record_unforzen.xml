@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:paddingLeft="@dimen/dimen_30px"
+              android:paddingRight="@dimen/dimen_30px"
+              android:layout_height="@dimen/dimen_98px"
+              android:background="@color/white">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_98px">
+        <TextView
+            android:id="@+id/tv_unforzen_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="2018-07-30 14：00：00"
+            android:textSize="@dimen/size_l"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_black"/>
+        <com.ql.jcjr.view.PFMediaText
+            android:id="@+id/tv_unforzen_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="￥50"
+            android:textColor="@color/font_black"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1px"
+        android:background="@color/divider_color"/>
+</LinearLayout>

@@ -146,6 +146,8 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
     private Boolean cityNet;
     private String province="";
     private String branch="";
+    private Animation rotateUp;
+    private Animation rotate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +157,16 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
         ViewUtils.inject(this);
         init();
         iv_question.setVisibility(View.VISIBLE);
+
+        //创建动画
+        rotateUp = AnimationUtils.loadAnimation(this, R.anim.rotate_anim_up);
+        rotateUp.setInterpolator(new LinearInterpolator());//设置为线性旋转
+        rotateUp.setFillAfter(true);
+
+        //创建动画
+        rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
+        rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
+        rotate.setFillAfter(true);
     }
 
     @Override
@@ -688,20 +700,10 @@ public class BindBankCardActivity extends BaseActivity implements View.OnTouchLi
                 break;
             case R.id.ll_show:
 
-
                 if (isShow){
-                    Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim_up);//创建动画
-                    rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
-//                rotate.setFillAfter(!rotate.getFillAfter());
-                    rotate.setFillAfter(true);
-                    ll_hide.setVisibility(View.VISIBLE);
-                    iv_down_go.startAnimation(rotate);
+                    iv_down_go.startAnimation(rotateUp);
                     ll_hide.setVisibility(View.GONE);
                 }else {
-                    Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);//创建动画
-                    rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
-//                rotate.setFillAfter(!rotate.getFillAfter());
-                    rotate.setFillAfter(true);
                     ll_hide.setVisibility(View.VISIBLE);
                     iv_down_go.startAnimation(rotate);
                 }

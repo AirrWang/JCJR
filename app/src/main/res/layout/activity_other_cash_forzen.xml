@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:bar="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ql.jcjr.activity.OtherCashForzenActivity"
+    android:orientation="vertical"
+    android:background="@color/c_fffff">
+    <com.ql.jcjr.view.ActionBar
+        android:id="@+id/ab_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bar:left_first_visibility="visible"
+        bar:bottom_divider_visibility="gone"
+        bar:title="其他冻结金额"/>
+    <com.ql.jcjr.view.PullToRefreshView
+        android:id="@+id/pull_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.ql.jcjr.view.XListView
+            android:id="@+id/lv_other_forzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:divider="@null"
+            android:listSelector="@color/transparent" />
+
+    </com.ql.jcjr.view.PullToRefreshView>
+</LinearLayout>
