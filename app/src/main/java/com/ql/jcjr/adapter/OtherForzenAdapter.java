@@ -1,21 +1,16 @@
 package com.ql.jcjr.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.ql.jcjr.R;
-import com.ql.jcjr.application.JcbApplication;
-import com.ql.jcjr.entity.BidListEntity;
-import com.ql.jcjr.utils.StringUtils;
+import com.ql.jcjr.entity.AdvanceEntity;
 import com.ql.jcjr.view.PFMediaText;
 
 import java.util.List;
@@ -31,9 +26,9 @@ import java.util.List;
 public class OtherForzenAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mList;
+    private List<AdvanceEntity.ResultBean2> mList;
 
-    public OtherForzenAdapter(Context context, List<String> list) {
+    public OtherForzenAdapter(Context context, List<AdvanceEntity.ResultBean2> list) {
         mList = list;
         mContext = context;
     }
@@ -65,8 +60,8 @@ public class OtherForzenAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-
-
+        viewHolder.mUnforzenTime.setText(mList.get(i).getAddtime());
+        viewHolder.mUnforzenNum.setText(mList.get(i).getAccount());
 
         return view;
     }

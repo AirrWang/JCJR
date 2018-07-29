@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -76,12 +77,18 @@ public class BidHistoryDetailActivity extends BaseActivity {
     @ViewInject(R.id.tv_history_detail_origin)
     private TextView mTvHistoryDetailOrigin;
 
+    @ViewInject(R.id.btn_see_advance)
+    private Button mBtnSeeAdvance;
+    @ViewInject(R.id.view_null)
+    private View mViewNull;
+
     private Context mContext;
     private String mBidId;
     private String mBidName;
     private String mTenderId;
 
     private BidDetailEntity.ResultBean resultBean;
+    private Boolean is_yq;
 
 
     @Override
@@ -95,6 +102,7 @@ public class BidHistoryDetailActivity extends BaseActivity {
     }
 
     private void getIntentData() {
+        is_yq = getIntent().getBooleanExtra("is_yq",false);
         mBidId = getIntent().getStringExtra("bid_id");
         mBidName = getIntent().getStringExtra("bid_name");
         mTenderId = getIntent().getStringExtra("bid_tender");
@@ -103,8 +111,16 @@ public class BidHistoryDetailActivity extends BaseActivity {
         mTvHistoryDetailName.setText(mBidName);
         mTvHistoryDetailStatus.setText(bid_status_name);
 
+        if (is_yq){
+            mBtnSeeAdvance.setVisibility(View.VISIBLE);
+            mViewNull.setVisibility(View.VISIBLE);
+        }else {
+            mBtnSeeAdvance.setVisibility(View.GONE);
+            mViewNull.setVisibility(View.GONE);
+        }
         mActionBar.setTitle("投资详情");
         getBidDetailData(mBidId);
+
     }
 
     private void getBidDetailData(String bidId) {
@@ -168,7 +184,7 @@ public class BidHistoryDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_left, R.id.tv_history_detail_origin, R.id.tv_history_detail_ht})
+    @OnClick({R.id.btn_left, R.id.tv_history_detail_origin, R.id.tv_history_detail_ht,R.id.btn_see_advance})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
@@ -191,6 +207,11 @@ public class BidHistoryDetailActivity extends BaseActivity {
 //                startActivity(urlIntent);
                 UrlUtil.showHtmlPage(mContext,"借款合同", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1",true);
 //                Log.d("积财金融服务协议", RequestURL.JCJR_TOUZI_OFFICIAL_URL+mTenderId+"&show=1");
+                break;
+            case R.id.btn_see_advance:
+                Intent intent1=new Intent(mContext,AdvanceDetailActivity.class);
+                intent1.putExtra("tender_id",mTenderId);
+                startActivity(intent1);
                 break;
         }
     }

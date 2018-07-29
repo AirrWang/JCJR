@@ -47,6 +47,8 @@ public class BidHistoryEntity {
         private List<ListBean> list;
         private String account;
         private String wait_interest;
+        private String all_account;
+        private String late_account;
 
         public List<ListBean> getList() {
             return list;
@@ -71,6 +73,22 @@ public class BidHistoryEntity {
             this.wait_interest = wait_interest;
         }
 
+        public String getAll_account() {
+            return all_account;
+        }
+
+        public void setAll_account(String all_account) {
+            this.all_account = all_account;
+        }
+
+        public String getLate_account() {
+            return late_account;
+        }
+
+        public void setLate_account(String late_account) {
+            this.late_account = late_account;
+        }
+
         public static class ListBean {
             private String borrow_id;
             private String account;
@@ -80,6 +98,7 @@ public class BidHistoryEntity {
             private String interest;
             private String statusname;
             private String tender_id;
+            private String overtime;
 
             public String getTender_id() {
                 return tender_id;
@@ -141,6 +160,14 @@ public class BidHistoryEntity {
 
             public void setStatusname(String statusname) {
                 this.statusname = statusname;
+            }
+
+            public String getOvertime() {
+                return overtime;
+            }
+
+            public void setOvertime(String overtime) {
+                this.overtime = overtime;
             }
         }
 

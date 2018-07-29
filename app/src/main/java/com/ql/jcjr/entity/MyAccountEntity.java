@@ -58,6 +58,8 @@ public class MyAccountEntity {
         private String interestGet;
         private String awards;
         private String capital;
+        private String other_freeze_money;
+        private String late_account;
 
         public String getTotal() {
             return total;
@@ -129,6 +131,22 @@ public class MyAccountEntity {
 
         public void setCapital(String capital) {
             this.capital = capital;
+        }
+
+        public String getOther_freeze_money() {
+            return other_freeze_money;
+        }
+
+        public void setOther_freeze_money(String other_freeze_money) {
+            this.other_freeze_money = other_freeze_money;
+        }
+
+        public String getLate_account() {
+            return late_account;
+        }
+
+        public void setLate_account(String late_account) {
+            this.late_account = late_account;
         }
     }
 }

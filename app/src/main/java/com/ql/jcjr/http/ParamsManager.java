@@ -292,6 +292,19 @@ public class ParamsManager {
         return resultModel;
     }
 
+    /**
+     * 垫付列表
+     */
+    public static SenderResultModel senderadvanceList(String id) {
+        RequestParams params = new RequestParams();
+        String token= UserData.getInstance().getUSERID();
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("id", id);
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_ADVANCE_URL, false);
+
+        return resultModel;
+    }
 
     /**
      * 我的页面
@@ -1152,9 +1165,8 @@ public class ParamsManager {
             e.printStackTrace();
         }
         RequestParams params = SenderManager.buildRequestParams(object);
-        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.CHECK_CASH_SMS_URL);
 
-        return resultModel;
+        return SenderManager.buildResultModel(params, RequestURL.CHECK_CASH_SMS_URL);
     }
 
 

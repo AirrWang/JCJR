@@ -69,6 +69,8 @@ public class BidHistoryAdapter extends BaseAdapter {
         viewHolder.mIvBidHistoryStatus.setText(bean.getStatusname());
 
         String status = bean.getStatus();
+
+
         if(status.equals("0")){
             viewHolder.mIvBidHistoryIcon.setImageResource(R.drawable.icon_decorate_lclb);
             viewHolder.mIvBidHistoryStatus.setBackgroundResource(R.drawable.icon_bid_history_mj);
@@ -88,8 +90,7 @@ public class BidHistoryAdapter extends BaseAdapter {
             else{
                 viewHolder.mIvBidHistoryDate.setVisibility(View.GONE);
             }
-        }
-        else if(status.equals("2")){
+        } else if(status.equals("2")){
             viewHolder.mIvBidHistoryIcon.setImageResource(R.drawable.icon_decorate_disable_lclb);
             viewHolder.mIvBidHistoryStatus.setBackgroundResource(R.drawable.icon_bid_history_ls);
             viewHolder.mIvBidHistoryDivider.setVisibility(View.VISIBLE);
@@ -104,6 +105,20 @@ public class BidHistoryAdapter extends BaseAdapter {
             }
         }
 
+        if(bean.getOvertime().equals("1")){
+            viewHolder.mIvBidHistoryIcon.setImageResource(R.drawable.icon_decorate_lclb);
+            viewHolder.mIvBidHistoryStatus.setBackgroundResource(R.drawable.icon_djz_wdtz);
+            viewHolder.mIvBidHistoryDivider.setVisibility(View.VISIBLE);
+
+            String endTime = bean.getEnd_time();
+            if(null != endTime && endTime.length()>0){
+                viewHolder.mIvBidHistoryDate.setVisibility(View.VISIBLE);
+                viewHolder.mIvBidHistoryDate.setText("到期时间  "+bean.getEnd_time());
+            }
+            else{
+                viewHolder.mIvBidHistoryDate.setVisibility(View.GONE);
+            }
+        }
         return view;
     }
 

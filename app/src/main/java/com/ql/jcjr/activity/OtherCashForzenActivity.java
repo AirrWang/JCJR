@@ -12,6 +12,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.ql.jcjr.R;
 import com.ql.jcjr.adapter.OtherForzenAdapter;
 import com.ql.jcjr.base.BaseActivity;
+import com.ql.jcjr.entity.AdvanceEntity;
 import com.ql.jcjr.view.PullToRefreshView;
 import com.ql.jcjr.view.XListView;
 
@@ -28,7 +29,7 @@ public class OtherCashForzenActivity extends BaseActivity implements PullToRefre
     LinearLayout mLlTop;
 
     private OtherForzenAdapter mAdapter;
-    List<String> mRecordeUnforzenList = new ArrayList<>();
+    List<AdvanceEntity.ResultBean2> mRecordeUnforzenList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +43,7 @@ public class OtherCashForzenActivity extends BaseActivity implements PullToRefre
     private void initListView() {
         View headerView = LayoutInflater.from(this).inflate(R.layout.head_other_forzen_view,null);
         mOtherForzen.addHeaderView(headerView);
-        for (int i=0;i<50;i++){
-            mRecordeUnforzenList.add(i+"");
-        }
+
 
         mAdapter = new OtherForzenAdapter(this, mRecordeUnforzenList);
         mOtherForzen.setAdapter(mAdapter);

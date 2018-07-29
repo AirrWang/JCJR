@@ -302,9 +302,13 @@ public class BidHistoryActivity extends BaseActivity  implements AdapterView.OnI
                 boolean needShowAll = false;
                 int listSize = entity.getResult().getList().size();
                 if(pageIndex.equals("1")) {
-
-                    mTvBidHistoryTotalMoney.setText(entity.getResult().getAccount());
-                    mTvBidHistoryTotalGet.setText(entity.getResult().getWait_interest());
+                    if (isHistory) {
+                        mTvBidHistoryTotalMoney.setText(entity.getResult().getAccount());
+                        mTvBidHistoryTotalGet.setText(entity.getResult().getWait_interest());
+                    }else {
+                        mTvBidHistoryTotalMoney.setText(entity.getResult().getAll_account()+"元");
+                        mTvBidHistoryTotalGet.setText(entity.getResult().getLate_account()+"元");
+                    }
 
                     mList.clear();
                     if(listSize < 10 && listSize >0){
@@ -397,7 +401,7 @@ public class BidHistoryActivity extends BaseActivity  implements AdapterView.OnI
                 iv_01.setImageResource(R.drawable.arrow_gray_wdtz);
                 iv_02.setImageResource(R.drawable.arrow_gray_wdtz);
                 iv_03.setImageResource(R.drawable.arrow_yellow_down_wdtz);
-            }else{}
+            }
         }
     }
 
@@ -421,6 +425,10 @@ public class BidHistoryActivity extends BaseActivity  implements AdapterView.OnI
         intent.putExtra("bid_tender",bean.getTender_id());
         intent.putExtra("bid_status",bean.getStatus());
         intent.putExtra("bid_status_name",bean.getStatusname());
+        if (bean.getOvertime().equals("1")){
+            intent.putExtra("is_yq",true);
+        }
+
         startActivity(intent);
     }
 
@@ -444,7 +452,7 @@ public class BidHistoryActivity extends BaseActivity  implements AdapterView.OnI
 
     @OnClick({R.id.btn_left, R.id.btn_right, R.id.tv_none_btn,R.id.rl_1,R.id.rl_2})
     public void onClick(View view) {
-        Intent intent = null;
+        Intent intent;
         switch (view.getId()) {
             case R.id.btn_left:
                 finish();

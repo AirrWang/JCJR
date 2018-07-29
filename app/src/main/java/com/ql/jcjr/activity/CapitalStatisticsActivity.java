@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -65,6 +67,12 @@ public class CapitalStatisticsActivity extends BaseActivity{
     ImageView mIvEarn;
     @ViewInject(R.id.iv_total)
     ImageView mIvTotal;
+    @ViewInject(R.id.tv_cash_froze_other)
+    TextView mTvCashFrozenOther;
+    @ViewInject(R.id.tv_cash_overdue)
+    TextView mTvCashOverdue;
+    @ViewInject(R.id.sv_myaccount)
+    ScrollView mSvMyaccount;
     private Animation rotateUp;
     private Animation rotate;
 
@@ -96,6 +104,7 @@ public class CapitalStatisticsActivity extends BaseActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(String responeJson) {
+                LogUtil.i("资金统计 " + responeJson);
                 MyAccountEntity entity = GsonParser.getParsedObj(responeJson, MyAccountEntity.class);
                 MyAccountEntity.ResultBean resultBean = entity.getResult();
 
@@ -103,14 +112,15 @@ public class CapitalStatisticsActivity extends BaseActivity{
                 pfMediaText.setText("￥"+resultBean.getTotal());
                 myProfit.setText(resultBean.getAllInterest()+"元");
                 mPftvEarn.setText("￥"+resultBean.getAllInterest());
-                myCapital.setText("￥ "+resultBean.getCapital());
-                myInterest.setText("￥ "+resultBean.getInterest());
-                myUseMoney.setText("￥ "+resultBean.getUse_money());
-                myTenderFrozen.setText("￥ "+resultBean.getTenderFrozen());
-                myCashFrozen.setText("￥ "+resultBean.getCashFrozen());
-                myInterestGet.setText("￥ "+resultBean.getInterestGet());
-                myAwards.setText("￥ "+resultBean.getAwards());
-
+                myCapital.setText("￥"+resultBean.getCapital());
+                myInterest.setText("￥"+resultBean.getInterest());
+                myUseMoney.setText("￥"+resultBean.getUse_money());
+                myTenderFrozen.setText("￥"+resultBean.getTenderFrozen());
+                myCashFrozen.setText("￥"+resultBean.getCashFrozen());
+                myInterestGet.setText("￥"+resultBean.getInterestGet());
+                myAwards.setText("￥"+resultBean.getAwards());
+                mTvCashFrozenOther.setText("￥"+resultBean.getOther_freeze_money());
+                mTvCashOverdue.setText("￥"+resultBean.getLate_account());
             }
 
             @Override
@@ -157,6 +167,12 @@ public class CapitalStatisticsActivity extends BaseActivity{
                 }else {
                     mLL2.setVisibility(View.VISIBLE);
                     mIvEarn.startAnimation(rotate);
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSvMyaccount.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
                 }
 
                 isShowBottom=!isShowBottom;

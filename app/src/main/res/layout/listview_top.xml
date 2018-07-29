@@ -34,13 +34,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/font_bid_history"-->
-                    <!--android:textSize="@dimen/size_m" />-->
-
                     <TextView
                         android:id="@+id/tv_bid_history_total_money"
                         android:layout_width="wrap_content"
@@ -57,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_32px"
-                    android:text="待收本金(元)"
+                    android:text="待收本息"
                     android:textColor="@color/font_bid_history"
                     android:textSize="@dimen/size_m" />
 
@@ -82,13 +75,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/font_bid_history"-->
-                    <!--android:textSize="@dimen/size_m" />-->
-
                     <TextView
                         android:id="@+id/tv_bid_history_total_get"
                         android:layout_width="wrap_content"
@@ -105,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_32px"
-                    android:text="待收利息(元)"
+                    android:text="逾期金额"
                     android:textColor="@color/font_bid_history"
                     android:textSize="@dimen/size_m" />
 

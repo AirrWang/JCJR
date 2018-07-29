@@ -85,6 +85,8 @@ public class RequestURL {
     public static final String BID_LIST_URL = SERVICE_URL + "borrowList";
     //理财列表新手标
     public static final String BID_LIST_XSB_URL = SERVICE_URL + "borrowList_xsb";
+    //垫付详情列表
+    public static final String BID_LIST_ADVANCE_URL = SERVICE_URL + "dianfudetail";
     //理财列表普通标
     public static final String BID_LIST_NORMAL_URL = SERVICE_URL + "borrowList_normal";
     //首页公告

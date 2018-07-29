@@ -14,6 +14,7 @@
         bar:bottom_divider_visibility="gone"
         bar:title="资金统计"/>
     <ScrollView
+        android:id="@+id/sv_myaccount"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -270,7 +271,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_30px"
-                        android:layout_weight="1"
+                        android:layout_weight="7"
                         android:text="其他冻结金额"
                         android:textColor="#FF9B9B9B"
                         android:textSize="@dimen/dimen_28px" />
@@ -284,8 +285,10 @@
                         android:textSize="@dimen/dimen_28px" />
 
                     <TextView
+                        android:gravity="end"
                         android:id="@+id/tv_cash_froze_other"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dimen_30px"
                         android:textColor="#FF9B9B9B"
@@ -305,7 +308,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_30px"
-                        android:layout_weight="1"
+                        android:layout_weight="7"
                         android:text="逾期金额"
                         android:textColor="#FF9B9B9B"
                         android:textSize="@dimen/dimen_28px" />
@@ -319,8 +322,10 @@
                         android:textSize="@dimen/dimen_28px" />
 
                     <TextView
+                        android:gravity="end"
                         android:id="@+id/tv_cash_overdue"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dimen_30px"
                         android:textColor="#FF9B9B9B"
