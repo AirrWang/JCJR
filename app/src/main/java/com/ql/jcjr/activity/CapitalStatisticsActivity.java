@@ -94,6 +94,9 @@ public class CapitalStatisticsActivity extends BaseActivity{
         rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
         rotate.setInterpolator(new LinearInterpolator());//设置为线性旋转
         rotate.setFillAfter(true);
+
+        mLL1.setVisibility(View.VISIBLE);
+        mIvTotal.startAnimation(rotate);
     }
 
     private void getCapital() {
@@ -132,7 +135,7 @@ public class CapitalStatisticsActivity extends BaseActivity{
         }, mContext);
     }
 
-    private Boolean isShowTop=false;
+    private Boolean isShowTop=true;
     private Boolean isShowBottom=false;
     @OnClick({R.id.btn_left, R.id.tv_official,R.id.ll_overdue,R.id.ll_other_forzen,R.id.ll_cash_total,R.id.ll_cash_earn})
     public void onClick(View v) {
