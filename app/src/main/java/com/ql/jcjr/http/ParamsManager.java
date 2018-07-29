@@ -262,6 +262,20 @@ public class ParamsManager {
         return resultModel;
     }
     /**
+     * 解冻记录
+     */
+    public static SenderResultModel senderUnforzen(String page) {
+        RequestParams params = new RequestParams();
+        String token= UserData.getInstance().getUSERID();
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("page", page);
+
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.UN_FORZEN_LIST_URL);
+
+        return resultModel;
+    }
+
+    /**
      * 理财列表normal
      */
     public static SenderResultModel senderBidListNormal(String page, String epage, String type,String order) {
@@ -301,7 +315,7 @@ public class ParamsManager {
         params.addBodyParameter("token", token);
         params.addBodyParameter("id", id);
 
-        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_ADVANCE_URL, false);
+        SenderResultModel resultModel = SenderManager.buildResultModel(params, RequestURL.BID_LIST_ADVANCE_URL);
 
         return resultModel;
     }

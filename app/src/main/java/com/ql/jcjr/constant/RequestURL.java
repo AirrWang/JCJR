@@ -87,6 +87,8 @@ public class RequestURL {
     public static final String BID_LIST_XSB_URL = SERVICE_URL + "borrowList_xsb";
     //垫付详情列表
     public static final String BID_LIST_ADVANCE_URL = SERVICE_URL + "dianfudetail";
+    //解冻记录
+    public static final String UN_FORZEN_LIST_URL = SERVICE_URL + "freezelist";
     //理财列表普通标
     public static final String BID_LIST_NORMAL_URL = SERVICE_URL + "borrowList_normal";
     //首页公告
@@ -201,7 +203,7 @@ public class RequestURL {
     public static final String GET_MY_BID_HISTORY = SERVICE_URL + "tenderlist";
 
     //资金统计
-    public static final String GET_MYACCOUNT_URL = SERVICE_URL + "myAccount";
+    public static final String GET_MYACCOUNT_URL = SERVICE_URL + "myAccount1";
 
     //投标成功
     public static final String BID_SUCCESS_URL = SERVICE_URL_BASE + "index.action?newfunc&q=going/tender_result&sign=success";
