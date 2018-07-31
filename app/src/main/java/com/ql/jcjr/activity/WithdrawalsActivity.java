@@ -140,6 +140,7 @@ public class WithdrawalsActivity extends BaseActivity {
     private PwdEditText mEtPwd;
     private List<String> tips;
     private String tender_cash="0";
+    private BigDecimal bigDecimal1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,6 +216,7 @@ public class WithdrawalsActivity extends BaseActivity {
     }
 
 
+
     private void init() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mEtAmt.setShowSoftInputOnFocus(false);
@@ -236,6 +238,7 @@ public class WithdrawalsActivity extends BaseActivity {
         mTimerHandler = new TimerHandler(60);
         //设置提款金额
         mAvailableBalance = getIntent().getStringExtra("account_balance");
+        bigDecimal1 = new BigDecimal(mAvailableBalance);
 //        String result = "可用余额 " + mAvailableBalance + " 元";
 //        int colorId = getResources().getColor(R.color.c_f99903);
 //        SpannableString ss = StringUtils.getSpannableString(result, colorId, 5, result.length() - 1);
@@ -270,7 +273,7 @@ public class WithdrawalsActivity extends BaseActivity {
                         mEtAmt.setText("");
                         return;
                     }
-                    if(mAvailableBalance.equals("0")|| mAvailableBalance.equals("0.0") || mAvailableBalance.equals("0.00")){
+                    if(mAvailableBalance.equals("0")|| mAvailableBalance.equals("0.0") || mAvailableBalance.equals("0.00")||bigDecimal1.compareTo(BigDecimal.ZERO)==-1){
                         mEtAmt.setText("");
                         CommonToast.makeText("提现金额不足");
                         return;
@@ -495,8 +498,9 @@ public class WithdrawalsActivity extends BaseActivity {
                 break;
 
             case R.id.tv_get_all:
+
                 //提取全部
-                if(mAvailableBalance.equals("0")|| mAvailableBalance.equals("0.0") || mAvailableBalance.equals("0.00")){
+                if(mAvailableBalance.equals("0")|| mAvailableBalance.equals("0.0") || mAvailableBalance.equals("0.00")||bigDecimal1.compareTo(BigDecimal.ZERO)==-1){
                     CommonToast.makeText("提现金额不足");
                 }
                 else{
@@ -557,11 +561,11 @@ public class WithdrawalsActivity extends BaseActivity {
 //            CommonToast.showHintDialog(mContext,"单笔提现金额上限"+totalMoney+"元！");
 //            return false;
 //        }
-        if(Double.parseDouble(mAvailableBalance) < input){
-            CommonToast.showHintDialog(mContext,"可用余额不足！");
-            isJumpToRecharge = true;
-            return false;
-        }
+//        if(Double.parseDouble(mAvailableBalance) < input){
+//            CommonToast.showHintDialog(mContext,"可用余额不足！");
+//            isJumpToRecharge = true;
+//            return false;
+//        }
 //        BigDecimal data3 = new BigDecimal(mAvailableBalance);
 //        if(data1.compareTo(data3) == 1){
 //            CommonToast.showHintDialog(mContext,"可用余额不足！");
