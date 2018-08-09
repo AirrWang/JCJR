@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -20,7 +19,6 @@ import com.qiyukf.unicorn.api.YSFOptions;
 import com.ql.jcjr.activity.MainActivity;
 import com.ql.jcjr.activity.WelcomeActivity;
 import com.ql.jcjr.entity.UserData;
-import com.ql.jcjr.receiver.NetworkChangedReceiver;
 import com.ql.jcjr.utils.DeviceInfoUtil;
 import com.ql.jcjr.utils.GlideImageLoader;
 import com.ql.jcjr.utils.LogUtil;
@@ -55,8 +53,6 @@ public class JcbApplication extends Application {
     public static final String SETTINGS = "settings";
     public List<Activity> activityManager; // 管理Activity栈
     private Context currentActivity = null;//当前activity
-    private NetworkChangedReceiver networkChangedReceiver = null;
-    public String baiDuPushChannelId = "";//存储百度推：注册绑定后接收服务端返回的channelID
 
     public static boolean needReloadMyInfo = false;
 
@@ -266,10 +262,6 @@ public class JcbApplication extends Application {
 
         //管理Activity栈
         activityManager = new ArrayList<>();
-        //注册网络变化的监听
-//        registerNetworkChangedListener();
-
-//        ToastUtil.showToast(getApplicationContext(), getMetaValue("UMENG_CHANNEL"));
 
         initDisplayOpinion();
 
@@ -341,7 +333,6 @@ public class JcbApplication extends Application {
 
     public void exit() {
         try {
-//            unRegisterNetworkChangedListener();
             setCurrentActivity(null);
             LogUtil.i("activityManager = " + activityManager);
             while (activityManager != null && activityManager.size() > 0) {
@@ -374,7 +365,6 @@ public class JcbApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        MultiDex.install(this);
     }
 
     public Context getCurrentActivity() {
@@ -385,23 +375,4 @@ public class JcbApplication extends Application {
         currentActivity = context;
     }
 
-    /**
-     * 注册网络变化的监听
-     */
-    private void registerNetworkChangedListener() {
-        networkChangedReceiver = new NetworkChangedReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangedReceiver, intentFilter);
-    }
-
-    /**
-     * 解除网络变化的监听
-     */
-    private void unRegisterNetworkChangedListener() {
-        if (networkChangedReceiver != null) {
-            unregisterReceiver(networkChangedReceiver);
-            networkChangedReceiver = null;
-        }
-    }
 }

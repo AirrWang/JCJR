@@ -272,22 +272,8 @@ public class BaseActivity extends FragmentActivity{
         final List<String> permissionsList = new ArrayList<String>();
 
         //若用户拒绝了该权限申请，则将该申请的提示添加到“用户需要手动开启的权限集合”中
-//        if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE))
-//            permissionsNeeded.add("保存应用数据");
         if (!addPermission(permissionsList, Manifest.permission.READ_EXTERNAL_STORAGE))
             permissionsNeeded.add("读取应用数据");
-//        if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
-//            permissionsNeeded.add("获取当前地理位置");
-//        if (!addPermission(permissionsList, Manifest.permission.GET_ACCOUNTS))
-//            permissionsNeeded.add("获取通讯录信息");
-//        if (!addPermission(permissionsList, Manifest.permission.SYSTEM_ALERT_WINDOW))
-//            permissionsNeeded.add("获取应用提示");
-//        if(!addPermission(permissionsList,Manifest.permission.USE_FINGERPRINT))
-//            permissionsNeeded.add("获取手机指纹信息");
-//        if(!addPermission(permissionsList, Manifest.permission.CAMERA))
-//            permissionsNeeded.add("获取手机相机信息");
-//        if(!addPermission(permissionsList,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS))
-//            permissionsNeeded.add("读取手机存储信息");
 
 
         //存在未配置的权限
@@ -297,29 +283,6 @@ public class BaseActivity extends FragmentActivity{
             if (permissionsNeeded.size() > 0) {
                 requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                         REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-                // Need Rationale
-//                String message = "我们需要您授权下列权限：\n";
-//                for (int i = 0; i < permissionsNeeded.size(); i++)
-//                    message = message + "\n" + permissionsNeeded.get(i);
-//
-//                //弹出对话框，提示用户需要手动开启的权限
-//                try {
-//                    final CommonDialog.Builder dialog = new CommonDialog.Builder(this);
-//                    dialog.setTitle(message);
-//                    dialog.setMessageSize(R.dimen.f03_34);
-//                    dialog.setButtonTextSize(R.dimen.f03_34);
-//                    dialog.setPositiveButton("确定",
-//                            new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    dialog.dismiss();
-//
-//                                }
-//                            });
-//                    dialog.create().show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
             }
 
             requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
